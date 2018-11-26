@@ -1,0 +1,14 @@
+*.pyc
+.venv
+.idea
+.vscode
+.context
+.settings
+.sdkrc
+.pytest_cache
+.tox
+config.yaml
+dist/
+doc/build
+doc/source/reference/api
+splunk-cloud-python-sdk.egg-info/
