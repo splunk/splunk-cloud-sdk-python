@@ -1,6 +1,6 @@
-from sdk.base_client import handle_response
-from sdk.base_service import BaseService
-from sdk.kvstore.results import Health
+from splunk_sdk.base_client import handle_response
+from splunk_sdk.base_service import BaseService
+from splunk_sdk.kvstore.results import Health
 
 VERSION = "v1beta1"
 KVSTORE_HEALTH = "/{tenant}/kvstore/{version}/ping"

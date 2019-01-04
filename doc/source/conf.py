@@ -25,7 +25,7 @@ sys.path.insert(0, BASE_DIR)
 # -- Project information -----------------------------------------------------
 
 project = 'splunk-cloud-sdk-python'
-copyright = '2018, Splunk'
+copyright = '2019, Splunk'
 author = 'Splunk'
 
 # The short X.Y version
@@ -51,7 +51,7 @@ extensions = [
 ]
 
 # sphinxcontrib.apidoc options
-apidoc_module_dir = '../../sdk'
+apidoc_module_dir = '../../splunk_sdk'
 apidoc_output_dir = 'reference/api'
 apidoc_excluded_paths = [
     'test/*',

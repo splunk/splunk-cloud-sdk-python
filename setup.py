@@ -4,7 +4,7 @@ install_requires = ['requests>=2.20.0',
                     'urllib3>=1.24', ]
 
 setup(
-    name='splunk-cloud-sdk-python',
+    name='splunk-cloud-splunk_sdk-python',
     version='0.0.1',
     description='SDK for the Splunk Developer Cloud platform',
     long_description='A .',
