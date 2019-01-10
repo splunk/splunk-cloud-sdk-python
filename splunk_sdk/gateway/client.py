@@ -17,14 +17,18 @@ class Gateway(BaseService):
         response = self.base_client.get(url)
         return handle_response(response, Spec, key='urls')
 
-    def get_spec(self, name, link='yaml'):
-        """Return the spec file for a particular service"""
+    def get_service_names(self):
+        """Return all the service names"""
+        return [spec.name for spec in self.list_specs()]
+
+    def get_spec_url(self, name, link='yaml'):
+        """Return the spec url for a given service name"""
         specs = self.list_specs()
         for s in specs:
             if name == s.name:
                 return self.base_client.build_url(s.links[link])
 
-    def download_spec(self, name, link='yaml'):
+    def get_spec(self, name, link='yaml'):
         """Download the spec file"""
         # TODO(dan): need to set accept header
-        return self.base_client.get(self.get_spec(name, link=link))
+        return self.base_client.get(self.get_spec_url(name, link=link))

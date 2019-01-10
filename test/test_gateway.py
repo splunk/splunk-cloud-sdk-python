@@ -6,7 +6,7 @@ ACTION_URI = "https://api.playground.splunkbeta.com/system/action/openapi.yaml"
 
 
 @pytest.mark.usefixtures("test_client")  # NOQA
-def test_get_specs(test_client):
+def test_list_specs(test_client):
     # Get the specs from the api gateway
     gateway = Gateway(test_client, cluster='api')
     specs = gateway.list_specs()
@@ -19,8 +19,24 @@ def test_get_specs(test_client):
 
 
 @pytest.mark.usefixtures("test_client")  # NOQA
+def test_get_service_names(test_client):
+    # Get the service names from the api gateway
+    gateway = Gateway(test_client, cluster='api')
+    names = gateway.get_service_names()
+    assert(len(names) > 0)
+
+
+@pytest.mark.usefixtures("test_client")  # NOQA
+def test_get_spec_url(test_client):
+    # Get the spec url from the app gateway
+    gateway = Gateway(test_client, cluster='api')
+    spec = gateway.get_spec_url('Action Service')
+    assert(ACTION_URI == spec)
+
+
+@pytest.mark.usefixtures("test_client")  # NOQA
 def test_get_spec(test_client):
-    # Get the specs from the app gateway
+    # Download the spec from the app gateway
     gateway = Gateway(test_client, cluster='api')
     spec = gateway.get_spec('Action Service')
-    assert(ACTION_URI == spec)
+    assert(spec is not None)
