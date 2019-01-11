@@ -1,4 +1,4 @@
-from sdk.auth.okta import pkce as pkce_flow
+from splunk_sdk.auth.okta import pkce as pkce_flow
 
 KIND = 'pkce'
 SCOPE = 'openid offline_access email profile'
@@ -10,7 +10,7 @@ class PKCEAuthManager(object):
                  password):
         self.host = host
 
-        from sdk.auth.okta import HOST  # NOQA
+        from splunk_sdk.auth.okta import HOST  # NOQA
         HOST = host  # NOQA
 
         self.client_id = client_id

@@ -36,10 +36,10 @@ A Python 3 client for Splunk Cloud services
 ## Using the splunk-cloud-sdk-python from your python project
    ```python
 
-   from sdk.auth.pkce_auth_manager import PKCEAuthManager
-   from sdk.common.context import Context
-   from sdk.gateway.client import Gateway
-   from sdk.service_client import get_client
+   from splunk_sdk.auth.pkce_auth_manager import PKCEAuthManager
+   from splunk_sdk.common.context import Context
+   from splunk_sdk.gateway.client import Gateway
+   from splunk_sdk.service_client import get_client
 
    # Create a test context, you may want to pass more to the context
    context = Context(host=<host>, api_host=<api_host>, app_host=<app_host>, port=<443>, scheme=<'https'>, tenant=<tenant>)

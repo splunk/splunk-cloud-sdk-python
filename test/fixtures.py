@@ -1,9 +1,9 @@
 import os
 import pytest
 
-from sdk.auth.pkce_auth_manager import PKCEAuthManager
-from sdk.common.context import Context
-from sdk.base_client import get_client
+from splunk_sdk.auth.pkce_auth_manager import PKCEAuthManager
+from splunk_sdk.common.context import Context
+from splunk_sdk.base_client import get_client
 
 
 @pytest.fixture(scope="session")

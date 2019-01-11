@@ -1,6 +1,6 @@
-from sdk.base_client import get_client
-from sdk.kvstore.client import KVStore
-from sdk.gateway.client import Gateway
+from splunk_sdk.base_client import get_client
+from splunk_sdk.kvstore.client import KVStore
+from splunk_sdk.gateway.client import Gateway
 
 
 class SplunkCloud(object):
