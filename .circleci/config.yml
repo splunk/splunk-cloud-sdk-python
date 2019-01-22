@@ -19,5 +19,6 @@ jobs:
 
     steps:
       - checkout
-
-      - run: echo "hello world"
+      - run: source .sdkrc
+      - run: sudo pip install tox 
+      - run: tox
