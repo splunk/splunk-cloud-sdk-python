@@ -13,8 +13,8 @@ jobs:
 
     steps:
       - checkout
-      - run: openssl aes-256-ofb -d -in ./sdkrc.encrypt -out .sdkrc -k $key
-      - run: cat .sdkrc
-      - run: source .sdkrc
+      - run: openssl aes-256-ofb -d -in someencrypt -out sdkrc -k $key
+      - run: cat sdkrc
+      - run: source sdkrc
       - run: sudo pip install tox 
       - run: tox
