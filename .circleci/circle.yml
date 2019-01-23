@@ -1,1 +1,0 @@
-openssl aes-256-ofb -d -in sdkrc.encrypt -out .sdkrc -k $key
