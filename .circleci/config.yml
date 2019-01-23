@@ -13,7 +13,9 @@ jobs:
 
     steps:
       - checkout
+      - run: ls -lat
       - run: openssl aes-256-ofb -d -in someencrypt -out sdkrc -k $key
+      - run: ls -lat
       - run: cat sdkrc
       - run: source sdkrc
       - run: sudo pip install tox 
