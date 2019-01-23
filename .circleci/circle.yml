@@ -1,0 +1,1 @@
+openssl aes-256-ofb -d -in sdkrc.encrypt -out secret-file-plain -k $key
