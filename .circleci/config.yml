@@ -3,6 +3,7 @@
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
 version: 2
+
 jobs:
   build:
     docker:
@@ -19,9 +20,12 @@ jobs:
 
     steps:
       - checkout
-      - run: cd ~/splunk-cloud-sdk-python
-      - run: ls
+      - run: ls -lat
       - run: pwd
+      - run: echo $key
+      - run: openssl aes-256-ofb -d -in ./sdkrc.encrypt -out .sdkrc -k $key
+      - run: ls -lat
+      #- run: cd ~/splunk-cloud-sdk-python
       #- run: source .sdkrc
 
       - run: sudo pip install tox 
