@@ -62,6 +62,7 @@ def get_client(context, auth_manager):
 
 
 def handle_response(response, klass, key=None):
+    # TODO: check content
     if response.status_code >= 200 and response.status_code < 300:
         data = json.loads(response.text)
 
