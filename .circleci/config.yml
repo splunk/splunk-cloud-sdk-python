@@ -22,7 +22,7 @@ jobs:
       - run: cd ~/splunk-cloud-sdk-python
       - run: ls
       - run: pwd
-      - run: source .sdkrc
+      #- run: source .sdkrc
 
       - run: sudo pip install tox 
       - run: tox
