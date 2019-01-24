@@ -13,7 +13,7 @@ class Gateway(BaseService):
 
     def list_specs(self):
         """Returns raw response."""
-        url = self.base_client.build_url(GATEWAY_SPECS)
+        url = self.base_client.build_url(GATEWAY_SPECS, omit_tenant=True)
         response = self.base_client.get(url)
         return handle_response(response, Spec, key='urls')
 
@@ -26,7 +26,8 @@ class Gateway(BaseService):
         specs = self.list_specs()
         for s in specs:
             if name == s.name:
-                return self.base_client.build_url(s.links[link])
+                return self.base_client.build_url(s.links[link],
+                                                  omit_tenant=True)
 
     def get_spec(self, name, link='yaml'):
         """Download the spec file"""

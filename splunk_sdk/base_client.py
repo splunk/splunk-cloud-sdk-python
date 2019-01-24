@@ -20,7 +20,8 @@ class BaseClient(object):
                 'Authorization': "Bearer %s" % self.auth_context.access_token})
 
     def get(self, url, **kwargs):
-        return self._session.get(url, **kwargs)
+        # Params are used for querystring vars
+        return self._session.get(url, params=kwargs)
 
     def options(self, url, **kwargs):
         return self._session.options(url, **kwargs)
@@ -45,11 +46,17 @@ class BaseClient(object):
         url = self.context.scheme + "://" + self.context.host
         if self.context.port is not None and self.context.port != "":
             url += ":" + self.context.port
+
+        # TODO: all services should migrate to this pattern so tenant is
+        # only set in one place
+        if "{tenant}" not in url and 'omit_tenant' not in kwargs:
+            url += "/" + self.get_tenant()
         url += route
 
         # set any url path vars
         if len(kwargs) > 0:
             url = url.format(**kwargs)
+
         return url
 
     def get_tenant(self):
@@ -62,22 +69,29 @@ def get_client(context, auth_manager):
 
 
 def handle_response(response, klass, key=None):
-    if response.status_code >= 200 and response.status_code < 300:
+    if 200 <= response.status_code < 300:
         data = json.loads(response.text)
+
+        print('mydata', data)
 
         # TODO(dan): list
         # TODO(dan): dict of dict
 
-        # dict represents an obj
+        if klass is object:
+            return data
+
+        # Top level JSON array or object
         if key is None:
+            if isinstance(data, list):
+                return [klass(**e) for e in data]
             return klass(**data)
 
-        # dict containing a list
+        # Get specific key from dict containing a list
         if key is not None:
             collection = data[key]
             if isinstance(collection, list):
                 return [klass(**e) for e in collection]
 
     else:
-        raise Exception("Unhandled http response code:{}".format(
-            response.status_code))
+        raise Exception("Unhandled http response code:{} text:{}".format(
+            response.status_code, response.text))
