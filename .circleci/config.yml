@@ -14,6 +14,6 @@ jobs:
     steps:
       - checkout
       - run: sudo pip install tox 
-      - run: openssl base64 -d -in someencrypt -out sdkrc -k $key
+      - run: openssl base64 -d -in environment.encrypt -out sdkrc -k $key
       - run: source sdkrc && tox
      
