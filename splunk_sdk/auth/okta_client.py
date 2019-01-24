@@ -8,7 +8,7 @@
 #      client_id + client_secret + custom scope =>
 #          access
 #
-#   * reffresh_token is available if enabled in app config on Okta and if
+#   * refresh_token is available if enabled in app config on Okta and if
 #     the offline_access scope is requested.
 #
 # Note: code, pkce flow is normally browser based and involve
