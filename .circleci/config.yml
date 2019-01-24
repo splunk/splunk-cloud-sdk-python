@@ -13,10 +13,7 @@ jobs:
 
     steps:
       - checkout
-      - run: ls -lat
-      - run: openssl base64 -d -in someencrypt -out sdkrc -k $key
-      - run: ls -lat
-      - run: cat sdkrc
-      - run: source sdkrc
       - run: sudo pip install tox 
-      - run: tox
+      - run: openssl base64 -d -in someencrypt -out sdkrc -k $key
+      - run: source sdkrc && tox
+     
