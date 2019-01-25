@@ -1,12 +1,11 @@
-from splunk_sdk.auth.auth_manager import AuthManager, AuthContext, \
-    DEFAULT_SCOPE
+from splunk_sdk.auth.auth_manager import AuthManager, AuthContext
 from splunk_sdk.auth.okta_client import OktaClient
 
 
 class ClientAuthManager(AuthManager):
 
     def __init__(self, host, client_id, client_secret, server,
-                 scope=DEFAULT_SCOPE):
+                 scope=""):
 
         super().__init__(host, client_id, server)
         self.client_secret = client_secret
