@@ -1,5 +1,5 @@
 from splunk_sdk.auth.auth_manager import AuthManager, AuthContext
-from splunk_sdk.auth.okta_client import OktaClient
+from splunk_sdk.auth.okta import OktaClient
 
 
 class ClientAuthManager(AuthManager):
