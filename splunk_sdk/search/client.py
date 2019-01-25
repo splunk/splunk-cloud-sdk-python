@@ -49,8 +49,9 @@ class Search(BaseService):
         job = None
         while not done:
             job = self.get_job(job_id)
-            done = job.status == DispatchState.DONE.value \
-                   or job.status == DispatchState.FAILED.value
+            done = \
+                job.status == DispatchState.DONE.value or \
+                job.status == DispatchState.FAILED.value
             if not done:
                 await sleep(poll_interval)
 

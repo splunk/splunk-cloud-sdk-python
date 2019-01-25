@@ -6,7 +6,8 @@ from splunk_sdk.search.results import Job, UpdateJobResponse, SearchResults, \
 
 STANDARD_QUERY = '| from index:main | head 5'
 
-# TODO: add test_list_results case w/ a search using a module when catalog ready
+# TODO: add test_list_results w/ a search using a module when catalog
+#  is ready for that
 
 
 @pytest.mark.usefixtures("test_client")  # NOQA
