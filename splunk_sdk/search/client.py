@@ -1,4 +1,6 @@
 import json
+import asyncio
+from asyncio import sleep
 
 from splunk_sdk.base_client import handle_response
 from splunk_sdk.base_service import BaseService
@@ -41,8 +43,20 @@ class Search(BaseService):
         response = self.base_client.patch(url, data=json.dumps(kwargs))
         return handle_response(response, UpdateJobResponse)
 
-    # TODO:
-    # def wait_for_job(self):
+    # TODO: when doc-ing, note that poll_interval is seconds, not ms
+    async def wait_for_job(self, job_id, poll_interval=0.5):
+
+        done = False
+        job = None
+        while not done:
+            job = self.get_job(job_id)
+            # TODO: DispatchStatus enum
+            print (job.status)
+            done = job.status == 'done' or job.status == 'failed'
+            if not done:
+                await sleep(poll_interval)
+
+        return job
 
     def list_results(self, job_id, **kwargs):
         url = self.base_client.build_url(
@@ -54,6 +68,4 @@ class Search(BaseService):
             return SearchResults(**body)
         else:
             return ResultsNotReadyResponse(**body)
-
-    # TODO:
-    # def submit_search(self):
+ 
