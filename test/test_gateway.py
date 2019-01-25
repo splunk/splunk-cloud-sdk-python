@@ -2,7 +2,7 @@ import pytest
 from test.fixtures import get_test_client as test_client  # NOQA
 from splunk_sdk.gateway.client import Gateway
 
-ACTION_URI = "https://api.playground.splunkbeta.com/system/action/openapi.yaml"
+ACTION_URI = "https://{host}/system/action/openapi.yaml"
 
 
 @pytest.mark.usefixtures("test_client")  # NOQA
@@ -31,7 +31,8 @@ def test_get_spec_url(test_client):
     # Get the spec url from the app gateway
     gateway = Gateway(test_client, cluster='api')
     spec = gateway.get_spec_url('Action Service')
-    assert(ACTION_URI == spec)
+    expected_uri = ACTION_URI.format(host=gateway.base_client.context.api_host)
+    assert(expected_uri == spec)
 
 
 @pytest.mark.usefixtures("test_client")  # NOQA
