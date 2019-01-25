@@ -19,13 +19,16 @@ def get_test_client():
 
 
 @pytest.fixture(scope="session")
-def get_auth_manager(authflow='pkce'):
+def get_auth_manager():
+    # Note: leaving this so we don't create too many merge conflicts
+    auth_manager = _get_pkce_manager()
+    assert(auth_manager is not None)
+    return auth_manager
 
-    if authflow == "pkce":
-        auth_manager = _get_pkce_manager()
-    else:
-        auth_manager = _get_client_manager()
 
+@pytest.fixture(scope="session")
+def get_client_auth_manager():
+    auth_manager = _get_client_manager()
     assert(auth_manager is not None)
     return auth_manager
 
@@ -41,7 +44,10 @@ def _get_pkce_manager():
 
 def _get_client_manager():
     return ClientAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST'),
-                             client_id=os.environ.get('SPLUNK_APP_CLIENT_CRED_ID'),
-                             client_secret=os.environ.get('SPLUNK_APP_CLIENT_CRED_SECRET'),
-                             server=os.environ.get('SPLUNK_APP_SERVER')
+                             client_id=os.environ.get(
+                                 'SPLUNK_APP_CLIENT_CRED_ID'),
+                             client_secret=os.environ.get(
+                                 'SPLUNK_APP_CLIENT_CRED_SECRET'),
+                             server=os.environ.get('SPLUNK_APP_SERVER'),
+                             scope=os.environ.get('SPLUNK_SCOPE')
                              )

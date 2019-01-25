@@ -13,13 +13,14 @@ class AuthManager(object):
         raise NotImplementedError
 
     def refresh(self):
+        # TODO(dan): we need to come back to this
         pass
 
 
 class AuthContext(object):
 
-    def __init__(self, token_type, access_token, expires_in, scope, id_token,
-                 refresh_token):
+    def __init__(self, token_type, access_token, expires_in, scope,
+                 id_token=None, refresh_token=None):
         self._token_type = token_type
         self._access_token = access_token
         self._expires_in = expires_in
