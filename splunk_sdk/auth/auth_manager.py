@@ -13,8 +13,7 @@ class AuthManager(object):
         raise NotImplementedError
 
     def refresh(self):
-        # TODO(dan): we need to come back to this
-        pass
+        raise NotImplementedError
 
 
 class AuthContext(object):
