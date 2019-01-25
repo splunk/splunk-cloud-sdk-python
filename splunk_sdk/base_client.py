@@ -72,9 +72,6 @@ def handle_response(response, klass, key=None):
     if 200 <= response.status_code < 300:
         data = json.loads(response.text)
 
-        print('mydata', data)
-
-        # TODO(dan): list
         # TODO(dan): dict of dict
 
         if klass is object:
