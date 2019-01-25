@@ -1,11 +1,10 @@
 import json
-import asyncio
 from asyncio import sleep
 
 from splunk_sdk.base_client import handle_response
 from splunk_sdk.base_service import BaseService
 from splunk_sdk.search.results import Job, UpdateJobResponse, SearchResults, \
-    ResultsNotReadyResponse
+    ResultsNotReadyResponse, DispatchState
 
 SEARCH = "/search/v1beta1/"
 
@@ -50,9 +49,8 @@ class Search(BaseService):
         job = None
         while not done:
             job = self.get_job(job_id)
-            # TODO: DispatchStatus enum
-            print (job.status)
-            done = job.status == 'done' or job.status == 'failed'
+            done = job.status == DispatchState.DONE.value \
+                   or job.status == DispatchState.FAILED.value
             if not done:
                 await sleep(poll_interval)
 
@@ -68,4 +66,3 @@ class Search(BaseService):
             return SearchResults(**body)
         else:
             return ResultsNotReadyResponse(**body)
- 

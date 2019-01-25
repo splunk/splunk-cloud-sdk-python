@@ -207,3 +207,39 @@ class ResultsNotReadyResponse(object):
     @wait.setter
     def wait(self, wait):
         self._wait = wait
+
+
+class DispatchState(Enum):
+    DONE = 'done'
+    FAILED = 'failed'
+
+
+class MessageTypes(Enum):
+    INFO = 'INFO'
+    DEBUG = 'INFO'
+    FATAL = 'FATAL'
+    ERROR = 'ERROR'
+
+
+class SearchJobMessage(object):
+    def __init__(self,
+                 text=None,
+                 type=None):
+        self._text = text
+        self._type = type
+
+    @property
+    def text(self):
+        return self._text
+
+    @text.setter
+    def text(self, text):
+        self._text = text
+
+    @property
+    def type(self):
+        return self._type
+
+    @type.setter
+    def type(self, type):
+        self._type = type
