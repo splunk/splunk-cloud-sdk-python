@@ -1,6 +1,7 @@
 import requests
 import json
 from splunk_sdk import __version__
+from ast import literal_eval
 
 
 class BaseClient(object):
@@ -90,5 +91,45 @@ def handle_response(response, klass, key=None):
                 return [klass(**e) for e in collection]
 
     else:
-        raise Exception("Unhandled http response code:{} text:{}".format(
-            response.status_code, response.text))
+        raise HTTPError(response.status_code, response.text)
+
+
+class HTTPError(Exception):
+    """Exception wrapper for HTTP Error responses"""
+
+    def __init__(self, httpStatusCode, details):
+        self._http_status_code = httpStatusCode
+        self._http_details = details
+        self._code = literal_eval(self._http_details)['code']
+        self._details = literal_eval(self._http_details)['details']
+        self._message = literal_eval(self._http_details)['message']
+
+    @property
+    def httpStatusCode(self):
+        return self._http_status_code
+
+    @httpStatusCode.setter
+    def query(self, httpStatusCode):
+        self._http_status_code = httpStatusCode
+
+    @property
+    def details(self):
+        return self._details
+
+    @details.setter
+    def details(self, details):
+        self._details = details
+
+    @property
+    def code(self):
+        return self._code
+
+    @property
+    def details(self):
+        return self._details
+
+    @property
+    def message(self):
+        return self._message
+
+

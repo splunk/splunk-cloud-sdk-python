@@ -1,19 +1,68 @@
 import pytest
-from test.fixtures import get_test_client as test_client  # NOQA
 from splunk_sdk.ingest.client import Ingest
-from splunk_sdk.ingest.results import Event
+from splunk_sdk.ingest.results import PostIngestResponse
 
+from splunk_sdk.base_client import HTTPError
+
+from test.fixtures import get_test_client as test_client  # NOQA
 
 @pytest.mark.usefixtures("test_client")  # NOQA
 def test_post_events(test_client):
     ingest = Ingest(test_client)
-    eventdata = {'host': 'host1',
-                 'body': 'event1',
-                 'source': 'source1',
-                 'sourcetype': 'sourcetype1',
-                 'timestamp': '1533671808138',
-                 'nanos': 0,
-                 'attributes': None}
-    arr = [eventdata, eventdata]
-    event = ingest.post_events(arr)
-    print("status", event)
+    event_data = {'body': 'event1',
+                  'host': 'host1',
+                  'source': 'sourcename',
+                  'sourcetype': 'sourcetype',
+                  'timestamp': 1533671808138,
+                  'nanos': 0,
+                  'attributes': {'data': 'data1'}
+                  }
+    event_list = [event_data, event_data]
+    event_response = ingest.post_events(event_list)
+
+    assert (isinstance(event_response, PostIngestResponse))
+    assert (event_response.message == 'Success')
+
+
+def test_post_metrics(test_client):
+    ingest = Ingest(test_client)
+    metrics = {'Name': "CPU", 'Value': 5.5, 'Dimensions': {'data': 'data1'}, 'Unit': 'data3'}
+    metrics_list = [metrics]
+    metrics_data = {'body': metrics_list,
+                    'host': 'host1',
+                    'source': 'source1',
+                    'sourcetype': 'sourcetype',
+                    'timestamp': 1533671808138,
+                    'nanos': 0,
+                    'attributes': {'DefaultType': 'data1', 'DefaultDimensions': {'dimension': 'dimensionValue'}}
+                   }
+    metrics_data_list = [metrics_data]
+    metrics_response = ingest.post_metrics(metrics_data_list)
+
+    assert (isinstance(metrics_response, PostIngestResponse))
+    assert (metrics_response.message == 'Success')
+
+
+def test_post_events_body_empty(test_client):
+    ingest = Ingest(test_client)
+    event_data = {}
+    event_list = [event_data]
+    try:
+        ingest.post_events(event_list)
+    except HTTPError as error:
+        assert (error.httpStatusCode == 400)
+        assert (error.code == 'INVALID_DATA')
+        assert (error.message == 'Invalid data format')
+
+
+def test_post_events_bad_request(test_client):
+    ingest = Ingest(test_client)
+    event_list = []
+    try:
+        ingest.post_events(event_list)
+    except HTTPError as error:
+        assert (error.httpStatusCode == 400)
+        assert (error.code == 'INVALID_DATA')
+        assert (error.message == 'Invalid data format')
+        assert (error.details == 'Empty array was provided as input')
+
