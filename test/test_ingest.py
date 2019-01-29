@@ -26,7 +26,8 @@ def test_post_events(test_client):
 
 def test_post_metrics(test_client):
     ingest = Ingest(test_client)
-    metrics = {'Name': "CPU", 'Value': 5.5, 'Dimensions': {'data': 'data1'}, 'Unit': 'data3'}
+    metrics = {'Name': "CPU", 'Value': 5.5,
+               'Dimensions': {'data': 'data1'}, 'Unit': 'data3'}
     metrics_list = [metrics]
     metrics_data = {'body': metrics_list,
                     'host': 'host1',
@@ -34,8 +35,9 @@ def test_post_metrics(test_client):
                     'sourcetype': 'sourcetype',
                     'timestamp': 1533671808138,
                     'nanos': 0,
-                    'attributes': {'DefaultType': 'data1', 'DefaultDimensions': {'dimension': 'dimensionValue'}}
-                   }
+                    'attributes': {'DefaultType': 'data1',
+                                   'DefaultDimensions': {'dimension': 'dimensionValue'}}
+                    }
     metrics_data_list = [metrics_data]
     metrics_response = ingest.post_metrics(metrics_data_list)
 
@@ -65,4 +67,3 @@ def test_post_events_bad_request(test_client):
         assert (error.code == 'INVALID_DATA')
         assert (error.message == 'Invalid data format')
         assert (error.details == 'Empty array was provided as input')
-

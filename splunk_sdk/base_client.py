@@ -132,4 +132,3 @@ class HTTPError(Exception):
     def message(self):
         return self._message
 
-
