@@ -50,9 +50,11 @@ def test_post_events_body_empty(test_client):
     ingest = Ingest(test_client)
     event_data = {}
     event_list = [event_data]
+    error_str = 'Event body cannot be empty'
     try:
         ingest.post_events(event_list)
     except HTTPError as error:
+        assert (error.details['failedEvents'][0]['message'] == error_str)
         assert (error.httpStatusCode == 400)
         assert (error.code == 'INVALID_DATA')
         assert (error.message == 'Invalid data format')
@@ -61,10 +63,11 @@ def test_post_events_body_empty(test_client):
 def test_post_events_bad_request(test_client):
     ingest = Ingest(test_client)
     event_list = []
+    error_str = 'Empty array was provided as input'
     try:
         ingest.post_events(event_list)
     except HTTPError as error:
         assert (error.httpStatusCode == 400)
         assert (error.code == 'INVALID_DATA')
         assert (error.message == 'Invalid data format')
-        assert (error.details == 'Empty array was provided as input')
+        assert (error.details == error_str)
