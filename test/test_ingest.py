@@ -36,7 +36,8 @@ def test_post_metrics(test_client):
                     'timestamp': 1533671808138,
                     'nanos': 0,
                     'attributes': {'DefaultType': 'data1',
-                                   'DefaultDimensions': {'dimension': 'dimensionValue'}}
+                                   'DefaultDimensions': {'dimension':
+                                                         'dimensionValue'}}
                     }
     metrics_data_list = [metrics_data]
     metrics_response = ingest.post_metrics(metrics_data_list)
