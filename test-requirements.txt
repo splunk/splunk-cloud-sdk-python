@@ -17,6 +17,7 @@ pycodestyle>=2.4.0
 pyflakes>=2.0.0
 pylint>=2.2.0
 pytest>=4.0.1
+pytest-asyncio>=0.10.0
 requests>=2.20.1
 six>=1.11.0
 toml>=0.10.0

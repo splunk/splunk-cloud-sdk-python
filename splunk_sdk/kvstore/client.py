@@ -2,8 +2,7 @@ from splunk_sdk.base_client import handle_response
 from splunk_sdk.base_service import BaseService
 from splunk_sdk.kvstore.results import Health
 
-VERSION = "v1beta1"
-KVSTORE_HEALTH = "/{tenant}/kvstore/{version}/ping"
+KVSTORE_HEALTH = "/kvstore/v1beta1/ping"
 
 
 class KVStore(BaseService):
@@ -13,7 +12,6 @@ class KVStore(BaseService):
 
     def get_health_status(self):
         url = self.base_client.build_url(
-            KVSTORE_HEALTH, tenant=self.base_client.get_tenant(),
-            version=VERSION)
+            KVSTORE_HEALTH)
         response = self.base_client.get(url)
         return handle_response(response, Health)

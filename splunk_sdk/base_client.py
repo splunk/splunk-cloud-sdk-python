@@ -1,6 +1,7 @@
 import requests
 import json
 from splunk_sdk import __version__
+from ast import literal_eval
 
 
 class BaseClient(object):
@@ -20,7 +21,8 @@ class BaseClient(object):
                 'Authorization': "Bearer %s" % self.auth_context.access_token})
 
     def get(self, url, **kwargs):
-        return self._session.get(url, **kwargs)
+        # Params are used for querystring vars
+        return self._session.get(url, params=kwargs)
 
     def options(self, url, **kwargs):
         return self._session.options(url, **kwargs)
@@ -45,11 +47,17 @@ class BaseClient(object):
         url = self.context.scheme + "://" + self.context.host
         if self.context.port is not None and self.context.port != "":
             url += ":" + self.context.port
+
+        # TODO: all services should migrate to this pattern so tenant is
+        # only set in one place
+        if "{tenant}" not in url and 'omit_tenant' not in kwargs:
+            url += "/" + self.get_tenant()
         url += route
 
         # set any url path vars
         if len(kwargs) > 0:
             url = url.format(**kwargs)
+
         return url
 
     def get_tenant(self):
@@ -61,23 +69,72 @@ def get_client(context, auth_manager):
     return BaseClient(context, auth_manager)
 
 
+# TODO: refactor this helper away and make handle_resposne cleaner
+def _handle_list_response(collection, klass):
+    return [klass(**e) for e in collection]
+
+
 def handle_response(response, klass, key=None):
-    if response.status_code >= 200 and response.status_code < 300:
+    if 200 <= response.status_code < 300:
         data = json.loads(response.text)
 
-        # TODO(dan): list
         # TODO(dan): dict of dict
 
-        # dict represents an obj
+        if klass is object:
+            return data
+
+        # Top level JSON array or object
         if key is None:
+            if isinstance(data, list):
+                return _handle_list_response(data, klass)
             return klass(**data)
 
-        # dict containing a list
+        # Get specific key from dict containing a list
         if key is not None:
             collection = data[key]
             if isinstance(collection, list):
-                return [klass(**e) for e in collection]
+                return _handle_list_response(collection, klass)
+
+        raise Exception("Unexpected http response body: {}".format(data))
 
     else:
-        raise Exception("Unhandled http response code:{}".format(
-            response.status_code))
+        raise HTTPError(response.status_code, response.text)
+
+
+class HTTPError(Exception):
+    """Exception wrapper for HTTP Error responses"""
+
+    def __init__(self, httpStatusCode, details):
+        self._http_status_code = httpStatusCode
+        self._http_details = details
+        self._code = literal_eval(self._http_details)['code']
+        self._details = literal_eval(self._http_details)['details']
+        self._message = literal_eval(self._http_details)['message']
+
+    @property
+    def httpStatusCode(self):
+        return self._http_status_code
+
+    @httpStatusCode.setter
+    def query(self, httpStatusCode):
+        self._http_status_code = httpStatusCode
+
+    @property
+    def details(self):
+        return self._details
+
+    @details.setter
+    def details(self, details):
+        self._details = details
+
+    @property
+    def code(self):
+        return self._code
+
+    @property
+    def details(self):
+        return self._details
+
+    @property
+    def message(self):
+        return self._message
