@@ -68,6 +68,11 @@ def get_client(context, auth_manager):
     return BaseClient(context, auth_manager)
 
 
+# TODO: refactor this helper away and make handle_resposne cleaner
+def _handle_list_response(collection, klass):
+    return [klass(**e) for e in collection]
+
+
 def handle_response(response, klass, key=None):
     if 200 <= response.status_code < 300:
         data = json.loads(response.text)
@@ -80,14 +85,16 @@ def handle_response(response, klass, key=None):
         # Top level JSON array or object
         if key is None:
             if isinstance(data, list):
-                return [klass(**e) for e in data]
+                return _handle_list_response(data, klass)
             return klass(**data)
 
         # Get specific key from dict containing a list
         if key is not None:
             collection = data[key]
             if isinstance(collection, list):
-                return [klass(**e) for e in collection]
+                return _handle_list_response(collection, klass)
+
+        raise Exception("Unexpected http response body: {}".format(data))
 
     else:
         raise Exception("Unhandled http response code:{} text:{}".format(
