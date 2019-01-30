@@ -21,11 +21,15 @@ class Search(BaseService):
         response = self.base_client.get(url, **kwargs)
         return handle_response(response, Job)
 
-    def create_job(self, **kwargs):
+    def create_job(self, query, **kwargs):
         url = self.base_client.build_url(
             SEARCH + "jobs"
         )
-        response = self.base_client.post(url, data=json.dumps(kwargs))
+        body = {
+            'query': query
+        }
+        body.update(kwargs)
+        response = self.base_client.post(url, data=json.dumps(body))
         return handle_response(response, Job)
 
     def get_job(self, job_id):
