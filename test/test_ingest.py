@@ -6,6 +6,7 @@ from splunk_sdk.base_client import HTTPError
 
 from test.fixtures import get_test_client as test_client  # NOQA
 
+
 @pytest.mark.usefixtures("test_client")  # NOQA
 def test_post_events(test_client):
     ingest = Ingest(test_client)
@@ -24,6 +25,7 @@ def test_post_events(test_client):
     assert (event_response.message == 'Success')
 
 
+@pytest.mark.usefixtures("test_client")  # NOQA
 def test_post_metrics(test_client):
     ingest = Ingest(test_client)
     metrics = {'Name': "CPU", 'Value': 5.5,
@@ -46,6 +48,7 @@ def test_post_metrics(test_client):
     assert (metrics_response.message == 'Success')
 
 
+@pytest.mark.usefixtures("test_client")  # NOQA
 def test_post_events_body_empty(test_client):
     ingest = Ingest(test_client)
     event_data = {}
@@ -60,6 +63,7 @@ def test_post_events_body_empty(test_client):
         assert (error.message == 'Invalid data format')
 
 
+@pytest.mark.usefixtures("test_client")  # NOQA
 def test_post_events_bad_request(test_client):
     ingest = Ingest(test_client)
     event_list = []
