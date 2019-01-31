@@ -1,3 +1,7 @@
+# Copyright © 2019 Splunk Inc.
+# SPLUNK CONFIDENTIAL – Use or disclosure of this material in whole or in part
+# without a valid written license from Splunk Inc. is PROHIBITED.
+
 import pytest
 from test.fixtures import get_test_client as test_client  # NOQA
 from splunk_sdk.search.client import Search
