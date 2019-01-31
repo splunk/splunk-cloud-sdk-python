@@ -3,7 +3,6 @@
 # without a valid written license from Splunk Inc. is PROHIBITED.
 
 
-
 class PostIngestResponse(object):
     def __init__(self,
                  code,

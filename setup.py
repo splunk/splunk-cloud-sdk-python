@@ -5,8 +5,8 @@
 from setuptools import setup, find_packages
 from splunk_sdk import __version__
 
-install_requires = ['requests>=2.20.0',
-                    'urllib3>=1.24', ]
+install_requires = ['requests=2.20.1',
+                    'urllib3=1.24.1', ]
 
 setup(
     name='splunk-cloud-sdk-python',

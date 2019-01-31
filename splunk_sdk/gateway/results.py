@@ -3,7 +3,6 @@
 # without a valid written license from Splunk Inc. is PROHIBITED.
 
 
-
 class Spec(object):
 
     def __init__(self, name=None, links=None):
