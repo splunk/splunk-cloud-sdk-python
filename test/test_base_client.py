@@ -1,3 +1,7 @@
+# Copyright © 2019 Splunk Inc.
+# SPLUNK CONFIDENTIAL – Use or disclosure of this material in whole or in part
+# without a valid written license from Splunk Inc. is PROHIBITED.
+
 import pytest
 
 from test.auth.test_auth_manager import _assert_client_auth_context, \

@@ -1,7 +1,13 @@
+# Copyright © 2019 Splunk Inc.
+# SPLUNK CONFIDENTIAL – Use or disclosure of this material in whole or in part
+# without a valid written license from Splunk Inc. is PROHIBITED.
+
 from splunk_sdk.base_client import handle_response
 from splunk_sdk.base_service import BaseService
 
 from splunk_sdk.ingest.results import PostIngestResponse
+from splunk_sdk.ingest.results import IngestEncoder
+
 import json
 
 INGEST = "/ingest/v1beta2/"
@@ -16,13 +22,14 @@ class Ingest(BaseService):
         url = self.base_client.build_url(
             INGEST + "events"
         )
-
-        response = self.base_client.post(url, data=json.dumps(event_data))
+        response = self.base_client.post(url, data=json.dumps(event_data,
+                                         cls=IngestEncoder))
         return handle_response(response, PostIngestResponse)
 
     def post_metrics(self, metric_data):
         url = self.base_client.build_url(
             INGEST + "metrics"
         )
-        response = self.base_client.post(url, data=json.dumps(metric_data))
+        response = self.base_client.post(url, data=json.dumps(metric_data,
+                                         cls=IngestEncoder))
         return handle_response(response, PostIngestResponse)
