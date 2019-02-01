@@ -11,7 +11,7 @@ config.yaml
 dist/
 doc/build
 doc/source/reference/api
-splunk-cloud-python-sdk.egg-info/
+splunk_cloud_sdk_python.egg-info/
 sdkrc
 sdkrc.encrypted
 .python-version
