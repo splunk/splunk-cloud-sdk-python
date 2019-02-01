@@ -35,51 +35,38 @@ A Python 3 client for Splunk Cloud services
 
 ## Using the splunk-cloud-sdk-python from your python project
    ```python
+    import os
+    from splunk_sdk.auth.pkce_auth_manager import PKCEAuthManager
+    from splunk_sdk.common.context import Context
+    from splunk_sdk.splunk_cloud import SplunkCloud
 
-   from splunk_sdk.auth.pkce_auth_manager import PKCEAuthManager
-   from splunk_sdk.common.context import Context
-   from splunk_sdk.gateway.client import Gateway
-   from splunk_sdk.service_client import get_client
+    # Create a test context, you may want to pass more to the context
+    context = Context(host=os.environ.get('SPLUNK_HOST'), api_host=os.environ.get('SPLUNK_API_HOST'), app_host=os.environ.get('SPLUNK_APP_HOST'), tenant=os.environ.get('SPLUNK_TENANT'))
 
-   # Create a test context, you may want to pass more to the context
-   context = Context(host=<host>, api_host=<api_host>, app_host=<app_host>, port=<443>, scheme=<'https'>, tenant=<tenant>)
+    # Initialize the auth manager
+    auth_manager = PKCEAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST'),
+                                   client_id=os.environ.get('SPLUNK_APP_CLIENT_ID'),
+                                   authz_server=os.environ.get('SPLUNK_APP_SERVER'),
+                                   username=os.environ.get('SPLUNK_USERNAME'),
+                                   password=os.environ.get('SPLUNK_PASSWORD'),
+                                   redirect_uri='http://localhost')
 
-   # Initialize the auth manager
-   auth_manager = PKCEAuthManager(host=<host>
-                                  client_id=<client_id>,
-                                  server=<server>,
-                                  username=<username>,
-                                  password=<password>,
-                                  redirect_uri=<redirect_uri>)
-
-   # Get an instance of the service client
-   service_client = get_client(context, auth_manager)
-
-   # Get an instance of the Gateway client
-   gateway = Gateway(self.service_client, cluster='api')
-
-   # List all the specs in the api cluster
-   for s in gateway.list_specs():
+    scloud = SplunkCloud(context, auth_manager)
+    for s in scloud.gateway.list_specs():
        print(s.name)
 
-   # Output looks like this
-   """
-   Identity and Access Control
-   Splunk Search Service
-   Ingest API
-   Action Service
-   Data Stream Processing REST API
-   Splunk Forwarder Service
-   KV Store API
-   Metadata Catalog
-   Ingest API
-   Metering Service API
-   Splunk Forwarder Service
-   Collect Service
-   """
-
+    # Output looks like this
+    """
+    SCP Example Application
+    Collect Service
+    KV Store API
+    Metadata Catalog
+    Metering Service API
+    Data Stream Processing REST API
+    Identity and Access Control
+    Action Service
+    """
    ```
-
 
 
 ## Documentation

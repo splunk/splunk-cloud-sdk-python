@@ -18,4 +18,4 @@ class SplunkCloud(object):
         self.kvstore = KVStore(self.base_client)
         self.gateway = Gateway(self.base_client)
         self.search = Search(self.base_client)
-        self.ingest - Ingest(self.base_client)
+        self.ingest = Ingest(self.base_client)
