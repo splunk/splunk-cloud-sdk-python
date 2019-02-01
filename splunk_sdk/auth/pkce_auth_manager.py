@@ -1,5 +1,3 @@
-# from splunk_sdk.auth.okta import pkce as pkce_flow
-
 from splunk_sdk.auth.auth_manager import AuthManager, AuthContext, \
     DEFAULT_REFRESH_SCOPE
 from splunk_sdk.auth.idp import IdpClient
