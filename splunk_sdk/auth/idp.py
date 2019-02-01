@@ -29,7 +29,7 @@ import urllib.parse
 import urllib
 import requests
 
-DEFAULT_HOST = "splunk-ciam.okta.com:443"
+DEFAULT_HOST = "splunk-ext.okta.com"
 PATH_AUTHN = "/api/v1/authn"
 PATH_AUTHORIZE = "/oauth2/%s/v1/authorize"
 PATH_KEYS = "/oauth2/%s/v1/keys"
@@ -67,7 +67,7 @@ def _printv(response):
     print()
 
 
-class OktaClient(object):
+class IdpClient(object):
     """This class is an http client for okta."""
 
     def __init__(self, scheme='https', host=DEFAULT_HOST, verbose=False):
@@ -158,8 +158,8 @@ class OktaClient(object):
         return params
 
     def _get_session_token(self, username, password):
-        """Returns a one-time session token by authenticating using the Okta "primary"
-        endpoint (/authn)."""
+        """Returns a one-time session token by authenticating using the
+         (extended) "primary" endpoint (/authn)."""
         result = self._primary(username, password)
         if result is None:
             return None
@@ -284,7 +284,7 @@ class OktaClient(object):
         return response.json()
 
     def _primary(self, username, password):
-        """Authenticate using the Okta "primary" method."""
+        """Authenticate using the (extended) "primary" method."""
         data = {"username": username, "password": password}
         response = self._post(self._url(PATH_AUTHN), data=json.dumps(data))
         if response.status_code != 200:
@@ -298,6 +298,7 @@ class OktaClient(object):
         return result
 
     def refresh(self, app, refresh_token):
+        """Authenticate using the OAuth refresh_token grant type."""
         client_id = app.get("client_id", None)
         if client_id is None:
             raise ValueError("missing client_id")

@@ -1,5 +1,5 @@
 from splunk_sdk.auth.auth_manager import AuthManager, AuthContext
-from splunk_sdk.auth.okta import OktaClient
+from splunk_sdk.auth.idp import IdpClient
 
 
 class ClientAuthManager(AuthManager):
@@ -22,5 +22,5 @@ class ClientAuthManager(AuthManager):
 
     def authenticate(self):
         """Return the payload from okta, all tokens, expiry, etc"""
-        data = OktaClient(host=self.host).client(self.app)
+        data = IdpClient(host=self.host).client(self.app)
         return AuthContext(**data)

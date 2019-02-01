@@ -2,7 +2,7 @@
 
 from splunk_sdk.auth.auth_manager import AuthManager, AuthContext, \
     DEFAULT_REFRESH_SCOPE
-from splunk_sdk.auth.okta import OktaClient
+from splunk_sdk.auth.idp import IdpClient
 
 
 class PKCEAuthManager(AuthManager):
@@ -25,6 +25,6 @@ class PKCEAuthManager(AuthManager):
 
     def authenticate(self):
         """Return the payload from okta, all tokens, expiry, etc"""
-        data = OktaClient(host=self.host).pkce(self.app, self.username,
-                                               self.password)
+        data = IdpClient(host=self.host).pkce(self.app, self.username,
+                                              self.password)
         return AuthContext(**data)

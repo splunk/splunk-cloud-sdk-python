@@ -14,7 +14,7 @@ def get_test_client():
                       app_host=os.environ.get('SPLUNK_APP_HOST'),
                       tenant=os.environ.get('SPLUNK_TENANT'))
     service_client = get_client(context, _get_pkce_manager())
-    assert(service_client is not None)
+    assert (service_client is not None)
     return service_client
 
 
@@ -22,14 +22,14 @@ def get_test_client():
 def get_auth_manager():
     # Note: leaving this so we don't create too many merge conflicts
     auth_manager = _get_pkce_manager()
-    assert(auth_manager is not None)
+    assert (auth_manager is not None)
     return auth_manager
 
 
 @pytest.fixture(scope="session")
 def get_client_auth_manager():
     auth_manager = _get_client_manager()
-    assert(auth_manager is not None)
+    assert (auth_manager is not None)
     return auth_manager
 
 
