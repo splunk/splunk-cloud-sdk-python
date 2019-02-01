@@ -36,7 +36,7 @@ def get_client_auth_manager():
 def _get_pkce_manager():
     return PKCEAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST'),
                            client_id=os.environ.get('SPLUNK_APP_CLIENT_ID'),
-                           server=os.environ.get('SPLUNK_APP_SERVER'),
+                           authz_server=os.environ.get('SPLUNK_APP_SERVER'),
                            username=os.environ.get('SPLUNK_USERNAME'),
                            password=os.environ.get('SPLUNK_PASSWORD'),
                            redirect_uri='http://localhost')
@@ -48,6 +48,6 @@ def _get_client_manager():
                                  'SPLUNK_APP_CLIENT_CRED_ID'),
                              client_secret=os.environ.get(
                                  'SPLUNK_APP_CLIENT_CRED_SECRET'),
-                             server=os.environ.get('SPLUNK_APP_SERVER'),
+                             authz_server=os.environ.get('SPLUNK_APP_SERVER'),
                              scope=os.environ.get('SPLUNK_SCOPE')
                              )

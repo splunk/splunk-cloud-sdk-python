@@ -1,13 +1,13 @@
 from splunk_sdk.auth.auth_manager import AuthManager, AuthContext, \
-    DEFAULT_REFRESH_SCOPE
+    DEFAULT_AUTHZ_SERVER, DEFAULT_REFRESH_SCOPE
 from splunk_sdk.auth.idp import IdpClient
 
 
 class PKCEAuthManager(AuthManager):
 
-    def __init__(self, host, client_id, redirect_uri, server, username,
-                 password):
-        super().__init__(host, client_id, server)
+    def __init__(self, host, client_id, redirect_uri, username,
+                 password, authz_server=DEFAULT_AUTHZ_SERVER):
+        super().__init__(host, client_id, authz_server)
         self.redirect_uri = redirect_uri
         self.username = username
         self.password = password
@@ -18,7 +18,7 @@ class PKCEAuthManager(AuthManager):
         app['scope'] = DEFAULT_REFRESH_SCOPE
         app['client_id'] = self.client_id
         app['redirect_uri'] = self.redirect_uri
-        app['server'] = self.server
+        app['server'] = self.authz_server
         return app
 
     def authenticate(self):

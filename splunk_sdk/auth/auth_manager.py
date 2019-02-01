@@ -1,13 +1,14 @@
+DEFAULT_AUTHZ_SERVER = 'aus1vigjbbW3KwZJ72p7'
 DEFAULT_SCOPE = 'openid email profile'
 DEFAULT_REFRESH_SCOPE = 'openid offline_access email profile'
 
 
 class AuthManager(object):
 
-    def __init__(self, host, client_id, server):
+    def __init__(self, host, client_id, authz_server):
         self.host = host
         self.client_id = client_id
-        self.server = server
+        self.authz_server = authz_server
 
     def authenticate(self):
         raise NotImplementedError
