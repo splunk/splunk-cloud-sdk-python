@@ -1,3 +1,7 @@
+# Copyright © 2019 Splunk Inc.
+# SPLUNK CONFIDENTIAL – Use or disclosure of this material in whole or in part
+# without a valid written license from Splunk Inc. is PROHIBITED.
+
 import pytest
 from splunk_sdk.ingest.client import Ingest
 from splunk_sdk.ingest.results import PostIngestResponse

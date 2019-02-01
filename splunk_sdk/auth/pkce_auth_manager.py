@@ -1,3 +1,8 @@
+# Copyright © 2019 Splunk Inc.
+# SPLUNK CONFIDENTIAL – Use or disclosure of this material in whole or in part
+# without a valid written license from Splunk Inc. is PROHIBITED.
+
+
 from splunk_sdk.auth.auth_manager import AuthManager, AuthContext, \
     DEFAULT_AUTHZ_SERVER, DEFAULT_REFRESH_SCOPE
 from splunk_sdk.auth.idp import IdpClient

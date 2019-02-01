@@ -1,3 +1,7 @@
+# Copyright © 2019 Splunk Inc.
+# SPLUNK CONFIDENTIAL – Use or disclosure of this material in whole or in part
+# without a valid written license from Splunk Inc. is PROHIBITED.
+
 # -*- coding: utf-8 -*-
 #
 # Configuration file for the Sphinx documentation builder.
