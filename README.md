@@ -1,46 +1,52 @@
-# splunk-cloud-sdk-python
-A Python 3 client for Splunk Cloud services
+# Splunk Cloud SDK for Python
 
-# Terms of Service (TOS)
+**Version 0.0.1**
+
+The Splunk Cloud Software Development Kit (SDK) for Python 3 contains library code and examples designed to enable developers to build applications using the Splunk Cloud services.
+
+## Terms of Service
 [Splunk Cloud Terms of Service](https://www.splunk.com/en_us/legal/terms/splunk-cloud-pre-release-terms-of-service.html)
 
-# Getting started
----
-
 ## Install Python 3 and Python tools
-[OS Specific Instructions](https://realpython.com/installing-python/)
 
-1. Install Python 3.7.0 or later with pip3.
+1. Install Python 3.7.0 or later. For operating system-specific instructions, see [Python 3 Installation & Setup Guide](https://realpython.com/installing-python/).
 
+    For example, to install Python 3 on macOS, enter the following at the command line: 
+    
     ```bash
-    # Mac OS X
+    # Install Python 3 using Pip 3
     $ brew install python3
     ```
 
-2. Optionally install virtualenv and configure it
+2. Optionally, install and configure [Virtualenv](https://virtualenv.pypa.io/en/latest/).
 
+    For example, to install Virtualenv on macOS, enter the following at the command line: 
+    
     ```bash
     $ virtualenv --python=python3 .venv
 
-    # activate your virtualenv
+    # Activate your virtualenv
     $ . .venv/bin/activate
 
-    # Install the python sdk into your virtualenv
+    # Install the Splunk Cloud SDK for Python SDK your virtualenv
     (.venv)$ pip install splunk-cloud-sdk-python-<version>.tar.gz
 
-    # deactivate your virtualenv
+    # Deactivate your virtualenv
     (.venv)$ deactivate
     ```
 
 
-## Using the splunk-cloud-sdk-python from your python project
+## Use the Splunk Cloud SDK for Python
+
+The following example shows how to use the Splunk Cloud SDK for Python from your Python project. 
+
    ```python
     import os
     from splunk_sdk.auth.pkce_auth_manager import PKCEAuthManager
     from splunk_sdk.common.context import Context
     from splunk_sdk.splunk_cloud import SplunkCloud
 
-    # Create a test context, you may want to pass more to the context
+    # Create a test context--you might want to pass more to the context
     context = Context(host=os.environ.get('SPLUNK_HOST'), api_host=os.environ.get('SPLUNK_API_HOST'), app_host=os.environ.get('SPLUNK_APP_HOST'), tenant=os.environ.get('SPLUNK_TENANT'))
 
     # Initialize the auth manager
@@ -68,12 +74,11 @@ A Python 3 client for Splunk Cloud services
     """
    ```
 
-
 ## Documentation
-For general documentation about the Splunk Cloud SDK for Python, see:
-- TODO(dan): update this url https://sdc.splunkbeta.com/docs/sdks
 
-For the API reference for the Splunk Cloud SDK for Go, see:
-- https://sdc.splunkbeta.com/reference/sdk/splunk-cloud-sdk-python
+For more information, see the Splunk Developer Cloud Portal: 
+-   [Developer Guide](https://sdc.splunkbeta.com/docs/) contains general documentation about working with Splunk Developer Cloud.
+-   [Splunk Cloud SDK for Python API Reference](https://sdc.splunkbeta.com/reference/sdk/splunk-cloud-sdk-python) contains detailed information about classes, functions, parameters, and return types.
 
-The API reference contains detailed information about all classes and functions, with clearly-defined parameters and return types.
+## Contact
+If you have questions, reach out to us on [Slack](https://splunkdevplatform.slack.com) in the **#sdc** channel or email us at _sdcbeta@splunk.com_.
