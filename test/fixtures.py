@@ -43,7 +43,8 @@ def _get_pkce_manager():
                            authz_server=os.environ.get('SPLUNK_APP_SERVER'),
                            username=os.environ.get('SPLUNK_USERNAME'),
                            password=os.environ.get('SPLUNK_PASSWORD'),
-                           redirect_uri='http://localhost')
+                           redirect_uri=os.environ.get('SPLUNK_REDIRECT_URL',
+                                                       'http://localhost'))
 
 
 def _get_client_manager():

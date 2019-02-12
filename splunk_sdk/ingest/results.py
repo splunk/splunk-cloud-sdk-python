@@ -111,5 +111,5 @@ class IngestEncoder(json.JSONEncoder):
             return obj.reprJSON()
         else:
             type_name = obj.__class__.__name__
-            raise TypeError(f"Object of type '{type_name}' "
-                            f"is not JSON serializable")
+            raise TypeError("Object of type '{}' is not JSON serializable"
+                            .format(type_name))

@@ -5,10 +5,10 @@
 
 class BaseService(object):
 
-    def __init__(self, client, cluster="api"):
+    def __init__(self, client, cluster=None):
         self.base_client = client
 
+        if cluster == 'api':
+            self.base_client.context.host = self.base_client.context.api_host
         if cluster == 'app':
             self.base_client.context.host = self.base_client.context.app_host
-        else:
-            self.base_client.context.host = self.base_client.context.api_host
