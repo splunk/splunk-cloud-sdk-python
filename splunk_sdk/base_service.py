@@ -10,5 +10,8 @@ class BaseService(object):
 
         if cluster == 'api':
             self.base_client.context.host = self.base_client.context.api_host
-        if cluster == 'app':
+        elif cluster == 'app':
             self.base_client.context.host = self.base_client.context.app_host
+        else:
+            raise Exception("The target cluster: {} is invalid.".format(
+                cluster))
