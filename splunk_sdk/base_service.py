@@ -5,10 +5,14 @@
 
 class BaseService(object):
 
-    def __init__(self, client, cluster="api"):
+    def __init__(self, client, cluster='api'):
         self.base_client = client
 
-        if cluster == 'app':
+        cluster = cluster.strip().lower()
+        if cluster == 'api':
+            self.base_client.context.host = self.base_client.context.api_host
+        elif cluster == 'app':
             self.base_client.context.host = self.base_client.context.app_host
         else:
-            self.base_client.context.host = self.base_client.context.api_host
+            raise Exception("The target cluster: {} is invalid.".format(
+                cluster))
