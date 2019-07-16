@@ -1,0 +1,14 @@
+{
+  "input": {
+    "kind": "SPL",
+    "source": {
+      "module": "mlapishowcase",
+      "query": "| from mlapishowcase.mlapishowcase where host=\"server_power_train_f07q2aab5b5i3xmz\"",
+      "queryParameters": {
+        "earliest": "0",
+        "latest": "now"
+      },
+      "extractAllFields": true
+    }
+  }
+}

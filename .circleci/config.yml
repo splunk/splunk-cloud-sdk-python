@@ -1,0 +1,17 @@
+# Python CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+#
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.7.2
+
+    working_directory: ~/splunk-cloud-sdk-python
+
+    steps:
+      - checkout
+      - run: sudo pip install tox
+      - run: echo "TODO - run unit tests"
