@@ -1,7 +1,13 @@
+# coding: utf-8
+
 # Copyright © 2019 Splunk, Inc.
+#
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
-# a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+# a copy of the License at
+#
+# [http://www.apache.org/licenses/LICENSE-2.0]
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -9,81 +15,117 @@
 # under the License.
 
 import os
-
 import pytest
 import time
-from requests import Response
+import csv
+import json
+import logging
 
 from test.fixtures import get_test_client_ml as test_client_ml  # NOQA
-
-from splunk_sdk.common.sscmodel import SSCModel
-
-from splunk_sdk.ml import \
-    MachineLearningServiceMLAPI
-
+from splunk_sdk.ingest.gen_ingest_api_api import IngestAPI
+from splunk_sdk.ingest.gen_models import Event
+from splunk_sdk.ml import MachineLearningServiceMLAPI
 from splunk_sdk.ml.gen_models import FitTask, Fields, Workflow, InputData, \
-    OutputData, SPL, Events, WorkflowBuild, WorkflowRun,\
+    OutputData, RawData, OutputDataDestination, WorkflowBuild, WorkflowRun,\
     WorkflowsGetResponse, WorkflowDeployment, DeploymentSpec
 
-import logging
 
 logger = logging.getLogger()
 
+ML_DATA_FILE = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                            "data/ml/iris.csv")
 
-host_train = "server_power_train_ef5wlcd4njiovmdl"
-host_test = "server_power_test_ef5wlcd4njiovmdl"
-host_out = "server_power_out_ef5wlcd4njiovmdl"
+Base64_DATA = "LHNlcGFsX2xlbmd0aCxzZXBhbF93aWR0aCxwZXRhbF9sZW5ndGgscGV0YWxfd2lkdGgsc3BlY2llcw0KMCw1LjEsMy41LDEuNCwwLjIsSXJpcyBTZXRvc2ENCjUwLDcuMCwzLjIsNC43LDEuNCxJcmlzIFZlcnNpY29sb3INCjEwMCw2LjMsMy4zLDYuMCwyLjUsSXJpcyBWaXJnaW5pY2ENCg=="
 
-workflow_name = "PredictServerPowerConsumption"
-build_spl = "| from mlapishowcase.mlapishowcase where host=\"%s\"" % host_train
-run_spl = "| from mlapishowcase.mlapishowcase where host=\"%s\"" % host_test
-module = "mlapishowcase"
+SOURCE = 'pythonsdk-tests'
+SOURCETYPE = 'json'
 
 
-def _create_fit_task():
-    return FitTask(algorithm="LinearRegression",
-                   fields=Fields(features=[
-                       "total-unhalted_core_cycles",
-                       "total-instructions_retired",
-                       "total-last_level_cache_references",
-                       "total-memory_bus_transactions",
-                       "total-cpu-utilization",
-                       "total-disk-accesses",
-                       "total-disk-blocks",
-                       "total-disk-utilization"
-                   ], target="ac_power"),
-                   name="linearregression",
-                   output_transformer="example_server_power",
-                   parameters={"fit_intercept": True, "normalize": False})
+def _parse_csv(file):
+    events = []
+    with open(file) as f:
+        reader = csv.reader(f)
+        headers = next(reader, None)
+        for row in reader:
+            #  v needs to be tested for a float or string
+            data = {}
+            for k, v in zip(headers, row):
+                try:
+                    v = float(v)
+                except ValueError:
+                    pass
+                data[k] = v
+            payload = json.dumps(data)
+            events.append(Event(body=payload, sourcetype=SOURCETYPE,
+                                source=SOURCE, attributes={'index': 'main'}))
+    return events
+
+
+def _create_fit_tasks():
+    f1 = FitTask(name="PCA",
+                 algorithm="PCA",
+                 fields=Fields(features=[
+                     "petal_length",
+                     "petal_width",
+                     "sepal_length",
+                     "sepal_width"],
+                     target="",
+                     created=[
+                         "PC_1",
+                         "PC_2",
+                         "PC_3"]
+                 ),
+                 output_transformer="PCA_model",
+                 parameters={"k": 3})
+
+    f2 = FitTask(name="RandomForestClassifier",
+                 algorithm="RandomForestClassifier",
+                 fields=Fields(features=[
+                      "PC_1",
+                      "PC_2",
+                      "PC_3"],
+                     target="species",
+                     created=["predicted(species)"]),
+                 output_transformer="RFC_model",
+                 parameters={"n_estimators": 25,
+                             "max_depth": 10,
+                             "min_samples_split": 5,
+                             "max_features": "auto",
+                             "criterion": "gini"})
+    return [f1, f2]
 
 
 def _create_workflow_build():
-    return WorkflowBuild(input=InputData(kind='SPL',
-                                         source=SPL(module=module,
-                                                    query=build_spl,
-                                                    extract_all_fields=True,
-                                                    query_parameters={
-                                                        "earliest": "0",
-                                                        "latest": "now"},
-                                                    )))
+    return WorkflowBuild(name="test_workflowBuild",
+                         input=InputData(kind='RawData',
+                                         source=RawData(data=Base64_DATA)))
 
 
 def _create_workflow_run():
-    return WorkflowRun(input=InputData(kind='SPL',
-                                       source=SPL(module=module,
-                                                  query=run_spl,
-                                                  extract_all_fields=True,
-                                                  query_parameters={
-                                                      "earliest": "0",
-                                                      "latest": "now"})),
-                       output=OutputData(kind='Events',
-                                         destination=Events(
-                                             attributes={
-                                                 "index": "mlapishowcase",
-                                                 "module": "mlapishowcase",
-                                             },
-                                             source="mlapi-showcase",
-                                             host=host_out)))
+    return WorkflowRun(name="test_workflowRun",
+                       input=InputData(kind='RawData',
+                                       source=RawData(data=Base64_DATA)),
+                       output=OutputData(kind='S3',
+                                         destination=OutputDataDestination(
+                                             key="iris.csv")))
+
+
+@pytest.mark.usefixtures('test_client_ml')  # NOQA
+def test_ingest_ml(test_client_ml):
+    ingest = IngestAPI(test_client_ml)
+    events = _parse_csv(ML_DATA_FILE)
+
+    def chunks(l, n):
+        """Yield successive n-sized chunks from l."""
+        for i in range(0, len(l), n):
+            yield l[i:i + n]
+
+    events_packets = chunks(events, 1000)
+
+    for packet in events_packets:
+        # this line changes
+        ingest.post_events(packet)
+        time.sleep(1)
 
 
 @pytest.mark.usefixtures('test_client_ml')  # NOQA
@@ -97,8 +139,8 @@ def test_workflow_operations(test_client_ml):
     wd_id = None
     try:
         # create workflow
-        task = _create_fit_task()
-        flow = Workflow(tasks=[task], name="PredictServerPowerConsumption")
+        tasks = _create_fit_tasks()
+        flow = Workflow(tasks=tasks, name="test_workflow")
         _flow = ml.create_workflow(flow)
         assert(_flow is not None)
         assert(isinstance(_flow, Workflow))
@@ -188,7 +230,6 @@ def test_workflow_operations(test_client_ml):
             assert(isinstance(d, WorkflowDeployment))
 
     finally:
-        # TODO(dan): explore retries later, this is failing atm
         # delete workflow deployment
         response = ml.delete_workflow_deployment(id=flow_id, build_id=build_id,
                                                  deployment_id=wd_id).response

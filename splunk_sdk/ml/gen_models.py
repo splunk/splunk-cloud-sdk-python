@@ -1,14 +1,26 @@
+# coding: utf-8
+
 # Copyright © 2019 Splunk, Inc.
+#
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
-# a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+# a copy of the License at
+#
+# [http://www.apache.org/licenses/LICENSE-2.0]
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
 
-############# This file is auto-generated.  Do not edit! #############
+################################################################################
+################################################################################
+###                                                                          ###
+###           This file is auto-generated.  Do not edit!                     ###
+###                                                                          ###
+################################################################################
+################################################################################
 
 """
     SDC Service: Machine Learning Service (ML API)
@@ -44,7 +56,7 @@ class WorkflowValidationOption(SSCModel):
             self._attrs["randomSeed"] = random_seed
         if stratified is not None:
             self._attrs["stratified"] = stratified
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -105,7 +117,7 @@ class CrossValidation(WorkflowValidationOption):
             self._attrs["randomSeed"] = random_seed
         if stratified is not None:
             self._attrs["stratified"] = stratified
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -188,7 +200,7 @@ class DeploymentSpec(SSCModel):
             self._attrs["memoryRequest"] = memory_request
         if replicas is not None:
             self._attrs["replicas"] = replicas
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -303,7 +315,7 @@ class Error(SSCModel):
             self._attrs["message"] = message
         if details is not None:
             self._attrs["details"] = details
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -382,7 +394,7 @@ class OutputDataDestination(SSCModel):
             self._attrs["source"] = source
         if sourcetype is not None:
             self._attrs["sourcetype"] = sourcetype
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -481,7 +493,7 @@ class Events(OutputDataDestination):
             self._attrs["source"] = source
         if sourcetype is not None:
             self._attrs["sourcetype"] = sourcetype
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -574,7 +586,7 @@ class ExecutorErrors(SSCModel):
         self._attrs = dict()
         if message is not None:
             self._attrs["message"] = message
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -613,7 +625,7 @@ class ExecutorLogs(SSCModel):
             self._attrs["level"] = level
         if message is not None:
             self._attrs["message"] = message
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -670,7 +682,7 @@ class Fields(SSCModel):
             self._attrs["created"] = created
         if target is not None:
             self._attrs["target"] = target
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -769,7 +781,7 @@ class Task(SSCModel):
             self._attrs["outputTransformer"] = output_transformer
         if parameters is not None:
             self._attrs["parameters"] = parameters
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -899,7 +911,7 @@ class FitTask(Task):
             self._attrs["outputTransformer"] = output_transformer
         if parameters is not None:
             self._attrs["parameters"] = parameters
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1013,7 +1025,7 @@ class InputDataSource(SSCModel):
         """InputDataSource"""
 
         self._attrs = dict()
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     def to_dict(self):
@@ -1048,7 +1060,7 @@ class InputData(SSCModel):
             self._attrs["kind"] = kind
         if source is not None:
             self._attrs["source"] = source.to_dict()
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1119,7 +1131,7 @@ class OutputData(SSCModel):
             self._attrs["destination"] = destination.to_dict()
         if kind is not None:
             self._attrs["kind"] = kind
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1175,7 +1187,7 @@ class RawData(InputDataSource):
         self._attrs = dict()
         if data is not None:
             self._attrs["data"] = data
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1222,7 +1234,7 @@ class SPL(InputDataSource):
             self._attrs["module"] = module
         if query_parameters is not None:
             self._attrs["queryParameters"] = query_parameters
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1331,7 +1343,7 @@ class ScoreReport(SSCModel):
         """ScoreReport"""
 
         self._attrs = dict()
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     def to_dict(self):
@@ -1372,7 +1384,7 @@ class Score(SSCModel):
             self._attrs["kind"] = kind
         if report is not None:
             self._attrs["report"] = report.to_dict()
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1436,7 +1448,7 @@ class TaskSummary(SSCModel):
             self._attrs["name"] = name
         if summary is not None:
             self._attrs["summary"] = summary
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1509,7 +1521,7 @@ class WorkflowValidationScore(SSCModel):
             self._attrs["testScore"] = test_score.to_dict()
         if training_score is not None:
             self._attrs["trainingScore"] = training_score.to_dict()
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1564,7 +1576,7 @@ class TrainTestScore(WorkflowValidationScore):
             self._attrs["testScore"] = test_score.to_dict()
         if training_score is not None:
             self._attrs["trainingScore"] = training_score.to_dict()
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1621,7 +1633,7 @@ class TrainTestSplit(WorkflowValidationOption):
             self._attrs["ratio"] = ratio
         if stratified is not None:
             self._attrs["stratified"] = stratified
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1702,7 +1714,7 @@ class Workflow(SSCModel):
             self._attrs["id"] = id
         if name is not None:
             self._attrs["name"] = name
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1803,7 +1815,7 @@ class WorkflowBuildValidationOption(SSCModel):
             self._attrs["kind"] = kind
         if option is not None:
             self._attrs["option"] = option.to_dict()
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1875,7 +1887,7 @@ class WorkflowBuildValidationScore(SSCModel):
             self._attrs["kind"] = kind
         if score is not None:
             self._attrs["score"] = score.to_dict()
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1979,7 +1991,7 @@ class WorkflowBuild(SSCModel):
             self._attrs["validationScore"] = validation_score.to_dict()
         if workflow is not None:
             self._attrs["workflow"] = workflow.to_dict()
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -2231,7 +2243,7 @@ class WorkflowManagerErrors(SSCModel):
         self._attrs = dict()
         if message is not None:
             self._attrs["message"] = message
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -2276,7 +2288,7 @@ class WorkflowBuildError(SSCModel):
             self._attrs["requestId"] = request_id
         if workflow_manager_errors is not None:
             self._attrs["workflowManagerErrors"] = workflow_manager_errors
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -2383,7 +2395,7 @@ class WorkflowManagerLogs(SSCModel):
             self._attrs["level"] = level
         if message is not None:
             self._attrs["message"] = message
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -2444,7 +2456,7 @@ class WorkflowBuildLog(SSCModel):
             self._attrs["requestId"] = request_id
         if workflow_manager_logs is not None:
             self._attrs["workflowManagerLogs"] = workflow_manager_logs
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -2581,7 +2593,7 @@ class WorkflowDeployment(SSCModel):
             self._attrs["status"] = status
         if workflow_build is not None:
             self._attrs["workflowBuild"] = workflow_build.to_dict()
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -2745,7 +2757,7 @@ class WorkflowDeploymentError(SSCModel):
             self._attrs["requestId"] = request_id
         if workflow_manager_errors is not None:
             self._attrs["workflowManagerErrors"] = workflow_manager_errors
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -2878,7 +2890,7 @@ class WorkflowDeploymentLog(SSCModel):
             self._attrs["requestId"] = request_id
         if workflow_manager_logs is not None:
             self._attrs["workflowManagerLogs"] = workflow_manager_logs
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -3003,7 +3015,7 @@ class WorkflowInference(SSCModel):
             self._attrs["input"] = input
         if output is not None:
             self._attrs["output"] = output
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -3098,7 +3110,7 @@ class WorkflowRun(SSCModel):
             self._attrs["timeoutSecs"] = timeout_secs
         if workflow_build is not None:
             self._attrs["workflowBuild"] = workflow_build.to_dict()
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -3332,7 +3344,7 @@ class WorkflowRunError(SSCModel):
             self._attrs["requestId"] = request_id
         if workflow_manager_errors is not None:
             self._attrs["workflowManagerErrors"] = workflow_manager_errors
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -3465,7 +3477,7 @@ class WorkflowRunLog(SSCModel):
             self._attrs["requestId"] = request_id
         if workflow_manager_logs is not None:
             self._attrs["workflowManagerLogs"] = workflow_manager_logs
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -3592,7 +3604,7 @@ class WorkflowsGetResponse(SSCModel):
             self._attrs["id"] = id
         if name is not None:
             self._attrs["name"] = name
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property

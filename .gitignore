@@ -3,6 +3,7 @@
 .idea
 .vscode
 .context
+.coverage
 .settings
 .sdkrc
 .pytest_cache
