@@ -27,8 +27,8 @@ package:
 
 deploy: package
 	pip install twine
-	echo "Uploading to internal pypi ..."
-	twine upload -s -u "$(SPLUNK_PYPI_USERNAME)" -p "$(SPLUNK_PYPI_PASSWORD)" --repository-url "$(SPLUNK_PYPI_REPO)" dist/*
+#	echo "Uploading to internal pypi ..."
+#	twine upload -s -u "$(SPLUNK_PYPI_USERNAME)" -p "$(SPLUNK_PYPI_PASSWORD)" --repository-url "$(SPLUNK_PYPI_REPO)" dist/*
 ifdef UPLOAD_TO_PYPI
 	echo "Uploading to public pypi ..."
 	twine upload -s -u "$(PYPI_USERNAME)" -p "$(PYPI_PASSWORD)" dist/*
