@@ -1,14 +1,26 @@
+# coding: utf-8
+
 # Copyright © 2019 Splunk, Inc.
+#
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
-# a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+# a copy of the License at
+#
+# [http://www.apache.org/licenses/LICENSE-2.0]
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
 
-############# This file is auto-generated.  Do not edit! #############
+################################################################################
+################################################################################
+###                                                                          ###
+###           This file is auto-generated.  Do not edit!                     ###
+###                                                                          ###
+################################################################################
+################################################################################
 
 """
     SDC Service: Splunk Search Service
@@ -60,7 +72,7 @@ class SingleFieldSummary(SSCModel):
             self._attrs["relevant"] = relevant
         if stddev is not None:
             self._attrs["stddev"] = stddev
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -265,7 +277,7 @@ class SingleValueMode(SSCModel):
             self._attrs["isExact"] = is_exact
         if value is not None:
             self._attrs["value"] = value
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -348,7 +360,7 @@ class FieldsSummary(SSCModel):
             self._attrs["fields"] = fields
         if latest_time is not None:
             self._attrs["latestTime"] = latest_time
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -471,7 +483,7 @@ class ListSearchResultsResponseFields(SSCModel):
             self._attrs["splitbySpecial"] = splitby_special
         if type_special is not None:
             self._attrs["typeSpecial"] = type_special
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -626,7 +638,7 @@ class Message(SSCModel):
             self._attrs["text"] = text
         if type is not None:
             self._attrs["type"] = type
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -690,7 +702,7 @@ class ListSearchResultsResponse(SSCModel):
             self._attrs["nextLink"] = next_link
         if wait is not None:
             self._attrs["wait"] = wait
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -799,7 +811,7 @@ class QueryParameters(SSCModel):
             self._attrs["relativeTimeAnchor"] = relative_time_anchor
         if timezone is not None:
             self._attrs["timezone"] = timezone
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -946,7 +958,7 @@ class SearchJob(SSCModel):
             self._attrs["sid"] = sid
         if status is not None:
             self._attrs["status"] = status
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1320,7 +1332,7 @@ class SingleTimeBucket(SSCModel):
             self._attrs["isFinalized"] = is_finalized
         if total_count is not None:
             self._attrs["totalCount"] = total_count
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1453,7 +1465,7 @@ class TimeBucketsSummary(SSCModel):
             self._attrs["cursorTime"] = cursor_time
         if event_count is not None:
             self._attrs["eventCount"] = event_count
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1556,7 +1568,7 @@ class UpdateJob(SSCModel):
         self._attrs = dict()
         if status is not None:
             self._attrs["status"] = status
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property

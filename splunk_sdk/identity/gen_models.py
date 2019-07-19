@@ -1,14 +1,26 @@
+# coding: utf-8
+
 # Copyright © 2019 Splunk, Inc.
+#
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
-# a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+# a copy of the License at
+#
+# [http://www.apache.org/licenses/LICENSE-2.0]
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
 
-############# This file is auto-generated.  Do not edit! #############
+################################################################################
+################################################################################
+###                                                                          ###
+###           This file is auto-generated.  Do not edit!                     ###
+###                                                                          ###
+################################################################################
+################################################################################
 
 """
     SDC Service: Identity and Access Control
@@ -42,7 +54,7 @@ class AddGroupMemberBody(SSCModel):
         self._attrs = dict()
         if name is not None:
             self._attrs["name"] = name
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -81,7 +93,7 @@ class AddGroupRoleBody(SSCModel):
         self._attrs = dict()
         if name is not None:
             self._attrs["name"] = name
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -120,7 +132,7 @@ class AddMemberBody(SSCModel):
         self._attrs = dict()
         if name is not None:
             self._attrs["name"] = name
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -157,7 +169,7 @@ class AddRolePermissionBody(SSCModel):
         """AddRolePermissionBody"""
 
         self._attrs = dict()
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     def to_dict(self):
@@ -178,7 +190,7 @@ class CreateGroupBody(SSCModel):
         self._attrs = dict()
         if name is not None:
             self._attrs["name"] = name
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -217,7 +229,7 @@ class CreateRoleBody(SSCModel):
         self._attrs = dict()
         if name is not None:
             self._attrs["name"] = name
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -266,7 +278,7 @@ class Group(SSCModel):
             self._attrs["roleCount"] = role_count
         if tenant is not None:
             self._attrs["tenant"] = tenant
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -403,7 +415,7 @@ class GroupMember(SSCModel):
             self._attrs["principal"] = principal
         if tenant is not None:
             self._attrs["tenant"] = tenant
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -522,7 +534,7 @@ class GroupRole(SSCModel):
             self._attrs["role"] = role
         if tenant is not None:
             self._attrs["tenant"] = tenant
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -635,7 +647,7 @@ class PrincipalProfile(SSCModel):
             self._attrs["email"] = email
         if full_name is not None:
             self._attrs["fullName"] = full_name
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -696,7 +708,7 @@ class Member(SSCModel):
             self._attrs["tenant"] = tenant
         if profile is not None:
             self._attrs["profile"] = profile.to_dict()
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -833,7 +845,7 @@ class Principal(SSCModel):
             self._attrs["updatedBy"] = updated_by
         if profile is not None:
             self._attrs["profile"] = profile.to_dict()
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1005,7 +1017,7 @@ class Role(SSCModel):
             self._attrs["name"] = name
         if tenant is not None:
             self._attrs["tenant"] = tenant
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1106,7 +1118,7 @@ class RolePermission(SSCModel):
             self._attrs["role"] = role
         if tenant is not None:
             self._attrs["tenant"] = tenant
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1247,7 +1259,7 @@ class Tenant(SSCModel):
             self._attrs["name"] = name
         if status is not None:
             self._attrs["status"] = status
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -1349,7 +1361,7 @@ class ValidateInfo(SSCModel):
             self._attrs["principal"] = principal.to_dict()
         if tenant is not None:
             self._attrs["tenant"] = tenant.to_dict()
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property

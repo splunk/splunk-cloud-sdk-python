@@ -1,14 +1,26 @@
+# coding: utf-8
+
 # Copyright © 2019 Splunk, Inc.
+#
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
-# a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+# a copy of the License at
+#
+# [http://www.apache.org/licenses/LICENSE-2.0]
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
 
-############# This file is auto-generated.  Do not edit! #############
+################################################################################
+################################################################################
+###                                                                          ###
+###           This file is auto-generated.  Do not edit!                     ###
+###                                                                          ###
+################################################################################
+################################################################################
 
 """
     SDC Service: Splunk Forwarder Service
@@ -42,7 +54,7 @@ class Certificate(SSCModel):
         self._attrs = dict()
         if pem is not None:
             self._attrs["pem"] = pem
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -93,7 +105,7 @@ class CertificateInfo(SSCModel):
             self._attrs["slot"] = slot
         if subject is not None:
             self._attrs["subject"] = subject
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -246,7 +258,7 @@ class Error(SSCModel):
             self._attrs["details"] = details
         if message is not None:
             self._attrs["message"] = message
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property

@@ -1,14 +1,26 @@
+# coding: utf-8
+
 # Copyright © 2019 Splunk, Inc.
+#
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
-# a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+# a copy of the License at
+#
+# [http://www.apache.org/licenses/LICENSE-2.0]
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
 
-############# This file is auto-generated.  Do not edit! #############
+################################################################################
+################################################################################
+###                                                                          ###
+###           This file is auto-generated.  Do not edit!                     ###
+###                                                                          ###
+################################################################################
+################################################################################
 
 """
     SDC Service: Ingest API
@@ -46,7 +58,7 @@ class Error(SSCModel):
             self._attrs["details"] = details
         if message is not None:
             self._attrs["message"] = message
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -129,7 +141,7 @@ class Event(SSCModel):
             self._attrs["sourcetype"] = sourcetype
         if timestamp is not None:
             self._attrs["timestamp"] = timestamp
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -300,7 +312,7 @@ class HTTPResponse(SSCModel):
             self._attrs["details"] = details
         if message is not None:
             self._attrs["message"] = message
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -377,7 +389,7 @@ class Metric(SSCModel):
             self._attrs["unit"] = unit
         if value is not None:
             self._attrs["value"] = value
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -494,7 +506,7 @@ class MetricAttribute(SSCModel):
             self._attrs["defaultType"] = default_type
         if default_unit is not None:
             self._attrs["defaultUnit"] = default_unit
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
@@ -583,7 +595,7 @@ class MetricEvent(SSCModel):
             self._attrs["sourcetype"] = sourcetype
         if timestamp is not None:
             self._attrs["timestamp"] = timestamp
-        for k, v in extra:
+        for k, v in extra.items():
             self._attrs[k] = v
 
     @property
