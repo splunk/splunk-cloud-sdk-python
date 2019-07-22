@@ -186,7 +186,7 @@ class KVStoreAPI(BaseService):
         response = self.base_client.get(url, **query_params)
         return handle_response(response, IndexDefinition)
 
-    def list_records(self, collection: str, count: int = None, fields: List[str] = None, offset: int = None, orderby: List[str] = None) -> List[object]:
+    def list_records(self, collection: str, count: int = None, fields: List[str] = None, filters: object = None, offset: int = None, orderby: List[str] = None) -> List[object]:
         """
         Returns a list of records in a collection with basic filtering, sorting, pagination and field projection.
         """
@@ -195,6 +195,8 @@ class KVStoreAPI(BaseService):
             query_params['count'] = count
         if fields is not None:
             query_params['fields'] = fields
+        if filters is not None:
+            query_params['filters'] = filters
         if offset is not None:
             query_params['offset'] = offset
         if orderby is not None:

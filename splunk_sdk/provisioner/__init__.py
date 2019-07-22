@@ -42,6 +42,10 @@ from splunk_sdk.provisioner.gen_provisioner_api import Provisioner
 # import models into sdk package
 from splunk_sdk.provisioner.gen_models import CreateProvisionJobBody, \
     Error, \
+    InviteBody, \
+    InviteInfoErrorsItems, \
+    InviteInfo, \
     ProvisionJobInfoErrorsItems, \
     ProvisionJobInfo, \
-    TenantInfo
+    TenantInfo, \
+    UpdateInviteBody

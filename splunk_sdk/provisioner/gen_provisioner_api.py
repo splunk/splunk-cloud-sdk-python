@@ -42,8 +42,11 @@ from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
 from splunk_sdk.provisioner.gen_models import CreateProvisionJobBody
 from splunk_sdk.provisioner.gen_models import Error
+from splunk_sdk.provisioner.gen_models import InviteBody
+from splunk_sdk.provisioner.gen_models import InviteInfo
 from splunk_sdk.provisioner.gen_models import ProvisionJobInfo
 from splunk_sdk.provisioner.gen_models import TenantInfo
+from splunk_sdk.provisioner.gen_models import UpdateInviteBody
 
 
 class Provisioner(BaseService):
@@ -55,6 +58,21 @@ class Provisioner(BaseService):
 
     def __init__(self, base_client):
         super().__init__(base_client)
+
+    def create_invite(self, invite_body: InviteBody) -> InviteInfo:
+        """
+        Creates an invite to invite a person to the tenant using their email address
+        """
+        query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/provisioner/v1beta1/invites").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = invite_body.to_dict()
+        response = self.base_client.post(url, json=data, **query_params)
+        return handle_response(response, InviteInfo)
 
     def create_provision_job(self, create_provision_job_body: CreateProvisionJobBody) -> ProvisionJobInfo:
         """
@@ -70,6 +88,36 @@ class Provisioner(BaseService):
         data = create_provision_job_body.to_dict()
         response = self.base_client.post(url, json=data, **query_params)
         return handle_response(response, ProvisionJobInfo)
+
+    def delete_invite(self, invite_id: str) -> SSCVoidModel:
+        """
+        Deletes an invite in the given tenant
+        """
+        query_params = {}
+
+        path_params = {
+            "inviteId": invite_id,
+        }
+
+        path = Template("/provisioner/v1beta1/invites/${inviteId}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.delete(url, **query_params)
+        return handle_response(response, )
+
+    def get_invite(self, invite_id: str) -> InviteInfo:
+        """
+        Gets an invite in the given tenant
+        """
+        query_params = {}
+
+        path_params = {
+            "inviteId": invite_id,
+        }
+
+        path = Template("/provisioner/v1beta1/invites/${inviteId}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, **query_params)
+        return handle_response(response, InviteInfo)
 
     def get_provision_job(self, job_id: str) -> ProvisionJobInfo:
         """
@@ -101,6 +149,20 @@ class Provisioner(BaseService):
         response = self.base_client.get(url, **query_params)
         return handle_response(response, TenantInfo)
 
+    def list_invites(self) -> List[InviteInfo]:
+        """
+        Lists the invites in a given tenant
+        """
+        query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/provisioner/v1beta1/invites").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, **query_params)
+        return handle_response(response, InviteInfo)
+
     def list_provision_jobs(self) -> List[ProvisionJobInfo]:
         """
         Lists all provision jobs created by the user
@@ -128,5 +190,21 @@ class Provisioner(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, **query_params)
         return handle_response(response, TenantInfo)
+
+    def update_invite(self, invite_id: str, update_invite_body: UpdateInviteBody) -> InviteInfo:
+        """
+        Updates an invite in the given tenant
+        """
+        query_params = {}
+
+        path_params = {
+            "inviteId": invite_id,
+        }
+
+        path = Template("/provisioner/v1beta1/invites/${inviteId}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = update_invite_body.to_dict()
+        response = self.base_client.patch(url, json=data, **query_params)
+        return handle_response(response, InviteInfo)
 
 
