@@ -2,6 +2,7 @@
 .venv
 .idea
 .vscode
+.cache
 .context
 .coverage
 .settings
@@ -9,6 +10,7 @@
 .pytest_cache
 .tox
 config.yaml
+coverage.xml
 dist/
 doc/build
 doc/source/reference/api
