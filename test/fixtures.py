@@ -13,8 +13,7 @@ import os
 import pytest
 import sys
 
-from splunk_sdk.auth.client_auth_manager import ClientAuthManager
-from splunk_sdk.auth.pkce_auth_manager import PKCEAuthManager
+from splunk_sdk.auth import ClientAuthManager, PKCEAuthManager
 from splunk_sdk.common.context import Context
 from splunk_sdk.base_client import get_client
 
@@ -37,7 +36,7 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def get_test_client():
     context = Context(host=os.environ.get('SPLUNK_HOST'),
                       api_host=os.environ.get('SPLUNK_HOST'),
@@ -51,7 +50,7 @@ def get_test_client():
     return service_client
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def get_test_client_ml():
     context = Context(host=os.environ.get('SPLUNK_HOST'),
                       api_host=os.environ.get('SPLUNK_HOST'),
@@ -65,7 +64,7 @@ def get_test_client_ml():
     return service_client
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def get_auth_manager():
     # Note: leaving this so we don't create too many merge conflicts
     auth_manager = _get_pkce_manager()
@@ -73,7 +72,7 @@ def get_auth_manager():
     return auth_manager
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def get_client_auth_manager():
     auth_manager = _get_client_manager()
     assert (auth_manager is not None)

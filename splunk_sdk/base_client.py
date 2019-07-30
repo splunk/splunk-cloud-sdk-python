@@ -37,6 +37,7 @@ def log_http(fn):
     :param fn:
     :return:
     """
+
     @wraps(fn)
     def _wrapper(self, *args, **kwargs):
         if not self.context.debug:
@@ -61,6 +62,7 @@ def preprocess_body(fn):
     :param fn:
     :return:
     """
+
     @wraps(fn)
     def _wrapper(self, *args, **kwargs):
         json = kwargs.get('json', None)
@@ -90,11 +92,16 @@ class BaseClient(object):
             'Content-Type': 'application/json'})
         self._session.headers.update({
             'Splunk-Client': 'client-python/{}'.format(__version__)})
-        self.auth_context = auth_manager.authenticate()
+        self._auth_manager = auth_manager
 
-        if self.auth_context:
+    def update_auth(self):
+        if self._auth_manager:
             self._session.headers.update({
-                'Authorization': "Bearer %s" % self.auth_context.access_token})
+                'Authorization': "Bearer %s" % self._auth_manager.context.access_token})
+
+    @property
+    def auth_manager(self) -> AuthManager:
+        return self._auth_manager
 
     @log_http
     def get(self, url: str, **kwargs) -> requests.Response:
@@ -104,6 +111,7 @@ class BaseClient(object):
         :param kwargs:
         :return:
         """
+        self.update_auth()
         # Params are used for querystring vars
         return self._session.get(url, params=kwargs)
 
@@ -115,6 +123,7 @@ class BaseClient(object):
         :param kwargs:
         :return:
         """
+        self.update_auth()
         return self._session.options(url, **kwargs)
 
     @log_http
@@ -125,6 +134,7 @@ class BaseClient(object):
         :param kwargs:
         :return:
         """
+        self.update_auth()
         return self._session.head(url, **kwargs)
 
     @log_http
@@ -138,6 +148,7 @@ class BaseClient(object):
         :param kwargs:
         :return:
         """
+        self.update_auth()
         return self._session.post(url, data, json, **kwargs)
 
     @log_http
@@ -150,6 +161,7 @@ class BaseClient(object):
         :param kwargs:
         :return:
         """
+        self.update_auth()
         return self._session.put(url, data, **kwargs)
 
     @log_http
@@ -162,6 +174,7 @@ class BaseClient(object):
         :param kwargs:
         :return:
         """
+        self.update_auth()
         return self._session.patch(url, data, **kwargs)
 
     @log_http
@@ -172,6 +185,7 @@ class BaseClient(object):
         :param kwargs:
         :return:
         """
+        self.update_auth()
         return self._session.delete(url, **kwargs)
 
     def build_url(self, route: str, **kwargs) -> str:

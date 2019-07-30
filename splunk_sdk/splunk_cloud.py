@@ -42,8 +42,10 @@ class SplunkCloud(object):
     def __init__(self, context: Context, auth_manager: AuthManager):
         """
         Creates a new instance of the SplunkCloud class
-        :param context:
-        :param auth_manager:
+        :param context: a Context object that configures the behavior of the client. Setting 'tenant' will be
+            required in almost all circumstances
+        :param auth_manager: A subclass of AuthManager that contains credentials for connecting to the Splunk Developer
+            Cloud.
         """
         self.base_client = get_client(context, auth_manager)
 

@@ -26,7 +26,7 @@ def test_base_client_instance_with_pkce_auth(pkce_auth_manager):
                              auth_manager=pkce_auth_manager)
     assert (default_config is not None)
     assert (base_client is not None)
-    _assert_pkce_auth_context(base_client.auth_context)
+    _assert_pkce_auth_context(base_client.auth_manager.context)
 
 
 @pytest.mark.usefixtures("client_auth_manager")  # NOQA
@@ -37,4 +37,4 @@ def test_base_client_intance_with_client_auth(client_auth_manager):
                              auth_manager=client_auth_manager)
     assert (default_config is not None)
     assert (base_client is not None)
-    _assert_client_credentials_auth_context(base_client.auth_context)
+    _assert_client_credentials_auth_context(base_client.auth_manager.context)
