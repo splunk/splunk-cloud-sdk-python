@@ -14,13 +14,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-################################################################################
-################################################################################
-###                                                                          ###
-###           This file is auto-generated.  Do not edit!                     ###
-###                                                                          ###
-################################################################################
-################################################################################
+############# This file is auto-generated.  Do not edit! #############
 
 """
     SDC Service: KV Store API
@@ -225,7 +219,7 @@ class KVStoreAPI(BaseService):
         response = self.base_client.get(url, **query_params)
         return handle_response(response, PingResponse)
 
-    def put_record(self, collection: str, key: str, body: object) -> Key:
+    def put_record(self, collection: str, key: str, if_match: str = None, body: object = None) -> Key:
         """
         Updates the record with a given key, either by inserting or replacing the record.
         """

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 # Copyright © 2019 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
@@ -14,13 +12,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-################################################################################
-################################################################################
-###                                                                          ###
-###           This file is auto-generated.  Do not edit!                     ###
-###                                                                          ###
-################################################################################
-################################################################################
+############# This file is auto-generated.  Do not edit! #############
 
 """
     SDC Service: App Registry

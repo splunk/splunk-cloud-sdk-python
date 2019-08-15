@@ -10,7 +10,6 @@
 import base64
 import hashlib
 import json
-import logging
 import os
 import urllib
 import time
@@ -36,8 +35,6 @@ HEADERS_URLENCODED = {
 DEFAULT_SCOPE = "openid email profile"
 DEFAULT_REFRESH_SCOPE = "openid offline_access email profile"
 
-logger = logging.getLogger(__name__)
-
 
 class AuthnError(Exception):
     def __init__(self, message: str, response: Response):
@@ -49,13 +46,21 @@ class AuthnError(Exception):
         if self._response is not None and self._response.text is not None:
             try:
                 return self._response.json()
-            except:
+            except Exception:
                 return None
 
     @property
     def server_error_description(self) -> Optional[str]:
         """ The message explaining the error from the server (if any)"""
         if self._response_body is not None:
+
+            # FIXME(dan):
+            #   Work around for issue with IAC returning non-consistent keys
+            #   There is a bug filed already
+            error_desc = self._response_body.get("error_description", None)
+            if error_desc is not None:
+                return error_desc
+
             return self._response_body.get("description")
 
     @property

@@ -28,15 +28,9 @@ def _create_ds_name(name: str) -> str:
     return "pyintegds{}_{}".format(name, _randint())
 
 
-@pytest.fixture(scope="session")
 @pytest.mark.usefixtures("test_client")  # NOQA
-def catalog(test_client: BaseClient) -> MetadataCatalog:
-    test_client.context.debug = True
-    return MetadataCatalog(test_client)
-
-
-@pytest.mark.usefixtures("catalog")  # NOQA
-def test_create_delete_index_and_import(catalog: MetadataCatalog):
+def test_create_delete_index_and_import(test_client: BaseClient):
+    catalog = MetadataCatalog(test_client)
     name = _create_ds_name("py_cr_idx")
     idx = catalog.create_dataset(IndexDatasetPOST(name=name, disabled=False))
     assert (name == idx.name)
@@ -49,22 +43,25 @@ def test_create_delete_index_and_import(catalog: MetadataCatalog):
     catalog.delete_dataset(name)
 
 
-@pytest.mark.usefixtures("catalog")  # NOQA
-def test_retrieve_datasets(catalog: MetadataCatalog):
+@pytest.mark.usefixtures("test_client")  # NOQA
+def test_retrieve_datasets(test_client: BaseClient):
+    catalog = MetadataCatalog(test_client)
     datasets = catalog.list_datasets()
     assert (len(datasets) > 0)
     assert (len(datasets[0].kind) > 0)
 
 
-@pytest.mark.usefixtures("catalog")  # NOQA
-def test_retreive_datasets_with_filter(catalog: MetadataCatalog):
+@pytest.mark.usefixtures("test_client")  # NOQA
+def test_retreive_datasets_with_filter(test_client: BaseClient):
+    catalog = MetadataCatalog(test_client)
     datasets = catalog.list_datasets(filter='kind=="index"')
     assert (len(datasets) > 0)
     assert (datasets[0].kind == "index")
 
 
-@pytest.mark.usefixtures("catalog")  # NOQA
-def test_create_list_delete_rule(catalog: MetadataCatalog):
+@pytest.mark.usefixtures("test_client")  # NOQA
+def test_create_list_delete_rule(test_client: BaseClient):
+    catalog = MetadataCatalog(test_client)
     rule_name = _create_ds_name("py_cr_rule")
     rule = catalog.create_rule(RulePOST(name=rule_name, match="sourcetype::integration_test_match"))
     assert (rule.name == rule_name)
@@ -77,8 +74,9 @@ def test_create_list_delete_rule(catalog: MetadataCatalog):
     assert (len(rules) == 0)
 
 
-@pytest.mark.usefixtures("catalog")  # NOQA
-def test_dataset_fields(catalog: MetadataCatalog):
+@pytest.mark.usefixtures("test_client")  # NOQA
+def test_dataset_fields(test_client: BaseClient):
+    catalog = MetadataCatalog(test_client)
     int_test_field_1 = "integ_test_field1"
     int_test_field_2 = "integ_test_field2"
     lookup_name = _create_ds_name("py_cr_lookup")

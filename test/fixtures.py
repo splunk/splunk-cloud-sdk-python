@@ -36,7 +36,7 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def get_test_client():
     context = Context(host=os.environ.get('SPLUNK_HOST'),
                       api_host=os.environ.get('SPLUNK_HOST'),
@@ -50,7 +50,7 @@ def get_test_client():
     return service_client
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def get_test_client_ml():
     context = Context(host=os.environ.get('SPLUNK_HOST'),
                       api_host=os.environ.get('SPLUNK_HOST'),
@@ -64,7 +64,21 @@ def get_test_client_ml():
     return service_client
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
+def get_test_client_provisioner():
+    context = Context(host=os.environ.get('SPLUNK_HOST'),
+                      api_host=os.environ.get('SPLUNK_HOST'),
+                      tenant='system',
+                      debug=os.environ.get(
+                          'SPLUNK_DEBUG', 'false').lower().strip() == 'true')
+
+    # integration tests use pkce by default
+    service_client = get_client(context, _get_pkce_manager())
+    assert (service_client is not None)
+    return service_client
+
+
+@pytest.fixture(scope='session')
 def get_auth_manager():
     # Note: leaving this so we don't create too many merge conflicts
     auth_manager = _get_pkce_manager()
@@ -72,7 +86,7 @@ def get_auth_manager():
     return auth_manager
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def get_client_auth_manager():
     auth_manager = _get_client_manager()
     assert (auth_manager is not None)

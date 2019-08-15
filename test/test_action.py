@@ -22,10 +22,6 @@ from splunk_sdk.base_client import BaseClient, HTTPError
 from splunk_sdk.common.sscmodel import SSCModel
 
 
-def setup_module(module):
-    print("setting up module")
-
-
 class Event(SSCModel):
 
     def __init__(self):

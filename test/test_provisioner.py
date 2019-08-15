@@ -12,26 +12,21 @@ import pytest
 
 from splunk_sdk.base_client import BaseClient, HTTPError
 from splunk_sdk.provisioner import Provisioner, CreateProvisionJobBody
-from test.fixtures import get_test_client as test_client  # NOQA
+from test.fixtures import get_test_client_provisioner as test_client  # NOQA
 
 
-@pytest.fixture(scope="session")
 @pytest.mark.usefixtures("test_client")  # NOQA
-def provisioner(test_client: BaseClient) -> Provisioner:
-    test_client.context.debug = True
-    return Provisioner(test_client)
-
-
-@pytest.mark.usefixtures("provisioner")  # NOQA
-def test_invalid_create_job(provisioner: Provisioner):
+def test_invalid_create_job(test_client: BaseClient):
+    provisioner = Provisioner(test_client)
     with pytest.raises(HTTPError) as excinfo:
         provisioner.create_provision_job(CreateProvisionJobBody(tenant="splunk"))
     err = excinfo.value
     assert(err is not None)
 
 
-@pytest.mark.usefixtures("provisioner")  # NOQA
-def test_invalid_get_provision_job(provisioner: Provisioner):
+@pytest.mark.usefixtures("test_client")  # NOQA
+def test_invalid_get_provision_job(test_client: BaseClient):
+    provisioner = Provisioner(test_client)
     with pytest.raises(HTTPError) as excinfo:
         provisioner.get_provision_job(-1)
 
@@ -40,21 +35,24 @@ def test_invalid_get_provision_job(provisioner: Provisioner):
     assert(err.code == "NotFound")
 
 
-@pytest.mark.usefixtures("provisioner")  # NOQA
-def test_list_provision_jobs(provisioner: Provisioner):
+@pytest.mark.usefixtures("test_client")  # NOQA
+def test_list_provision_jobs(test_client: BaseClient):
+    provisioner = Provisioner(test_client)
     jobs = provisioner.list_provision_jobs()
     assert(len(jobs) == 0)
 
 
-@pytest.mark.usefixtures("provisioner")  # NOQA
-def test_get_tenant(provisioner: Provisioner):
+@pytest.mark.usefixtures("test_client")  # NOQA
+def test_get_tenant(test_client: BaseClient):
+    provisioner = Provisioner(test_client)
     tenant_name = "testprovisionersdks"
     tenant = provisioner.get_tenant(tenant_name)
     assert(tenant.name == tenant_name)
 
 
-@pytest.mark.usefixtures("provisioner")  # NOQA
-def test_list_tenants(provisioner: Provisioner):
+@pytest.mark.usefixtures("test_client")  # NOQA
+def test_list_tenants(test_client: BaseClient):
+    provisioner = Provisioner(test_client)
     tenant_name = "testprovisionersdks"
     tenants = provisioner.list_tenants()
     [t] = [t for t in tenants if t.name == tenant_name]

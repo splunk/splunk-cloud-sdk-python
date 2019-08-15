@@ -13,6 +13,7 @@ def test_pkce_authenticate(pkce_auth_manager):
 
 @pytest.mark.usefixtures('pkce_auth_manager')  # NOQA
 def test_auth_error_properties(pkce_auth_manager):
+    save_passwd = pkce_auth_manager._password
     pkce_auth_manager._password = 'WRONG'
     try:
         pkce_auth_manager.authenticate()
@@ -23,6 +24,8 @@ def test_auth_error_properties(pkce_auth_manager):
         assert (err.server_error_description is not None)
         assert (err.request_id != "")
         assert (err.request_id is not None)
+    finally:
+        pkce_auth_manager._password = save_passwd
 
 
 @pytest.mark.usefixtures('client_auth_manager')  # NOQA
