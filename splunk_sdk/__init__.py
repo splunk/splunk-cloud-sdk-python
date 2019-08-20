@@ -1,3 +1,5 @@
+# coding: utf-8
+
 # Copyright © 2019 Splunk, Inc.
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -10,4 +12,3 @@
 
 from splunk_sdk.common import Context
 from splunk_sdk.__version__ import __version__
-

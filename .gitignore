@@ -15,6 +15,7 @@ dist/
 doc/build
 doc/source/reference/api
 splunk_cloud_sdk_python.egg-info/
+splunk_cloud_sdk.egg-info/
 sdkrc
 sdkrc.encrypted
 .python-version

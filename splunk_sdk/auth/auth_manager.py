@@ -1,3 +1,5 @@
+# coding: utf-8
+
 # Copyright © 2019 Splunk, Inc.
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -371,14 +373,15 @@ class PKCEAuthManager(AuthManager):
         return AuthContext(**response.json())
 
 
-class TokenAuthManager(object):
+class TokenAuthManager(AuthManager):
     """
     TokenAuthManager is used for when you have a token that is obtained from a source other than the SDK. When the
     token expires, there is no way to refresh it.
     """
 
-    def __init__(self, access_token, token_type='Bearer', expires_in=None,
+    def __init__(self, host, client_id, access_token, token_type='Bearer', expires_in=None,
                  scope=None, id_token=None, refresh_token=None):
+        super().__init__(host, client_id)
         self.access_token = access_token
         self.token_type = token_type
         self.expires_in = expires_in
