@@ -1,3 +1,5 @@
+# coding: utf-8
+
 # Copyright © 2019 Splunk, Inc.
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -374,7 +376,7 @@ class PKCEAuthManager(AuthManager):
         return AuthContext(**response.json())
 
 
-class TokenAuthManager(object):
+class TokenAuthManager(AuthManager):
     """
     TokenAuthManager is used for when you have a token that is obtained from a source other than the SDK. When the
     token expires, there is no way to refresh it.
