@@ -8,6 +8,17 @@ Sign up here: https://si.scp.splunk.com/.
 ## Terms of Service (TOS)
 [Splunk Cloud Terms of Service](https://www.splunk.com/en_us/legal/terms/splunk-cloud-pre-release-terms-of-service.html)
 
+## Install the Splunk Cloud SDK for Python
+
+To install the Splunk Cloud SDK for Python and its dependencies, run the following pip command: 
+
+```
+pip install splunk-cloud-sdk 
+```
+
+For more about installing the pip package installer, see the [PyPA](https://pypi.org/project/pip/) website.
+
+
 ## Get started
 
 The `SplunkCloud` class is the main entry point to the Splunk Cloud SDK for Python.

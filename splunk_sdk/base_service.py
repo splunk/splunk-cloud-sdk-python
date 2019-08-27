@@ -10,7 +10,7 @@
 
 class BaseService(object):
     """
-    Base class for all SDC services
+    The BaseService class is a base class for all Splunk Cloud services.
     """
 
     def __init__(self, client):

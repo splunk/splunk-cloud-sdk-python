@@ -10,6 +10,7 @@
 
 
 class Spec(object):
+    """The Spec class TODO DOCS."""
 
     def __init__(self, name=None, links=None):
         self._name = name

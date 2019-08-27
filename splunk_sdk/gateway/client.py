@@ -17,22 +17,23 @@ GATEWAY_SPECS = '/urls.json'
 
 
 class Gateway(BaseService):
+    """The Gateway class TODO DOCS."""
 
     def __init__(self, base_client):
         super().__init__(base_client)
 
     def list_specs(self):
-        """Returns raw response."""
+        """Returns a raw response."""
         url = self.base_client.build_url(GATEWAY_SPECS, omit_tenant=True)
         response = self.base_client.get(url)
         return handle_response(response, Spec, key='urls')
 
     def get_service_names(self):
-        """Return all the service names"""
+        """Returns all Splunk Cloud service names."""
         return [spec.name for spec in self.list_specs()]
 
     def get_spec_url(self, name, link='yaml3'):
-        """Return the spec url for a given service name"""
+        """Return the API specification URL for a given service name."""
         specs = self.list_specs()
         for s in specs:
             if name == s.name:
@@ -40,6 +41,6 @@ class Gateway(BaseService):
                                                   omit_tenant=True)
 
     def get_spec(self, name, link='yaml3'):
-        """Download the spec file"""
+        """Downloads the API specification file for a given service name."""
         # TODO(dan): need to set accept header
         return self.base_client.get(self.get_spec_url(name, link=link))

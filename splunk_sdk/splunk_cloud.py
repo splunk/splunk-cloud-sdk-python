@@ -32,11 +32,11 @@ from splunk_sdk.ml.gen_machine_learning_service__ml_api_api import \
 
 class SplunkCloud(object):
     """
-    SplunkCloud ties together all services provided by Splunk SDC. This is the easiest and most straightforward place to
-    get starting with the Splunk Developer Cloud.
+    The SplunkCloud class ties all of the Splunk Cloud services together.
+    Use this class to get started with the Splunk Cloud Platform.
 
-    To create the client, simply provide a Context object with your tenant supplied and an AuthManager containing the
-    appropriate app credentials.
+    To create the client, provide a `Context` object with your tenant and an `AuthManager`
+    object containing the appropriate app credentials.
     """
 
     def __init__(self, context: Context, auth_manager: AuthManager):

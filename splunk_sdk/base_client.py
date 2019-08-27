@@ -9,7 +9,7 @@
 # under the License.
 
 """
-This package defines base functionality for making requests from Splunk SDC services.
+This package defines base functionality for making requests from Splunk Cloud services.
 """
 
 import requests
@@ -32,10 +32,11 @@ logger = logging.getLogger(__name__)
 
 def log_http(fn):
     """
-    Decorates requests to log the request and response if debugging is enabled on the underlying client context.
-    To log requests, simply set `debug=True` when creating your initial SDK context.
-    :param fn:
-    :return:
+    Decorates requests to log the request and response when debugging is enabled 
+    on the underlying client context.\n
+    To log requests, set `debug=True` when creating your initial SDK context.
+    :param fn: TODO DOCS
+    :return: TODO DOCS
     """
 
     @wraps(fn)
@@ -58,9 +59,9 @@ def log_http(fn):
 
 def preprocess_body(fn):
     """
-    Internal decorator for serializing and deserializing SSCModel objects.  Should not be used directly.
-    :param fn:
-    :return:
+    Internal decorator for serializing and deserializing SSCModel objects. Do not use this function directly.
+    :param fn: TODO DOCS
+    :return: TODO DOCS
     """
 
     @wraps(fn)
@@ -76,9 +77,9 @@ def preprocess_body(fn):
 
 class BaseClient(object):
     """
-    BaseClient encapsulates conventions, authorization, and URL handling to make basic requests against SDC. For the
-    most part this class is an implementation detail, but it can be used as an 'escape hatch' of sorts if some SDC
-    feature is not implemented in the SDK.
+    The BaseClient class encapsulates conventions, authorization, and URL handling 
+    to make basic requests against the Splunk Cloud Platform. You can use this class
+    to access a feature that has not implemented in the SDK.\n
 
     Example:
         bc = BaseClient(Context(tenant="mytenant"), authManager)
@@ -106,10 +107,10 @@ class BaseClient(object):
     @log_http
     def get(self, url: str, **kwargs) -> requests.Response:
         """
-        Issues a GET request to the supplied path.  Manages auth and setting appropriate headers
-        :param url:
-        :param kwargs:
-        :return:
+        Issues a GET request to the specified path, manages authorization, and sets headers.
+        :param url: TODO DOCS
+        :param kwargs: TODO DOCS
+        :return: TODO DOCS
         """
         self.update_auth()
         # Params are used for querystring vars
@@ -118,10 +119,10 @@ class BaseClient(object):
     @log_http
     def options(self, url: str, **kwargs) -> requests.Response:
         """
-        Issues a OPTIONS request to the supplied path.  Manages auth and setting appropriate headers
-        :param url:
-        :param kwargs:
-        :return:
+        Issues an OPTIONS request to the specified path, manages authorization, and sets headers.
+        :param url: TODO DOCS
+        :param kwargs: TODO DOCS
+        :return: TODO DOCS
         """
         self.update_auth()
         return self._session.options(url, **kwargs)
@@ -129,10 +130,10 @@ class BaseClient(object):
     @log_http
     def head(self, url, **kwargs) -> requests.Response:
         """
-        Issues a HEAD request to the supplied path.  Manages auth and setting appropriate headers
-        :param url:
-        :param kwargs:
-        :return:
+        Issues a HEAD request to the specified path, manages authorization, and sets headers.
+        :param url: TODO DOCS
+        :param kwargs: TODO DOCS
+        :return: TODO DOCS
         """
         self.update_auth()
         return self._session.head(url, **kwargs)
@@ -141,12 +142,12 @@ class BaseClient(object):
     @preprocess_body
     def post(self, url, data=None, json=None, **kwargs) -> requests.Response:
         """
-        Issues a POST request to the supplied path.  Manages auth and setting appropriate headers
-        :param url:
-        :param data:
-        :param json:
-        :param kwargs:
-        :return:
+        Issues a POST request to the specified path, manages authorization, and sets headers.
+        :param url: TODO DOCS
+        :param data: TODO DOCS
+        :param json: TODO DOCS
+        :param kwargs: TODO DOCS
+        :return: TODO DOCS
         """
         self.update_auth()
         return self._session.post(url, data, json, **kwargs)
@@ -155,11 +156,11 @@ class BaseClient(object):
     @preprocess_body
     def put(self, url, data=None, **kwargs) -> requests.Response:
         """
-        Issues a PUT request to the supplied path.  Manages auth and setting appropriate headers
-        :param url:
-        :param data:
-        :param kwargs:
-        :return:
+        Issues a PUT request to the specified path, manages authorization, and sets headers.
+        :param url: TODO DOCS
+        :param data: TODO DOCS
+        :param kwargs: TODO DOCS
+        :return: TODO DOCS
         """
         self.update_auth()
         return self._session.put(url, data, **kwargs)
@@ -168,7 +169,7 @@ class BaseClient(object):
     @preprocess_body
     def patch(self, url, data=None, **kwargs) -> requests.Response:
         """
-        Issues a PATCH request to the supplied path.  Manages auth and setting appropriate headers
+        Issues a PATCH request to the specified path, manages authorization, and sets headers.
         :param url:
         :param data:
         :param kwargs:
@@ -180,22 +181,24 @@ class BaseClient(object):
     @log_http
     def delete(self, url: str, **kwargs) -> requests.Response:
         """
-        Issues a DELETE request to the supplied path.  Manages auth and setting appropriate headers
-        :param url:
-        :param kwargs:
-        :return:
+        Issues a DELETE request to the specified path, manages authorization, and sets headers.
+        :param url: TODO DOCS
+        :param kwargs: TODO DOCS
+        :return: TODO DOCS
         """
         self.update_auth()
         return self._session.delete(url, **kwargs)
 
     def build_url(self, route: str, **kwargs) -> str:
         """
-        build_url takes an SDC path template and adds the tenant (if the path does not start with '/system'), adds the
-        configured SDC host, and then applies any kwargs to the path template, returning a full URL that can be passed
-        to get/put/post/patch/delete/options/head.
-        :param route:
-        :param kwargs:
-        :return:
+        Builds a full URL from the specified path template by adding the current
+        tenant (if the path does not start with '/system') and the configured host, 
+        and applying any `kwargs` to the path template. \n
+        You can pass the returned URL to GET, PUT, POST, PATCH, DELETE, OPTIONS, 
+        and HEAD requests.
+        :param route: TODO DOCS
+        :param kwargs: TODO DOCS
+        :return: The full URL.
         """
         url = self.context.scheme + "://" + self.context.host
         if self.context.port is not None and self.context.port != "":
@@ -214,13 +217,14 @@ class BaseClient(object):
 
     def get_tenant(self) -> str:
         """
-        :return: The tenant that this client is configured with
+        Gets the tenant for the current client.
+        :return: The tenant name.
         """
         return self.context.tenant
 
 
 def inflate(data, model, is_collection: bool):
-    """ Handles deserializing response from services into model objects """
+    """ Handles deserializing responses from services into model objects."""
     if data is None:
         return None
     if model is not None and hasattr(model, '_from_dict'):
@@ -237,11 +241,11 @@ def inflate(data, model, is_collection: bool):
 
 def dictify(obj):
     """
-    Serializes the model into JSON. The naming conventions for the services differ from Python naming conventions,
-    so serialization involves changing from Python conventions to those defined by the services. This should be
-    considered private to the SDK.
-    :param obj:
-    :return:
+    Private. Serializes the model into JSON. The naming conventions for the services 
+    differ from Python naming conventions, so serialization involves changing from 
+    Python conventions to those defined by the Splunk Cloud services.
+    :param obj: TODO DOCS
+    :return: TODO DOCS
     """
     if isinstance(obj, list):
         return [dictify(i) for i in obj]
@@ -254,7 +258,7 @@ def dictify(obj):
 
 
 def get_client(context, auth_manager):
-    """Return a Service Client for a given auth manager"""
+    """Returns a Service Client object for the specified authorization manager."""
     return BaseClient(context, auth_manager)
 
 
@@ -277,12 +281,11 @@ def _instantiate_obj(klass, data, response: Response):
 
 def handle_response(response: Response, klass=None, key=None):
     """
-    Takes an HTTP response, and serializes into the provided class (if provided). If an error occurs, this method will
-    throw.
-    :param response:
-    :param klass:
-    :param key:
-    :return:
+    Takes an HTTP response and serializes into the provided class.
+    :param response: TODO DOCS
+    :param klass: TODO DOCS
+    :param key: TODO DOCS
+    :return: TODO DOCS
     """
     if 200 <= response.status_code < 300:
         # When we don't expect a response
@@ -316,7 +319,7 @@ def handle_response(response: Response, klass=None, key=None):
 
 
 class HTTPError(Exception):
-    """Exception wrapper for HTTP Error responses"""
+    """The HTTPError class provides an exception wrapper for HTTP error responses."""
 
     def __init__(self, http_status_code: int, details: str):
         self._http_status_code = http_status_code

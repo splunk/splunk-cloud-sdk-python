@@ -77,6 +77,10 @@ class AuthnError(Exception):
 
 
 class AuthContext(object):
+    """
+    TODO DOCS
+    The AuthContext class...
+    """
 
     def __init__(self, token_type, access_token, expires_in, scope,
                  id_token=None, refresh_token=None):
@@ -142,9 +146,9 @@ class AuthContext(object):
 
 class AuthManager(ABC):
     """
-    Base class for classes that manage different authentication flows.
-    When creating an auth manager, create one of the subclasses that
-    matches the flow that you need for your application.
+    The AuthManager class is a base class that manages different authentication flows.
+    When creating an authorization manager, create a subclass that corresponds to
+    the flow that you need for your app.
     """
 
     def __init__(self, host, client_id):
@@ -202,9 +206,8 @@ class AuthManager(ABC):
     def authenticate(self) -> AuthContext:
         """
         Makes the required calls to authorization endpoints and returns an
-        AuthContext instance that can be used for subsequent calls to service
-        endpoints.
-        :return:
+        `AuthContext` instance to use for subsequent calls to service endpoints.
+        :return: The `AuthContext` instance.
         """
         raise NotImplementedError
 
