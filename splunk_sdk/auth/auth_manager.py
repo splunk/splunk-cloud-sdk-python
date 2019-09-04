@@ -26,6 +26,7 @@ DEFAULT_HOST = "auth.scp.splunk.com"
 PATH_AUTHN = "/authn"
 PATH_AUTHORIZE = "/authorize"
 PATH_TOKEN = "/token"
+PATH_CSRFTOKEN = "/csrfToken"
 
 HEADERS_DEFAULT = {
     "Accept": "application/json",
@@ -171,12 +172,13 @@ class AuthManager(ABC):
     # way, if its a dict, it will be url form encoded, if its a string it
     # will be posted in the body
     @staticmethod
-    def _post(url, auth=None, headers=None, data=None):
+    def _post(url, auth=None, headers=None, data=None, cookies=None):
         response = requests.post(
             url,
             auth=auth,
             headers=headers or HEADERS_DEFAULT,
-            data=data)
+            data=data,
+            cookies=cookies)
         return response
 
     def _url(self, path):
@@ -296,15 +298,29 @@ class PKCEAuthManager(AuthManager):
     def _get_session_token(self, username, password):
         """Returns a one-time session token by authenticating using the
          (extended) "primary" endpoint (/authn)."""
-        result = self._authenticate_user(username, password)
+        csrfToken, cookies = self._get_csrf_token()
+        if csrfToken is None:
+            return None
+        result = self._authenticate_user(username, password, csrfToken, cookies)
         if result is None:
             return None
         return result.get("sessionToken", None)
 
-    def _authenticate_user(self, username, password):
+    def _get_csrf_token(self):
+        """Returns a CSRF token to be passed into /authn"""
+        response = self._get(self._url(PATH_CSRFTOKEN))
+        if response.status_code != 200:
+            raise AuthnError("Authentication failed.", response)
+        result = response.json()
+        csrfToken = result.get("csrf", None)
+        if csrfToken is None:
+            raise AuthnError("no CSRF token from /csrfToken", response)
+        return csrfToken, response.cookies
+
+    def _authenticate_user(self, username, password, csrfToken, cookies):
         """Authenticate using the (extended) "primary" method."""
-        data = {"username": username, "password": password}
-        response = self._post(self._url(PATH_AUTHN), data=json.dumps(data))
+        data = {"username": username, "password": password, "csrfToken": csrfToken}
+        response = self._post(self._url(PATH_AUTHN), data=json.dumps(data), cookies=cookies)
         if response.status_code != 200:
             raise AuthnError("Authentication failed.", response)
         result = response.json()
