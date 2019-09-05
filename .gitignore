@@ -20,5 +20,6 @@ sdkrc
 sdkrc.encrypted
 .python-version
 build/
+docs/
 .eggs
 .env

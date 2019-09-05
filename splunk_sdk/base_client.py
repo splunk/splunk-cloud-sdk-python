@@ -116,7 +116,7 @@ class BaseClient(object):
         """
         self.update_auth()
         # Params are used for querystring vars
-        return self._session.get(url, params=kwargs)
+        return self._session.get(url, **kwargs)
 
     @log_http
     def options(self, url: str, **kwargs) -> requests.Response:

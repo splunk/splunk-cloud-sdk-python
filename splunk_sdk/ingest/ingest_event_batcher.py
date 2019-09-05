@@ -26,7 +26,7 @@ class EventBatcher(object):
 
     def __init__(self, ingest_service: IngestAPI,
                  batch_size: int = DEFAULT_BATCH_SIZE,
-                 batch_count: int = 2000, timeout: int = 30,
+                 batch_count: int = 500, timeout: int = 30,
                  batch_dispatch_handler:
                  Callable[[List[Event]], Optional[HTTPResponse]] = None,
                  error_handler: Callable[[Exception], None] = None):
