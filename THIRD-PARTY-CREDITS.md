@@ -27,12 +27,6 @@ pep8 version 1.7.1
 
 License: MIT License (Expat license)
 
-### pylint
-[https://pypi.org/project/pylint/](https://pypi.org/project/pylint/)
-
-pylint version 2.3.1
-
-License: GNU General Public License (GPL) (GPL)
 
 ### flake8
 [https://pypi.org/project/flake8/](https://pypi.org/project/flake8/)
