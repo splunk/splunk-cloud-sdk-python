@@ -2,7 +2,9 @@
 
 cd "$(dirname "$0")/../splunk_sdk"
 
-rm -rf ../docs
+rm -rf ../docs/pkg
+rm ../docs/README.md
+rm ../docs/package.json
 mkdir -p ../docs/pkg
 
 DOC_INDEX="
@@ -25,6 +27,3 @@ do
 done
 
 echo "$DOC_INDEX" > ../docs/README.md
-
-cd "$(dirname "$0")/../"
-tar cvzf splunk_sdk.tar.gz docs

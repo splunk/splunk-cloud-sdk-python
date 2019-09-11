@@ -1,0 +1,6 @@
+{
+    "category": "sdks",
+    "name": "Splunk Cloud SDK for Python",
+    "description": "A SDK in Python for making requests to Splunk Cloud hosted services.",
+    "package": "@splunk/splunk-cloud-sdk-python"
+}

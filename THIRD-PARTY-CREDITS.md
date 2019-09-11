@@ -35,19 +35,6 @@ flake8 version 3.7.7
 
 License: MIT License (MIT)
 
-### sphinx
-[https://pypi.org/project/sphinx/](https://pypi.org/project/sphinx/)
-
-sphinx version 2.0.1
-
-License: BSD License (BSD)
-
-### sphinxcontrib-apidoc
-[https://pypi.org/project/sphinxcontrib-apidoc/](https://pypi.org/project/sphinxcontrib-apidoc/)
-
-sphinxcontrib-apidoc version 0.3.0
-
-License: BSD License 
 
 ### cryptography
 [https://pypi.org/project/cryptography/](https://pypi.org/project/cryptography/)
