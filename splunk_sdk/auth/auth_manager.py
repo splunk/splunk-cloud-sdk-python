@@ -144,7 +144,10 @@ class AuthContext(object):
         self._refresh_token = refresh_token
 
     def will_expire_within(self, seconds: int = 30):
-        return (datetime.now() - self._created_at).total_seconds() > self.expires_in - seconds
+        if self.expires_in:  # If we don't have an expire time, presume that it never does.
+            return (datetime.now() - self._created_at).total_seconds() > self.expires_in - seconds
+        else:
+            return False
 
 
 class AuthManager(ABC):
@@ -400,20 +403,21 @@ class TokenAuthManager(AuthManager):
 
     def __init__(self, access_token, token_type='Bearer', expires_in=None,
                  scope=None, id_token=None, refresh_token=None):
+        super().__init__(None, None)
         self.access_token = access_token
         self.token_type = token_type
         self.expires_in = expires_in
         self.scope = scope
         self.id_token = id_token
         self.refresh_token = refresh_token
+        self._context = AuthContext(token_type=self.token_type,
+                                    access_token=self.access_token,
+                                    expires_in=self.expires_in, scope=self.scope,
+                                    id_token=self.id_token,
+                                    refresh_token=self.refresh_token)
 
-    def authenticate(self):
-        return AuthContext(token_type=self.token_type,
-                           access_token=self.access_token,
-                           expires_in=self.expires_in, scope=self.scope,
-                           id_token=self.id_token,
-                           refresh_token=self.refresh_token)
-
+    def authenticate(self) -> AuthContext:
+        return self._context
 
 class RefreshTokenAuthManager(AuthManager):
     def __init__(self, client_id, refresh_token, host, scope="openid"):

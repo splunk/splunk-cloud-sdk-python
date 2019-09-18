@@ -1,6 +1,12 @@
+import os
+
 import pytest
+
+from splunk_sdk import Context
 from splunk_sdk.auth import TokenAuthManager
 from splunk_sdk.auth.auth_manager import AuthnError
+from splunk_sdk.base_client import BaseClient
+from splunk_sdk.identity import IdentityAndAccessControl
 from test.fixtures import get_auth_manager as pkce_auth_manager  # NOQA
 from test.fixtures import get_client_auth_manager as client_auth_manager  # NOQA
 
@@ -55,6 +61,10 @@ def test_token_authenticate(pkce_auth_manager):
     assert (auth_context.id_token == new_auth_context.id_token)
     assert (auth_context.refresh_token == new_auth_context.refresh_token)
 
+    context = Context(host=os.environ.get("SPLUNK_HOST"), tenant=os.environ.get("SPLUNK_TENANT"))
+    base_client = BaseClient(context=context, auth_manager=token_mgr)
+    idc = IdentityAndAccessControl(base_client)
+    assert (idc.validate_token().name == os.environ.get("SPLUNK_USERNAME"))
 
 def _assert_pkce_auth_context(auth_context):
     assert (auth_context is not None)
