@@ -14,11 +14,11 @@ import time
 
 from test.fixtures import get_test_client as test_client  # NOQA
 
-from splunk_sdk.action.gen_action_service_api import ActionService
-from splunk_sdk.action.gen_models import EmailAction, WebhookAction, \
-    TriggerEvent, TriggerEventKind
+from splunk_sdk.action import ActionService
+from splunk_sdk.action import EmailAction, WebhookAction, TriggerEvent, \
+    TriggerEventKind
 
-from splunk_sdk.base_client import BaseClient, HTTPError
+from splunk_sdk.base_client import BaseClient
 from splunk_sdk.common.sscmodel import SSCModel
 
 

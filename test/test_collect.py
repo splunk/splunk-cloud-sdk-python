@@ -15,9 +15,9 @@ import time
 from test.fixtures import get_test_client as test_client  # NOQA
 
 from splunk_sdk.base_client import SSCVoidModel
-from splunk_sdk.collect.gen_collect_service_api import CollectService
-from splunk_sdk.collect.gen_models import Job, JobPatch, JobsPatch, \
-    SingleJobResponse, ListJobsResponse, ScalePolicy, StaticScale
+from splunk_sdk.collect import CollectService
+from splunk_sdk.collect import Job, JobPatch, JobsPatch, SingleJobResponse, \
+    ListJobsResponse, ScalePolicy, StaticScale
 
 
 def _cleanup(collect):

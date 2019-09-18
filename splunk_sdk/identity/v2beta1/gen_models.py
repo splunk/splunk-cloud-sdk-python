@@ -686,7 +686,7 @@ class Member(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, added_at: "datetime", added_by: "str", name: "str", tenant: "str", profile: "PrincipalProfile" = None, **extra):
+    def __init__(self, added_at: "datetime", added_by: "str", group_count: "int", name: "str", tenant: "str", profile: "PrincipalProfile" = None, **extra):
         """Member"""
 
         self._attrs = dict()
@@ -694,6 +694,8 @@ class Member(SSCModel):
             self._attrs["addedAt"] = added_at
         if added_by is not None:
             self._attrs["addedBy"] = added_by
+        if group_count is not None:
+            self._attrs["groupCount"] = group_count
         if name is not None:
             self._attrs["name"] = name
         if tenant is not None:
@@ -740,6 +742,24 @@ class Member(SSCModel):
         if added_by is None:
             raise ValueError("Invalid value for `added_by`, must not be `None`")
         self._attrs["addedBy"] = added_by
+
+    @property
+    def group_count(self) -> "int":
+        """ Gets the group_count of this Member.
+        """
+        return self._attrs.get("groupCount")
+
+    @group_count.setter
+    def group_count(self, group_count: "int"):
+        """Sets the group_count of this Member.
+
+
+        :param group_count: The group_count of this Member.
+        :type: int
+        """
+        if group_count is None:
+            raise ValueError("Invalid value for `group_count`, must not be `None`")
+        self._attrs["groupCount"] = group_count
 
     @property
     def name(self) -> "str":

@@ -5165,6 +5165,8 @@ class Response(SSCModel):
 
 
 class SyntaxEnum(str, Enum):
+    UPL = "UPL"
+    DSL = "DSL"
     SPL = "SPL"
     EVAL = "EVAL"
     WHERE = "WHERE"
@@ -5174,9 +5176,17 @@ class SyntaxEnum(str, Enum):
     REX = "REX"
     BIN = "BIN"
     RENAME = "RENAME"
+    STATS = "STATS"
+    SELECT = "SELECT"
+    LITERAL = "LITERAL"
+    UNKNOWN = "UNKNOWN"
 
     @staticmethod
     def from_value(value: str):
+        if value == "UPL":
+            return SyntaxEnum.UPL
+        if value == "DSL":
+            return SyntaxEnum.DSL
         if value == "SPL":
             return SyntaxEnum.SPL
         if value == "EVAL":
@@ -5195,6 +5205,14 @@ class SyntaxEnum(str, Enum):
             return SyntaxEnum.BIN
         if value == "RENAME":
             return SyntaxEnum.RENAME
+        if value == "STATS":
+            return SyntaxEnum.STATS
+        if value == "SELECT":
+            return SyntaxEnum.SELECT
+        if value == "LITERAL":
+            return SyntaxEnum.LITERAL
+        if value == "UNKNOWN":
+            return SyntaxEnum.UNKNOWN
 
 
 class SplCompileRequest(SSCModel):
@@ -5512,7 +5530,7 @@ class UplArgument(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, type: "str", element_type: "object" = None, **extra):
+    def __init__(self, type: "str", element_type: "object" = None, optional: "bool" = None, position: "int" = None, **extra):
         """UplArgument"""
 
         self._attrs = dict()
@@ -5520,6 +5538,10 @@ class UplArgument(SSCModel):
             self._attrs["type"] = type
         if element_type is not None:
             self._attrs["elementType"] = element_type
+        if optional is not None:
+            self._attrs["optional"] = optional
+        if position is not None:
+            self._attrs["position"] = position
         for k, v in extra.items():
             self._attrs[k] = v
 
@@ -5556,6 +5578,38 @@ class UplArgument(SSCModel):
         :type: object
         """
         self._attrs["elementType"] = element_type
+
+    @property
+    def optional(self) -> "bool":
+        """ Gets the optional of this UplArgument.
+        """
+        return self._attrs.get("optional")
+
+    @optional.setter
+    def optional(self, optional: "bool"):
+        """Sets the optional of this UplArgument.
+
+
+        :param optional: The optional of this UplArgument.
+        :type: bool
+        """
+        self._attrs["optional"] = optional
+
+    @property
+    def position(self) -> "int":
+        """ Gets the position of this UplArgument.
+        """
+        return self._attrs.get("position")
+
+    @position.setter
+    def position(self, position: "int"):
+        """Sets the position of this UplArgument.
+
+
+        :param position: The position of this UplArgument.
+        :type: int
+        """
+        self._attrs["position"] = position
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}

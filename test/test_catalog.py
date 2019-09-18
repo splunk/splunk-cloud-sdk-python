@@ -13,10 +13,11 @@ import pytest
 import time
 
 from splunk_sdk.base_client import BaseClient
-from splunk_sdk.catalog.gen_metadata_catalog_api import MetadataCatalog
-from splunk_sdk.catalog.gen_models import IndexDatasetPOST, IndexDatasetKind, ImportDatasetPOST, ImportDatasetByIdPOST, \
-    RulePOST, LookupDatasetPOST, LookupDatasetExternalKind, FieldPOST, FieldPrevalence, FieldType, FieldDataType, \
-    FieldPATCH
+from splunk_sdk.catalog import MetadataCatalog
+from splunk_sdk.catalog import IndexDatasetPOST, IndexDatasetKind, \
+    ImportDatasetPOST, ImportDatasetByIdPOST, RulePOST, LookupDatasetPOST, \
+    LookupDatasetExternalKind, FieldPOST, FieldPrevalence, FieldType, \
+    FieldDataType, FieldPATCH
 from test.fixtures import get_test_client as test_client  # NOQA
 
 

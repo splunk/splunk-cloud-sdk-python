@@ -1,0 +1,1607 @@
+components:
+  parameters:
+    acceptTos:
+      description: 1 or 0 for accepting terms of service
+      in: query
+      name: accept_tos
+      required: false
+      schema:
+        type: string
+    app:
+      description: The app name.
+      in: path
+      name: app
+      required: true
+      schema:
+        maxLength: 36
+        minLength: 4
+        type: string
+    clientId:
+      description: ID of the client to authorize
+      in: query
+      name: client_id
+      required: false
+      schema:
+        type: string
+    codeChallenge:
+      description: PKCE code challenge
+      in: query
+      name: code_challenge
+      required: false
+      schema:
+        type: string
+    codeChallengeMethod:
+      description: PKCE code challenge method
+      in: query
+      name: code_challenge_method
+      required: false
+      schema:
+        type: string
+    group:
+      description: The group name.
+      in: path
+      name: group
+      required: true
+      schema:
+        type: string
+      x-case-insensitive: true
+    include:
+      description: Include additional information to return when validating tenant
+        membership. Valid parameters [tenant, principal]
+      in: query
+      name: include
+      required: false
+      schema:
+        items:
+          type: string
+        type: array
+    inviteId:
+      description: The invite ID.
+      in: query
+      name: inviteID
+      required: false
+      schema:
+        type: string
+    key:
+      description: The API key name.
+      in: path
+      name: key
+      required: true
+      schema:
+        type: string
+      x-case-insensitive: true
+    member:
+      description: The member name.
+      in: path
+      name: member
+      required: true
+      schema:
+        minLength: 2
+        type: string
+      x-case-insensitive: true
+    memberKind:
+      description: 'Kind of member, one of: [user, service_account]'
+      in: query
+      name: kind
+      required: false
+      schema:
+        enum:
+        - user
+        - service_account
+        type: string
+    nonce:
+      description: Nonce to prevent replay attacks
+      in: query
+      name: nonce
+      required: false
+      schema:
+        type: string
+    permission:
+      description: The permission string.
+      in: path
+      name: permission
+      required: true
+      schema:
+        type: string
+      x-case-insensitive: true
+    principal:
+      description: The principal name.
+      in: path
+      name: principal
+      required: true
+      schema:
+        minLength: 2
+        type: string
+      x-case-insensitive: true
+    redirectUri:
+      description: URI for the callback
+      in: query
+      name: redirect_uri
+      required: false
+      schema:
+        type: string
+    responseMode:
+      description: Type of response, one of query, fragment, json
+      in: query
+      name: response_mode
+      required: false
+      schema:
+        type: string
+    responseType:
+      description: Type of authorization flow
+      in: query
+      name: response_type
+      required: false
+      schema:
+        type: string
+    role:
+      description: The role name.
+      in: path
+      name: role
+      required: true
+      schema:
+        minLength: 4
+        type: string
+      x-case-insensitive: true
+    scope:
+      description: Scope of the authorization request
+      in: query
+      name: scope
+      required: false
+      schema:
+        type: string
+    sessionToken:
+      description: Obtained from authentication
+      in: query
+      name: session_token
+      required: false
+      schema:
+        type: string
+    state:
+      description: State between request and callback
+      in: query
+      name: state
+      required: false
+      schema:
+        type: string
+    tenant:
+      description: The tenant name.
+      in: path
+      name: tenant
+      required: true
+      schema:
+        maxLength: 36
+        minLength: 4
+        type: string
+    tenantName:
+      description: The tenant name.
+      in: path
+      name: tenantName
+      required: true
+      schema:
+        maxLength: 36
+        minLength: 4
+        type: string
+    version:
+      description: The service API version.
+      in: path
+      name: version
+      required: true
+      schema:
+        enum:
+        - v2beta1
+        - v2alpha1
+        type: string
+    version2alpha1:
+      description: Service API version 2 alpha 1.
+      in: path
+      name: version2alpha1
+      required: true
+      schema:
+        enum:
+        - v2alpha1
+        type: string
+    version2beta1:
+      description: Service API version 2 beta 1.
+      in: path
+      name: version2beta1
+      required: true
+      schema:
+        enum:
+        - v2beta1
+        type: string
+  schemas:
+    AddGroupMemberBody:
+      properties:
+        name:
+          minLength: 2
+          type: string
+          x-case-insensitive: true
+      required:
+      - name
+      type: object
+    AddGroupRoleBody:
+      properties:
+        name:
+          minLength: 4
+          type: string
+          x-case-insensitive: true
+      required:
+      - name
+      type: object
+    AddMemberBody:
+      properties:
+        name:
+          minLength: 2
+          type: string
+          x-case-insensitive: true
+      required:
+      - name
+      type: object
+    AddRolePermissionBody:
+      maxLength: 1024
+      minLength: 4
+      type: string
+      x-case-insensitive: true
+    App:
+      description: Represents an app regsitration
+      properties:
+        createdAt:
+          format: date-time
+          type: string
+        createdBy:
+          type: string
+        name:
+          type: string
+        principal:
+          type: string
+        tenant:
+          type: string
+      type: object
+    Authn:
+      properties:
+        description:
+          description: Authentication description
+          type: string
+        sessionToken:
+          description: Session token
+          type: string
+        status:
+          description: Authentication status
+          type: string
+      type: object
+    AuthnCredentialsBody:
+      properties:
+        csrfToken:
+          description: CSRF token
+          type: string
+        password:
+          description: Password
+          type: string
+        username:
+          description: Username
+          type: string
+      required:
+      - username
+      - password
+      type: object
+    ChangeKeyBody:
+      properties:
+        permissions:
+          items:
+            minLength: 4
+            type: string
+            x-case-insensitive: true
+          type: array
+      required:
+      - permissions
+      type: object
+    ChangeSubscriptionBody:
+      properties:
+        appPermissions:
+          items:
+            minLength: 4
+            type: string
+            x-case-insensitive: true
+          type: array
+        userPermissions:
+          items:
+            minLength: 4
+            type: string
+            x-case-insensitive: true
+          type: array
+      required:
+      - appPermissions
+      - userPermissions
+      type: object
+    CreateAppBody:
+      properties:
+        name:
+          maxLength: 36
+          minLength: 4
+          pattern: ^[_a-z][_.a-z0-9]*$
+          type: string
+        principal:
+          minLength: 2
+          type: string
+          x-case-insensitive: true
+      required:
+      - name
+      - principal
+      type: object
+    CreateGroupBody:
+      properties:
+        name:
+          maxLength: 128
+          minLength: 4
+          pattern: ^[_a-z]([.]?[_a-z0-9])*$
+          type: string
+      required:
+      - name
+      type: object
+    CreateKeyBody:
+      properties:
+        expiresAt:
+          format: date-time
+          type: string
+        name:
+          maxLength: 36
+          minLength: 4
+          pattern: ^[_a-z][_.a-z0-9]*$
+          type: string
+        permissions:
+          items:
+            minLength: 4
+            type: string
+            x-case-insensitive: true
+          type: array
+      required:
+      - name
+      - permissions
+      - expiresAt
+      type: object
+    CreatePrincipalBody:
+      description: Payload when creating a principal
+      properties:
+        kind:
+          $ref: '#/components/schemas/PrincipalKind'
+        name:
+          minLength: 2
+          type: string
+          x-case-insensitive: true
+      required:
+      - name
+      - kind
+      type: object
+    CreateRoleBody:
+      properties:
+        name:
+          maxLength: 128
+          minLength: 4
+          pattern: ^[_a-z]([.]?[_a-z0-9])*$
+          type: string
+      required:
+      - name
+      type: object
+    CreateSubscriptionBody:
+      properties:
+        app:
+          maxLength: 36
+          minLength: 4
+          pattern: ^[_a-z][_.a-z0-9]*$
+          type: string
+        appPermissions:
+          items:
+            minLength: 4
+            type: string
+            x-case-insensitive: true
+          type: array
+        userPermissions:
+          items:
+            minLength: 4
+            type: string
+            x-case-insensitive: true
+          type: array
+      required:
+      - app
+      - appPermissions
+      - userPermissions
+      type: object
+    CreateTenantBody:
+      properties:
+        name:
+          $ref: '#/components/schemas/TenantName'
+      required:
+      - name
+      type: object
+    CsrfToken:
+      properties:
+        csrf:
+          description: CSRF token
+          type: string
+      type: object
+    DecryptTokenBody:
+      properties:
+        token:
+          type: string
+      required:
+      - token
+      type: object
+    DecryptedToken:
+      description: A decrypted token
+      properties:
+        token:
+          type: string
+      required:
+      - token
+      type: object
+    Group:
+      properties:
+        createdAt:
+          format: date-time
+          type: string
+        createdBy:
+          type: string
+        memberCount:
+          type: integer
+        name:
+          type: string
+        roleCount:
+          type: integer
+        tenant:
+          type: string
+      required:
+      - tenant
+      - name
+      - createdAt
+      - createdBy
+      - memberCount
+      - roleCount
+      type: object
+    GroupMember:
+      description: Represents a member that belongs to a group
+      properties:
+        addedAt:
+          format: date-time
+          type: string
+        addedBy:
+          type: string
+        group:
+          type: string
+        principal:
+          type: string
+        tenant:
+          type: string
+      required:
+      - tenant
+      - group
+      - principal
+      - addedAt
+      - addedBy
+      type: object
+    GroupRole:
+      description: Represents a role that is assigned to a group
+      properties:
+        addedAt:
+          format: date-time
+          type: string
+        addedBy:
+          type: string
+        group:
+          type: string
+        role:
+          type: string
+        tenant:
+          type: string
+      required:
+      - tenant
+      - group
+      - role
+      - addedAt
+      - addedBy
+      type: object
+    Jwk:
+      properties:
+        alg:
+          type: string
+        e:
+          type: string
+        "false":
+          type: string
+        kid:
+          type: string
+        kty:
+          type: string
+        use:
+          type: string
+      type: object
+    Jwks:
+      properties:
+        keys:
+          items:
+            $ref: '#/components/schemas/Jwk'
+          type: array
+      type: object
+    Key:
+      properties:
+        clientId:
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        createdBy:
+          type: string
+        expiresAt:
+          format: date-time
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        permissions:
+          items:
+            type: string
+          type: array
+        rotatedAt:
+          format: date-time
+          type: string
+        tenant:
+          type: string
+      type: object
+    KeySecret:
+      properties:
+        clientId:
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        createdBy:
+          type: string
+        expiresAt:
+          format: date-time
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        permissions:
+          items:
+            type: string
+          type: array
+        rotatedAt:
+          format: date-time
+          type: string
+        tenant:
+          type: string
+        token:
+          type: string
+      type: object
+    Member:
+      description: Represents a member that belongs to a tenant.
+      properties:
+        addedAt:
+          description: When the principal was added to the tenant.
+          format: date-time
+          type: string
+        addedBy:
+          type: string
+        groupCount:
+          type: integer
+        name:
+          type: string
+        profile:
+          $ref: '#/components/schemas/PrincipalProfile'
+        tenant:
+          type: string
+      required:
+      - tenant
+      - name
+      - addedAt
+      - addedBy
+      - groupCount
+      type: object
+    PermissionSet:
+      properties:
+        kind:
+          $ref: '#/components/schemas/PermissionSetKind'
+        name:
+          type: string
+        permissions:
+          items:
+            type: string
+          type: array
+      required:
+      - kind
+      - name
+      - permissions
+      type: object
+    PermissionSetKind:
+      enum:
+      - principal
+      - subscription
+      type: string
+    PermissionSetList:
+      items:
+        $ref: '#/components/schemas/PermissionSet'
+      type: array
+    Principal:
+      properties:
+        createdAt:
+          format: date-time
+          type: string
+        createdBy:
+          type: string
+        kind:
+          $ref: '#/components/schemas/PrincipalKind'
+        name:
+          type: string
+        profile:
+          $ref: '#/components/schemas/PrincipalProfile'
+        tenants:
+          items:
+            $ref: '#/components/schemas/TenantName'
+          type: array
+        updatedAt:
+          format: date-time
+          type: string
+        updatedBy:
+          type: string
+      required:
+      - name
+      - kind
+      - tenants
+      - createdAt
+      - createdBy
+      - updatedAt
+      - updatedBy
+      type: object
+    PrincipalKind:
+      enum:
+      - user
+      - service_account
+      type: string
+    PrincipalProfile:
+      description: Profile information for a principal
+      properties:
+        email:
+          type: string
+        fullName:
+          type: string
+      type: object
+    PrincipalTos:
+      properties:
+        hasAccepted:
+          type: boolean
+        principal:
+          type: string
+      required:
+      - principal
+      - hasAccepted
+      type: object
+    RevokePrincipalBody:
+      properties:
+        principal:
+          minLength: 2
+          type: string
+          x-case-insensitive: true
+      required:
+      - principal
+      type: object
+    Role:
+      properties:
+        createdAt:
+          format: date-time
+          type: string
+        createdBy:
+          type: string
+        name:
+          type: string
+        tenant:
+          type: string
+      required:
+      - tenant
+      - name
+      - createdAt
+      - createdBy
+      type: object
+    RolePermission:
+      properties:
+        addedAt:
+          format: date-time
+          type: string
+        addedBy:
+          type: string
+        permission:
+          type: string
+        role:
+          type: string
+        tenant:
+          type: string
+      required:
+      - tenant
+      - role
+      - permission
+      - addedAt
+      - addedBy
+      type: object
+    Subscription:
+      description: Represents an app subscribed to a tenant
+      properties:
+        app:
+          type: string
+        appPermissions:
+          items:
+            type: string
+          type: array
+        createdAt:
+          format: date-time
+          type: string
+        createdBy:
+          type: string
+        principal:
+          type: string
+        tenant:
+          type: string
+        userPermissions:
+          items:
+            type: string
+          type: array
+      type: object
+    TakedownPrincipal:
+      properties:
+        addedAt:
+          format: date-time
+          type: string
+        addedBy:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      - addedBy
+      - addedAt
+      type: object
+    Tenant:
+      properties:
+        createdAt:
+          format: date-time
+          type: string
+        createdBy:
+          type: string
+        name:
+          $ref: '#/components/schemas/TenantName'
+        status:
+          $ref: '#/components/schemas/TenantStatus'
+      required:
+      - name
+      - status
+      - createdAt
+      - createdBy
+      type: object
+    TenantName:
+      maxLength: 36
+      minLength: 4
+      pattern: ^[a-z][a-z0-9]*$
+      type: string
+    TenantState:
+      enum:
+      - suspend
+      - resume
+      type: string
+    TenantStatus:
+      enum:
+      - provisioning
+      - failed
+      - ready
+      - deleting
+      - deleted
+      - suspended
+      type: string
+    Token:
+      properties:
+        access_token:
+          description: Access token
+          type: string
+        expires_in:
+          description: Expiration time of access_token in seconds
+          type: integer
+        id_token:
+          description: ID Token
+          type: string
+        refresh_token:
+          description: Refresh Token
+          type: string
+        scope:
+          description: Scope that was granted
+          type: string
+        token_type:
+          description: Must be Bearer type
+          type: string
+      type: object
+    UpdateTenantStateBody:
+      properties:
+        state:
+          $ref: '#/components/schemas/TenantState'
+      required:
+      - state
+      type: object
+    ValidateInfo:
+      properties:
+        clientId:
+          type: string
+        name:
+          maxLength: 36
+          minLength: 4
+          type: string
+        principal:
+          $ref: '#/components/schemas/Principal'
+        tenant:
+          $ref: '#/components/schemas/Tenant'
+      required:
+      - name
+      - clientId
+      type: object
+  securitySchemes:
+    Bearer:
+      in: header
+      name: Authorization
+      type: apiKey
+info:
+  description: With the Splunk Cloud Identity and Access Control (IAC) Service, you
+    can authenticate and authorize Splunk API users.
+  title: Identity and Access Control
+  version: v2beta1.10
+openapi: 3.0.0
+paths:
+  /{tenant}/identity/v2beta1/groups:
+    get:
+      description: List the groups that exist in a given tenant.
+      operationId: listGroups
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: The list of groups was successfully returned.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+      x-authz-scope: identity.groups.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    post:
+      description: Creates a new group in a given tenant.
+      operationId: createGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGroupBody'
+        description: The group definition.
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: The group was successfully created.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "409":
+          description: The group already exists.
+        "423":
+          description: The resource is locked.
+      x-authz-scope: identity.groups.write
+  /{tenant}/identity/v2beta1/groups/{group}:
+    delete:
+      description: Deletes a group in a given tenant.
+      operationId: deleteGroup
+      responses:
+        "204":
+          description: The group was successfully deleted.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "423":
+          description: The resource is locked.
+      x-authz-scope: identity.groups.write
+    get:
+      description: Returns information about a given group within a tenant.
+      operationId: getGroup
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: The group was successfully defined.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+      x-authz-scope: identity.groups.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/group'
+  /{tenant}/identity/v2beta1/groups/{group}/members:
+    get:
+      description: Returns a list of the members within a given group.
+      operationId: listGroupMembers
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: The list of group members was successfully returned.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+      x-authz-scope: identity.groups.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/group'
+    post:
+      description: Adds a member to a given group.
+      operationId: addGroupMember
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddGroupMemberBody'
+        description: The member to add to a group.
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupMember'
+          description: The member has been successfully added to the group.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "409":
+          description: The member already exists.
+        "423":
+          description: The resource is locked.
+      x-authz-scope: identity.groups.write
+  /{tenant}/identity/v2beta1/groups/{group}/members/{member}:
+    delete:
+      description: Removes the member from a given group.
+      operationId: removeGroupMember
+      responses:
+        "204":
+          description: The member was successfully removed from the group.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "423":
+          description: The resource is locked.
+      x-authz-scope: identity.groups.write
+    get:
+      description: Returns information about a given member within a given group.
+      operationId: getGroupMember
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupMember'
+          description: The group-to-member relationship details were successfully
+            returned.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+      x-authz-scope: identity.groups.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/group'
+    - $ref: '#/components/parameters/member'
+  /{tenant}/identity/v2beta1/groups/{group}/roles:
+    get:
+      description: Returns a list of the roles that are attached to a group within
+        a given tenant.
+      operationId: listGroupRoles
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: The list of roles was successfully returned.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+      x-authz-scope: identity.groups.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/group'
+    post:
+      description: Adds a role to a given group.
+      operationId: addGroupRole
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddGroupRoleBody'
+        description: The role to add to a group.
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupRole'
+          description: The role has been successfully added to the group.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "409":
+          description: The role already exists.
+        "423":
+          description: The resource is locked.
+      x-authz-scope: identity.groups.write
+  /{tenant}/identity/v2beta1/groups/{group}/roles/{role}:
+    delete:
+      description: Removes a role from a given group.
+      operationId: removeGroupRole
+      responses:
+        "204":
+          description: The role was successfully removed from the group.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "423":
+          description: The resource is locked.
+      x-authz-scope: identity.groups.write
+    get:
+      description: Returns information about a given role within a given group.
+      operationId: getGroupRole
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupRole'
+          description: The group-to-role relationship details were successfully returned.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+      x-authz-scope: identity.groups.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/group'
+    - $ref: '#/components/parameters/role'
+  /{tenant}/identity/v2beta1/members:
+    get:
+      description: Returns a list of members in a given tenant.
+      operationId: listMembers
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: The list of tenant members was successfully returned.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+      x-authz-scope: identity.members.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    post:
+      description: Adds a member to a given tenant.
+      operationId: addMember
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMemberBody'
+        description: The member to associate with a tenant.
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+          description: The member was successfully added.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "423":
+          description: The resource is locked.
+      x-authz-scope: identity.members.write
+  /{tenant}/identity/v2beta1/members/{member}:
+    delete:
+      description: Removes a member from a given tenant
+      operationId: removeMember
+      responses:
+        "204":
+          description: The member was successfully removed.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "423":
+          description: The resource is locked.
+      x-authz-scope: identity.members.write
+    get:
+      description: Returns a member of a given tenant.
+      operationId: getMember
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+          description: The member was successfully returned.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+      x-authz-scope: identity.members.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/member'
+  /{tenant}/identity/v2beta1/members/{member}/groups:
+    get:
+      description: Returns a list of groups that a member belongs to within a tenant.
+      operationId: listMemberGroups
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: The list of groups was successfully retrieved.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+      x-authz-scope: identity.members.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/member'
+  /{tenant}/identity/v2beta1/members/{member}/permissions:
+    get:
+      description: |
+        Returns a set of permissions granted to the member within the tenant.
+      operationId: listMemberPermissions
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: The set of permissions was successfully returned.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+      x-authz-scope: identity.members.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/member'
+  /{tenant}/identity/v2beta1/members/{member}/roles:
+    get:
+      description: |
+        Returns a set of roles that a given member holds within the tenant.
+      operationId: listMemberRoles
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: The set of roles was successfully returned.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+      x-authz-scope: identity.members.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/member'
+  /{tenant}/identity/v2beta1/roles:
+    get:
+      description: Returns all roles for a given tenant.
+      operationId: listRoles
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: The list of roles for the given tenant was successfully returned.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+      x-authz-scope: identity.roles.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    post:
+      description: Creates a new authorization role in a given tenant.
+      operationId: createRole
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoleBody'
+        description: Role definition
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+          description: The authorization role was successfully created.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "409":
+          description: The role already exists.
+        "423":
+          description: The resource is locked.
+      x-authz-scope: identity.roles.write
+  /{tenant}/identity/v2beta1/roles/{role}:
+    delete:
+      description: Deletes a defined role for a given tenant.
+      operationId: deleteRole
+      responses:
+        "204":
+          description: The role was successfully deleted.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "423":
+          description: The resource is locked.
+      x-authz-scope: identity.roles.write
+    get:
+      description: Returns a role for a given tenant.
+      operationId: getRole
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+          description: The role was successfully returned.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+      x-authz-scope: identity.roles.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/role'
+  /{tenant}/identity/v2beta1/roles/{role}/groups:
+    get:
+      description: Gets a list of groups for a role in a given tenant.
+      operationId: listRoleGroups
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: The list of groups was successfully returned.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+      x-authz-scope: identity.roles.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/role'
+  /{tenant}/identity/v2beta1/roles/{role}/permissions:
+    get:
+      description: Gets the permissions for a role in a given tenant.
+      operationId: listRolePermissions
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: The list of permissions was successfully returned.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+      x-authz-scope: identity.roles.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/role'
+    post:
+      description: Adds permissions to a role in a given tenant.
+      operationId: addRolePermission
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddRolePermissionBody'
+        description: The permission to add to a role.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RolePermission'
+          description: The permission was successfully added to the role.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "422":
+          description: The provided fields aren't valid.
+        "423":
+          description: The resource is locked.
+      x-authz-scope: identity.roles.write
+  /{tenant}/identity/v2beta1/roles/{role}/permissions/{permission}:
+    delete:
+      description: Removes a permission from the role.
+      operationId: removeRolePermission
+      responses:
+        "204":
+          description: The permission was successfully removed from the role.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "423":
+          description: The resource is locked.
+      x-authz-scope: identity.roles.write
+    get:
+      description: Gets a permission for the specified role.
+      operationId: getRolePermission
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RolePermission'
+          description: The permission was successfully added to the role.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+      x-authz-scope: identity.roles.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/role'
+    - $ref: '#/components/parameters/permission'
+  /{tenant}/identity/v2beta1/validate:
+    get:
+      description: |
+        Validates the access token obtained from the authorization header and returns the principal name and tenant memberships.
+      operationId: validateToken
+      parameters:
+      - $ref: '#/components/parameters/include'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateInfo'
+          description: The submitted token is valid.
+          headers:
+            Cache-Control:
+              description: Specify how/whether to cache the response, etc.
+              schema:
+                type: string
+            X-Internal-Cache-Control:
+              description: max-age=<seconds>, specifies the time a token can be cached.
+                This is meant for internal services only.
+              schema:
+                type: string
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "429":
+          description: Too many requests were sent.
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+  /system/identity/v2beta1/principals:
+    get:
+      description: Returns the list of principals known to IAC.
+      operationId: listPrincipals
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: The principal list was successfully returned.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+      x-authz-scope: identity.principals.read
+  /system/identity/v2beta1/principals/{principal}:
+    get:
+      description: Returns the details of a principal, including its tenant membership.
+      operationId: getPrincipal
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Principal'
+          description: The principal details were successfully returned.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+      x-authz-scope: identity.principals.read
+    parameters:
+    - $ref: '#/components/parameters/principal'
+security:
+- Bearer: []
+servers:
+- url: /
+
+# Retrieved from scp-openapi commit 194ce563d548c44ef7db66b7fb76739b04ab9143 path: identity/v2beta1/openapi.yaml

@@ -13,8 +13,7 @@ import sys
 import logging
 
 from threading import Timer
-from splunk_sdk.ingest import IngestAPI, Event
-from splunk_sdk.ingest.gen_models import HTTPResponse
+from splunk_sdk.ingest import IngestAPI, Event, HTTPResponse
 from typing import Optional, Callable, List
 
 DEFAULT_BATCH_SIZE = 1040000  # bytes

@@ -34,15 +34,15 @@ from splunk_sdk.base_client import handle_response
 from splunk_sdk.base_service import BaseService
 from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
-from splunk_sdk.app_registry.gen_models import AppName
-from splunk_sdk.app_registry.gen_models import AppResourceKind
-from splunk_sdk.app_registry.gen_models import AppResponseCreateUpdate
-from splunk_sdk.app_registry.gen_models import AppResponseGetList
-from splunk_sdk.app_registry.gen_models import CreateAppRequest
-from splunk_sdk.app_registry.gen_models import Error
-from splunk_sdk.app_registry.gen_models import Key
-from splunk_sdk.app_registry.gen_models import Subscription
-from splunk_sdk.app_registry.gen_models import UpdateAppRequest
+from splunk_sdk.app_registry.v1beta2.gen_models import AppName
+from splunk_sdk.app_registry.v1beta2.gen_models import AppResourceKind
+from splunk_sdk.app_registry.v1beta2.gen_models import AppResponseCreateUpdate
+from splunk_sdk.app_registry.v1beta2.gen_models import AppResponseGetList
+from splunk_sdk.app_registry.v1beta2.gen_models import CreateAppRequest
+from splunk_sdk.app_registry.v1beta2.gen_models import Error
+from splunk_sdk.app_registry.v1beta2.gen_models import Key
+from splunk_sdk.app_registry.v1beta2.gen_models import Subscription
+from splunk_sdk.app_registry.v1beta2.gen_models import UpdateAppRequest
 
 
 class AppRegistry(BaseService):

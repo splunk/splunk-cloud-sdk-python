@@ -11,9 +11,8 @@
 import pytest
 
 from splunk_sdk.base_client import HTTPError
-from splunk_sdk.ingest.gen_ingest_api_api import IngestAPI
-from splunk_sdk.ingest.gen_models import Event, HTTPResponse, Metric, MetricAttribute, MetricEvent
-
+from splunk_sdk.ingest import IngestAPI, Event, HTTPResponse, Metric, \
+    MetricAttribute, MetricEvent
 from test.fixtures import get_test_client as test_client  # NOQA
 
 

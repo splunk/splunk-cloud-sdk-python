@@ -11,9 +11,10 @@
 import pytest
 import time
 from test.fixtures import get_test_client as test_client  # NOQA
-from splunk_sdk.catalog import MetadataCatalog as Catalog, KVCollectionDatasetPOST, Dataset
-from splunk_sdk.kvstore.gen_kv_store_api_api import KVStoreAPI
-from splunk_sdk.kvstore.gen_models import IndexDefinition, IndexFieldDefinition
+from splunk_sdk.catalog import MetadataCatalog as Catalog, \
+    KVCollectionDatasetPOST, Dataset
+from splunk_sdk.kvstore import KVStoreAPI, IndexDefinition, \
+    IndexFieldDefinition
 from splunk_sdk.common.sscmodel import SSCModel
 
 

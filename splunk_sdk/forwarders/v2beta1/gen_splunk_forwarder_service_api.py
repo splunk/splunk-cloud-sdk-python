@@ -34,9 +34,9 @@ from splunk_sdk.base_client import handle_response
 from splunk_sdk.base_service import BaseService
 from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
-from splunk_sdk.forwarders.gen_models import Certificate
-from splunk_sdk.forwarders.gen_models import CertificateInfo
-from splunk_sdk.forwarders.gen_models import Error
+from splunk_sdk.forwarders.v2beta1.gen_models import Certificate
+from splunk_sdk.forwarders.v2beta1.gen_models import CertificateInfo
+from splunk_sdk.forwarders.v2beta1.gen_models import Error
 
 
 class SplunkForwarderService(BaseService):

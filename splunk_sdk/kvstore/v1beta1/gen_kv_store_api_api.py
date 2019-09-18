@@ -34,12 +34,12 @@ from splunk_sdk.base_client import handle_response
 from splunk_sdk.base_service import BaseService
 from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
-from splunk_sdk.kvstore.gen_models import ErrorResponse
-from splunk_sdk.kvstore.gen_models import IndexDefinition
-from splunk_sdk.kvstore.gen_models import IndexDescription
-from splunk_sdk.kvstore.gen_models import Key
-from splunk_sdk.kvstore.gen_models import List
-from splunk_sdk.kvstore.gen_models import PingResponse
+from splunk_sdk.kvstore.v1beta1.gen_models import ErrorResponse
+from splunk_sdk.kvstore.v1beta1.gen_models import IndexDefinition
+from splunk_sdk.kvstore.v1beta1.gen_models import IndexDescription
+from splunk_sdk.kvstore.v1beta1.gen_models import Key
+from splunk_sdk.kvstore.v1beta1.gen_models import List
+from splunk_sdk.kvstore.v1beta1.gen_models import PingResponse
 
 
 class KVStoreAPI(BaseService):

@@ -34,19 +34,19 @@ from splunk_sdk.base_client import handle_response
 from splunk_sdk.base_service import BaseService
 from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
-from splunk_sdk.identity.gen_models import AddGroupMemberBody
-from splunk_sdk.identity.gen_models import AddGroupRoleBody
-from splunk_sdk.identity.gen_models import AddMemberBody
-from splunk_sdk.identity.gen_models import CreateGroupBody
-from splunk_sdk.identity.gen_models import CreateRoleBody
-from splunk_sdk.identity.gen_models import Group
-from splunk_sdk.identity.gen_models import GroupMember
-from splunk_sdk.identity.gen_models import GroupRole
-from splunk_sdk.identity.gen_models import Member
-from splunk_sdk.identity.gen_models import Principal
-from splunk_sdk.identity.gen_models import Role
-from splunk_sdk.identity.gen_models import RolePermission
-from splunk_sdk.identity.gen_models import ValidateInfo
+from splunk_sdk.identity.v2beta1.gen_models import AddGroupMemberBody
+from splunk_sdk.identity.v2beta1.gen_models import AddGroupRoleBody
+from splunk_sdk.identity.v2beta1.gen_models import AddMemberBody
+from splunk_sdk.identity.v2beta1.gen_models import CreateGroupBody
+from splunk_sdk.identity.v2beta1.gen_models import CreateRoleBody
+from splunk_sdk.identity.v2beta1.gen_models import Group
+from splunk_sdk.identity.v2beta1.gen_models import GroupMember
+from splunk_sdk.identity.v2beta1.gen_models import GroupRole
+from splunk_sdk.identity.v2beta1.gen_models import Member
+from splunk_sdk.identity.v2beta1.gen_models import Principal
+from splunk_sdk.identity.v2beta1.gen_models import Role
+from splunk_sdk.identity.v2beta1.gen_models import RolePermission
+from splunk_sdk.identity.v2beta1.gen_models import ValidateInfo
 
 
 class IdentityAndAccessControl(BaseService):

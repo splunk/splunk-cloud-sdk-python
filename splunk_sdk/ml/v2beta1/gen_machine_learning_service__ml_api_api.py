@@ -34,19 +34,19 @@ from splunk_sdk.base_client import handle_response
 from splunk_sdk.base_service import BaseService
 from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
-from splunk_sdk.ml.gen_models import Error
-from splunk_sdk.ml.gen_models import Workflow
-from splunk_sdk.ml.gen_models import WorkflowBuild
-from splunk_sdk.ml.gen_models import WorkflowBuildError
-from splunk_sdk.ml.gen_models import WorkflowBuildLog
-from splunk_sdk.ml.gen_models import WorkflowDeployment
-from splunk_sdk.ml.gen_models import WorkflowDeploymentError
-from splunk_sdk.ml.gen_models import WorkflowDeploymentLog
-from splunk_sdk.ml.gen_models import WorkflowInference
-from splunk_sdk.ml.gen_models import WorkflowRun
-from splunk_sdk.ml.gen_models import WorkflowRunError
-from splunk_sdk.ml.gen_models import WorkflowRunLog
-from splunk_sdk.ml.gen_models import WorkflowsGetResponse
+from splunk_sdk.ml.v2beta1.gen_models import Error
+from splunk_sdk.ml.v2beta1.gen_models import Workflow
+from splunk_sdk.ml.v2beta1.gen_models import WorkflowBuild
+from splunk_sdk.ml.v2beta1.gen_models import WorkflowBuildError
+from splunk_sdk.ml.v2beta1.gen_models import WorkflowBuildLog
+from splunk_sdk.ml.v2beta1.gen_models import WorkflowDeployment
+from splunk_sdk.ml.v2beta1.gen_models import WorkflowDeploymentError
+from splunk_sdk.ml.v2beta1.gen_models import WorkflowDeploymentLog
+from splunk_sdk.ml.v2beta1.gen_models import WorkflowInference
+from splunk_sdk.ml.v2beta1.gen_models import WorkflowRun
+from splunk_sdk.ml.v2beta1.gen_models import WorkflowRunError
+from splunk_sdk.ml.v2beta1.gen_models import WorkflowRunLog
+from splunk_sdk.ml.v2beta1.gen_models import WorkflowsGetResponse
 
 
 class MachineLearningServiceMLAPI(BaseService):

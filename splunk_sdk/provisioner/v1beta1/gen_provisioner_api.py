@@ -34,13 +34,13 @@ from splunk_sdk.base_client import handle_response
 from splunk_sdk.base_service import BaseService
 from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
-from splunk_sdk.provisioner.gen_models import CreateProvisionJobBody
-from splunk_sdk.provisioner.gen_models import Error
-from splunk_sdk.provisioner.gen_models import InviteBody
-from splunk_sdk.provisioner.gen_models import InviteInfo
-from splunk_sdk.provisioner.gen_models import ProvisionJobInfo
-from splunk_sdk.provisioner.gen_models import TenantInfo
-from splunk_sdk.provisioner.gen_models import UpdateInviteBody
+from splunk_sdk.provisioner.v1beta1.gen_models import CreateProvisionJobBody
+from splunk_sdk.provisioner.v1beta1.gen_models import Error
+from splunk_sdk.provisioner.v1beta1.gen_models import InviteBody
+from splunk_sdk.provisioner.v1beta1.gen_models import InviteInfo
+from splunk_sdk.provisioner.v1beta1.gen_models import ProvisionJobInfo
+from splunk_sdk.provisioner.v1beta1.gen_models import TenantInfo
+from splunk_sdk.provisioner.v1beta1.gen_models import UpdateInviteBody
 
 
 class Provisioner(BaseService):

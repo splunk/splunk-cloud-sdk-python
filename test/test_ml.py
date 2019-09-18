@@ -22,12 +22,11 @@ import json
 import logging
 
 from test.fixtures import get_test_client_ml as test_client_ml  # NOQA
-from splunk_sdk.ingest.gen_ingest_api_api import IngestAPI
-from splunk_sdk.ingest.gen_models import Event
-from splunk_sdk.ml import MachineLearningServiceMLAPI
-from splunk_sdk.ml.gen_models import FitTask, Fields, Workflow, InputData, \
-    OutputData, RawData, OutputDataDestination, WorkflowBuild, WorkflowRun,\
-    WorkflowsGetResponse, WorkflowDeployment, DeploymentSpec
+from splunk_sdk.ingest import IngestAPI, Event
+from splunk_sdk.ml import MachineLearningServiceMLAPI, FitTask, Fields, \
+    Workflow, InputData, OutputData, RawData, OutputDataDestination, \
+    WorkflowBuild, WorkflowRun, WorkflowsGetResponse, WorkflowDeployment, \
+    DeploymentSpec
 
 
 logger = logging.getLogger()
@@ -175,7 +174,7 @@ def test_workflow_operations(test_client_ml):
             logger.debug("build status:" + _build.status)
             if _build.status != "success":
                 _build = ml.get_workflow_build(flow_id, build_id)
-                time.sleep(5)
+                time.sleep(20)
                 retry += 1
             else:
                 build_id = _build.id

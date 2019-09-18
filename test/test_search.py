@@ -11,9 +11,8 @@
 import pytest
 from test.fixtures import get_test_client as test_client  # NOQA
 
-from splunk_sdk.search.gen_splunk_search_service_api import \
-    SplunkSearchService as Search
-from splunk_sdk.search.gen_models import SearchJob, UpdateJob, Message, \
+from splunk_sdk.search import SplunkSearchService as Search
+from splunk_sdk.search import SearchJob, UpdateJob, Message, \
     ListSearchResultsResponse
 
 from splunk_sdk.search.search_helper import wait_for_job

@@ -34,11 +34,11 @@ from splunk_sdk.base_client import handle_response
 from splunk_sdk.base_service import BaseService
 from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
-from splunk_sdk.ingest.gen_models import Error
-from splunk_sdk.ingest.gen_models import Event
-from splunk_sdk.ingest.gen_models import HTTPResponse
-from splunk_sdk.ingest.gen_models import List
-from splunk_sdk.ingest.gen_models import MetricEvent
+from splunk_sdk.ingest.v1beta2.gen_models import Error
+from splunk_sdk.ingest.v1beta2.gen_models import Event
+from splunk_sdk.ingest.v1beta2.gen_models import HTTPResponse
+from splunk_sdk.ingest.v1beta2.gen_models import List
+from splunk_sdk.ingest.v1beta2.gen_models import MetricEvent
 
 
 class IngestAPI(BaseService):

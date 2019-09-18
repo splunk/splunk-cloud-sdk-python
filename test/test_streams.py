@@ -16,10 +16,9 @@ from requests import Response
 
 from test.fixtures import get_test_client as test_client  # NOQA
 
-from splunk_sdk.streams.gen_data_stream_processing_rest_api_api import \
-    DataStreamProcessingRESTAPI as Streams
+from splunk_sdk.streams import DataStreamProcessingRESTAPI as Streams
 
-from splunk_sdk.streams.gen_models import DslCompilationRequest, UplPipeline, \
+from splunk_sdk.streams import DslCompilationRequest, UplPipeline, \
     PipelineRequest, PipelineResponse, PipelineDeleteResponse, \
     PaginatedResponseOfPipelineResponse, ActivatePipelineRequest, \
     DeactivatePipelineRequest, PipelineReactivateResponse, ValidateRequest, \

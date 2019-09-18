@@ -34,14 +34,14 @@ from splunk_sdk.base_client import handle_response
 from splunk_sdk.base_service import BaseService
 from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
-from splunk_sdk.collect.gen_models import DeleteJobsResponse
-from splunk_sdk.collect.gen_models import Error
-from splunk_sdk.collect.gen_models import Job
-from splunk_sdk.collect.gen_models import JobPatch
-from splunk_sdk.collect.gen_models import JobsPatch
-from splunk_sdk.collect.gen_models import ListJobsResponse
-from splunk_sdk.collect.gen_models import PatchJobsResponse
-from splunk_sdk.collect.gen_models import SingleJobResponse
+from splunk_sdk.collect.v1beta1.gen_models import DeleteJobsResponse
+from splunk_sdk.collect.v1beta1.gen_models import Error
+from splunk_sdk.collect.v1beta1.gen_models import Job
+from splunk_sdk.collect.v1beta1.gen_models import JobPatch
+from splunk_sdk.collect.v1beta1.gen_models import JobsPatch
+from splunk_sdk.collect.v1beta1.gen_models import ListJobsResponse
+from splunk_sdk.collect.v1beta1.gen_models import PatchJobsResponse
+from splunk_sdk.collect.v1beta1.gen_models import SingleJobResponse
 
 
 class CollectService(BaseService):

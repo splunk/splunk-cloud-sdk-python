@@ -13,8 +13,7 @@ import os
 import pytest
 import logging
 
-from splunk_sdk.ingest.gen_ingest_api_api import IngestAPI
-from splunk_sdk.ingest.gen_models import HTTPResponse
+from splunk_sdk.ingest import IngestAPI, HTTPResponse
 from splunk_sdk.ingest.ingest_event_batcher import EventBatcher, \
     DEFAULT_BATCH_SIZE
 from test.test_ml import _parse_csv as parse_csv

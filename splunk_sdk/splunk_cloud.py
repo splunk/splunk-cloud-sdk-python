@@ -10,27 +10,22 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from splunk_sdk.app_registry.gen_app_registry_api import AppRegistry
-from splunk_sdk.action.gen_action_service_api import ActionService
+from splunk_sdk.app_registry import AppRegistry
+from splunk_sdk.action import ActionService
 from splunk_sdk.auth.auth_manager import AuthManager
 from splunk_sdk.base_client import get_client
 from splunk_sdk.catalog import MetadataCatalog
 from splunk_sdk.collect import CollectService
 from splunk_sdk.common.context import Context
-from splunk_sdk.kvstore.gen_kv_store_api_api import KVStoreAPI as KVStore
-from splunk_sdk.ingest.gen_ingest_api_api import IngestAPI
+from splunk_sdk.kvstore import KVStoreAPI as KVStore
+from splunk_sdk.ingest import IngestAPI
 from splunk_sdk.gateway.client import Gateway
 from splunk_sdk.provisioner import Provisioner
-from splunk_sdk.search.gen_splunk_search_service_api import \
-    SplunkSearchService as Search
-from splunk_sdk.streams.gen_data_stream_processing_rest_api_api import \
-    DataStreamProcessingRESTAPI as Streams
-from splunk_sdk.identity.gen_identity_and_access_control_api import \
-    IdentityAndAccessControl as Identity
-from splunk_sdk.forwarders.gen_splunk_forwarder_service_api import \
-    SplunkForwarderService as Forwarders
-from splunk_sdk.ml.gen_machine_learning_service__ml_api_api import \
-    MachineLearningServiceMLAPI
+from splunk_sdk.search import SplunkSearchService as Search
+from splunk_sdk.streams import DataStreamProcessingRESTAPI as Streams
+from splunk_sdk.identity import IdentityAndAccessControl as Identity
+from splunk_sdk.forwarders import SplunkForwarderService as Forwarders
+from splunk_sdk.ml import MachineLearningServiceMLAPI
 
 
 class SplunkCloud(object):
@@ -56,7 +51,7 @@ class SplunkCloud(object):
         self.action = ActionService(self.base_client)
         self.app_registry = AppRegistry(self.base_client)
         self.catalog = MetadataCatalog(self.base_client)
-        self.catalog = CollectService(self.base_client)
+        self.collect = CollectService(self.base_client)
         self.forwarders = Forwarders(self.base_client)
         self.gateway = Gateway(self.base_client)
         self.identity = Identity(self.base_client)

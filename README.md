@@ -70,6 +70,15 @@ The Splunk Cloud SDK for Python also manages setting up requests, handling authe
 occurred. Every response from a service call results in some subclass of `SSCModel`. Calls that don't return a body
 return `SSCVoidModel`, which has a `response` property with access to the raw HTTP response.
 
+## Versions
+
+Some services will support multiple API versions and designate which one is recommended for most users.
+The SDK will default to the recommend version via module remapping and the integration tests will also use this.
+In order to choose the non-recommended version of a service you will need to explicitly import that version like this:
+```python
+from splunk_sdk.action.v1beta2 import *
+```
+
 ## Documentation
 For general documentation, see the [Splunk Developer Cloud Portal](https://sdc.splunkbeta.com/).
 

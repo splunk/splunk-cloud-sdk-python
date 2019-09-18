@@ -34,13 +34,13 @@ from splunk_sdk.base_client import handle_response
 from splunk_sdk.base_service import BaseService
 from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
-from splunk_sdk.action.gen_models import Action
-from splunk_sdk.action.gen_models import ActionMutable
-from splunk_sdk.action.gen_models import ActionResult
-from splunk_sdk.action.gen_models import ActionResultEmailDetail
-from splunk_sdk.action.gen_models import PublicWebhookKey
-from splunk_sdk.action.gen_models import ServiceError
-from splunk_sdk.action.gen_models import TriggerEvent
+from splunk_sdk.action.v1beta2.gen_models import Action
+from splunk_sdk.action.v1beta2.gen_models import ActionMutable
+from splunk_sdk.action.v1beta2.gen_models import ActionResult
+from splunk_sdk.action.v1beta2.gen_models import ActionResultEmailDetail
+from splunk_sdk.action.v1beta2.gen_models import PublicWebhookKey
+from splunk_sdk.action.v1beta2.gen_models import ServiceError
+from splunk_sdk.action.v1beta2.gen_models import TriggerEvent
 
 
 class ActionService(BaseService):
