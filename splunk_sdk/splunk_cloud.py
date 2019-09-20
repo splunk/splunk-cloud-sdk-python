@@ -37,7 +37,7 @@ class SplunkCloud(object):
     object containing the appropriate app credentials.
     """
 
-    def __init__(self, context: Context, auth_manager: AuthManager):
+    def __init__(self, context: Context, auth_manager: AuthManager, requests_hooks=None):
         """
         Creates a new instance of the SplunkCloud class
         :param context: a Context object that configures the behavior of the client. Setting 'tenant' will be
@@ -45,7 +45,7 @@ class SplunkCloud(object):
         :param auth_manager: A subclass of AuthManager that contains credentials for connecting to the Splunk Developer
             Cloud.
         """
-        self.base_client = get_client(context, auth_manager)
+        self.base_client = get_client(context, auth_manager, requests_hooks=requests_hooks)
 
         '''supported services'''
         self.action = ActionService(self.base_client)

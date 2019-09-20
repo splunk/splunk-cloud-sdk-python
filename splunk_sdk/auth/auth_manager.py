@@ -19,6 +19,8 @@ from datetime import datetime
 from abc import ABC, abstractmethod
 from typing import Optional
 
+from splunk_sdk.common import REQUESTS_HOOK_NAME_RESPONSE
+
 import requests
 from requests import Response
 
@@ -157,31 +159,32 @@ class AuthManager(ABC):
     the flow that you need for your app.
     """
 
-    def __init__(self, host, client_id):
+    def __init__(self, host, client_id, requests_hooks=None):
         self._host = host
         self._client_id = client_id
         self._context = None
+        self._requests_hooks = requests_hooks or []
 
-    @staticmethod
-    def _get(url, headers=None, params=None):
+    def _get(self, url, headers=None, params=None):
         response = requests.get(
             url,
             headers=headers or HEADERS_DEFAULT,
             params=params,
-            allow_redirects=False)
+            allow_redirects=False,
+            hooks={REQUESTS_HOOK_NAME_RESPONSE: self._requests_hooks})
         return response
 
     # Note: the requests module interprets the data param in an interesting
     # way, if its a dict, it will be url form encoded, if its a string it
     # will be posted in the body
-    @staticmethod
-    def _post(url, auth=None, headers=None, data=None, cookies=None):
+    def _post(self, url, auth=None, headers=None, data=None, cookies=None):
         response = requests.post(
             url,
             auth=auth,
             headers=headers or HEADERS_DEFAULT,
             data=data,
-            cookies=cookies)
+            cookies=cookies,
+            hooks={REQUESTS_HOOK_NAME_RESPONSE: self._requests_hooks})
         return response
 
     def _url(self, path):
@@ -235,8 +238,8 @@ class ClientAuthManager(AuthManager):
     """
 
     # TODO: Host can be an optional value since it has a default
-    def __init__(self, host, client_id, client_secret, scope=""):
-        super().__init__(host, client_id)
+    def __init__(self, host, client_id, client_secret, scope="", requests_hooks=None):
+        super().__init__(host, client_id, requests_hooks=requests_hooks)
         self._client_secret = client_secret
         self._scope = scope
 
@@ -264,8 +267,8 @@ class PKCEAuthManager(AuthManager):
     and password, the app through the client_id and redirect_uri. For more details, see identity service documentation.
     """
 
-    def __init__(self, host, client_id, redirect_uri, username, password, scope=DEFAULT_REFRESH_SCOPE):
-        super().__init__(host, client_id)
+    def __init__(self, host, client_id, redirect_uri, username, password, scope=DEFAULT_REFRESH_SCOPE, requests_hooks=None):
+        super().__init__(host, client_id, requests_hooks=requests_hooks)
         self._redirect_uri = redirect_uri
         self._username = username
         self._password = password
@@ -402,8 +405,8 @@ class TokenAuthManager(AuthManager):
     """
 
     def __init__(self, access_token, token_type='Bearer', expires_in=None,
-                 scope=None, id_token=None, refresh_token=None):
-        super().__init__(None, None)
+                 scope=None, id_token=None, refresh_token=None, requests_hooks=None):
+        super().__init__(None, None, requests_hooks=requests_hooks)
         self.access_token = access_token
         self.token_type = token_type
         self.expires_in = expires_in
@@ -420,8 +423,8 @@ class TokenAuthManager(AuthManager):
         return self._context
 
 class RefreshTokenAuthManager(AuthManager):
-    def __init__(self, client_id, refresh_token, host, scope="openid"):
-        super().__init__(host, client_id)
+    def __init__(self, client_id, refresh_token, host, scope="openid", requests_hooks=None):
+        super().__init__(host, client_id, requests_hooks=requests_hooks)
         self._refresh_token = refresh_token
         self._scope = scope
 

@@ -26,6 +26,7 @@ from functools import wraps
 from typing import List, Dict
 
 from splunk_sdk.auth.auth_manager import AuthManager
+from splunk_sdk.common import REQUESTS_HOOK_NAME_RESPONSE
 from splunk_sdk.common.context import Context
 from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
@@ -88,7 +89,7 @@ class BaseClient(object):
         bc.get(bc.build_url("/identity/v2/validate")) #=> HTTP response (presuming that v2 of the validate service is deployed)
     """
 
-    def __init__(self, context: Context, auth_manager: AuthManager):
+    def __init__(self, context: Context, auth_manager: AuthManager, requests_hooks=None):
         self.context = context
         self._session = requests.Session()
         self._session.headers.update({
@@ -96,6 +97,8 @@ class BaseClient(object):
         self._session.headers.update({
             'Splunk-Client': 'client-python/{}'.format(__version__)})
         self._auth_manager = auth_manager
+
+        self._session.hooks[REQUESTS_HOOK_NAME_RESPONSE].extend(requests_hooks or [])
 
     def update_auth(self):
         if self._auth_manager:
@@ -259,9 +262,9 @@ def dictify(obj):
         return obj
 
 
-def get_client(context, auth_manager):
+def get_client(context, auth_manager, requests_hooks=None):
     """Returns a Service Client object for the specified authorization manager."""
-    return BaseClient(context, auth_manager)
+    return BaseClient(context, auth_manager, requests_hooks=requests_hooks)
 
 
 # TODO: refactor this helper away and make handle_response cleaner
