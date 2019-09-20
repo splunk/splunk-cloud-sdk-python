@@ -1101,6 +1101,299 @@ class InputData(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
+class Offset_resetEnum(str, Enum):
+    EARLIEST = "earliest"
+    LATEST = "latest"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "earliest":
+            return Offset_resetEnum.EARLIEST
+        if value == "latest":
+            return Offset_resetEnum.LATEST
+
+
+class InputStreamSource(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "InputStreamSource":
+        instance = InputStreamSource.__new__(InputStreamSource)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, offset_reset: "str" = 'latest', topic: "str" = None, **extra):
+        """InputStreamSource"""
+
+        self._attrs = dict()
+        if topic is not None:
+            self._attrs["topic"] = topic
+        if offset_reset is not None:
+            self._attrs["offsetReset"] = offset_reset
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def topic(self) -> "str":
+        """ Gets the topic of this InputStreamSource.
+        """
+        return self._attrs.get("topic")
+
+    @topic.setter
+    def topic(self, topic: "str"):
+        """Sets the topic of this InputStreamSource.
+
+
+        :param topic: The topic of this InputStreamSource.
+        :type: str
+        """
+        if topic is None:
+            raise ValueError("Invalid value for `topic`, must not be `None`")
+        self._attrs["topic"] = topic
+
+    @property
+    def offset_reset(self) -> "Offset_resetEnum":
+        """ Gets the offset_reset of this InputStreamSource.
+        """
+        return Offset_resetEnum.from_value(self._attrs.get("offsetReset"))
+
+    @offset_reset.setter
+    def offset_reset(self, offset_reset: "str"):
+        """Sets the offset_reset of this InputStreamSource.
+
+
+        :param offset_reset: The offset_reset of this InputStreamSource.
+        :type: str
+        """
+        if isinstance(offset_reset, Enum):
+            self._attrs["offsetReset"] = offset_reset.value
+        else:
+            self._attrs["offsetReset"] = offset_reset  # If you supply a string, we presume you know the service will take it.
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class KindEnum(str, Enum):
+    KAFKA = "Kafka"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "Kafka":
+            return KindEnum.KAFKA
+
+
+class InputStream(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "InputStream":
+        instance = InputStream.__new__(InputStream)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, kind: "str", source: "InputStreamSource", **extra):
+        """InputStream"""
+
+        self._attrs = dict()
+        if kind is not None:
+            self._attrs["kind"] = kind
+        if source is not None:
+            self._attrs["source"] = source.to_dict()
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def kind(self) -> "KindEnum":
+        """ Gets the kind of this InputStream.
+        """
+        return KindEnum.from_value(self._attrs.get("kind"))
+
+    @kind.setter
+    def kind(self, kind: "str"):
+        """Sets the kind of this InputStream.
+
+
+        :param kind: The kind of this InputStream.
+        :type: str
+        """
+        if kind is None:
+            raise ValueError("Invalid value for `kind`, must not be `None`")
+        if isinstance(kind, Enum):
+            self._attrs["kind"] = kind.value
+        else:
+            self._attrs["kind"] = kind  # If you supply a string, we presume you know the service will take it.
+
+    @property
+    def source(self) -> "InputStreamSource":
+        """ Gets the source of this InputStream.
+        """
+        return InputStreamSource._from_dict(self._attrs["source"])
+
+    @source.setter
+    def source(self, source: "InputStreamSource"):
+        """Sets the source of this InputStream.
+
+
+        :param source: The source of this InputStream.
+        :type: InputStreamSource
+        """
+        if source is None:
+            raise ValueError("Invalid value for `source`, must not be `None`")
+        self._attrs["source"] = source.to_dict()
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class Offset_resetEnum(str, Enum):
+    EARLIEST = "earliest"
+    LATEST = "latest"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "earliest":
+            return Offset_resetEnum.EARLIEST
+        if value == "latest":
+            return Offset_resetEnum.LATEST
+
+
+class KafkaInput(InputStreamSource):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "KafkaInput":
+        instance = KafkaInput.__new__(KafkaInput)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, topic: "str", offset_reset: "str" = 'latest', **extra):
+        """KafkaInput"""
+
+        self._attrs = dict()
+        if topic is not None:
+            self._attrs["topic"] = topic
+        if offset_reset is not None:
+            self._attrs["offsetReset"] = offset_reset
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def topic(self) -> "str":
+        """ Gets the topic of this KafkaInput.
+        """
+        return self._attrs.get("topic")
+
+    @topic.setter
+    def topic(self, topic: "str"):
+        """Sets the topic of this KafkaInput.
+
+
+        :param topic: The topic of this KafkaInput.
+        :type: str
+        """
+        if topic is None:
+            raise ValueError("Invalid value for `topic`, must not be `None`")
+        self._attrs["topic"] = topic
+
+    @property
+    def offset_reset(self) -> "Offset_resetEnum":
+        """ Gets the offset_reset of this KafkaInput.
+        """
+        return Offset_resetEnum.from_value(self._attrs.get("offsetReset"))
+
+    @offset_reset.setter
+    def offset_reset(self, offset_reset: "str"):
+        """Sets the offset_reset of this KafkaInput.
+
+
+        :param offset_reset: The offset_reset of this KafkaInput.
+        :type: str
+        """
+        if isinstance(offset_reset, Enum):
+            self._attrs["offsetReset"] = offset_reset.value
+        else:
+            self._attrs["offsetReset"] = offset_reset  # If you supply a string, we presume you know the service will take it.
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class OutputStreamDestination(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "OutputStreamDestination":
+        instance = OutputStreamDestination.__new__(OutputStreamDestination)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, topic: "str" = None, **extra):
+        """OutputStreamDestination"""
+
+        self._attrs = dict()
+        if topic is not None:
+            self._attrs["topic"] = topic
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def topic(self) -> "str":
+        """ Gets the topic of this OutputStreamDestination.
+        """
+        return self._attrs.get("topic")
+
+    @topic.setter
+    def topic(self, topic: "str"):
+        """Sets the topic of this OutputStreamDestination.
+
+
+        :param topic: The topic of this OutputStreamDestination.
+        :type: str
+        """
+        if topic is None:
+            raise ValueError("Invalid value for `topic`, must not be `None`")
+        self._attrs["topic"] = topic
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class KafkaOutput(OutputStreamDestination):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "KafkaOutput":
+        instance = KafkaOutput.__new__(KafkaOutput)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, topic: "str", **extra):
+        """KafkaOutput"""
+
+        self._attrs = dict()
+        if topic is not None:
+            self._attrs["topic"] = topic
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def topic(self) -> "str":
+        """ Gets the topic of this KafkaOutput.
+        """
+        return self._attrs.get("topic")
+
+    @topic.setter
+    def topic(self, topic: "str"):
+        """Sets the topic of this KafkaOutput.
+
+
+        :param topic: The topic of this KafkaOutput.
+        :type: str
+        """
+        if topic is None:
+            raise ValueError("Invalid value for `topic`, must not be `None`")
+        self._attrs["topic"] = topic
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
 class KindEnum(str, Enum):
     EVENTS = "Events"
 
@@ -1159,6 +1452,77 @@ class OutputData(SSCModel):
         :param kind: The kind of this OutputData.
         :type: str
         """
+        if isinstance(kind, Enum):
+            self._attrs["kind"] = kind.value
+        else:
+            self._attrs["kind"] = kind  # If you supply a string, we presume you know the service will take it.
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class KindEnum(str, Enum):
+    KAFKA = "Kafka"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "Kafka":
+            return KindEnum.KAFKA
+
+
+class OutputStream(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "OutputStream":
+        instance = OutputStream.__new__(OutputStream)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, destination: "OutputStreamDestination", kind: "str", **extra):
+        """OutputStream"""
+
+        self._attrs = dict()
+        if destination is not None:
+            self._attrs["destination"] = destination.to_dict()
+        if kind is not None:
+            self._attrs["kind"] = kind
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def destination(self) -> "OutputStreamDestination":
+        """ Gets the destination of this OutputStream.
+        """
+        return OutputStreamDestination._from_dict(self._attrs["destination"])
+
+    @destination.setter
+    def destination(self, destination: "OutputStreamDestination"):
+        """Sets the destination of this OutputStream.
+
+
+        :param destination: The destination of this OutputStream.
+        :type: OutputStreamDestination
+        """
+        if destination is None:
+            raise ValueError("Invalid value for `destination`, must not be `None`")
+        self._attrs["destination"] = destination.to_dict()
+
+    @property
+    def kind(self) -> "KindEnum":
+        """ Gets the kind of this OutputStream.
+        """
+        return KindEnum.from_value(self._attrs.get("kind"))
+
+    @kind.setter
+    def kind(self, kind: "str"):
+        """Sets the kind of this OutputStream.
+
+
+        :param kind: The kind of this OutputStream.
+        :type: str
+        """
+        if kind is None:
+            raise ValueError("Invalid value for `kind`, must not be `None`")
         if isinstance(kind, Enum):
             self._attrs["kind"] = kind.value
         else:
@@ -3576,6 +3940,230 @@ class WorkflowRunLog(SSCModel):
         :type: List[WorkflowManagerLogs]
         """
         self._attrs["workflowManagerLogs"] = workflow_manager_logs
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class StatusEnum(str, Enum):
+    RUNNING = "running"
+    FAILED = "failed"
+    SUCCESS = "success"
+    SCHEDULED = "scheduled"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "running":
+            return StatusEnum.RUNNING
+        if value == "failed":
+            return StatusEnum.FAILED
+        if value == "success":
+            return StatusEnum.SUCCESS
+        if value == "scheduled":
+            return StatusEnum.SCHEDULED
+
+
+class WorkflowStreamDeployment(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "WorkflowStreamDeployment":
+        instance = WorkflowStreamDeployment.__new__(WorkflowStreamDeployment)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, input: "InputStream", output: "OutputStream", creation_time: "datetime" = None, end_time: "datetime" = None, id: "str" = None, name: "str" = None, spec: "DeploymentSpec" = None, start_time: "datetime" = None, status: "str" = None, workflow_build: "WorkflowBuild" = None, **extra):
+        """WorkflowStreamDeployment"""
+
+        self._attrs = dict()
+        if input is not None:
+            self._attrs["input"] = input.to_dict()
+        if output is not None:
+            self._attrs["output"] = output.to_dict()
+        if creation_time is not None:
+            self._attrs["creationTime"] = creation_time
+        if end_time is not None:
+            self._attrs["endTime"] = end_time
+        if id is not None:
+            self._attrs["id"] = id
+        if name is not None:
+            self._attrs["name"] = name
+        if spec is not None:
+            self._attrs["spec"] = spec.to_dict()
+        if start_time is not None:
+            self._attrs["startTime"] = start_time
+        if status is not None:
+            self._attrs["status"] = status
+        if workflow_build is not None:
+            self._attrs["workflowBuild"] = workflow_build.to_dict()
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def input(self) -> "InputStream":
+        """ Gets the input of this WorkflowStreamDeployment.
+        """
+        return InputStream._from_dict(self._attrs["input"])
+
+    @input.setter
+    def input(self, input: "InputStream"):
+        """Sets the input of this WorkflowStreamDeployment.
+
+
+        :param input: The input of this WorkflowStreamDeployment.
+        :type: InputStream
+        """
+        if input is None:
+            raise ValueError("Invalid value for `input`, must not be `None`")
+        self._attrs["input"] = input.to_dict()
+
+    @property
+    def output(self) -> "OutputStream":
+        """ Gets the output of this WorkflowStreamDeployment.
+        """
+        return OutputStream._from_dict(self._attrs["output"])
+
+    @output.setter
+    def output(self, output: "OutputStream"):
+        """Sets the output of this WorkflowStreamDeployment.
+
+
+        :param output: The output of this WorkflowStreamDeployment.
+        :type: OutputStream
+        """
+        if output is None:
+            raise ValueError("Invalid value for `output`, must not be `None`")
+        self._attrs["output"] = output.to_dict()
+
+    @property
+    def creation_time(self) -> "datetime":
+        """ Gets the creation_time of this WorkflowStreamDeployment.
+        """
+        return self._attrs.get("creationTime")
+
+    @creation_time.setter
+    def creation_time(self, creation_time: "datetime"):
+        """Sets the creation_time of this WorkflowStreamDeployment.
+
+
+        :param creation_time: The creation_time of this WorkflowStreamDeployment.
+        :type: datetime
+        """
+        self._attrs["creationTime"] = creation_time
+
+    @property
+    def end_time(self) -> "datetime":
+        """ Gets the end_time of this WorkflowStreamDeployment.
+        """
+        return self._attrs.get("endTime")
+
+    @end_time.setter
+    def end_time(self, end_time: "datetime"):
+        """Sets the end_time of this WorkflowStreamDeployment.
+
+
+        :param end_time: The end_time of this WorkflowStreamDeployment.
+        :type: datetime
+        """
+        self._attrs["endTime"] = end_time
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this WorkflowStreamDeployment.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this WorkflowStreamDeployment.
+
+
+        :param id: The id of this WorkflowStreamDeployment.
+        :type: str
+        """
+        self._attrs["id"] = id
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this WorkflowStreamDeployment.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this WorkflowStreamDeployment.
+
+
+        :param name: The name of this WorkflowStreamDeployment.
+        :type: str
+        """
+        self._attrs["name"] = name
+
+    @property
+    def spec(self) -> "DeploymentSpec":
+        """ Gets the spec of this WorkflowStreamDeployment.
+        """
+        return DeploymentSpec._from_dict(self._attrs["spec"])
+
+    @spec.setter
+    def spec(self, spec: "DeploymentSpec"):
+        """Sets the spec of this WorkflowStreamDeployment.
+
+
+        :param spec: The spec of this WorkflowStreamDeployment.
+        :type: DeploymentSpec
+        """
+        self._attrs["spec"] = spec.to_dict()
+
+    @property
+    def start_time(self) -> "datetime":
+        """ Gets the start_time of this WorkflowStreamDeployment.
+        """
+        return self._attrs.get("startTime")
+
+    @start_time.setter
+    def start_time(self, start_time: "datetime"):
+        """Sets the start_time of this WorkflowStreamDeployment.
+
+
+        :param start_time: The start_time of this WorkflowStreamDeployment.
+        :type: datetime
+        """
+        self._attrs["startTime"] = start_time
+
+    @property
+    def status(self) -> "StatusEnum":
+        """ Gets the status of this WorkflowStreamDeployment.
+        """
+        return StatusEnum.from_value(self._attrs.get("status"))
+
+    @status.setter
+    def status(self, status: "str"):
+        """Sets the status of this WorkflowStreamDeployment.
+
+
+        :param status: The status of this WorkflowStreamDeployment.
+        :type: str
+        """
+        if isinstance(status, Enum):
+            self._attrs["status"] = status.value
+        else:
+            self._attrs["status"] = status  # If you supply a string, we presume you know the service will take it.
+
+    @property
+    def workflow_build(self) -> "WorkflowBuild":
+        """ Gets the workflow_build of this WorkflowStreamDeployment.
+        """
+        return WorkflowBuild._from_dict(self._attrs["workflowBuild"])
+
+    @workflow_build.setter
+    def workflow_build(self, workflow_build: "WorkflowBuild"):
+        """Sets the workflow_build of this WorkflowStreamDeployment.
+
+
+        :param workflow_build: The workflow_build of this WorkflowStreamDeployment.
+        :type: WorkflowBuild
+        """
+        self._attrs["workflowBuild"] = workflow_build.to_dict()
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}

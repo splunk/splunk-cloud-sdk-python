@@ -8,6 +8,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+
 class Context(object):
     """
     A Context exists to configure the SDK's behavior. The one setting that needs to be made in almost every instance is

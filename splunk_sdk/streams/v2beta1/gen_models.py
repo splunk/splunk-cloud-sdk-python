@@ -5177,7 +5177,9 @@ class SyntaxEnum(str, Enum):
     BIN = "BIN"
     RENAME = "RENAME"
     STATS = "STATS"
+    STATS_BY = "STATS_BY"
     SELECT = "SELECT"
+    FUNCTION = "FUNCTION"
     LITERAL = "LITERAL"
     UNKNOWN = "UNKNOWN"
 
@@ -5207,8 +5209,12 @@ class SyntaxEnum(str, Enum):
             return SyntaxEnum.RENAME
         if value == "STATS":
             return SyntaxEnum.STATS
+        if value == "STATS_BY":
+            return SyntaxEnum.STATS_BY
         if value == "SELECT":
             return SyntaxEnum.SELECT
+        if value == "FUNCTION":
+            return SyntaxEnum.FUNCTION
         if value == "LITERAL":
             return SyntaxEnum.LITERAL
         if value == "UNKNOWN":

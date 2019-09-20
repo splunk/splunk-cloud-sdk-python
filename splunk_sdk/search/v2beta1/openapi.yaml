@@ -731,4 +731,4 @@ paths:
         "500":
           description: Internal service error.
 
-# Retrieved from scp-openapi commit 194ce563d548c44ef7db66b7fb76739b04ab9143 path: search/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit 126353d5bad6a9ae5f1834fa1c9a46eb1c91564c path: search/v2beta1/openapi.yaml

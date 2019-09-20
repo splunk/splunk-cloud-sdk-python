@@ -47,7 +47,13 @@ from splunk_sdk.ml.v2beta1.gen_models import WorkflowValidationOption, \
     FitTask, \
     InputDataSource, \
     InputData, \
+    InputStreamSource, \
+    InputStream, \
+    KafkaInput, \
+    OutputStreamDestination, \
+    KafkaOutput, \
     OutputData, \
+    OutputStream, \
     RawData, \
     SPL, \
     ScoreReport, \
@@ -71,4 +77,5 @@ from splunk_sdk.ml.v2beta1.gen_models import WorkflowValidationOption, \
     WorkflowRun, \
     WorkflowRunError, \
     WorkflowRunLog, \
+    WorkflowStreamDeployment, \
     WorkflowsGetResponse

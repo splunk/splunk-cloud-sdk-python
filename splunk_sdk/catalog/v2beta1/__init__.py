@@ -41,6 +41,8 @@ from splunk_sdk.catalog.v2beta1.gen_models import Action, \
     AliasActionKind, \
     AliasActionPATCH, \
     AliasActionPOST, \
+    Annotation, \
+    AnnotationPOST, \
     AutoKVAction, \
     AutoKVActionKind, \
     AutoKVActionPATCH, \

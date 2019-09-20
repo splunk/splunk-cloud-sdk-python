@@ -14,8 +14,8 @@ from time import sleep
 import pytest
 
 from splunk_sdk.base_client import BaseClient
-from splunk_sdk.identity import IdentityAndAccessControl, CreateRoleBody, AddGroupRoleBody, AddMemberBody, \
-    AddGroupMemberBody
+from splunk_sdk.identity import Identity as IdentityAndAccessControl
+from splunk_sdk.identity import CreateRoleBody, AddGroupRoleBody, AddMemberBody, AddGroupMemberBody
 from splunk_sdk.identity import CreateGroupBody
 from test.fixtures import get_test_client as test_client  # NOQA
 

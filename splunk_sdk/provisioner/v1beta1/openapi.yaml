@@ -8,6 +8,14 @@ components:
       schema:
         pattern: ^Bearer .+
         type: string
+    Entitlement:
+      in: path
+      name: entitlement
+      required: true
+      schema:
+        maxLength: 100
+        minLength: 4
+        type: string
     InviteId:
       in: path
       name: inviteId
@@ -41,11 +49,11 @@ components:
         minLength: 4
         type: string
   requestBodies:
-    UpdateEntitlementsBody:
+    SetEntitlement:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/UpdateEntitlementsBody'
+            $ref: '#/components/schemas/SetEntitlement'
       required: true
   schemas:
     AnyValue: {}
@@ -78,6 +86,31 @@ components:
       - tenant
       - action
       type: object
+    Entitlement:
+      properties:
+        name:
+          type: string
+        sku:
+          maxLength: 100
+          minLength: 2
+          type: string
+        status:
+          $ref: '#/components/schemas/EntitlementStatus'
+        updatedAt:
+          format: date-time
+          type: string
+        updatedBy:
+          type: string
+        value:
+          $ref: '#/components/schemas/AnyValue'
+      required:
+      - name
+      - sku
+      - value
+      - updatedAt
+      - updatedBy
+      - status
+      type: object
     EntitlementLog:
       properties:
         action:
@@ -86,6 +119,8 @@ components:
           type: string
         sku:
           type: string
+        status:
+          $ref: '#/components/schemas/EntitlementStatus'
         updatedAt:
           format: date-time
           type: string
@@ -100,35 +135,23 @@ components:
       - updatedAt
       - updatedBy
       - action
+      - status
       type: object
     EntitlementLogs:
       items:
         $ref: '#/components/schemas/EntitlementLog'
       type: array
-    EntitlementSetting:
-      properties:
-        name:
-          type: string
-        sku:
-          type: string
-        updatedAt:
-          format: date-time
-          type: string
-        updatedBy:
-          type: string
-        value:
-          $ref: '#/components/schemas/AnyValue'
-      required:
-      - name
-      - sku
-      - value
-      - updatedAt
-      - updatedBy
-      type: object
     EntitlementSettings:
       items:
-        $ref: '#/components/schemas/EntitlementSetting'
+        $ref: '#/components/schemas/Entitlement'
       type: array
+    EntitlementStatus:
+      enum:
+      - active
+      - provisioning
+      - failed
+      - deleting
+      type: string
     Error:
       properties:
         code:
@@ -288,6 +311,18 @@ components:
       items:
         $ref: '#/components/schemas/ProvisionJobInfo'
       type: array
+    SetEntitlement:
+      properties:
+        sku:
+          maxLength: 100
+          minLength: 2
+          type: string
+        value:
+          $ref: '#/components/schemas/AnyValue'
+      required:
+      - sku
+      - value
+      type: object
     TenantInfo:
       properties:
         createdAt:
@@ -309,34 +344,6 @@ components:
       items:
         $ref: '#/components/schemas/TenantInfo'
       type: array
-    UpdateEntitlement:
-      properties:
-        name:
-          type: string
-        sku:
-          maxLength: 36
-          minLength: 2
-          type: string
-        value:
-          $ref: '#/components/schemas/AnyValue'
-      required:
-      - name
-      - sku
-      - value
-      type: object
-    UpdateEntitlementsBody:
-      items:
-        $ref: '#/components/schemas/UpdateEntitlement'
-      type: array
-    UpdateEntitlementsResponse:
-      properties:
-        failed:
-          items:
-            type: string
-          type: array
-      required:
-      - failed
-      type: object
     UpdateInviteBody:
       properties:
         action:
@@ -705,4 +712,4 @@ paths:
 servers:
 - url: /
 
-# Retrieved from scp-openapi commit 194ce563d548c44ef7db66b7fb76739b04ab9143 path: provisioner/v1beta1/openapi.yaml
+# Retrieved from scp-openapi commit 126353d5bad6a9ae5f1834fa1c9a46eb1c91564c path: provisioner/v1beta1/openapi.yaml

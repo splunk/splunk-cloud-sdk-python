@@ -6,7 +6,7 @@ from splunk_sdk import Context
 from splunk_sdk.auth import TokenAuthManager
 from splunk_sdk.auth.auth_manager import AuthnError
 from splunk_sdk.base_client import BaseClient
-from splunk_sdk.identity import IdentityAndAccessControl
+from splunk_sdk.identity import Identity as IdentityAndAccessControl
 from splunk_sdk.auth import PKCEAuthManager, ClientAuthManager
 from test.fixtures import get_auth_manager as pkce_auth_manager  # NOQA
 from test.fixtures import get_client_auth_manager as client_auth_manager  # NOQA

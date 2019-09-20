@@ -17,8 +17,7 @@ from test.fixtures import get_auth_manager as pkce_auth_manager  # NOQA
 from test.fixtures import get_client_auth_manager as client_auth_manager  # NOQA
 from splunk_sdk.common.context import Context
 from splunk_sdk.base_client import BaseClient
-from splunk_sdk.identity import IdentityAndAccessControl
-
+from splunk_sdk.identity import Identity as IdentityAndAccessControl
 
 
 @pytest.mark.usefixtures("pkce_auth_manager")  # NOQA
@@ -30,6 +29,7 @@ def test_base_client_instance_with_pkce_auth(pkce_auth_manager):
     assert (default_config is not None)
     assert (base_client is not None)
     _assert_pkce_auth_context(base_client.auth_manager.context)
+
 
 @pytest.mark.usefixtures("pkce_auth_manager")  # NOQA
 def test_base_client_hooks_with_pkce_auth(pkce_auth_manager):
@@ -50,6 +50,7 @@ def test_base_client_hooks_with_pkce_auth(pkce_auth_manager):
     assert len(responses) == 1
     assert responses[0].status_code == 200
 
+
 @pytest.mark.usefixtures("pkce_auth_manager")  # NOQA
 def test_base_client_empty_hooks_with_pkce_auth(pkce_auth_manager):
     pkce_auth_manager.authenticate()
@@ -63,6 +64,7 @@ def test_base_client_empty_hooks_with_pkce_auth(pkce_auth_manager):
     IdentityAndAccessControl(base_client).validate_token()
     assert True
 
+
 @pytest.mark.usefixtures("pkce_auth_manager")  # NOQA
 def test_base_client_no_list_hooks_with_pkce_auth(pkce_auth_manager):
     def test_hook(*args, **kwargs):
@@ -70,6 +72,7 @@ def test_base_client_no_list_hooks_with_pkce_auth(pkce_auth_manager):
 
     with pytest.raises(TypeError):
         BaseClient(context=Context(), auth_manager=pkce_auth_manager, requests_hooks=test_hook)
+
 
 @pytest.mark.usefixtures("client_auth_manager")  # NOQA
 def test_base_client_instance_with_client_auth(client_auth_manager):

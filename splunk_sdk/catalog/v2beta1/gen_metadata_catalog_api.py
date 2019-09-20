@@ -37,6 +37,7 @@ from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 from splunk_sdk.catalog.v2beta1.gen_models import Action
 from splunk_sdk.catalog.v2beta1.gen_models import ActionPATCH
 from splunk_sdk.catalog.v2beta1.gen_models import ActionPOST
+from splunk_sdk.catalog.v2beta1.gen_models import Annotation
 from splunk_sdk.catalog.v2beta1.gen_models import Dashboard
 from splunk_sdk.catalog.v2beta1.gen_models import DashboardPATCH
 from splunk_sdk.catalog.v2beta1.gen_models import DashboardPOST
@@ -920,6 +921,90 @@ class MetadataCatalog(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, Action)
+
+    def list_annotations_for_dashboard_by_id(self, dashboardid: str, filter: str = None, query_params: Dict[str, object] = None) -> List[Annotation]:
+        """
+        Return the set of annotations that are part of a dashboard.
+        """
+        if query_params is None:
+            query_params = {}
+        if filter is not None:
+            query_params['filter'] = filter
+
+        path_params = {
+            "dashboardid": dashboardid,
+        }
+
+        path = Template("/catalog/v2beta1/dashboards/${dashboardid}/annotations").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, Annotation)
+
+    def list_annotations_for_dashboard_by_resource_name(self, dashboardresourcename: str, filter: str = None, query_params: Dict[str, object] = None) -> List[Annotation]:
+        """
+        Return the set of annotations that are part of a dashboard.
+        """
+        if query_params is None:
+            query_params = {}
+        if filter is not None:
+            query_params['filter'] = filter
+
+        path_params = {
+            "dashboardresourcename": dashboardresourcename,
+        }
+
+        path = Template("/catalog/v2beta1/dashboards/${dashboardresourcename}/annotations").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, Annotation)
+
+    def list_annotations_for_dataset_by_id(self, datasetid: str, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Annotation]:
+        """
+        Return the set of annotations that are part of a dataset.
+        """
+        if query_params is None:
+            query_params = {}
+        if count is not None:
+            query_params['count'] = count
+        if filter is not None:
+            query_params['filter'] = filter
+        if offset is not None:
+            query_params['offset'] = offset
+        if orderby is not None:
+            query_params['orderby'] = orderby
+
+        path_params = {
+            "datasetid": datasetid,
+        }
+
+        path = Template("/catalog/v2beta1/datasets/${datasetid}/annotations").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, Annotation)
+
+    def list_annotations_for_dataset_by_resource_name(self, datasetresourcename: str, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Annotation]:
+        """
+        Return the set of annotations that are part of a dataset.
+        """
+        if query_params is None:
+            query_params = {}
+        if count is not None:
+            query_params['count'] = count
+        if filter is not None:
+            query_params['filter'] = filter
+        if offset is not None:
+            query_params['offset'] = offset
+        if orderby is not None:
+            query_params['orderby'] = orderby
+
+        path_params = {
+            "datasetresourcename": datasetresourcename,
+        }
+
+        path = Template("/catalog/v2beta1/datasets/${datasetresourcename}/annotations").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, Annotation)
 
     def list_dashboards(self, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Dashboard]:
         """

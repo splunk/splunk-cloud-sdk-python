@@ -23,7 +23,7 @@ from splunk_sdk.gateway.client import Gateway
 from splunk_sdk.provisioner import Provisioner
 from splunk_sdk.search import SplunkSearchService as Search
 from splunk_sdk.streams import DataStreamProcessingRESTAPI as Streams
-from splunk_sdk.identity import IdentityAndAccessControl as Identity
+from splunk_sdk.identity import Identity
 from splunk_sdk.forwarders import SplunkForwarderService as Forwarders
 from splunk_sdk.ml import MachineLearningServiceMLAPI
 

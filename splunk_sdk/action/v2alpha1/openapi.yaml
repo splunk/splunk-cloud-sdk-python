@@ -26,6 +26,13 @@ components:
       schema:
         pattern: ^[_a-z][_a-z0-9]*(?:\\.[_a-z][_a-z0-9]*)*$
         type: string
+    MessageId:
+      description: The id of the message
+      in: path
+      name: message_id
+      required: true
+      schema:
+        type: string
     Tenant:
       description: The tenant name.
       example: wingdings-widgets
@@ -46,12 +53,14 @@ components:
     Action:
       discriminator:
         mapping:
+          app-message: '#/components/schemas/AppMessageAction'
           email: '#/components/schemas/EmailAction'
           webhook: '#/components/schemas/WebhookAction'
         propertyName: kind
       oneOf:
       - $ref: '#/components/schemas/EmailAction'
       - $ref: '#/components/schemas/WebhookAction'
+      - $ref: '#/components/schemas/AppMessageAction'
     ActionImmutable:
       properties:
         createdAt:
@@ -90,11 +99,172 @@ components:
       enum:
       - webhook
       - email
+      - app-message
       type: string
     ActionMutable:
       oneOf:
       - $ref: '#/components/schemas/EmailActionMutable'
       - $ref: '#/components/schemas/WebhookActionMutable'
+    AppMessage:
+      allOf:
+      - $ref: '#/components/schemas/AppMessageInternal'
+      - $ref: '#/components/schemas/AppMessageImmutable'
+      - $ref: '#/components/schemas/AppMessageMutable'
+      description: A message delivered to a tenant member from the platform or a subscribed
+        app.
+      type: object
+    AppMessageAction:
+      allOf:
+      - $ref: '#/components/schemas/ActionImmutable'
+      - $ref: '#/components/schemas/AppMessageActionMutable'
+    AppMessageActionMutable:
+      properties:
+        expirationTimeUTCEpoch:
+          description: Unix epoch datetime stamp in UTC indicating when the message
+            should expire.
+          type: integer
+        groups:
+          description: An array of tenant groups, whose members should receive the
+            message when it's triggered.
+          items:
+            type: string
+          type: array
+        iconURL:
+          description: The icon URL to be displayed along with the message.
+          format: uri
+          maxLength: 2048
+          type: string
+        link:
+          description: Call to action link for this message.
+          format: uri
+          maxLength: 2048
+          type: string
+        members:
+          description: An array of tenant member names that should receive the message
+            when it's triggered.
+          items:
+            type: string
+          type: array
+        message:
+          description: The main message that user needs to receive.
+          maxLength: 1024
+          type: string
+        title:
+          description: The title to be displayed for the message.
+          maxLength: 128
+          type: string
+      type: object
+    AppMessageImmutable:
+      properties:
+        clientId:
+          description: Application or service client ID that caused the message to
+            be created.
+          readOnly: true
+          type: string
+        clientKind:
+          $ref: '#/components/schemas/ClientKind'
+        clientName:
+          description: Human readable name for the entity that generated the message.
+          readOnly: true
+          type: string
+        iconURL:
+          description: The icon URL to be displayed along with the message.
+          format: uri
+          readOnly: true
+          type: string
+        link:
+          description: Call to action link for this message.
+          format: uri
+          readOnly: true
+          type: string
+        message:
+          description: The main message that user needs to receive.
+          readOnly: true
+          type: string
+        recipient:
+          description: The tenant member the message was delivered to.
+          readOnly: true
+          type: string
+        title:
+          description: The title to be displayed for the message.
+          readOnly: true
+          type: string
+      required:
+      - recipient
+      - title
+      - clientId
+      - clientName
+      - clientKind
+      type: object
+    AppMessageInternal:
+      properties:
+        createdAt:
+          description: The date and time this trigger map entry was created (ISO-8601
+            date/time with zone).
+          format: date-time
+          readOnly: true
+          type: string
+        createdBy:
+          description: The principal that created this trigger map entry.
+          readOnly: true
+          type: string
+        id:
+          description: The id of this message.
+          readOnly: true
+          type: string
+        updatedAt:
+          description: The date and time this trigger map entry was updated (ISO-8601
+            date/time with zone).
+          format: date-time
+          readOnly: true
+          type: string
+        updatedBy:
+          description: The principal that updated this trigger map entry.
+          readOnly: true
+          type: string
+      required:
+      - id
+      - createdAt
+      - updatedAt
+      - createdBy
+      - updatedBy
+      type: object
+    AppMessageMutable:
+      properties:
+        state:
+          $ref: '#/components/schemas/AppMessageState'
+          description: Current state of this message
+      required:
+      - state
+      type: object
+    AppMessagePaginatedList:
+      description: A list of app messages delivered to the user. May also include
+        a next token which can be returned to the service to retrieve the next page
+        of messages.
+      properties:
+        items:
+          description: An array of app messages
+          items:
+            $ref: '#/components/schemas/AppMessage'
+          type: array
+        next:
+          description: A token that can be returned to the service to retrieve the
+            next page of messages
+          type: string
+      required:
+      - items
+      type: object
+    AppMessageState:
+      enum:
+      - unread
+      - read
+      type: string
+    ClientKind:
+      description: The kind of creator of an app message.
+      enum:
+      - app
+      - platform
+      type: string
     EmailAction:
       allOf:
       - $ref: '#/components/schemas/ActionImmutable'
@@ -168,6 +338,7 @@ components:
       properties:
         createdAt:
           description: string-ified ISO-8601 date/time with zone.
+          format: date-time
           readOnly: true
           type: string
         createdBy:
@@ -191,6 +362,10 @@ components:
                 format: email
                 type: string
               type: array
+            expirationTimeUTCEpoch:
+              description: Unix epoch timestamp in UTC indicating when the message
+                should expire from persistent storage.
+              type: integer
             members:
               description: An array of tenant member names, whose profile email addresses
                 will be included as recipients.
@@ -315,7 +490,7 @@ info:
   description: |
     With the Splunk Cloud Action service, you can receive incoming trigger events and use pre-defined action templates to turn these events into meaningful actions.
   title: Action Service
-  version: v2alpha1.8
+  version: v2alpha1.9
 openapi: 3.0.0
 paths:
   /{tenant}/action/v2alpha1/actions:
@@ -514,4 +689,4 @@ paths:
       - Webhook Keys
       x-auth-required: false
 
-# Retrieved from scp-openapi commit 194ce563d548c44ef7db66b7fb76739b04ab9143 path: action/v2alpha1/openapi.yaml
+# Retrieved from scp-openapi commit 126353d5bad6a9ae5f1834fa1c9a46eb1c91564c path: action/v2alpha1/openapi.yaml

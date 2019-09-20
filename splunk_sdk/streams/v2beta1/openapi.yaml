@@ -921,7 +921,9 @@ components:
           - BIN
           - RENAME
           - STATS
+          - STATS_BY
           - SELECT
+          - FUNCTION
           - LITERAL
           - UNKNOWN
           example: ""
@@ -2970,4 +2972,4 @@ tags:
 - description: V2Beta1 Preview API Endpoints
   name: apiv-2-beta-1-preview-controller
 
-# Retrieved from scp-openapi commit 194ce563d548c44ef7db66b7fb76739b04ab9143 path: streams/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit 126353d5bad6a9ae5f1834fa1c9a46eb1c91564c path: streams/v2beta1/openapi.yaml

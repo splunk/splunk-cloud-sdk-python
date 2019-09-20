@@ -1132,4 +1132,4 @@ paths:
           description: An internal service error occurred.
       summary: Modifies a job based on the job ID.
       x-authz-scope: collect.jobs.update
-# Retrieved from scp-openapi commit 194ce563d548c44ef7db66b7fb76739b04ab9143 path: collect/v1beta1/openapi.yaml
+# Retrieved from scp-openapi commit 126353d5bad6a9ae5f1834fa1c9a46eb1c91564c path: collect/v1beta1/openapi.yaml

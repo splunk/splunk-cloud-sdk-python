@@ -847,9 +847,9 @@ components:
       name: Authorization
       type: apiKey
 info:
-  description: With the Splunk Cloud Identity and Access Control (IAC) Service, you
-    can authenticate and authorize Splunk API users.
-  title: Identity and Access Control
+  description: With the Splunk Cloud Identity Service, you can authenticate and authorize
+    Splunk API users.
+  title: Identity
   version: v2beta1.10
 openapi: 3.0.0
 paths:
@@ -1559,7 +1559,8 @@ paths:
     - $ref: '#/components/parameters/tenant'
   /system/identity/v2beta1/principals:
     get:
-      description: Returns the list of principals known to IAC.
+      description: Returns the list of principals that the Identity service knows
+        about.
       operationId: listPrincipals
       responses:
         "200":
@@ -1604,4 +1605,4 @@ security:
 servers:
 - url: /
 
-# Retrieved from scp-openapi commit 194ce563d548c44ef7db66b7fb76739b04ab9143 path: identity/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit 126353d5bad6a9ae5f1834fa1c9a46eb1c91564c path: identity/v2beta1/openapi.yaml

@@ -870,6 +870,414 @@ ActionPOST.from_dict_handlers["ALIAS"] = AliasActionPOST._from_dict
 
 
 
+class Annotation(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "Annotation":
+        instance = Annotation.__new__(Annotation)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", annotationtypeid: "str" = None, dashboardid: "str" = None, datasetid: "str" = None, fieldid: "str" = None, id: "str" = None, relationshipid: "str" = None, **extra):
+        """Annotation"""
+
+        self._attrs = dict()
+        if created is not None:
+            self._attrs["created"] = created
+        if createdby is not None:
+            self._attrs["createdby"] = createdby
+        if modified is not None:
+            self._attrs["modified"] = modified
+        if modifiedby is not None:
+            self._attrs["modifiedby"] = modifiedby
+        if owner is not None:
+            self._attrs["owner"] = owner
+        if annotationtypeid is not None:
+            self._attrs["annotationtypeid"] = annotationtypeid
+        if dashboardid is not None:
+            self._attrs["dashboardid"] = dashboardid
+        if datasetid is not None:
+            self._attrs["datasetid"] = datasetid
+        if fieldid is not None:
+            self._attrs["fieldid"] = fieldid
+        if id is not None:
+            self._attrs["id"] = id
+        if relationshipid is not None:
+            self._attrs["relationshipid"] = relationshipid
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def created(self) -> "datetime":
+        """ Gets the created of this Annotation.
+        The date and time object was created.
+        """
+        return self._attrs.get("created")
+
+    @created.setter
+    def created(self, created: "datetime"):
+        """Sets the created of this Annotation.
+
+        The date and time object was created.
+
+        :param created: The created of this Annotation.
+        :type: datetime
+        """
+        if created is None:
+            raise ValueError("Invalid value for `created`, must not be `None`")
+        self._attrs["created"] = created
+
+    @property
+    def createdby(self) -> "str":
+        """ Gets the createdby of this Annotation.
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+        """
+        return self._attrs.get("createdby")
+
+    @createdby.setter
+    def createdby(self, createdby: "str"):
+        """Sets the createdby of this Annotation.
+
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+
+        :param createdby: The createdby of this Annotation.
+        :type: str
+        """
+        if createdby is None:
+            raise ValueError("Invalid value for `createdby`, must not be `None`")
+        self._attrs["createdby"] = createdby
+
+    @property
+    def modified(self) -> "datetime":
+        """ Gets the modified of this Annotation.
+        The date and time object was modified.
+        """
+        return self._attrs.get("modified")
+
+    @modified.setter
+    def modified(self, modified: "datetime"):
+        """Sets the modified of this Annotation.
+
+        The date and time object was modified.
+
+        :param modified: The modified of this Annotation.
+        :type: datetime
+        """
+        if modified is None:
+            raise ValueError("Invalid value for `modified`, must not be `None`")
+        self._attrs["modified"] = modified
+
+    @property
+    def modifiedby(self) -> "str":
+        """ Gets the modifiedby of this Annotation.
+        The name of the user who most recently modified the object.
+        """
+        return self._attrs.get("modifiedby")
+
+    @modifiedby.setter
+    def modifiedby(self, modifiedby: "str"):
+        """Sets the modifiedby of this Annotation.
+
+        The name of the user who most recently modified the object.
+
+        :param modifiedby: The modifiedby of this Annotation.
+        :type: str
+        """
+        if modifiedby is None:
+            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
+        self._attrs["modifiedby"] = modifiedby
+
+    @property
+    def owner(self) -> "str":
+        """ Gets the owner of this Annotation.
+        The name of the object's owner.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this Annotation.
+
+        The name of the object's owner.
+
+        :param owner: The owner of this Annotation.
+        :type: str
+        """
+        if owner is None:
+            raise ValueError("Invalid value for `owner`, must not be `None`")
+        self._attrs["owner"] = owner
+
+    @property
+    def annotationtypeid(self) -> "str":
+        """ Gets the annotationtypeid of this Annotation.
+        The annotation type ID.
+        """
+        return self._attrs.get("annotationtypeid")
+
+    @annotationtypeid.setter
+    def annotationtypeid(self, annotationtypeid: "str"):
+        """Sets the annotationtypeid of this Annotation.
+
+        The annotation type ID.
+
+        :param annotationtypeid: The annotationtypeid of this Annotation.
+        :type: str
+        """
+        self._attrs["annotationtypeid"] = annotationtypeid
+
+    @property
+    def dashboardid(self) -> "str":
+        """ Gets the dashboardid of this Annotation.
+        The dashboard ID.
+        """
+        return self._attrs.get("dashboardid")
+
+    @dashboardid.setter
+    def dashboardid(self, dashboardid: "str"):
+        """Sets the dashboardid of this Annotation.
+
+        The dashboard ID.
+
+        :param dashboardid: The dashboardid of this Annotation.
+        :type: str
+        """
+        self._attrs["dashboardid"] = dashboardid
+
+    @property
+    def datasetid(self) -> "str":
+        """ Gets the datasetid of this Annotation.
+        The dataset ID. Null if not annotating a dataset.
+        """
+        return self._attrs.get("datasetid")
+
+    @datasetid.setter
+    def datasetid(self, datasetid: "str"):
+        """Sets the datasetid of this Annotation.
+
+        The dataset ID. Null if not annotating a dataset.
+
+        :param datasetid: The datasetid of this Annotation.
+        :type: str
+        """
+        self._attrs["datasetid"] = datasetid
+
+    @property
+    def fieldid(self) -> "str":
+        """ Gets the fieldid of this Annotation.
+        The field ID. Null if not annotating a field.
+        """
+        return self._attrs.get("fieldid")
+
+    @fieldid.setter
+    def fieldid(self, fieldid: "str"):
+        """Sets the fieldid of this Annotation.
+
+        The field ID. Null if not annotating a field.
+
+        :param fieldid: The fieldid of this Annotation.
+        :type: str
+        """
+        self._attrs["fieldid"] = fieldid
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this Annotation.
+        A unique annotation ID.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this Annotation.
+
+        A unique annotation ID.
+
+        :param id: The id of this Annotation.
+        :type: str
+        """
+        self._attrs["id"] = id
+
+    @property
+    def relationshipid(self) -> "str":
+        """ Gets the relationshipid of this Annotation.
+        The relationship ID. Null if not annotating a relationship.
+        """
+        return self._attrs.get("relationshipid")
+
+    @relationshipid.setter
+    def relationshipid(self, relationshipid: "str"):
+        """Sets the relationshipid of this Annotation.
+
+        The relationship ID. Null if not annotating a relationship.
+
+        :param relationshipid: The relationshipid of this Annotation.
+        :type: str
+        """
+        self._attrs["relationshipid"] = relationshipid
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class AnnotationPOST(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "AnnotationPOST":
+        instance = AnnotationPOST.__new__(AnnotationPOST)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, annotationtypeid: "str" = None, annotationtyperesourcename: "str" = None, dashboardid: "str" = None, datasetid: "str" = None, fieldid: "str" = None, id: "str" = None, relationshipid: "str" = None, **extra):
+        """AnnotationPOST"""
+
+        self._attrs = dict()
+        if annotationtypeid is not None:
+            self._attrs["annotationtypeid"] = annotationtypeid
+        if annotationtyperesourcename is not None:
+            self._attrs["annotationtyperesourcename"] = annotationtyperesourcename
+        if dashboardid is not None:
+            self._attrs["dashboardid"] = dashboardid
+        if datasetid is not None:
+            self._attrs["datasetid"] = datasetid
+        if fieldid is not None:
+            self._attrs["fieldid"] = fieldid
+        if id is not None:
+            self._attrs["id"] = id
+        if relationshipid is not None:
+            self._attrs["relationshipid"] = relationshipid
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def annotationtypeid(self) -> "str":
+        """ Gets the annotationtypeid of this AnnotationPOST.
+        The annotation type ID.
+        """
+        return self._attrs.get("annotationtypeid")
+
+    @annotationtypeid.setter
+    def annotationtypeid(self, annotationtypeid: "str"):
+        """Sets the annotationtypeid of this AnnotationPOST.
+
+        The annotation type ID.
+
+        :param annotationtypeid: The annotationtypeid of this AnnotationPOST.
+        :type: str
+        """
+        self._attrs["annotationtypeid"] = annotationtypeid
+
+    @property
+    def annotationtyperesourcename(self) -> "str":
+        """ Gets the annotationtyperesourcename of this AnnotationPOST.
+        Resource name of the annotation type
+        """
+        return self._attrs.get("annotationtyperesourcename")
+
+    @annotationtyperesourcename.setter
+    def annotationtyperesourcename(self, annotationtyperesourcename: "str"):
+        """Sets the annotationtyperesourcename of this AnnotationPOST.
+
+        Resource name of the annotation type
+
+        :param annotationtyperesourcename: The annotationtyperesourcename of this AnnotationPOST.
+        :type: str
+        """
+        self._attrs["annotationtyperesourcename"] = annotationtyperesourcename
+
+    @property
+    def dashboardid(self) -> "str":
+        """ Gets the dashboardid of this AnnotationPOST.
+        The dashboard ID.
+        """
+        return self._attrs.get("dashboardid")
+
+    @dashboardid.setter
+    def dashboardid(self, dashboardid: "str"):
+        """Sets the dashboardid of this AnnotationPOST.
+
+        The dashboard ID.
+
+        :param dashboardid: The dashboardid of this AnnotationPOST.
+        :type: str
+        """
+        self._attrs["dashboardid"] = dashboardid
+
+    @property
+    def datasetid(self) -> "str":
+        """ Gets the datasetid of this AnnotationPOST.
+        The dataset ID. Null if not annotating a dataset.
+        """
+        return self._attrs.get("datasetid")
+
+    @datasetid.setter
+    def datasetid(self, datasetid: "str"):
+        """Sets the datasetid of this AnnotationPOST.
+
+        The dataset ID. Null if not annotating a dataset.
+
+        :param datasetid: The datasetid of this AnnotationPOST.
+        :type: str
+        """
+        self._attrs["datasetid"] = datasetid
+
+    @property
+    def fieldid(self) -> "str":
+        """ Gets the fieldid of this AnnotationPOST.
+        The field ID. Null if not annotating a field.
+        """
+        return self._attrs.get("fieldid")
+
+    @fieldid.setter
+    def fieldid(self, fieldid: "str"):
+        """Sets the fieldid of this AnnotationPOST.
+
+        The field ID. Null if not annotating a field.
+
+        :param fieldid: The fieldid of this AnnotationPOST.
+        :type: str
+        """
+        self._attrs["fieldid"] = fieldid
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this AnnotationPOST.
+        A unique annotation ID. If not specified, an auto generated ID is created.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this AnnotationPOST.
+
+        A unique annotation ID. If not specified, an auto generated ID is created.
+
+        :param id: The id of this AnnotationPOST.
+        :type: str
+        """
+        self._attrs["id"] = id
+
+    @property
+    def relationshipid(self) -> "str":
+        """ Gets the relationshipid of this AnnotationPOST.
+        The relationship ID. Null if not annotating a relationship.
+        """
+        return self._attrs.get("relationshipid")
+
+    @relationshipid.setter
+    def relationshipid(self, relationshipid: "str"):
+        """Sets the relationshipid of this AnnotationPOST.
+
+        The relationship ID. Null if not annotating a relationship.
+
+        :param relationshipid: The relationshipid of this AnnotationPOST.
+        :type: str
+        """
+        self._attrs["relationshipid"] = relationshipid
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
 class AutoKVAction(Action):
 
     @staticmethod

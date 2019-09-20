@@ -46,6 +46,7 @@ from splunk_sdk.ml.v2beta1.gen_models import WorkflowInference
 from splunk_sdk.ml.v2beta1.gen_models import WorkflowRun
 from splunk_sdk.ml.v2beta1.gen_models import WorkflowRunError
 from splunk_sdk.ml.v2beta1.gen_models import WorkflowRunLog
+from splunk_sdk.ml.v2beta1.gen_models import WorkflowStreamDeployment
 from splunk_sdk.ml.v2beta1.gen_models import WorkflowsGetResponse
 
 
@@ -147,6 +148,24 @@ class MachineLearningServiceMLAPI(BaseService):
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, WorkflowRun)
 
+    def create_workflow_stream_deployment(self, id: str, build_id: str, workflow_stream_deployment: WorkflowStreamDeployment, query_params: Dict[str, object] = None) -> WorkflowStreamDeployment:
+        """
+        Creates a workflow streaming deployment.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "id": id,
+            "buildId": build_id,
+        }
+
+        path = Template("/ml/v2beta1/workflows/${id}/builds/${buildId}/stream-deployments").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = workflow_stream_deployment.to_dict()
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, WorkflowStreamDeployment)
+
     def delete_workflow(self, id: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
         Removes a workflow configuration.
@@ -212,6 +231,24 @@ class MachineLearningServiceMLAPI(BaseService):
         }
 
         path = Template("/ml/v2beta1/workflows/${id}/builds/${buildId}/runs/${runId}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.delete(url, params=query_params)
+        return handle_response(response, )
+
+    def delete_workflow_stream_deployment(self, id: str, build_id: str, stream_deployment_id: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
+        """
+        Removes a workflow streaming deployment.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "id": id,
+            "buildId": build_id,
+            "streamDeploymentId": stream_deployment_id,
+        }
+
+        path = Template("/ml/v2beta1/workflows/${id}/builds/${buildId}/stream-deployments/${streamDeploymentId}").substitute(path_params)
         url = self.base_client.build_url(path)
         response = self.base_client.delete(url, params=query_params)
         return handle_response(response, )
@@ -390,6 +427,24 @@ class MachineLearningServiceMLAPI(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, WorkflowRunLog)
+
+    def get_workflow_stream_deployment(self, id: str, build_id: str, stream_deployment_id: str, query_params: Dict[str, object] = None) -> WorkflowStreamDeployment:
+        """
+        Returns the status of a workflow streaming deployment.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "id": id,
+            "buildId": build_id,
+            "streamDeploymentId": stream_deployment_id,
+        }
+
+        path = Template("/ml/v2beta1/workflows/${id}/builds/${buildId}/stream-deployments/${streamDeploymentId}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, WorkflowStreamDeployment)
 
     def list_workflow_builds(self, id: str, query_params: Dict[str, object] = None) -> List[WorkflowBuild]:
         """

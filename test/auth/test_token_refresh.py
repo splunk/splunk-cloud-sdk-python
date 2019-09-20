@@ -1,7 +1,7 @@
 import pytest
 
 from splunk_sdk.base_client import BaseClient
-from splunk_sdk.identity import IdentityAndAccessControl
+from splunk_sdk.identity import Identity as IdentityAndAccessControl
 from test.fixtures import get_test_client as test_client
 
 
