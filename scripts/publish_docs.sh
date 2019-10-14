@@ -46,7 +46,7 @@ fi
 echo "Publishing docs for v${NEW_VERSION} ..."
 
 # Run from project root
-cd "docs/"
+cd "scripts/"
 #####################################################################################################
 ## Write a package.json file, this is needed by @splunk/cicd-tools even though this isn't js
 #####################################################################################################
