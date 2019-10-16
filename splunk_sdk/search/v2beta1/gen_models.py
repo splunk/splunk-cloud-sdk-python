@@ -1039,7 +1039,7 @@ class SearchJob(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, query: "str", allow_side_effects: "object" = None, collect_event_summary: "bool" = False, collect_field_summary: "bool" = False, collect_time_buckets: "bool" = False, completion_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = False, extract_all_fields: "bool" = False, max_time: "float" = 3600, messages: "List[Message]" = None, module: "str" = '', name: "str" = None, percent_complete: "int" = 0, preview_available: "str" = 'false', query_parameters: "QueryParameters" = None, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = 0, sid: "str" = None, status: "SearchStatus" = None, **extra):
+    def __init__(self, query: "str", allow_side_effects: "object" = None, collect_event_summary: "bool" = False, collect_field_summary: "bool" = False, collect_time_buckets: "bool" = False, completion_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = False, extract_all_fields: "bool" = False, max_time: "float" = 3600, messages: "List[Message]" = None, module: "str" = '', name: "str" = None, percent_complete: "int" = 0, preview_available: "str" = 'false', query_parameters: "QueryParameters" = None, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = 0, results_preview_available: "int" = 0, sid: "str" = None, status: "SearchStatus" = None, **extra):
         """SearchJob"""
 
         self._attrs = dict()
@@ -1081,6 +1081,8 @@ class SearchJob(SSCModel):
             self._attrs["resolvedLatest"] = resolved_latest
         if results_available is not None:
             self._attrs["resultsAvailable"] = results_available
+        if results_preview_available is not None:
+            self._attrs["resultsPreviewAvailable"] = results_preview_available
         if sid is not None:
             self._attrs["sid"] = sid
         if status is not None:
@@ -1429,6 +1431,24 @@ class SearchJob(SSCModel):
         :type: int
         """
         self._attrs["resultsAvailable"] = results_available
+
+    @property
+    def results_preview_available(self) -> "int":
+        """ Gets the results_preview_available of this SearchJob.
+        The number of the preview search results for the job with the specified search ID (SID)
+        """
+        return self._attrs.get("resultsPreviewAvailable")
+
+    @results_preview_available.setter
+    def results_preview_available(self, results_preview_available: "int"):
+        """Sets the results_preview_available of this SearchJob.
+
+        The number of the preview search results for the job with the specified search ID (SID)
+
+        :param results_preview_available: The results_preview_available of this SearchJob.
+        :type: int
+        """
+        self._attrs["resultsPreviewAvailable"] = results_preview_available
 
     @property
     def sid(self) -> "str":

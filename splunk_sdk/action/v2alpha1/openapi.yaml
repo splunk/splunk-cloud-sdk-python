@@ -119,16 +119,6 @@ components:
       - $ref: '#/components/schemas/AppMessageActionMutable'
     AppMessageActionMutable:
       properties:
-        expirationTimeUTCEpoch:
-          description: Unix epoch datetime stamp in UTC indicating when the message
-            should expire.
-          type: integer
-        groups:
-          description: An array of tenant groups, whose members should receive the
-            message when it's triggered.
-          items:
-            type: string
-          type: array
         iconURL:
           description: The icon URL to be displayed along with the message.
           format: uri
@@ -139,12 +129,6 @@ components:
           format: uri
           maxLength: 2048
           type: string
-        members:
-          description: An array of tenant member names that should receive the message
-            when it's triggered.
-          items:
-            type: string
-          type: array
         message:
           description: The main message that user needs to receive.
           maxLength: 1024
@@ -153,6 +137,8 @@ components:
           description: The title to be displayed for the message.
           maxLength: 128
           type: string
+      required:
+      - title
       type: object
     AppMessageImmutable:
       properties:
@@ -362,9 +348,9 @@ components:
                 format: email
                 type: string
               type: array
-            expirationTimeUTCEpoch:
+            expiresAtUTCEpoch:
               description: Unix epoch timestamp in UTC indicating when the message
-                should expire from persistent storage.
+                expires.
               type: integer
             members:
               description: An array of tenant member names, whose profile email addresses
@@ -490,7 +476,7 @@ info:
   description: |
     With the Splunk Cloud Action service, you can receive incoming trigger events and use pre-defined action templates to turn these events into meaningful actions.
   title: Action Service
-  version: v2alpha1.9
+  version: v2alpha1.10
 openapi: 3.0.0
 paths:
   /{tenant}/action/v2alpha1/actions:
@@ -689,4 +675,4 @@ paths:
       - Webhook Keys
       x-auth-required: false
 
-# Retrieved from scp-openapi commit 126353d5bad6a9ae5f1834fa1c9a46eb1c91564c path: action/v2alpha1/openapi.yaml
+# Retrieved from scp-openapi commit 0bec7a40de8e5be4abcf1da6cfc73d3c5c653e61 path: action/v2alpha1/openapi.yaml

@@ -35,7 +35,7 @@ def _create_job():
                name="sdkpytest_" + str(time.time_ns()),
                schedule="16 * * * *",
                parameters={"namespaces": "AWS/EC2"},
-               scale_policy={"static": {"workers": 2}})
+               scale_policy=ScalePolicy(static=StaticScale(workers=2)))
 
 
 @pytest.mark.usefixtures("test_client")  # NOQA
@@ -120,7 +120,7 @@ def test_patch_jobs(test_client):
         job_found = collect.get_job(job_id=new_jobs_id)
         assert (job_found is not None)
         assert (job_found.data.name is not None)
-        assert (job_found.data.scale_policy['static'] is not None)
+        assert (job_found.data.scale_policy.static is not None)
 
     finally:
         # delete job

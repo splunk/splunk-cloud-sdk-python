@@ -1,16 +1,16 @@
-# Splunk Cloud SDK for Python
+# Splunk Cloud Services SDK for Python
 
-The Splunk Cloud software development kit (SDK) for Python contains library code and examples to enable you to build apps using the Splunk Cloud services with the Python 3 programming language.
+The Splunk Cloud Services software development kit (SDK) for Python contains library code and examples to enable you to build apps using the Splunk Cloud Services services with the Python 3 programming language.
 
-To use the Splunk Cloud SDKs, you must be included in the Splunk Investigates Beta Program.
+To use the Splunk Cloud Services SDKs, you must be included in the Splunk Investigates Beta Program.
 Sign up here: https://si.scp.splunk.com/.
 
 ## Terms of Service (TOS)
-[Splunk Cloud Terms of Service](https://www.splunk.com/en_us/legal/terms/splunk-cloud-pre-release-terms-of-service.html)
+[Splunk Cloud Services Terms of Service](https://auth.scp.splunk.com/tos)
 
-## Install the Splunk Cloud SDK for Python
+## Install the Splunk Cloud Services SDK for Python
 
-To install the Splunk Cloud SDK for Python and its dependencies, run the following pip command: 
+To install the Splunk Cloud Services SDK for Python and its dependencies, run the following pip command: 
 
 ```
 pip install splunk-cloud-sdk 
@@ -21,8 +21,8 @@ For more about installing the pip package installer, see the [PyPA](https://pypi
 
 ## Get started
 
-The `SplunkCloud` class is the main entry point to the Splunk Cloud SDK for Python.
-Instantiate this class for an index of all the Splunk Cloud services. Each service name is a property on the
+The `SplunkCloud` class is the main entry point to the Splunk Cloud Services SDK for Python.
+Instantiate this class for an index of all the Splunk Cloud Services services. Each service name is a property on the
 client object.
 
 ```python
@@ -60,13 +60,13 @@ identity.validate_token()
 
 ## Conventions
 
-Most of the service methods for the Splunk Cloud SDK for Python are generated directly from the Splunk Cloud service specifications.
+Most of the service methods for the Splunk Cloud Services SDK for Python are generated directly from the Splunk Cloud Services service specifications.
 As a result, the functionality should match exactly between code written using the SDK and code that calls the services
 directly. The goal of this SDK is to make your code match with Python idioms and conventions,
 including using parameters that match Python casing guidelines. For example, when a service specifies an argument as `lastUpdate`,
-that field is known as a more Pythonesque `last_update` when used in the Splunk Cloud SDK for Python.
+that field is known as a more Pythonesque `last_update` when used in the Splunk Cloud Services SDK for Python.
 
-The Splunk Cloud SDK for Python also manages setting up requests, handling authentication, and serializing and deserializing models for requests. If an error occurs in the service, the SDK raises an exception that has properties for why the error
+The Splunk Cloud Services SDK for Python also manages setting up requests, handling authentication, and serializing and deserializing models for requests. If an error occurs in the service, the SDK raises an exception that has properties for why the error
 occurred. Every response from a service call results in some subclass of `SSCModel`. Calls that don't return a body
 return `SSCVoidModel`, which has a `response` property with access to the raw HTTP response.
 
@@ -80,13 +80,13 @@ from splunk_sdk.action.v1beta2 import *
 ```
 
 ## Documentation
-For general documentation, see the [Splunk Developer Cloud Portal](https://sdc.splunkbeta.com/).
+For general documentation, see the [Splunk Developer Portal](https://developer.splunk.com/scs/).
 
-For reference documentation, see the Splunk Cloud SDK for Python API Reference (_coming soon_). 
+For reference documentation, see the [Splunk Cloud Services SDK for Python API Reference](https://developer.splunk.com/scs/reference/sdk/splunk-cloud-sdk-python/).
 
 ## Contributing
 
 Do not directly edit any source file with the prefix `gen_` because it was generated from service specifications.
 
 ## Contact
-If you have questions, reach out to us on [Slack](https://splunkdevplatform.slack.com) in the **#sdc** channel or email us at _sdcbeta@splunk.com_.
+If you have questions, reach out to us on [Slack](https://splunkdevplatform.slack.com) in the **#sdc** channel or email us at _devinfo@splunk.com_.

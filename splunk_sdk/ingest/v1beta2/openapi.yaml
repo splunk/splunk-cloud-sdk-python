@@ -212,8 +212,8 @@ components:
           type: string
       type: object
 info:
-  description: With the Splunk Cloud Ingest service, you can send event or metrics
-    data to the Splunk platform.
+  description: Use the Ingest service in Splunk Cloud Services to send event and metrics
+    data, or upload a static file, to Splunk Cloud Services.
   title: Ingest API
   version: v1beta2.2
 openapi: 3.0.0
@@ -339,4 +339,4 @@ paths:
 servers:
 - url: /
 
-# Retrieved from scp-openapi commit 126353d5bad6a9ae5f1834fa1c9a46eb1c91564c path: ingest/v1beta2/openapi.yaml
+# Retrieved from scp-openapi commit 0bec7a40de8e5be4abcf1da6cfc73d3c5c653e61 path: ingest/v1beta2/openapi.yaml

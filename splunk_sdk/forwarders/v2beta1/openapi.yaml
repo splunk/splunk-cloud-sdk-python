@@ -97,7 +97,8 @@ components:
           type: string
       type: object
 info:
-  description: Send data from a heavy forwarder to the Splunk Forwarder Service.
+  description: Send data from a Splunk forwarder to the Splunk Forwarder service in
+    Splunk Cloud Services.
   title: Splunk Forwarder Service
   version: v2beta1.1
 openapi: 3.0.0
@@ -228,4 +229,4 @@ paths:
 servers:
 - url: /
 
-# Retrieved from scp-openapi commit 126353d5bad6a9ae5f1834fa1c9a46eb1c91564c path: forwarders/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit 0bec7a40de8e5be4abcf1da6cfc73d3c5c653e61 path: forwarders/v2beta1/openapi.yaml

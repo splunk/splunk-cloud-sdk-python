@@ -4762,7 +4762,7 @@ class IndexDataset(Dataset):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", description: "str" = None, disabled: "bool" = None, frozen_time_period_in_secs: "int" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", description: "str" = None, disabled: "bool" = None, earliest_event_time: "str" = None, earliest_ingest_time: "str" = None, frozen_time_period_in_secs: "int" = None, latest_event_time: "str" = None, latest_ingest_time: "str" = None, latest_metadata_update_time: "str" = None, summary: "str" = None, title: "str" = None, total_event_count: "int" = None, total_size: "int" = None, version: "int" = None, **extra):
         """IndexDataset"""
 
         self._attrs = dict()
@@ -4788,13 +4788,27 @@ class IndexDataset(Dataset):
             self._attrs["description"] = description
         if disabled is not None:
             self._attrs["disabled"] = disabled
+        if earliest_event_time is not None:
+            self._attrs["earliestEventTime"] = earliest_event_time
+        if earliest_ingest_time is not None:
+            self._attrs["earliestIngestTime"] = earliest_ingest_time
         if frozen_time_period_in_secs is not None:
             self._attrs["frozenTimePeriodInSecs"] = frozen_time_period_in_secs
         self._attrs["kind"] = "index" 
+        if latest_event_time is not None:
+            self._attrs["latestEventTime"] = latest_event_time
+        if latest_ingest_time is not None:
+            self._attrs["latestIngestTime"] = latest_ingest_time
+        if latest_metadata_update_time is not None:
+            self._attrs["latestMetadataUpdateTime"] = latest_metadata_update_time
         if summary is not None:
             self._attrs["summary"] = summary
         if title is not None:
             self._attrs["title"] = title
+        if total_event_count is not None:
+            self._attrs["totalEventCount"] = total_event_count
+        if total_size is not None:
+            self._attrs["totalSize"] = total_size
         if version is not None:
             self._attrs["version"] = version
         for k, v in extra.items():
@@ -5017,6 +5031,42 @@ class IndexDataset(Dataset):
         self._attrs["disabled"] = disabled
 
     @property
+    def earliest_event_time(self) -> "str":
+        """ Gets the earliest_event_time of this IndexDataset.
+        The timestamp, in seconds, of the earliest event. The timestamp is in UNIX time.
+        """
+        return self._attrs.get("earliestEventTime")
+
+    @earliest_event_time.setter
+    def earliest_event_time(self, earliest_event_time: "str"):
+        """Sets the earliest_event_time of this IndexDataset.
+
+        The timestamp, in seconds, of the earliest event. The timestamp is in UNIX time.
+
+        :param earliest_event_time: The earliest_event_time of this IndexDataset.
+        :type: str
+        """
+        self._attrs["earliestEventTime"] = earliest_event_time
+
+    @property
+    def earliest_ingest_time(self) -> "str":
+        """ Gets the earliest_ingest_time of this IndexDataset.
+        The earliest index time for any of the events in this index.
+        """
+        return self._attrs.get("earliestIngestTime")
+
+    @earliest_ingest_time.setter
+    def earliest_ingest_time(self, earliest_ingest_time: "str"):
+        """Sets the earliest_ingest_time of this IndexDataset.
+
+        The earliest index time for any of the events in this index.
+
+        :param earliest_ingest_time: The earliest_ingest_time of this IndexDataset.
+        :type: str
+        """
+        self._attrs["earliestIngestTime"] = earliest_ingest_time
+
+    @property
     def frozen_time_period_in_secs(self) -> "int":
         """ Gets the frozen_time_period_in_secs of this IndexDataset.
         The frozenTimePeriodInSecs to use for the index
@@ -5038,6 +5088,60 @@ class IndexDataset(Dataset):
     def kind(self) -> str:
         return "index"
 
+
+    @property
+    def latest_event_time(self) -> "str":
+        """ Gets the latest_event_time of this IndexDataset.
+        The timestamp, in seconds, of the latest event. The timestamp is in UNIX time.
+        """
+        return self._attrs.get("latestEventTime")
+
+    @latest_event_time.setter
+    def latest_event_time(self, latest_event_time: "str"):
+        """Sets the latest_event_time of this IndexDataset.
+
+        The timestamp, in seconds, of the latest event. The timestamp is in UNIX time.
+
+        :param latest_event_time: The latest_event_time of this IndexDataset.
+        :type: str
+        """
+        self._attrs["latestEventTime"] = latest_event_time
+
+    @property
+    def latest_ingest_time(self) -> "str":
+        """ Gets the latest_ingest_time of this IndexDataset.
+        The latest index time for any of the events in this index.
+        """
+        return self._attrs.get("latestIngestTime")
+
+    @latest_ingest_time.setter
+    def latest_ingest_time(self, latest_ingest_time: "str"):
+        """Sets the latest_ingest_time of this IndexDataset.
+
+        The latest index time for any of the events in this index.
+
+        :param latest_ingest_time: The latest_ingest_time of this IndexDataset.
+        :type: str
+        """
+        self._attrs["latestIngestTime"] = latest_ingest_time
+
+    @property
+    def latest_metadata_update_time(self) -> "str":
+        """ Gets the latest_metadata_update_time of this IndexDataset.
+        The latest time that the index metadata was refreshed.
+        """
+        return self._attrs.get("latestMetadataUpdateTime")
+
+    @latest_metadata_update_time.setter
+    def latest_metadata_update_time(self, latest_metadata_update_time: "str"):
+        """Sets the latest_metadata_update_time of this IndexDataset.
+
+        The latest time that the index metadata was refreshed.
+
+        :param latest_metadata_update_time: The latest_metadata_update_time of this IndexDataset.
+        :type: str
+        """
+        self._attrs["latestMetadataUpdateTime"] = latest_metadata_update_time
 
     @property
     def summary(self) -> "str":
@@ -5074,6 +5178,42 @@ class IndexDataset(Dataset):
         :type: str
         """
         self._attrs["title"] = title
+
+    @property
+    def total_event_count(self) -> "int":
+        """ Gets the total_event_count of this IndexDataset.
+        The number of events in the index.
+        """
+        return self._attrs.get("totalEventCount")
+
+    @total_event_count.setter
+    def total_event_count(self, total_event_count: "int"):
+        """Sets the total_event_count of this IndexDataset.
+
+        The number of events in the index.
+
+        :param total_event_count: The total_event_count of this IndexDataset.
+        :type: int
+        """
+        self._attrs["totalEventCount"] = total_event_count
+
+    @property
+    def total_size(self) -> "int":
+        """ Gets the total_size of this IndexDataset.
+        The raw size, in bytes, of the uncompressed data in the indexers.
+        """
+        return self._attrs.get("totalSize")
+
+    @total_size.setter
+    def total_size(self, total_size: "int"):
+        """Sets the total_size of this IndexDataset.
+
+        The raw size, in bytes, of the uncompressed data in the indexers.
+
+        :param total_size: The total_size of this IndexDataset.
+        :type: int
+        """
+        self._attrs["totalSize"] = total_size
 
     @property
     def version(self) -> "int":
@@ -5573,7 +5713,7 @@ class JobDataset(Dataset):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", collect_event_summary: "bool" = None, collect_field_summary: "bool" = None, collect_time_buckets: "bool" = None, completion_time: "str" = None, delete_time: "str" = None, description: "str" = None, dispatch_time: "str" = None, execution_time: "float" = None, extract_all_fields: "bool" = None, has_side_effects: "bool" = None, max_time: "int" = None, parameters: "object" = None, percent_complete: "int" = None, query: "str" = None, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = None, search_head: "str" = None, sid: "str" = None, spl: "str" = None, status: "str" = None, summary: "str" = None, timeline_metadata: "JobDatasetPropertiesTimelineMetadata" = None, title: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", collect_event_summary: "bool" = None, collect_field_summary: "bool" = None, collect_time_buckets: "bool" = None, completion_time: "str" = None, delete_time: "str" = None, description: "str" = None, dispatch_time: "str" = None, execution_time: "float" = None, extract_all_fields: "bool" = None, has_side_effects: "bool" = None, max_time: "int" = None, parameters: "object" = None, parent: "str" = None, percent_complete: "int" = None, query: "str" = None, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = None, search_head: "str" = None, sid: "str" = None, spl: "str" = None, status: "str" = None, summary: "str" = None, timeline_metadata: "JobDatasetPropertiesTimelineMetadata" = None, title: "str" = None, version: "int" = None, **extra):
         """JobDataset"""
 
         self._attrs = dict()
@@ -5620,6 +5760,8 @@ class JobDataset(Dataset):
             self._attrs["maxTime"] = max_time
         if parameters is not None:
             self._attrs["parameters"] = parameters
+        if parent is not None:
+            self._attrs["parent"] = parent
         if percent_complete is not None:
             self._attrs["percentComplete"] = percent_complete
         if query is not None:
@@ -6051,6 +6193,24 @@ class JobDataset(Dataset):
         self._attrs["parameters"] = parameters
 
     @property
+    def parent(self) -> "str":
+        """ Gets the parent of this JobDataset.
+        The parent's ID of the search job.
+        """
+        return self._attrs.get("parent")
+
+    @parent.setter
+    def parent(self, parent: "str"):
+        """Sets the parent of this JobDataset.
+
+        The parent's ID of the search job.
+
+        :param parent: The parent of this JobDataset.
+        :type: str
+        """
+        self._attrs["parent"] = parent
+
+    @property
     def percent_complete(self) -> "int":
         """ Gets the percent_complete of this JobDataset.
         An estimate of how complete the search job is.
@@ -6307,7 +6467,7 @@ class JobDatasetPATCH(DatasetPATCH):
         instance._attrs = model
         return instance
 
-    def __init__(self, collect_event_summary: "bool" = None, collect_field_summary: "bool" = None, collect_time_buckets: "bool" = None, completion_time: "str" = None, delete_time: "str" = None, dispatch_time: "str" = None, execution_time: "float" = None, extract_all_fields: "bool" = None, has_side_effects: "bool" = None, kind: "JobDatasetKind" = None, max_time: "int" = None, module: "str" = None, name: "str" = None, owner: "str" = None, parameters: "object" = None, percent_complete: "int" = None, query: "str" = None, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = None, search_head: "str" = None, sid: "str" = None, spl: "str" = None, status: "str" = None, timeline_metadata: "JobDatasetPropertiesTimelineMetadata" = None, **extra):
+    def __init__(self, collect_event_summary: "bool" = None, collect_field_summary: "bool" = None, collect_time_buckets: "bool" = None, completion_time: "str" = None, delete_time: "str" = None, dispatch_time: "str" = None, execution_time: "float" = None, extract_all_fields: "bool" = None, has_side_effects: "bool" = None, kind: "JobDatasetKind" = None, max_time: "int" = None, module: "str" = None, name: "str" = None, owner: "str" = None, parameters: "object" = None, parent: "str" = None, percent_complete: "int" = None, query: "str" = None, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = None, search_head: "str" = None, sid: "str" = None, spl: "str" = None, status: "str" = None, timeline_metadata: "JobDatasetPropertiesTimelineMetadata" = None, **extra):
         """JobDatasetPATCH"""
 
         self._attrs = dict()
@@ -6341,6 +6501,8 @@ class JobDatasetPATCH(DatasetPATCH):
             self._attrs["owner"] = owner
         if parameters is not None:
             self._attrs["parameters"] = parameters
+        if parent is not None:
+            self._attrs["parent"] = parent
         if percent_complete is not None:
             self._attrs["percentComplete"] = percent_complete
         if query is not None:
@@ -6636,6 +6798,24 @@ class JobDatasetPATCH(DatasetPATCH):
         self._attrs["parameters"] = parameters
 
     @property
+    def parent(self) -> "str":
+        """ Gets the parent of this JobDatasetPATCH.
+        The parent's ID of the search job.
+        """
+        return self._attrs.get("parent")
+
+    @parent.setter
+    def parent(self, parent: "str"):
+        """Sets the parent of this JobDatasetPATCH.
+
+        The parent's ID of the search job.
+
+        :param parent: The parent of this JobDatasetPATCH.
+        :type: str
+        """
+        self._attrs["parent"] = parent
+
+    @property
     def percent_complete(self) -> "int":
         """ Gets the percent_complete of this JobDatasetPATCH.
         An estimate of how complete the search job is.
@@ -6825,7 +7005,7 @@ class JobDatasetPOST(DatasetPOST):
         instance._attrs = model
         return instance
 
-    def __init__(self, name: "str", collect_event_summary: "bool" = None, collect_field_summary: "bool" = None, collect_time_buckets: "bool" = None, completion_time: "str" = None, delete_time: "str" = None, dispatch_time: "str" = None, execution_time: "float" = None, extract_all_fields: "bool" = None, fields: "List[FieldPOST]" = None, has_side_effects: "bool" = None, id: "str" = None, max_time: "int" = None, module: "str" = None, parameters: "object" = None, percent_complete: "int" = None, query: "str" = None, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = None, search_head: "str" = None, sid: "str" = None, spl: "str" = None, status: "str" = None, timeline_metadata: "JobDatasetPropertiesTimelineMetadata" = None, **extra):
+    def __init__(self, name: "str", collect_event_summary: "bool" = None, collect_field_summary: "bool" = None, collect_time_buckets: "bool" = None, completion_time: "str" = None, delete_time: "str" = None, dispatch_time: "str" = None, execution_time: "float" = None, extract_all_fields: "bool" = None, fields: "List[FieldPOST]" = None, has_side_effects: "bool" = None, id: "str" = None, max_time: "int" = None, module: "str" = None, parameters: "object" = None, parent: "str" = None, percent_complete: "int" = None, query: "str" = None, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = None, search_head: "str" = None, sid: "str" = None, spl: "str" = None, status: "str" = None, timeline_metadata: "JobDatasetPropertiesTimelineMetadata" = None, **extra):
         """JobDatasetPOST"""
 
         self._attrs = dict()
@@ -6860,6 +7040,8 @@ class JobDatasetPOST(DatasetPOST):
             self._attrs["module"] = module
         if parameters is not None:
             self._attrs["parameters"] = parameters
+        if parent is not None:
+            self._attrs["parent"] = parent
         if percent_complete is not None:
             self._attrs["percentComplete"] = percent_complete
         if query is not None:
@@ -7159,6 +7341,24 @@ class JobDatasetPOST(DatasetPOST):
         :type: object
         """
         self._attrs["parameters"] = parameters
+
+    @property
+    def parent(self) -> "str":
+        """ Gets the parent of this JobDatasetPOST.
+        The parent's ID of the search job.
+        """
+        return self._attrs.get("parent")
+
+    @parent.setter
+    def parent(self, parent: "str"):
+        """Sets the parent of this JobDatasetPOST.
+
+        The parent's ID of the search job.
+
+        :param parent: The parent of this JobDatasetPOST.
+        :type: str
+        """
+        self._attrs["parent"] = parent
 
     @property
     def percent_complete(self) -> "int":
@@ -9097,7 +9297,7 @@ class MetricDataset(Dataset):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", description: "str" = None, disabled: "bool" = None, frozen_time_period_in_secs: "int" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", description: "str" = None, disabled: "bool" = None, earliest_event_time: "str" = None, earliest_ingest_time: "str" = None, frozen_time_period_in_secs: "int" = None, latest_event_time: "str" = None, latest_ingest_time: "str" = None, latest_metadata_update_time: "str" = None, summary: "str" = None, title: "str" = None, total_event_count: "int" = None, total_size: "int" = None, version: "int" = None, **extra):
         """MetricDataset"""
 
         self._attrs = dict()
@@ -9123,13 +9323,27 @@ class MetricDataset(Dataset):
             self._attrs["description"] = description
         if disabled is not None:
             self._attrs["disabled"] = disabled
+        if earliest_event_time is not None:
+            self._attrs["earliestEventTime"] = earliest_event_time
+        if earliest_ingest_time is not None:
+            self._attrs["earliestIngestTime"] = earliest_ingest_time
         if frozen_time_period_in_secs is not None:
             self._attrs["frozenTimePeriodInSecs"] = frozen_time_period_in_secs
         self._attrs["kind"] = "metric" 
+        if latest_event_time is not None:
+            self._attrs["latestEventTime"] = latest_event_time
+        if latest_ingest_time is not None:
+            self._attrs["latestIngestTime"] = latest_ingest_time
+        if latest_metadata_update_time is not None:
+            self._attrs["latestMetadataUpdateTime"] = latest_metadata_update_time
         if summary is not None:
             self._attrs["summary"] = summary
         if title is not None:
             self._attrs["title"] = title
+        if total_event_count is not None:
+            self._attrs["totalEventCount"] = total_event_count
+        if total_size is not None:
+            self._attrs["totalSize"] = total_size
         if version is not None:
             self._attrs["version"] = version
         for k, v in extra.items():
@@ -9352,6 +9566,42 @@ class MetricDataset(Dataset):
         self._attrs["disabled"] = disabled
 
     @property
+    def earliest_event_time(self) -> "str":
+        """ Gets the earliest_event_time of this MetricDataset.
+        The timestamp, in seconds, of the earliest measure. The timestamp is in UNIX time.
+        """
+        return self._attrs.get("earliestEventTime")
+
+    @earliest_event_time.setter
+    def earliest_event_time(self, earliest_event_time: "str"):
+        """Sets the earliest_event_time of this MetricDataset.
+
+        The timestamp, in seconds, of the earliest measure. The timestamp is in UNIX time.
+
+        :param earliest_event_time: The earliest_event_time of this MetricDataset.
+        :type: str
+        """
+        self._attrs["earliestEventTime"] = earliest_event_time
+
+    @property
+    def earliest_ingest_time(self) -> "str":
+        """ Gets the earliest_ingest_time of this MetricDataset.
+        The earliest index time for any of the measures in this index.
+        """
+        return self._attrs.get("earliestIngestTime")
+
+    @earliest_ingest_time.setter
+    def earliest_ingest_time(self, earliest_ingest_time: "str"):
+        """Sets the earliest_ingest_time of this MetricDataset.
+
+        The earliest index time for any of the measures in this index.
+
+        :param earliest_ingest_time: The earliest_ingest_time of this MetricDataset.
+        :type: str
+        """
+        self._attrs["earliestIngestTime"] = earliest_ingest_time
+
+    @property
     def frozen_time_period_in_secs(self) -> "int":
         """ Gets the frozen_time_period_in_secs of this MetricDataset.
         The frozenTimePeriodInSecs to use for the index
@@ -9373,6 +9623,60 @@ class MetricDataset(Dataset):
     def kind(self) -> str:
         return "metric"
 
+
+    @property
+    def latest_event_time(self) -> "str":
+        """ Gets the latest_event_time of this MetricDataset.
+        The timestamp, in seconds, of the latest measure. The timestamp is in UNIX time.
+        """
+        return self._attrs.get("latestEventTime")
+
+    @latest_event_time.setter
+    def latest_event_time(self, latest_event_time: "str"):
+        """Sets the latest_event_time of this MetricDataset.
+
+        The timestamp, in seconds, of the latest measure. The timestamp is in UNIX time.
+
+        :param latest_event_time: The latest_event_time of this MetricDataset.
+        :type: str
+        """
+        self._attrs["latestEventTime"] = latest_event_time
+
+    @property
+    def latest_ingest_time(self) -> "str":
+        """ Gets the latest_ingest_time of this MetricDataset.
+        The earliest index time for any of the measures in this index.
+        """
+        return self._attrs.get("latestIngestTime")
+
+    @latest_ingest_time.setter
+    def latest_ingest_time(self, latest_ingest_time: "str"):
+        """Sets the latest_ingest_time of this MetricDataset.
+
+        The earliest index time for any of the measures in this index.
+
+        :param latest_ingest_time: The latest_ingest_time of this MetricDataset.
+        :type: str
+        """
+        self._attrs["latestIngestTime"] = latest_ingest_time
+
+    @property
+    def latest_metadata_update_time(self) -> "str":
+        """ Gets the latest_metadata_update_time of this MetricDataset.
+        The latest time that the metric index metadata was refreshed.
+        """
+        return self._attrs.get("latestMetadataUpdateTime")
+
+    @latest_metadata_update_time.setter
+    def latest_metadata_update_time(self, latest_metadata_update_time: "str"):
+        """Sets the latest_metadata_update_time of this MetricDataset.
+
+        The latest time that the metric index metadata was refreshed.
+
+        :param latest_metadata_update_time: The latest_metadata_update_time of this MetricDataset.
+        :type: str
+        """
+        self._attrs["latestMetadataUpdateTime"] = latest_metadata_update_time
 
     @property
     def summary(self) -> "str":
@@ -9409,6 +9713,42 @@ class MetricDataset(Dataset):
         :type: str
         """
         self._attrs["title"] = title
+
+    @property
+    def total_event_count(self) -> "int":
+        """ Gets the total_event_count of this MetricDataset.
+        THe number of measures in the metric index.
+        """
+        return self._attrs.get("totalEventCount")
+
+    @total_event_count.setter
+    def total_event_count(self, total_event_count: "int"):
+        """Sets the total_event_count of this MetricDataset.
+
+        THe number of measures in the metric index.
+
+        :param total_event_count: The total_event_count of this MetricDataset.
+        :type: int
+        """
+        self._attrs["totalEventCount"] = total_event_count
+
+    @property
+    def total_size(self) -> "int":
+        """ Gets the total_size of this MetricDataset.
+        For metrics indexes, the totalSize is set to 0.
+        """
+        return self._attrs.get("totalSize")
+
+    @total_size.setter
+    def total_size(self, total_size: "int"):
+        """Sets the total_size of this MetricDataset.
+
+        For metrics indexes, the totalSize is set to 0.
+
+        :param total_size: The total_size of this MetricDataset.
+        :type: int
+        """
+        self._attrs["totalSize"] = total_size
 
     @property
     def version(self) -> "int":

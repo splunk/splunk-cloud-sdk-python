@@ -53,8 +53,14 @@ components:
       required: false
       schema:
         items:
+          enum:
+          - tenant
+          - principal
           type: string
+        maxItems: 2
+        minItems: 0
         type: array
+        uniqueItems: true
     inviteId:
       description: The invite ID.
       in: query
@@ -211,6 +217,18 @@ components:
         - v2beta1
         type: string
   schemas:
+    AddGroupMemberAsAnAdminBody:
+      properties:
+        group:
+          type: string
+        member:
+          minLength: 2
+          type: string
+          x-case-insensitive: true
+      required:
+      - group
+      - member
+      type: object
     AddGroupMemberBody:
       properties:
         name:
@@ -618,6 +636,7 @@ components:
     PermissionSetKind:
       enum:
       - principal
+      - api_key
       - subscription
       type: string
     PermissionSetList:
@@ -724,6 +743,40 @@ components:
       - addedAt
       - addedBy
       type: object
+    ServiceAccount:
+      properties:
+        defaultpermissions:
+          items:
+            type: string
+          type: array
+        name:
+          type: string
+        permissions:
+          items:
+            type: string
+          type: array
+        principal:
+          type: string
+      type: object
+    ServiceAccountPeer:
+      properties:
+        name:
+          type: string
+        permissions:
+          items:
+            type: string
+          type: array
+        tenant:
+          type: string
+      type: object
+    ServiceAccountPeers:
+      items:
+        $ref: '#/components/schemas/ServiceAccountPeer'
+      type: array
+    ServiceAccounts:
+      items:
+        $ref: '#/components/schemas/ServiceAccount'
+      type: array
     Subscription:
       description: Represents an app subscribed to a tenant
       properties:
@@ -829,6 +882,11 @@ components:
       properties:
         clientId:
           type: string
+        kind:
+          enum:
+          - principal
+          - api_key
+          type: string
         name:
           maxLength: 36
           minLength: 4
@@ -840,6 +898,7 @@ components:
       required:
       - name
       - clientId
+      - kind
       type: object
   securitySchemes:
     Bearer:
@@ -847,10 +906,10 @@ components:
       name: Authorization
       type: apiKey
 info:
-  description: With the Splunk Cloud Identity Service, you can authenticate and authorize
-    Splunk API users.
+  description: With the Identity service in Splunk Cloud Services, you can authenticate
+    and authorize Splunk Cloud Services users.
   title: Identity
-  version: v2beta1.10
+  version: v2beta1.13
 openapi: 3.0.0
 paths:
   /{tenant}/identity/v2beta1/groups:
@@ -905,6 +964,7 @@ paths:
         "423":
           description: The resource is locked.
       x-authz-scope: identity.groups.write
+      x-trigger-name: splunk.identity.groups
   /{tenant}/identity/v2beta1/groups/{group}:
     delete:
       description: Deletes a group in a given tenant.
@@ -923,6 +983,7 @@ paths:
         "423":
           description: The resource is locked.
       x-authz-scope: identity.groups.write
+      x-trigger-name: splunk.identity.groups
     get:
       description: Returns information about a given group within a tenant.
       operationId: getGroup
@@ -1000,6 +1061,7 @@ paths:
         "423":
           description: The resource is locked.
       x-authz-scope: identity.groups.write
+      x-trigger-name: splunk.identity.group-members
   /{tenant}/identity/v2beta1/groups/{group}/members/{member}:
     delete:
       description: Removes the member from a given group.
@@ -1018,6 +1080,7 @@ paths:
         "423":
           description: The resource is locked.
       x-authz-scope: identity.groups.write
+      x-trigger-name: splunk.identity.group-members
     get:
       description: Returns information about a given member within a given group.
       operationId: getGroupMember
@@ -1098,6 +1161,7 @@ paths:
         "423":
           description: The resource is locked.
       x-authz-scope: identity.groups.write
+      x-trigger-name: splunk.identity.group-roles
   /{tenant}/identity/v2beta1/groups/{group}/roles/{role}:
     delete:
       description: Removes a role from a given group.
@@ -1116,6 +1180,7 @@ paths:
         "423":
           description: The resource is locked.
       x-authz-scope: identity.groups.write
+      x-trigger-name: splunk.identity.group-roles
     get:
       description: Returns information about a given role within a given group.
       operationId: getGroupRole
@@ -1191,6 +1256,7 @@ paths:
         "423":
           description: The resource is locked.
       x-authz-scope: identity.members.write
+      x-trigger-name: splunk.identity.members
   /{tenant}/identity/v2beta1/members/{member}:
     delete:
       description: Removes a member from a given tenant
@@ -1209,6 +1275,7 @@ paths:
         "423":
           description: The resource is locked.
       x-authz-scope: identity.members.write
+      x-trigger-name: splunk.identity.members
     get:
       description: Returns a member of a given tenant.
       operationId: getMember
@@ -1362,6 +1429,7 @@ paths:
         "423":
           description: The resource is locked.
       x-authz-scope: identity.roles.write
+      x-trigger-name: splunk.identity.roles
   /{tenant}/identity/v2beta1/roles/{role}:
     delete:
       description: Deletes a defined role for a given tenant.
@@ -1380,6 +1448,7 @@ paths:
         "423":
           description: The resource is locked.
       x-authz-scope: identity.roles.write
+      x-trigger-name: splunk.identity.roles
     get:
       description: Returns a role for a given tenant.
       operationId: getRole
@@ -1480,6 +1549,7 @@ paths:
         "423":
           description: The resource is locked.
       x-authz-scope: identity.roles.write
+      x-trigger-name: splunk.identity.role-permissions
   /{tenant}/identity/v2beta1/roles/{role}/permissions/{permission}:
     delete:
       description: Removes a permission from the role.
@@ -1498,6 +1568,7 @@ paths:
         "423":
           description: The resource is locked.
       x-authz-scope: identity.roles.write
+      x-trigger-name: splunk.identity.role-permissions
     get:
       description: Gets a permission for the specified role.
       operationId: getRolePermission
@@ -1605,4 +1676,4 @@ security:
 servers:
 - url: /
 
-# Retrieved from scp-openapi commit 126353d5bad6a9ae5f1834fa1c9a46eb1c91564c path: identity/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit 0bec7a40de8e5be4abcf1da6cfc73d3c5c653e61 path: identity/v2beta1/openapi.yaml

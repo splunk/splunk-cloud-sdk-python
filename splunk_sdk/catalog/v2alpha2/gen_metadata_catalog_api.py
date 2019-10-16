@@ -38,6 +38,7 @@ from splunk_sdk.catalog.v2alpha2.gen_models import Action
 from splunk_sdk.catalog.v2alpha2.gen_models import ActionPATCH
 from splunk_sdk.catalog.v2alpha2.gen_models import ActionPOST
 from splunk_sdk.catalog.v2alpha2.gen_models import Annotation
+from splunk_sdk.catalog.v2alpha2.gen_models import AnnotationsProperties
 from splunk_sdk.catalog.v2alpha2.gen_models import Dashboard
 from splunk_sdk.catalog.v2alpha2.gen_models import DashboardPATCH
 from splunk_sdk.catalog.v2alpha2.gen_models import DashboardPOST
@@ -109,6 +110,74 @@ class MetadataCatalog(BaseService):
         data = action_post.to_dict()
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, Action)
+
+    def create_annotation_for_dashboardby_id(self, dashboardid: str, request_body: AnnotationsProperties[str, object], query_params: Dict[str, object] = None) -> Annotation:
+        """
+        Create a new annotation for a specific dashboard.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "dashboardid": dashboardid,
+        }
+
+        path = Template("/catalog/v2alpha2/dashboards/${dashboardid}/annotations").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = request_body
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, Annotation)
+
+    def create_annotation_for_dashboards_by_resource_name(self, dashboardresourcename: str, request_body: AnnotationsProperties[str, object], query_params: Dict[str, object] = None) -> Annotation:
+        """
+        Create a new annotation for a specific dataset.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "dashboardresourcename": dashboardresourcename,
+        }
+
+        path = Template("/catalog/v2alpha2/dashboards/${dashboardresourcename}/annotations").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = request_body
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, Annotation)
+
+    def create_annotation_for_dataset_by_id(self, datasetid: str, request_body: AnnotationsProperties[str, object], query_params: Dict[str, object] = None) -> Annotation:
+        """
+        Create a new annotation for a specific dataset.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "datasetid": datasetid,
+        }
+
+        path = Template("/catalog/v2alpha2/datasets/${datasetid}/annotations").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = request_body
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, Annotation)
+
+    def create_annotation_for_dataset_by_resource_name(self, datasetresourcename: str, request_body: AnnotationsProperties[str, object], query_params: Dict[str, object] = None) -> Annotation:
+        """
+        Create a new annotation for a specific dataset.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "datasetresourcename": datasetresourcename,
+        }
+
+        path = Template("/catalog/v2alpha2/datasets/${datasetresourcename}/annotations").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = request_body
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, Annotation)
 
     def create_dashboard(self, dashboard_post: DashboardPOST, query_params: Dict[str, object] = None) -> Dashboard:
         """
@@ -692,12 +761,14 @@ class MetadataCatalog(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, Dashboard)
 
-    def get_dataset(self, datasetresourcename: str, query_params: Dict[str, object] = None) -> Dataset:
+    def get_dataset(self, datasetresourcename: str, maxstale: int = None, query_params: Dict[str, object] = None) -> Dataset:
         """
         Return the dataset with the specified resource name. For the default module, the resource name format is datasetName. Otherwise, the resource name format is module.datasetName.
         """
         if query_params is None:
             query_params = {}
+        if maxstale is not None:
+            query_params['maxstale'] = maxstale
 
         path_params = {
             "datasetresourcename": datasetresourcename,
@@ -708,12 +779,14 @@ class MetadataCatalog(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, Dataset)
 
-    def get_dataset_by_id(self, datasetid: str, query_params: Dict[str, object] = None) -> Dataset:
+    def get_dataset_by_id(self, datasetid: str, maxstale: int = None, query_params: Dict[str, object] = None) -> Dataset:
         """
         Return information about the dataset with the specified ID.
         """
         if query_params is None:
             query_params = {}
+        if maxstale is not None:
+            query_params['maxstale'] = maxstale
 
         path_params = {
             "datasetid": datasetid,
@@ -921,6 +994,29 @@ class MetadataCatalog(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, Action)
 
+    def list_annotations(self, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Annotation]:
+        """
+        Return the set of annotations across all objects.
+        """
+        if query_params is None:
+            query_params = {}
+        if count is not None:
+            query_params['count'] = count
+        if filter is not None:
+            query_params['filter'] = filter
+        if offset is not None:
+            query_params['offset'] = offset
+        if orderby is not None:
+            query_params['orderby'] = orderby
+
+        path_params = {
+        }
+
+        path = Template("/catalog/v2beta1/annotations").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, Annotation)
+
     def list_annotations_for_dashboard_by_id(self, dashboardid: str, filter: str = None, query_params: Dict[str, object] = None) -> List[Annotation]:
         """
         Return the set of annotations that are part of a dashboard.
@@ -1028,7 +1124,7 @@ class MetadataCatalog(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, Dashboard)
 
-    def list_datasets(self, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Dataset]:
+    def list_datasets(self, count: int = None, filter: str = None, maxstale: int = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Dataset]:
         """
         Returns a list of all datasets, unless you specify a filter. Use a filter to return a specific list of datasets.
         """
@@ -1038,6 +1134,8 @@ class MetadataCatalog(BaseService):
             query_params['count'] = count
         if filter is not None:
             query_params['filter'] = filter
+        if maxstale is not None:
+            query_params['maxstale'] = maxstale
         if offset is not None:
             query_params['offset'] = offset
         if orderby is not None:

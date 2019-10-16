@@ -286,6 +286,12 @@ components:
           description: The number of results produced so far for the search job.
           readOnly: true
           type: integer
+        resultsPreviewAvailable:
+          default: 0
+          description: The number of the preview search results for the job with the
+            specified search ID (SID)
+          readOnly: true
+          type: integer
         sid:
           description: The ID assigned to the search job.
           readOnly: true
@@ -731,4 +737,4 @@ paths:
         "500":
           description: Internal service error.
 
-# Retrieved from scp-openapi commit 126353d5bad6a9ae5f1834fa1c9a46eb1c91564c path: search/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit 0bec7a40de8e5be4abcf1da6cfc73d3c5c653e61 path: search/v2beta1/openapi.yaml
