@@ -339,4 +339,4 @@ paths:
 servers:
 - url: /
 
-# Retrieved from scp-openapi commit 0bec7a40de8e5be4abcf1da6cfc73d3c5c653e61 path: ingest/v1beta2/openapi.yaml
+# Retrieved from scp-openapi commit 256e9ba688bfda968ff6e1f7ff555d876fee8380 path: ingest/v1beta2/openapi.yaml
