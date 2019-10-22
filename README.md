@@ -6,7 +6,8 @@ To use the Splunk Cloud Services SDKs, you must be included in the Splunk Invest
 Sign up here: https://si.scp.splunk.com/.
 
 ## Terms of Service (TOS)
-[Splunk Cloud Services Terms of Service](https://auth.scp.splunk.com/tos)
+
+Log in to [Splunk Investigate](https://si.scp.splunk.com/) and accept the Terms of Service when prompted.
 
 ## Install the Splunk Cloud Services SDK for Python
 
