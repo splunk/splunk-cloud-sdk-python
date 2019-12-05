@@ -254,6 +254,7 @@ components:
       type: object
     Annotation:
       additionalProperties:
+        type: string
       allOf:
       - $ref: '#/components/schemas/AnnotationsProperties'
       - $ref: '#/components/schemas/MetadataProperties'
@@ -282,6 +283,7 @@ components:
       type: object
     AnnotationPOST:
       additionalProperties:
+        type: string
       allOf:
       - $ref: '#/components/schemas/AnnotationsProperties'
       - $ref: '#/components/schemas/AnnotationTypeResourceName'
@@ -480,7 +482,6 @@ components:
           kvcollection: '#/components/schemas/KVCollectionDataset'
           lookup: '#/components/schemas/LookupDataset'
           metric: '#/components/schemas/MetricDataset'
-          recurringsearch: '#/components/schemas/RecurringSearchDataset'
           view: '#/components/schemas/ViewDataset'
         propertyName: kind
       oneOf:
@@ -489,7 +490,6 @@ components:
       - $ref: '#/components/schemas/ViewDataset'
       - $ref: '#/components/schemas/ImportDataset'
       - $ref: '#/components/schemas/JobDataset'
-      - $ref: '#/components/schemas/RecurringSearchDataset'
       - $ref: '#/components/schemas/MetricDataset'
       - $ref: '#/components/schemas/KVCollectionDataset'
     DatasetCommon:
@@ -569,7 +569,6 @@ components:
       - $ref: '#/components/schemas/ViewDatasetPATCH'
       - $ref: '#/components/schemas/ImportDatasetPATCH'
       - $ref: '#/components/schemas/JobDatasetPATCH'
-      - $ref: '#/components/schemas/RecurringSearchDataset'
       - $ref: '#/components/schemas/MetricDatasetPATCH'
       - $ref: '#/components/schemas/KVCollectionDatasetPATCH'
     DatasetPATCHCommon:
@@ -605,7 +604,6 @@ components:
           kvcollection: '#/components/schemas/KVCollectionDatasetPOST'
           lookup: '#/components/schemas/LookupDatasetPOST'
           metric: '#/components/schemas/MetricDatasetPOST'
-          recurringsearch: '#/components/schemas/RecurringSearchDataset'
           view: '#/components/schemas/ViewDatasetPOST'
         propertyName: kind
       oneOf:
@@ -614,7 +612,6 @@ components:
       - $ref: '#/components/schemas/ViewDatasetPOST'
       - $ref: '#/components/schemas/ImportDatasetPOST'
       - $ref: '#/components/schemas/JobDatasetPOST'
-      - $ref: '#/components/schemas/RecurringSearchDataset'
       - $ref: '#/components/schemas/MetricDatasetPOST'
       - $ref: '#/components/schemas/KVCollectionDatasetPOST'
     DatasetPOSTCommon:
@@ -1394,83 +1391,6 @@ components:
         name:
           maxLength: 100
           type: string
-      type: object
-    RecurringSearchDataset:
-      allOf:
-      - $ref: '#/components/schemas/RecurringSearchDatasetProperties'
-      - $ref: '#/components/schemas/MetadataProperties'
-      - $ref: '#/components/schemas/DatasetCommon'
-      description: A complete recurringsearch dataset as rendered in POST, PATCH,
-        and GET responses.
-      required:
-      - kind
-      - interval
-      - query
-      type: object
-    RecurringSearchDatasetKind:
-      description: The dataset kind.
-      enum:
-      - recurringsearch
-      type: string
-    RecurringSearchDatasetPATCH:
-      allOf:
-      - $ref: '#/components/schemas/RecurringSearchDatasetProperties'
-      - $ref: '#/components/schemas/DatasetPATCHCommon'
-      description: Property values to be set in an existing recurringsearch dataset
-        using a PATCH request.
-    RecurringSearchDatasetPOST:
-      allOf:
-      - $ref: '#/components/schemas/RecurringSearchDatasetProperties'
-      - $ref: '#/components/schemas/DatasetPOSTCommon'
-      description: Initial property values for creating a new recurringsearch dataset
-        using a POST request.
-      required:
-      - kind
-      - search
-      type: object
-    RecurringSearchDatasetProperties:
-      description: Properties of recurringsearch datasets which may be read, set,
-        and changed through the API. Implementation detail of DatasetPOST, DatasetPATCH,
-        and Dataset, do not use directly.
-      properties:
-        app:
-          description: An application name.
-          type: string
-        enabled:
-          description: Specifies whether or not the recurringsearch is disabled.
-          type: boolean
-        interval:
-          description: The recurrence interval.
-          type: string
-        kind:
-          $ref: '#/components/schemas/RecurringSearchDatasetKind'
-        mostRecentSid:
-          description: The sid of the most recently run search job.
-          type: string
-        nextExecutionTime:
-          description: The next execution time in epoch time.
-          type: integer
-        query:
-          description: A valid SPL.
-          type: string
-        queryParameters:
-          description: The search query parameters.
-          properties:
-            earliest:
-              description: The earliest time, in relative format, to retrieve events.
-              type: string
-            timezone:
-              description: The timezone that relative time specifiers are based off
-                of.
-              type: string
-          type: object
-        runAs:
-          description: The name of the user whom a search will be run as.
-          type: string
-        skew:
-          default: 0
-          description: The offset in minutes that delays the dispatch time.
-          type: integer
       type: object
     RegexAction:
       allOf:
@@ -4869,4 +4789,4 @@ paths:
     - $ref: '#/components/parameters/AuthorizationHeader'
     - $ref: '#/components/parameters/Tenant'
 
-# Retrieved from scp-openapi commit 256e9ba688bfda968ff6e1f7ff555d876fee8380 path: catalog/v2alpha2/openapi.yaml
+# Retrieved from scp-openapi commit 2c3f25cefca83a4e454b2354aa149e3d5f0f52ea path: catalog/v2alpha2/openapi.yaml

@@ -2639,41 +2639,75 @@ class DatasetPATCH(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, **extra):
+    def __init__(self, module: "str" = None, name: "str" = None, owner: "str" = None, **extra):
         """DatasetPATCH"""
 
         self._attrs = dict()
+        if module is not None:
+            self._attrs["module"] = module
+        if name is not None:
+            self._attrs["name"] = name
+        if owner is not None:
+            self._attrs["owner"] = owner
         for k, v in extra.items():
             self._attrs[k] = v
+
+    @property
+    def module(self) -> "str":
+        """ Gets the module of this DatasetPATCH.
+        The name of module to reassign dataset into.
+        """
+        return self._attrs.get("module")
+
+    @module.setter
+    def module(self, module: "str"):
+        """Sets the module of this DatasetPATCH.
+
+        The name of module to reassign dataset into.
+
+        :param module: The module of this DatasetPATCH.
+        :type: str
+        """
+        self._attrs["module"] = module
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this DatasetPATCH.
+        The dataset name. Dataset names must be unique within each module.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this DatasetPATCH.
+
+        The dataset name. Dataset names must be unique within each module.
+
+        :param name: The name of this DatasetPATCH.
+        :type: str
+        """
+        self._attrs["name"] = name
+
+    @property
+    def owner(self) -> "str":
+        """ Gets the owner of this DatasetPATCH.
+        The name of the dataset owner. This value is obtained from the bearer token.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this DatasetPATCH.
+
+        The name of the dataset owner. This value is obtained from the bearer token.
+
+        :param owner: The owner of this DatasetPATCH.
+        :type: str
+        """
+        self._attrs["owner"] = owner
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class DatasetPOST(SSCModel):
-
-    from_dict_handlers = dict()
-    @staticmethod
-    def _from_dict(model: dict) -> "DatasetPOST":
-
-        def default_handler(model: dict) -> "DatasetPOST":
-            instance = DatasetPOST.__new__(DatasetPOST)
-            instance._attrs = model
-            return instance
-
-        kind = model['kind']
-        handler = DatasetPOST.from_dict_handlers.get(kind, default_handler)
-        return handler(model)
-
-    def __init__(self, **extra):
-        """DatasetPOST"""
-
-        self._attrs = dict()
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    def to_dict(self):
-        raise NotImplementedError()
 
 
 class FieldPOST(SSCModel):
@@ -2907,6 +2941,92 @@ class FieldPrevalence(str, Enum):
             return FieldPrevalence.SOME
         if value == "UNKNOWN":
             return FieldPrevalence.UNKNOWN
+
+
+class DatasetPOST(SSCModel):
+
+    from_dict_handlers = dict()
+    @staticmethod
+    def _from_dict(model: dict) -> "DatasetPOST":
+
+        def default_handler(model: dict) -> "DatasetPOST":
+            instance = DatasetPOST.__new__(DatasetPOST)
+            instance._attrs = model
+            return instance
+
+        kind = model['kind']
+        handler = DatasetPOST.from_dict_handlers.get(kind, default_handler)
+        return handler(model)
+
+    def __init__(self, fields: "List[FieldPOST]" = None, id: "str" = None, module: "str" = None, **extra):
+        """DatasetPOST"""
+
+        self._attrs = dict()
+        if fields is not None:
+            self._attrs["fields"] = fields
+        if id is not None:
+            self._attrs["id"] = id
+        if module is not None:
+            self._attrs["module"] = module
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def fields(self) -> "List[FieldPOST]":
+        """ Gets the fields of this DatasetPOST.
+        The fields to be associated with this dataset.
+        """
+        return [FieldPOST._from_dict(i) for i in self._attrs.get("fields")]
+
+    @fields.setter
+    def fields(self, fields: "List[FieldPOST]"):
+        """Sets the fields of this DatasetPOST.
+
+        The fields to be associated with this dataset.
+
+        :param fields: The fields of this DatasetPOST.
+        :type: List[FieldPOST]
+        """
+        self._attrs["fields"] = fields
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this DatasetPOST.
+        A unique dataset ID. Random ID used if not provided.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this DatasetPOST.
+
+        A unique dataset ID. Random ID used if not provided.
+
+        :param id: The id of this DatasetPOST.
+        :type: str
+        """
+        self._attrs["id"] = id
+
+    @property
+    def module(self) -> "str":
+        """ Gets the module of this DatasetPOST.
+        The name of the module to create the new dataset in.
+        """
+        return self._attrs.get("module")
+
+    @module.setter
+    def module(self, module: "str"):
+        """Sets the module of this DatasetPOST.
+
+        The name of the module to create the new dataset in.
+
+        :param module: The module of this DatasetPOST.
+        :type: str
+        """
+        self._attrs["module"] = module
+
+    def to_dict(self):
+        raise NotImplementedError()
 
 
 class EvalAction(ActionPOST):
@@ -10169,559 +10289,6 @@ class Module(SSCModel):
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class RecurringSearchDatasetPropertiesQueryParameters(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "RecurringSearchDatasetPropertiesQueryParameters":
-        instance = RecurringSearchDatasetPropertiesQueryParameters.__new__(RecurringSearchDatasetPropertiesQueryParameters)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, earliest: "str" = None, timezone: "str" = None, **extra):
-        """RecurringSearchDatasetPropertiesQueryParameters"""
-
-        self._attrs = dict()
-        if earliest is not None:
-            self._attrs["earliest"] = earliest
-        if timezone is not None:
-            self._attrs["timezone"] = timezone
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def earliest(self) -> "str":
-        """ Gets the earliest of this RecurringSearchDatasetPropertiesQueryParameters.
-        The earliest time, in relative format, to retrieve events.
-        """
-        return self._attrs.get("earliest")
-
-    @earliest.setter
-    def earliest(self, earliest: "str"):
-        """Sets the earliest of this RecurringSearchDatasetPropertiesQueryParameters.
-
-        The earliest time, in relative format, to retrieve events.
-
-        :param earliest: The earliest of this RecurringSearchDatasetPropertiesQueryParameters.
-        :type: str
-        """
-        self._attrs["earliest"] = earliest
-
-    @property
-    def timezone(self) -> "str":
-        """ Gets the timezone of this RecurringSearchDatasetPropertiesQueryParameters.
-        The timezone that relative time specifiers are based off of.
-        """
-        return self._attrs.get("timezone")
-
-    @timezone.setter
-    def timezone(self, timezone: "str"):
-        """Sets the timezone of this RecurringSearchDatasetPropertiesQueryParameters.
-
-        The timezone that relative time specifiers are based off of.
-
-        :param timezone: The timezone of this RecurringSearchDatasetPropertiesQueryParameters.
-        :type: str
-        """
-        self._attrs["timezone"] = timezone
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class RecurringSearchDataset(DatasetPOST):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "RecurringSearchDataset":
-        instance = RecurringSearchDataset.__new__(RecurringSearchDataset)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", app: "str" = None, description: "str" = None, enabled: "bool" = None, interval: "str" = None, most_recent_sid: "str" = None, next_execution_time: "int" = None, query: "str" = None, query_parameters: "RecurringSearchDatasetPropertiesQueryParameters" = None, run_as: "str" = None, skew: "int" = 0, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
-        """RecurringSearchDataset"""
-
-        self._attrs = dict()
-        if created is not None:
-            self._attrs["created"] = created
-        if createdby is not None:
-            self._attrs["createdby"] = createdby
-        if id is not None:
-            self._attrs["id"] = id
-        if modified is not None:
-            self._attrs["modified"] = modified
-        if modifiedby is not None:
-            self._attrs["modifiedby"] = modifiedby
-        if module is not None:
-            self._attrs["module"] = module
-        if name is not None:
-            self._attrs["name"] = name
-        if owner is not None:
-            self._attrs["owner"] = owner
-        if resourcename is not None:
-            self._attrs["resourcename"] = resourcename
-        if app is not None:
-            self._attrs["app"] = app
-        if description is not None:
-            self._attrs["description"] = description
-        if enabled is not None:
-            self._attrs["enabled"] = enabled
-        if interval is not None:
-            self._attrs["interval"] = interval
-        self._attrs["kind"] = "recurringsearch" 
-        if most_recent_sid is not None:
-            self._attrs["mostRecentSid"] = most_recent_sid
-        if next_execution_time is not None:
-            self._attrs["nextExecutionTime"] = next_execution_time
-        if query is not None:
-            self._attrs["query"] = query
-        if query_parameters is not None:
-            self._attrs["queryParameters"] = query_parameters.to_dict()
-        if run_as is not None:
-            self._attrs["runAs"] = run_as
-        if skew is not None:
-            self._attrs["skew"] = skew
-        if summary is not None:
-            self._attrs["summary"] = summary
-        if title is not None:
-            self._attrs["title"] = title
-        if version is not None:
-            self._attrs["version"] = version
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def created(self) -> "datetime":
-        """ Gets the created of this RecurringSearchDataset.
-        The date and time object was created.
-        """
-        return self._attrs.get("created")
-
-    @created.setter
-    def created(self, created: "datetime"):
-        """Sets the created of this RecurringSearchDataset.
-
-        The date and time object was created.
-
-        :param created: The created of this RecurringSearchDataset.
-        :type: datetime
-        """
-        if created is None:
-            raise ValueError("Invalid value for `created`, must not be `None`")
-        self._attrs["created"] = created
-
-    @property
-    def createdby(self) -> "str":
-        """ Gets the createdby of this RecurringSearchDataset.
-        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
-        """
-        return self._attrs.get("createdby")
-
-    @createdby.setter
-    def createdby(self, createdby: "str"):
-        """Sets the createdby of this RecurringSearchDataset.
-
-        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
-
-        :param createdby: The createdby of this RecurringSearchDataset.
-        :type: str
-        """
-        if createdby is None:
-            raise ValueError("Invalid value for `createdby`, must not be `None`")
-        self._attrs["createdby"] = createdby
-
-    @property
-    def id(self) -> "str":
-        """ Gets the id of this RecurringSearchDataset.
-        A unique dataset ID.
-        """
-        return self._attrs.get("id")
-
-    @id.setter
-    def id(self, id: "str"):
-        """Sets the id of this RecurringSearchDataset.
-
-        A unique dataset ID.
-
-        :param id: The id of this RecurringSearchDataset.
-        :type: str
-        """
-        if id is None:
-            raise ValueError("Invalid value for `id`, must not be `None`")
-        self._attrs["id"] = id
-
-    @property
-    def modified(self) -> "datetime":
-        """ Gets the modified of this RecurringSearchDataset.
-        The date and time object was modified.
-        """
-        return self._attrs.get("modified")
-
-    @modified.setter
-    def modified(self, modified: "datetime"):
-        """Sets the modified of this RecurringSearchDataset.
-
-        The date and time object was modified.
-
-        :param modified: The modified of this RecurringSearchDataset.
-        :type: datetime
-        """
-        if modified is None:
-            raise ValueError("Invalid value for `modified`, must not be `None`")
-        self._attrs["modified"] = modified
-
-    @property
-    def modifiedby(self) -> "str":
-        """ Gets the modifiedby of this RecurringSearchDataset.
-        The name of the user who most recently modified the object.
-        """
-        return self._attrs.get("modifiedby")
-
-    @modifiedby.setter
-    def modifiedby(self, modifiedby: "str"):
-        """Sets the modifiedby of this RecurringSearchDataset.
-
-        The name of the user who most recently modified the object.
-
-        :param modifiedby: The modifiedby of this RecurringSearchDataset.
-        :type: str
-        """
-        if modifiedby is None:
-            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
-        self._attrs["modifiedby"] = modifiedby
-
-    @property
-    def module(self) -> "str":
-        """ Gets the module of this RecurringSearchDataset.
-        The name of the module that contains the dataset.
-        """
-        return self._attrs.get("module")
-
-    @module.setter
-    def module(self, module: "str"):
-        """Sets the module of this RecurringSearchDataset.
-
-        The name of the module that contains the dataset.
-
-        :param module: The module of this RecurringSearchDataset.
-        :type: str
-        """
-        if module is None:
-            raise ValueError("Invalid value for `module`, must not be `None`")
-        self._attrs["module"] = module
-
-    @property
-    def name(self) -> "str":
-        """ Gets the name of this RecurringSearchDataset.
-        The dataset name. Dataset names must be unique within each module.
-        """
-        return self._attrs.get("name")
-
-    @name.setter
-    def name(self, name: "str"):
-        """Sets the name of this RecurringSearchDataset.
-
-        The dataset name. Dataset names must be unique within each module.
-
-        :param name: The name of this RecurringSearchDataset.
-        :type: str
-        """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
-        self._attrs["name"] = name
-
-    @property
-    def owner(self) -> "str":
-        """ Gets the owner of this RecurringSearchDataset.
-        The name of the object's owner.
-        """
-        return self._attrs.get("owner")
-
-    @owner.setter
-    def owner(self, owner: "str"):
-        """Sets the owner of this RecurringSearchDataset.
-
-        The name of the object's owner.
-
-        :param owner: The owner of this RecurringSearchDataset.
-        :type: str
-        """
-        if owner is None:
-            raise ValueError("Invalid value for `owner`, must not be `None`")
-        self._attrs["owner"] = owner
-
-    @property
-    def resourcename(self) -> "str":
-        """ Gets the resourcename of this RecurringSearchDataset.
-        The dataset name qualified by the module name.
-        """
-        return self._attrs.get("resourcename")
-
-    @resourcename.setter
-    def resourcename(self, resourcename: "str"):
-        """Sets the resourcename of this RecurringSearchDataset.
-
-        The dataset name qualified by the module name.
-
-        :param resourcename: The resourcename of this RecurringSearchDataset.
-        :type: str
-        """
-        if resourcename is None:
-            raise ValueError("Invalid value for `resourcename`, must not be `None`")
-        self._attrs["resourcename"] = resourcename
-
-    @property
-    def app(self) -> "str":
-        """ Gets the app of this RecurringSearchDataset.
-        An application name.
-        """
-        return self._attrs.get("app")
-
-    @app.setter
-    def app(self, app: "str"):
-        """Sets the app of this RecurringSearchDataset.
-
-        An application name.
-
-        :param app: The app of this RecurringSearchDataset.
-        :type: str
-        """
-        self._attrs["app"] = app
-
-    @property
-    def description(self) -> "str":
-        """ Gets the description of this RecurringSearchDataset.
-        Detailed description of the dataset.
-        """
-        return self._attrs.get("description")
-
-    @description.setter
-    def description(self, description: "str"):
-        """Sets the description of this RecurringSearchDataset.
-
-        Detailed description of the dataset.
-
-        :param description: The description of this RecurringSearchDataset.
-        :type: str
-        """
-        self._attrs["description"] = description
-
-    @property
-    def enabled(self) -> "bool":
-        """ Gets the enabled of this RecurringSearchDataset.
-        Specifies whether or not the recurringsearch is disabled.
-        """
-        return self._attrs.get("enabled")
-
-    @enabled.setter
-    def enabled(self, enabled: "bool"):
-        """Sets the enabled of this RecurringSearchDataset.
-
-        Specifies whether or not the recurringsearch is disabled.
-
-        :param enabled: The enabled of this RecurringSearchDataset.
-        :type: bool
-        """
-        self._attrs["enabled"] = enabled
-
-    @property
-    def interval(self) -> "str":
-        """ Gets the interval of this RecurringSearchDataset.
-        The recurrence interval.
-        """
-        return self._attrs.get("interval")
-
-    @interval.setter
-    def interval(self, interval: "str"):
-        """Sets the interval of this RecurringSearchDataset.
-
-        The recurrence interval.
-
-        :param interval: The interval of this RecurringSearchDataset.
-        :type: str
-        """
-        self._attrs["interval"] = interval
-
-    @property
-    def kind(self) -> str:
-        return "recurringsearch"
-
-
-    @property
-    def most_recent_sid(self) -> "str":
-        """ Gets the most_recent_sid of this RecurringSearchDataset.
-        The sid of the most recently run search job.
-        """
-        return self._attrs.get("mostRecentSid")
-
-    @most_recent_sid.setter
-    def most_recent_sid(self, most_recent_sid: "str"):
-        """Sets the most_recent_sid of this RecurringSearchDataset.
-
-        The sid of the most recently run search job.
-
-        :param most_recent_sid: The most_recent_sid of this RecurringSearchDataset.
-        :type: str
-        """
-        self._attrs["mostRecentSid"] = most_recent_sid
-
-    @property
-    def next_execution_time(self) -> "int":
-        """ Gets the next_execution_time of this RecurringSearchDataset.
-        The next execution time in epoch time.
-        """
-        return self._attrs.get("nextExecutionTime")
-
-    @next_execution_time.setter
-    def next_execution_time(self, next_execution_time: "int"):
-        """Sets the next_execution_time of this RecurringSearchDataset.
-
-        The next execution time in epoch time.
-
-        :param next_execution_time: The next_execution_time of this RecurringSearchDataset.
-        :type: int
-        """
-        self._attrs["nextExecutionTime"] = next_execution_time
-
-    @property
-    def query(self) -> "str":
-        """ Gets the query of this RecurringSearchDataset.
-        A valid SPL.
-        """
-        return self._attrs.get("query")
-
-    @query.setter
-    def query(self, query: "str"):
-        """Sets the query of this RecurringSearchDataset.
-
-        A valid SPL.
-
-        :param query: The query of this RecurringSearchDataset.
-        :type: str
-        """
-        self._attrs["query"] = query
-
-    @property
-    def query_parameters(self) -> "RecurringSearchDatasetPropertiesQueryParameters":
-        """ Gets the query_parameters of this RecurringSearchDataset.
-        """
-        return RecurringSearchDatasetPropertiesQueryParameters._from_dict(self._attrs["queryParameters"])
-
-    @query_parameters.setter
-    def query_parameters(self, query_parameters: "RecurringSearchDatasetPropertiesQueryParameters"):
-        """Sets the query_parameters of this RecurringSearchDataset.
-
-
-        :param query_parameters: The query_parameters of this RecurringSearchDataset.
-        :type: RecurringSearchDatasetPropertiesQueryParameters
-        """
-        self._attrs["queryParameters"] = query_parameters.to_dict()
-
-    @property
-    def run_as(self) -> "str":
-        """ Gets the run_as of this RecurringSearchDataset.
-        The name of the user whom a search will be run as.
-        """
-        return self._attrs.get("runAs")
-
-    @run_as.setter
-    def run_as(self, run_as: "str"):
-        """Sets the run_as of this RecurringSearchDataset.
-
-        The name of the user whom a search will be run as.
-
-        :param run_as: The run_as of this RecurringSearchDataset.
-        :type: str
-        """
-        self._attrs["runAs"] = run_as
-
-    @property
-    def skew(self) -> "int":
-        """ Gets the skew of this RecurringSearchDataset.
-        The offset in minutes that delays the dispatch time.
-        """
-        return self._attrs.get("skew")
-
-    @skew.setter
-    def skew(self, skew: "int"):
-        """Sets the skew of this RecurringSearchDataset.
-
-        The offset in minutes that delays the dispatch time.
-
-        :param skew: The skew of this RecurringSearchDataset.
-        :type: int
-        """
-        self._attrs["skew"] = skew
-
-    @property
-    def summary(self) -> "str":
-        """ Gets the summary of this RecurringSearchDataset.
-        Summary of the dataset's purpose.
-        """
-        return self._attrs.get("summary")
-
-    @summary.setter
-    def summary(self, summary: "str"):
-        """Sets the summary of this RecurringSearchDataset.
-
-        Summary of the dataset's purpose.
-
-        :param summary: The summary of this RecurringSearchDataset.
-        :type: str
-        """
-        self._attrs["summary"] = summary
-
-    @property
-    def title(self) -> "str":
-        """ Gets the title of this RecurringSearchDataset.
-        The title of the dataset.  Does not have to be unique.
-        """
-        return self._attrs.get("title")
-
-    @title.setter
-    def title(self, title: "str"):
-        """Sets the title of this RecurringSearchDataset.
-
-        The title of the dataset.  Does not have to be unique.
-
-        :param title: The title of this RecurringSearchDataset.
-        :type: str
-        """
-        self._attrs["title"] = title
-
-    @property
-    def version(self) -> "int":
-        """ Gets the version of this RecurringSearchDataset.
-        The catalog version.
-        """
-        return self._attrs.get("version")
-
-    @version.setter
-    def version(self, version: "int"):
-        """Sets the version of this RecurringSearchDataset.
-
-        The catalog version.
-
-        :param version: The version of this RecurringSearchDataset.
-        :type: int
-        """
-        self._attrs["version"] = version
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-DatasetPOST.from_dict_handlers["recurringsearch"] = RecurringSearchDataset._from_dict
-
-
-
-class RecurringSearchDatasetKind(str, Enum):
-    RECURRINGSEARCH = "recurringsearch"
-
-    @staticmethod
-    def from_value(value: str):
-        if value == "recurringsearch":
-            return RecurringSearchDatasetKind.RECURRINGSEARCH
 
 
 class RegexAction(ActionPOST):

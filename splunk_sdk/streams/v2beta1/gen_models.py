@@ -4316,9 +4316,9 @@ class PipelinePatchRequest(SSCModel):
 
 class Pipeline_reactivation_statusEnum(str, Enum):
     ACTIVATED = "activated"
-    ALREADYACTIVATEDWITHCURRENTVERSION = "alreadyActivatedWithCurrentVersion"
     CURRENTVERSIONINVALID = "currentVersionInvalid"
     FAILEDTODEACTIVATECURRENTVERSION = "failedToDeactivateCurrentVersion"
+    NOTACTIVATED = "notActivated"
     ROLLEDBACK = "rolledBack"
     ROLLEDBACKERROR = "rolledBackError"
 
@@ -4326,12 +4326,12 @@ class Pipeline_reactivation_statusEnum(str, Enum):
     def from_value(value: str):
         if value == "activated":
             return Pipeline_reactivation_statusEnum.ACTIVATED
-        if value == "alreadyActivatedWithCurrentVersion":
-            return Pipeline_reactivation_statusEnum.ALREADYACTIVATEDWITHCURRENTVERSION
         if value == "currentVersionInvalid":
             return Pipeline_reactivation_statusEnum.CURRENTVERSIONINVALID
         if value == "failedToDeactivateCurrentVersion":
             return Pipeline_reactivation_statusEnum.FAILEDTODEACTIVATECURRENTVERSION
+        if value == "notActivated":
+            return Pipeline_reactivation_statusEnum.NOTACTIVATED
         if value == "rolledBack":
             return Pipeline_reactivation_statusEnum.ROLLEDBACK
         if value == "rolledBackError":
@@ -4422,7 +4422,7 @@ class PipelineRequest(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, data: "UplPipeline", name: "str", bypass_validation: "bool" = None, create_user_id: "str" = None, description: "str" = None, **extra):
+    def __init__(self, data: "UplPipeline", name: "str", bypass_validation: "bool" = None, description: "str" = None, **extra):
         """PipelineRequest"""
 
         self._attrs = dict()
@@ -4432,8 +4432,6 @@ class PipelineRequest(SSCModel):
             self._attrs["name"] = name
         if bypass_validation is not None:
             self._attrs["bypassValidation"] = bypass_validation
-        if create_user_id is not None:
-            self._attrs["createUserId"] = create_user_id
         if description is not None:
             self._attrs["description"] = description
         for k, v in extra.items():
@@ -4494,24 +4492,6 @@ class PipelineRequest(SSCModel):
         :type: bool
         """
         self._attrs["bypassValidation"] = bypass_validation
-
-    @property
-    def create_user_id(self) -> "str":
-        """ Gets the create_user_id of this PipelineRequest.
-        The user that created the pipeline. Deprecated.
-        """
-        return self._attrs.get("createUserId")
-
-    @create_user_id.setter
-    def create_user_id(self, create_user_id: "str"):
-        """Sets the create_user_id of this PipelineRequest.
-
-        The user that created the pipeline. Deprecated.
-
-        :param create_user_id: The create_user_id of this PipelineRequest.
-        :type: str
-        """
-        self._attrs["createUserId"] = create_user_id
 
     @property
     def description(self) -> "str":

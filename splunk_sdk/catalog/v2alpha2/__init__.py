@@ -53,11 +53,11 @@ from splunk_sdk.catalog.v2alpha2.gen_models import Action, \
     Dataset, \
     DatasetImportedBy, \
     DatasetPATCH, \
-    DatasetPOST, \
     FieldPOST, \
     FieldDataType, \
     FieldType, \
     FieldPrevalence, \
+    DatasetPOST, \
     EvalAction, \
     EvalActionKind, \
     EvalActionPATCH, \
@@ -101,9 +101,6 @@ from splunk_sdk.catalog.v2alpha2.gen_models import Action, \
     MetricDatasetPATCH, \
     MetricDatasetPOST, \
     Module, \
-    RecurringSearchDatasetPropertiesQueryParameters, \
-    RecurringSearchDataset, \
-    RecurringSearchDatasetKind, \
     RegexAction, \
     RegexActionKind, \
     RegexActionPATCH, \

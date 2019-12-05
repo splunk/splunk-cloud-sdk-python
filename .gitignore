@@ -24,3 +24,4 @@ docs/pkg/
 docs/node_modules/
 .eggs
 .env
+*.DS_Store

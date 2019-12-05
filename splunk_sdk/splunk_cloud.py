@@ -25,7 +25,7 @@ from splunk_sdk.search import SplunkSearchService as Search
 from splunk_sdk.streams import DataStreamProcessingRESTAPI as Streams
 from splunk_sdk.identity import Identity
 from splunk_sdk.forwarders import SplunkForwarderService as Forwarders
-from splunk_sdk.ml import MachineLearningServiceMLAPI
+from splunk_sdk.ml import MachineLearning
 
 
 class SplunkCloud(object):
@@ -60,4 +60,4 @@ class SplunkCloud(object):
         self.provisioner = Provisioner(self.base_client)
         self.search = Search(self.base_client)
         self.streams = Streams(self.base_client)
-        self.ml = MachineLearningServiceMLAPI(self.base_client)
+        self.ml = MachineLearning(self.base_client)

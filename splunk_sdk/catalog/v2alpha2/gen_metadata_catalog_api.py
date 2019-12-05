@@ -1599,5 +1599,3 @@ class MetadataCatalog(BaseService):
         data = workflow_run_patch.to_dict()
         response = self.base_client.patch(url, json=data, params=query_params)
         return handle_response(response, )
-
-

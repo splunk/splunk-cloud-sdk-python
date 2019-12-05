@@ -23,7 +23,7 @@ import logging
 
 from test.fixtures import get_test_client_ml as test_client_ml  # NOQA
 from splunk_sdk.ingest import IngestAPI, Event
-from splunk_sdk.ml import MachineLearningServiceMLAPI, FitTask, Fields, \
+from splunk_sdk.ml import MachineLearning, FitTask, Fields, \
     Workflow, InputData, OutputData, RawData, OutputDataDestination, \
     WorkflowBuild, WorkflowRun, WorkflowsGetResponse, WorkflowDeployment, \
     DeploymentSpec
@@ -130,7 +130,7 @@ def test_ingest_ml(test_client_ml):
 @pytest.mark.usefixtures('test_client_ml')  # NOQA
 @pytest.mark.skipif(not os.getenv('SPLUNK_TENANT_ML'), reason="ML tests require a preconfigured tenant")
 def test_workflow_operations(test_client_ml):
-    ml = MachineLearningServiceMLAPI(test_client_ml)
+    ml = MachineLearning(test_client_ml)
     assert(ml is not None)
     flow_id = None
     build_id = None
@@ -250,4 +250,3 @@ def test_workflow_operations(test_client_ml):
         response = ml.delete_workflow(flow_id).response
         assert(response is not None)
         assert(response.status_code == 204)
-
