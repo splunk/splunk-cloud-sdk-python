@@ -2,9 +2,6 @@
 
 The Splunk Cloud Services software development kit (SDK) for Python contains library code and examples to enable you to build apps using the Splunk Cloud Services services with the Python 3 programming language.
 
-To use the Splunk Cloud Services SDKs, you must be included in the Splunk Investigates Beta Program.
-Sign up here: https://si.scp.splunk.com/.
-
 ## Terms of Service (TOS)
 
 Log in to [Splunk Investigate](https://si.scp.splunk.com/) and accept the Terms of Service when prompted.
@@ -81,9 +78,9 @@ from splunk_sdk.action.v1beta2 import *
 ```
 
 ## Documentation
-For general documentation, see the [Splunk Developer Portal](https://developer.splunk.com/scs/).
+For general documentation, see the [Splunk Developer Portal](https://dev.splunk.com/scs/).
 
-For reference documentation, see the [Splunk Cloud Services SDK for Python API Reference](https://developer.splunk.com/scs/reference/sdk/splunk-cloud-sdk-python/).
+For reference documentation, see the [Splunk Cloud Services SDK for Python API Reference](https://dev.splunk.com/scs/reference/sdk/splunk-cloud-sdk-python/).
 
 ## Contributing
 
