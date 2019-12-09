@@ -29,10 +29,11 @@ from splunk_sdk.auth import PKCEAuthManager
 from splunk_sdk.splunk_cloud import SplunkCloud
 
 # Create a test context--you might want to pass more to the context
-context = Context(tenant="your_tenant")
+context = Context(host="your_scp_host", tenant="your_tenant")
 
 # Initialize the auth manager
-auth_manager = PKCEAuthManager(client_id="your_client_id",
+auth_manager = PKCEAuthManager(host="your_auth_host",
+                               client_id="your_client_id",
                                username="your_username",
                                password="your_password",
                                redirect_uri="your_app_redirect_uri")
@@ -46,13 +47,13 @@ If you want only a small subset of functionality, you can instantiate services i
 and avoid loading code for services you don't need:
 
 ```python
-from splunk_sdk import BaseClient, Context
-from splunk_sdk.identity import IdentityAndAccessControl
+from splunk_sdk.base_client import BaseClient, Context
+from splunk_sdk.identity import Identity
 from splunk_sdk.auth import ClientAuthManager
 
-am = ClientAuthManager(client_id="your_client_id", client_secret="your_client_secret")
-base_client = BaseClient(context=Context(tenant="your_tenant"), auth_manager=am)
-identity = IdentityAndAccessControl(base_client)
+auth_manager = ClientAuthManager(host="your_auth_host", client_id="your_client_id", client_secret="your_client_secret")
+base_client = BaseClient(context=Context(tenant="your_tenant"), auth_manager=auth_manager)
+identity = Identity(base_client)
 identity.validate_token()
 ```
 
