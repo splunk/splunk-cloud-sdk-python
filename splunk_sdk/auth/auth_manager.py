@@ -317,11 +317,17 @@ class PKCEAuthManager(AuthManager):
         response = self._get(self._url(PATH_CSRFTOKEN))
         if response.status_code != 200:
             raise AuthnError("Authentication failed.", response)
-        result = response.json()
-        csrfToken = result.get("csrf", None)
-        if csrfToken is None:
+        csrfTokenCookie = self._get_cookie(response.cookies, "csrf")
+        if csrfTokenCookie is None:
             raise AuthnError("no CSRF token from /csrfToken", response)
-        return csrfToken, response.cookies
+        return csrfTokenCookie.value, response.cookies
+
+    def _get_cookie(self, cookies, name):
+        """Returns the specified cookie"""
+        for cookie in cookies:
+            if cookie.name == name:
+                return cookie
+        return None
 
     def _authenticate_user(self, username, password, csrfToken, cookies):
         """Authenticate using the (extended) "primary" method."""
