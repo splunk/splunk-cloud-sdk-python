@@ -2,7 +2,7 @@
 
 # flake8: noqa
 
-# Copyright © 2019 Splunk, Inc.
+# Copyright © 2020 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -31,7 +31,7 @@
 __version__ = "1.0.0"
 
 # import apis into sdk package
-from splunk_sdk.catalog.v2beta1.gen_metadata_catalog_api import MetadataCatalog
+from splunk_sdk.catalog.v2beta1.gen_metadata_catalog_service_api import MetadataCatalogService
 
 # import models into sdk package
 from splunk_sdk.catalog.v2beta1.gen_models import Action, \

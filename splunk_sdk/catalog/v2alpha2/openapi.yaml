@@ -4789,4 +4789,4 @@ paths:
     - $ref: '#/components/parameters/AuthorizationHeader'
     - $ref: '#/components/parameters/Tenant'
 
-# Retrieved from scp-openapi commit 2c3f25cefca83a4e454b2354aa149e3d5f0f52ea path: catalog/v2alpha2/openapi.yaml
+# Retrieved from scp-openapi commit 315b8d9b1badda84a5ee80838093855cbe5d7ff4 path: catalog/v2alpha2/openapi.yaml
