@@ -1,4 +1,4 @@
-# Copyright © 2020 Splunk, Inc.
+# Copyright © 2019 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -2911,7 +2911,6 @@ class StatusEnum(str, Enum):
     FAILED = "failed"
     SUCCESS = "success"
     SCHEDULED = "scheduled"
-    INITIALIZING = "initializing"
 
     @staticmethod
     def from_value(value: str):
@@ -2923,8 +2922,6 @@ class StatusEnum(str, Enum):
             return StatusEnum.SUCCESS
         if value == "scheduled":
             return StatusEnum.SCHEDULED
-        if value == "initializing":
-            return StatusEnum.INITIALIZING
 
 
 class WorkflowDeployment(SSCModel):
@@ -3953,7 +3950,6 @@ class StatusEnum(str, Enum):
     FAILED = "failed"
     SUCCESS = "success"
     SCHEDULED = "scheduled"
-    INITIALIZING = "initializing"
 
     @staticmethod
     def from_value(value: str):
@@ -3965,8 +3961,6 @@ class StatusEnum(str, Enum):
             return StatusEnum.SUCCESS
         if value == "scheduled":
             return StatusEnum.SCHEDULED
-        if value == "initializing":
-            return StatusEnum.INITIALIZING
 
 
 class WorkflowStreamDeployment(SSCModel):

@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Copyright © 2020 Splunk, Inc.
+# Copyright © 2019 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -89,7 +89,7 @@ class SplunkSearchService(BaseService):
 
     def delete_recurring_search(self, rsid: str, query_params: Dict[str, object] = None) -> RecurringSearch:
         """
-        Deletes a recurring search with a  specified recurring search ID (rsid).
+        Delete the recurring search with the  specified recurring search ID (rsid).
 
         """
         if query_params is None:
@@ -106,7 +106,7 @@ class SplunkSearchService(BaseService):
 
     def get_all_jobs_for_recurring_search(self, rsid: str, count: float = None, query_params: Dict[str, object] = None) -> List[SearchJob]:
         """
-        Returns all search jobs associated with a recurring search with a specified recurring search ID (rsid).
+        Return all search jobs associated with this  recurring search with the specified recurring search ID (rsid).
 
         """
         if query_params is None:
@@ -125,7 +125,7 @@ class SplunkSearchService(BaseService):
 
     def get_job(self, sid: str, query_params: Dict[str, object] = None) -> SearchJob:
         """
-        Returns a search job with a specified search ID (sid).
+        Return the search job with the specified search ID (sid).
         """
         if query_params is None:
             query_params = {}
@@ -141,7 +141,7 @@ class SplunkSearchService(BaseService):
 
     def get_job_for_recurring_search(self, rsid: str, query_params: Dict[str, object] = None) -> SearchJob:
         """
-        Returns the most recent search job associated with a  recurring search with a specified recurring search ID (rsid).
+        Return the most recent search job associated with this  recurring search with the specified recurring search ID (rsid).
 
         """
         if query_params is None:
@@ -158,7 +158,7 @@ class SplunkSearchService(BaseService):
 
     def get_recurring_search(self, rsid: str, query_params: Dict[str, object] = None) -> RecurringSearch:
         """
-        Returns a recurring search job with a specified  recurring search ID (rsid).
+        Return the recurring search with the specified  recurring search ID (rsid).
 
         """
         if query_params is None:
@@ -175,7 +175,7 @@ class SplunkSearchService(BaseService):
 
     def list_events_summary(self, sid: str, count: float = None, earliest: str = None, field: str = None, latest: str = None, offset: float = None, query_params: Dict[str, object] = None) -> ListSearchResultsResponse:
         """
-        Returns an events summary for a job with  specified search ID (sid).
+        Return the events summary for the job with  specified search ID (sid).
 
         """
         if query_params is None:
@@ -202,7 +202,7 @@ class SplunkSearchService(BaseService):
 
     def list_fields_summary(self, sid: str, earliest: str = None, latest: str = None, query_params: Dict[str, object] = None) -> FieldsSummary:
         """
-        Returns a fields status summary of the events to-date for a job with a specified search ID (sid).
+        Return the fields stats summary of the events to-date  for job with the specified search ID (sid).
 
         """
         if query_params is None:
@@ -223,7 +223,7 @@ class SplunkSearchService(BaseService):
 
     def list_jobs(self, count: float = None, status: SearchStatus = None, query_params: Dict[str, object] = None) -> List[SearchJob]:
         """
-        Returns a matching list of search jobs.
+        Return the matching list of search jobs.
         """
         if query_params is None:
             query_params = {}
@@ -242,7 +242,7 @@ class SplunkSearchService(BaseService):
 
     def list_preview_results(self, sid: str, count: float = None, offset: float = None, query_params: Dict[str, object] = None) -> ListPreviewResultsResponse:
         """
-        Returns a preview search results for a job with the specified search ID (sid). Can be used when a job is running to return interim results.
+        Return the preview search results for the job with the  specified search ID (sid). Can be used when a job is running to  return interim results.
 
         """
         if query_params is None:
@@ -263,7 +263,7 @@ class SplunkSearchService(BaseService):
 
     def list_recurring_searches(self, query_params: Dict[str, object] = None) -> List[RecurringSearch]:
         """
-        Returns a matching list of all recurring searches.
+        Return the matching list of all recurring searches.
         """
         if query_params is None:
             query_params = {}
@@ -278,7 +278,7 @@ class SplunkSearchService(BaseService):
 
     def list_results(self, sid: str, count: float = None, field: str = None, offset: float = None, query_params: Dict[str, object] = None) -> ListSearchResultsResponse:
         """
-        Returns search results for a job with a  specified search ID (sid).
+        Return the search results for the job with the  specified search ID (sid).
 
         """
         if query_params is None:
@@ -301,7 +301,7 @@ class SplunkSearchService(BaseService):
 
     def list_time_buckets(self, sid: str, query_params: Dict[str, object] = None) -> TimeBucketsSummary:
         """
-        Returns an event distribution over time of the untransformed  events that are read to-date for a job with a specified search ID (sid).
+        Return an event distribution over time of the untransformed  events read to-date for job with the specified search ID (sid).
 
         """
         if query_params is None:
@@ -318,7 +318,7 @@ class SplunkSearchService(BaseService):
 
     def update_job(self, sid: str, update_job: UpdateJob = None, query_params: Dict[str, object] = None) -> SearchJob:
         """
-        Modifies a search job with a specified  search ID (sid) with an action.
+        Update the search job with the specified  search ID (sid) with an action.
 
         """
         if query_params is None:
@@ -336,7 +336,7 @@ class SplunkSearchService(BaseService):
 
     def update_recurring_search(self, rsid: str, update_recurring_search: UpdateRecurringSearch = None, query_params: Dict[str, object] = None) -> RecurringSearch:
         """
-        Modifies a recurring search with a specified  recurring search ID (rsid).
+        Update the recurring search with the specified  recurring search ID (rsid).
 
         """
         if query_params is None:

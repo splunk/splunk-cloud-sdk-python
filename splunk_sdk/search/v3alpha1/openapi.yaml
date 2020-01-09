@@ -18,7 +18,7 @@ components:
         type: string
     Field:
       description: |
-        The field to return for the result set. Specify multiple fields of comma-separated values if multiple fields  are required.
+        A field to return for the result set. You can specify multiple fields of comma-separated values if multiple fields  are required.
       in: query
       name: field
       schema:
@@ -54,7 +54,7 @@ components:
         default: 30
         type: number
     offset:
-      description: The index of the first item to return.
+      description: Index of first item to return.
       in: query
       name: offset
       schema:
@@ -604,7 +604,7 @@ openapi: 3.0.0
 paths:
   /{tenant}/search/v3alpha1/jobs:
     get:
-      description: Returns a matching list of search jobs.
+      description: Return the matching list of search jobs.
       operationId: listJobs
       parameters:
       - $ref: '#/components/parameters/StatusCount'
@@ -618,13 +618,13 @@ paths:
                   $ref: '#/components/schemas/SearchJob'
                 type: array
           description: |
-            The list of matching search jobs was returned successfully.
+            The list of search jobs that match your filter  has been returned.
         "400":
-          description: The request isn't valid.
+          description: The request was invalid.
         "401":
-          description: The user isn't authenticated.
+          description: The request requires authentication.
         "403":
-          description: The operation isn't authorized.
+          description: The request was not authorized.
         "500":
           description: An internal service error occurred.
     parameters:
@@ -644,22 +644,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SearchJob'
-          description: The search job was created successfully.
+          description: The search job was created.
         "400":
-          description: The request isn't valid.
+          description: The request was invalid.
         "401":
-          description: The user isn't authenticated.
+          description: The request requires authentication.
         "403":
-          description: The operation isn't authorized.
+          description: The request was not authorized.
         "412":
-          description: The precondition check failed.
+          description: The precondition for the request was not met.
         "429":
-          description: Too many requests were sent.
+          description: Too many requests.
         "500":
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/jobs/{sid}:
     get:
-      description: Returns a search job with a specified search ID (sid).
+      description: Return the search job with the specified search ID (sid).
       operationId: getJob
       responses:
         "200":
@@ -668,15 +668,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/SearchJob'
           description: |
-            The search job information for the specified  search ID (sid) was returned successfully.
+            The search job information for the specified  search ID (sid) was returned.
         "400":
-          description: The request isn't valid.
+          description: The request was invalid.
         "401":
-          description: The user isn't authenticated.
+          description: The request requires authentication.
         "403":
-          description: The operation isn't authorized.
+          description: The request was not authorized.
         "404":
-          description: The resource wasn't found.
+          description: Invalid sid for getting the search job status or results.
         "500":
           description: An internal service error occurred.
     parameters:
@@ -685,7 +685,7 @@ paths:
     - $ref: '#/components/parameters/sid'
     patch:
       description: |
-        Modifies a search job with a specified  search ID (sid) with an action.
+        Update the search job with the specified  search ID (sid) with an action.
       operationId: updateJob
       requestBody:
         content:
@@ -698,19 +698,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SearchJob'
-          description: The action was applied to the search job successfully.
+          description: The action was applied to the search job.
         "400":
-          description: The request isn't valid.
+          description: The request was invalid.
         "401":
-          description: The user isn't authenticated.
+          description: The request requires authentication.
         "403":
-          description: The operation isn't authorized.
+          description: The request was not authorized.
         "500":
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/jobs/{sid}/results:
     get:
       description: |
-        Returns search results for a job with a  specified search ID (sid).
+        Return the search results for the job with the  specified search ID (sid).
       operationId: listResults
       parameters:
       - $ref: '#/components/parameters/tenant'
@@ -725,21 +725,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/ListSearchResultsResponse'
           description: |
-            The request for search results was completed successfully.  Any results that are ready have been returned.  If there are additional results, a 'nextLink' URL is provided.
+            The request for search results has completed.  Any results that are ready have been returned.  If there are additional results, a 'nextLink' URL is provided.
         "400":
-          description: The request isn't valid.
+          description: The request was invalid.
         "401":
-          description: The user isn't authenticated.
+          description: The request requires authentication.
         "403":
-          description: The operation isn't authorized.
+          description: The request was not authorized.
         "404":
-          description: The resource wasn't found.
+          description: Invalid sid for getting the search job status or results.
         "500":
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/jobs/{sid}/results-preview:
     get:
       description: |
-        Returns a preview search results for a job with the specified search ID (sid). Can be used when a job is running to return interim results.
+        Return the preview search results for the job with the  specified search ID (sid). Can be used when a job is running to  return interim results.
       operationId: listPreviewResults
       parameters:
       - $ref: '#/components/parameters/tenant'
@@ -753,24 +753,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/listPreviewResultsResponse'
           description: |
-            The request for preview search results was returned successfully. Results that are ready are returned. If there are additional results, a 'nextLink' URL is provided.
+            Preview search results, if ready, have been returned.  If there are additional results, a 'nextLink' URL is provided.
         "204":
-          description: The content isn't ready.
+          description: The preview search results are not ready.
         "400":
-          description: The request isn't valid.
+          description: The request is invalid.
         "401":
-          description: The user isn't authenticated.
+          description: The request requires authentication.
         "403":
-          description: The operation isn't authorized.
+          description: The request was not authorized.
         "404":
           description: |
-            The resource wasn't found. Either an invalid sid (search ID) for the search job status was specified, or preview search results is disabled.
+            Either an invalid sid (search ID) for the search job status,  or preview search results is disabled.
         "500":
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/jobs/{sid}/timeline-metadata/auto/events-summary:
     get:
       description: |
-        Returns an events summary for a job with  specified search ID (sid).
+        Return the events summary for the job with  specified search ID (sid).
       operationId: listEventsSummary
       parameters:
       - $ref: '#/components/parameters/tenant'
@@ -786,23 +786,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListSearchResultsResponse'
-          description: The request for an events summary was returned successfully.
+          description: The request for events summary has completed.
         "204":
-          description: The content isn't ready.
+          description: The content was not ready.
         "400":
-          description: The request isn't valid.
+          description: The request was invalid.
         "401":
-          description: The user isn't authenticated.
+          description: The request requires authentication.
         "403":
-          description: The operation isn't authorized.
+          description: The request was not authorized.
         "404":
-          description: The resource wasn't found.
+          description: Invalid sid for getting the search job status or results.
         "500":
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/jobs/{sid}/timeline-metadata/auto/fields-summary:
     get:
       description: |
-        Returns a fields status summary of the events to-date for a job with a specified search ID (sid).
+        Return the fields stats summary of the events to-date  for job with the specified search ID (sid).
       operationId: listFieldsSummary
       parameters:
       - $ref: '#/components/parameters/tenant'
@@ -815,23 +815,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FieldsSummary'
-          description: The request for a fields status summary was returned successfully.
+          description: The request for fields summary has completed.
         "204":
-          description: The content isn't ready.
+          description: The content was not ready.
         "400":
-          description: The request isn't valid.
+          description: The request was invalid.
         "401":
-          description: The use isn't authenticated.
+          description: The request requires authentication.
         "403":
-          description: The operation isn't authorized.
+          description: The request was not authorized.
         "404":
-          description: The resouce wasn't found.
+          description: Invalid sid for getting the search job status or results.
         "500":
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/jobs/{sid}/timeline-metadata/auto/time-buckets:
     get:
       description: |
-        Returns an event distribution over time of the untransformed  events that are read to-date for a job with a specified search ID (sid).
+        Return an event distribution over time of the untransformed  events read to-date for job with the specified search ID (sid).
       operationId: listTimeBuckets
       parameters:
       - $ref: '#/components/parameters/tenant'
@@ -842,22 +842,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TimeBucketsSummary'
-          description: The request for timeline buckets summary was completed successfully.
+          description: The request for timeline buckets summary has completed.
         "204":
-          description: The content isn't ready.
+          description: The content was not ready.
         "400":
-          description: The request isn't valid.
+          description: The request was invalid.
         "401":
-          description: The user isn't authenticated.
+          description: The request requires authentication.
         "403":
-          description: The operation isn't authorized.
+          description: The request was not authorized.
         "404":
-          description: The resource wan't found.
+          description: Invalid sid for getting the search job status or results.
         "500":
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/recurring-searches:
     get:
-      description: Returns a matching list of all recurring searches.
+      description: Return the matching list of all recurring searches.
       operationId: listRecurringSearches
       responses:
         "200":
@@ -867,13 +867,13 @@ paths:
                 items:
                   $ref: '#/components/schemas/RecurringSearch'
                 type: array
-          description: The list of recurring searches was returned successfully.
+          description: The list of recurring searches.
         "400":
-          description: The request isn't valid.
+          description: The request was invalid.
         "401":
-          description: The user isn't authenticated.
+          description: The request requires authentication.
         "403":
-          description: The operation isn't authorized.
+          description: The request was not authorized.
         "500":
           description: An internal service error occurred.
     parameters:
@@ -895,21 +895,21 @@ paths:
                 $ref: '#/components/schemas/RecurringSearch'
           description: The recurring search was created successfully.
         "400":
-          description: The request isn't valid.
+          description: The request was invalid.
         "401":
-          description: The user isn't authenticated.
+          description: The request requires authentication.
         "403":
-          description: The operation isn't authorized.
+          description: The request was not authorized.
         "412":
-          description: The precondition check failed.
+          description: The precondition for the request was not met.
         "429":
-          description: Too many requests were sent.
+          description: Too many requests.
         "500":
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/recurring-searches/{rsid}:
     delete:
       description: |
-        Deletes a recurring search with a  specified recurring search ID (rsid).
+        Delete the recurring search with the  specified recurring search ID (rsid).
       operationId: deleteRecurringSearch
       responses:
         "200":
@@ -918,20 +918,20 @@ paths:
               schema:
                 $ref: '#/components/schemas/RecurringSearch'
           description: |
-            The recurring search with the specified  recurring search ID (rsid) was deleted successfully.
+            The recurring search for the specified  recurring search ID (rsid) was deleted.
         "400":
-          description: The request isn't valid.
+          description: The request was invalid.
         "401":
-          description: The user isn't authenticated.
+          description: The request requires authentication.
         "403":
-          description: The operation isn't authorized.
+          description: The request was not authorized.
         "404":
-          description: The resource wasn't found.
+          description: Invalid rsid for deleting the recurring search.
         "500":
           description: An internal service error occurred.
     get:
       description: |
-        Returns a recurring search job with a specified  recurring search ID (rsid).
+        Return the recurring search with the specified  recurring search ID (rsid).
       operationId: getRecurringSearch
       responses:
         "200":
@@ -940,15 +940,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/RecurringSearch'
           description: |
-            The search job information for the specified  recurring search ID (rsid) was returned successfully.
+            The search job information for the specified  recurring search ID (rsid) was returned.
         "400":
-          description: The request isn't valid.
+          description: The request was invalid.
         "401":
-          description: The user isn't authenticated.
+          description: The request requires authentication.
         "403":
-          description: The operation isn't authorized.
+          description: The request was not authorized.
         "404":
-          description: The resource wasn't found.
+          description: Invalid RSID for getting the recurring search.
         "500":
           description: An internal service error occurred.
     parameters:
@@ -957,7 +957,7 @@ paths:
     - $ref: '#/components/parameters/rsid'
     patch:
       description: |
-        Modifies a recurring search with a specified  recurring search ID (rsid).
+        Update the recurring search with the specified  recurring search ID (rsid).
       operationId: updateRecurringSearch
       requestBody:
         content:
@@ -970,19 +970,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RecurringSearch'
-          description: The recurring search job was modified successfully.
+          description: The update was applied to the recurring search job.
         "400":
-          description: The request isn't valid.
+          description: The request was invalid.
         "401":
-          description: The user isn't authenticated.
+          description: The request requires authentication.
         "403":
-          description: The operation isn't authorized.
+          description: The request was not authorized.
         "500":
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/recurring-searches/{rsid}/jobs:
     get:
       description: |
-        Returns all search jobs associated with a recurring search with a specified recurring search ID (rsid).
+        Return all search jobs associated with this  recurring search with the specified recurring search ID (rsid).
       operationId: getAllJobsForRecurringSearch
       responses:
         "200":
@@ -993,15 +993,16 @@ paths:
                   $ref: '#/components/schemas/SearchJob'
                 type: array
           description: |
-            The search jobs associated with the recurring search  with the recurring search ID (rsid) were returned successfully.
+            The search jobs associated with the recurring search  with the recurring search ID (rsid).
         "400":
-          description: The request isn't valid.
+          description: The request was invalid.
         "401":
-          description: The user isn't authenticated.
+          description: The request requires authentication.
         "403":
-          description: The operation isn't authorized.
+          description: The request was not authorized.
         "404":
-          description: The resource wasn't found.
+          description: |
+            Invalid rsid for getting the search jobs  associated with the recurring search.
         "500":
           description: An internal service error occurred.
     parameters:
@@ -1012,7 +1013,7 @@ paths:
   /{tenant}/search/v3alpha1/recurring-searches/{rsid}/most-recent:
     get:
       description: |
-        Returns the most recent search job associated with a  recurring search with a specified recurring search ID (rsid).
+        Return the most recent search job associated with this  recurring search with the specified recurring search ID (rsid).
       operationId: getJobForRecurringSearch
       responses:
         "200":
@@ -1021,15 +1022,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/SearchJob'
           description: |
-            The most recent recurring search job information that is associated with the recurring search ID (rsid) was returned successfully.
+            The search job information for the most recent job run  associated with the recurring search with the recurring search  ID (rsid).
         "400":
-          description: The request isn't valid.
+          description: The request was invalid.
         "401":
-          description: The user isn't authenticated.
+          description: The request requires authentication.
         "403":
-          description: The operation isn't authorized.
+          description: The request was not authorized.
         "404":
-          description: The resouce wasn't found.
+          description: |
+            Invalid rsid for getting the search job status  associated with the recurring search.
         "500":
           description: An internal service error occurred.
     parameters:
@@ -1037,4 +1039,4 @@ paths:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/rsid'
 
-# Retrieved from scp-openapi commit 315b8d9b1badda84a5ee80838093855cbe5d7ff4 path: search/v3alpha1/openapi.yaml
+# Retrieved from scp-openapi commit 2c3f25cefca83a4e454b2354aa149e3d5f0f52ea path: search/v3alpha1/openapi.yaml
