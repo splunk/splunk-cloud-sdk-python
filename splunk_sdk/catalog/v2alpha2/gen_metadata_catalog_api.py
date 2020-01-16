@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Copyright © 2019 Splunk, Inc.
+# Copyright © 2020 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -1599,3 +1599,5 @@ class MetadataCatalog(BaseService):
         data = workflow_run_patch.to_dict()
         response = self.base_client.patch(url, json=data, params=query_params)
         return handle_response(response, )
+
+

@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Copyright © 2019 Splunk, Inc.
+# Copyright © 2020 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -17,7 +17,7 @@
 ############# This file is auto-generated.  Do not edit! #############
 
 """
-    SDC Service: Metadata Catalog service
+    SDC Service: Metadata Catalog
 
     With the Metadata Catalog in Splunk Cloud Services you can create and manage knowledge objects such as datasets, fields, rules, actions, dashboards, and workflows.
 
@@ -70,7 +70,7 @@ from splunk_sdk.catalog.v2beta1.gen_models import WorkflowRunPOST
 
 class MetadataCatalog(BaseService):
     """
-    Metadata Catalog service
+    Metadata Catalog
     Version: v2beta1.4
     With the Metadata Catalog in Splunk Cloud Services you can create and manage knowledge objects such as datasets, fields, rules, actions, dashboards, and workflows.
     """
@@ -1600,3 +1600,5 @@ class MetadataCatalog(BaseService):
         data = workflow_run_patch.to_dict()
         response = self.base_client.patch(url, json=data, params=query_params)
         return handle_response(response, )
+
+

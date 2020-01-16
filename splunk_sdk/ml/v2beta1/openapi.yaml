@@ -588,6 +588,7 @@ components:
           - failed
           - success
           - scheduled
+          - initializing
           readOnly: true
         workflowBuild:
           $ref: '#/components/schemas/WorkflowBuild'
@@ -809,6 +810,7 @@ components:
           - failed
           - success
           - scheduled
+          - initializing
           readOnly: true
         workflowBuild:
           $ref: '#/components/schemas/WorkflowBuild'
@@ -1758,4 +1760,4 @@ paths:
 tags:
 - name: mlTag
 
-# Retrieved from scp-openapi commit 2c3f25cefca83a4e454b2354aa149e3d5f0f52ea path: ml/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit be624d2f60855c3e54656de7dfe2b0decf01cc68 path: ml/v2beta1/openapi.yaml
