@@ -796,7 +796,7 @@ paths:
           $ref: '#/components/responses/504'
         default:
           $ref: '#/components/responses/500'
-      summary: Creates a job
+      summary: Creates a job.
       x-authz-scope: collect.jobs.create
   /{tenant}/collect/v1beta1/jobs/{jobId}:
     delete:
@@ -899,4 +899,4 @@ paths:
           $ref: '#/components/responses/500'
       summary: Modifies a job based on the job ID.
       x-authz-scope: collect.jobs.update
-# Retrieved from scp-openapi commit be624d2f60855c3e54656de7dfe2b0decf01cc68 path: collect/v1beta1/openapi.yaml
+# Retrieved from scp-openapi commit 52337012d0c2d1d5e4772c536c705e32af7b8c07 path: collect/v1beta1/openapi.yaml

@@ -56,7 +56,7 @@ class CollectService(BaseService):
 
     def create_job(self, job: Job, query_params: Dict[str, object] = None) -> SingleJobResponse:
         """
-        Creates a job
+        Creates a job.
         """
         if query_params is None:
             query_params = {}

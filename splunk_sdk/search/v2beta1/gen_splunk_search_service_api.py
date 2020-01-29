@@ -131,7 +131,7 @@ class SplunkSearchService(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, FieldsSummary)
 
-    def list_jobs(self, count: float = None, status: SearchStatus = None, query_params: Dict[str, object] = None) -> List[SearchJob]:
+    def list_jobs(self, count: float = None, filter: str = None, status: SearchStatus = None, query_params: Dict[str, object] = None) -> List[SearchJob]:
         """
         Return the matching list of search jobs.
         """
@@ -139,6 +139,8 @@ class SplunkSearchService(BaseService):
             query_params = {}
         if count is not None:
             query_params['count'] = count
+        if filter is not None:
+            query_params['filter'] = filter
         if status is not None:
             query_params['status'] = status
 

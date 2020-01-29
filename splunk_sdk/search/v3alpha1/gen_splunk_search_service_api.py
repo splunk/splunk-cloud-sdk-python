@@ -175,8 +175,7 @@ class SplunkSearchService(BaseService):
 
     def list_events_summary(self, sid: str, count: float = None, earliest: str = None, field: str = None, latest: str = None, offset: float = None, query_params: Dict[str, object] = None) -> ListSearchResultsResponse:
         """
-        Returns an events summary for a job with  specified search ID (sid).
-
+        Return events summary, for search ID (SID) search.
         """
         if query_params is None:
             query_params = {}
@@ -202,8 +201,7 @@ class SplunkSearchService(BaseService):
 
     def list_fields_summary(self, sid: str, earliest: str = None, latest: str = None, query_params: Dict[str, object] = None) -> FieldsSummary:
         """
-        Returns a fields status summary of the events to-date for a job with a specified search ID (sid).
-
+        Return fields stats summary of the events to-date, for search ID (SID) search.
         """
         if query_params is None:
             query_params = {}
@@ -221,7 +219,7 @@ class SplunkSearchService(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, FieldsSummary)
 
-    def list_jobs(self, count: float = None, status: SearchStatus = None, query_params: Dict[str, object] = None) -> List[SearchJob]:
+    def list_jobs(self, count: float = None, filter: str = None, status: SearchStatus = None, query_params: Dict[str, object] = None) -> List[SearchJob]:
         """
         Returns a matching list of search jobs.
         """
@@ -229,6 +227,8 @@ class SplunkSearchService(BaseService):
             query_params = {}
         if count is not None:
             query_params['count'] = count
+        if filter is not None:
+            query_params['filter'] = filter
         if status is not None:
             query_params['status'] = status
 
@@ -242,8 +242,7 @@ class SplunkSearchService(BaseService):
 
     def list_preview_results(self, sid: str, count: float = None, offset: float = None, query_params: Dict[str, object] = None) -> ListPreviewResultsResponse:
         """
-        Returns a preview search results for a job with the specified search ID (sid). Can be used when a job is running to return interim results.
-
+        Return the preview search results for the job with the specified search ID (SID). Can be used when a job is running to return interim results.
         """
         if query_params is None:
             query_params = {}
@@ -278,8 +277,7 @@ class SplunkSearchService(BaseService):
 
     def list_results(self, sid: str, count: float = None, field: str = None, offset: float = None, query_params: Dict[str, object] = None) -> ListSearchResultsResponse:
         """
-        Returns search results for a job with a  specified search ID (sid).
-
+        Returns search results for a job with a specified search ID (sid).
         """
         if query_params is None:
             query_params = {}
@@ -301,8 +299,7 @@ class SplunkSearchService(BaseService):
 
     def list_time_buckets(self, sid: str, query_params: Dict[str, object] = None) -> TimeBucketsSummary:
         """
-        Returns an event distribution over time of the untransformed  events that are read to-date for a job with a specified search ID (sid).
-
+        Returns an event distribution over time of the untransformed events that are read to-date for a job with a specified search ID (sid).
         """
         if query_params is None:
             query_params = {}

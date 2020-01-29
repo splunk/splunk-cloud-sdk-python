@@ -16,6 +16,13 @@ components:
         maxLength: 36
         minLength: 4
         type: string
+    appClientId:
+      description: ID of the app client to authorize
+      in: path
+      name: app_client_id
+      required: true
+      schema:
+        type: string
     clientId:
       description: ID of the client to authorize
       in: query
@@ -651,6 +658,43 @@ components:
       - addedAt
       - addedBy
       - groupCount
+      type: object
+    OAuth2Client:
+      properties:
+        application_type:
+          type: string
+        client_id:
+          type: string
+        client_id_issued_at:
+          type: integer
+        client_name:
+          type: string
+        client_secret:
+          type: string
+        client_uri:
+          type: string
+        consent_method:
+          type: string
+        grant_types:
+          items:
+            type: string
+          type: array
+        initiate_login_uri:
+          type: string
+        post_logout_redirect_uris:
+          items:
+            type: string
+          type: array
+        redirect_uris:
+          items:
+            type: string
+          type: array
+        response_types:
+          items:
+            type: string
+          type: array
+        token_endpoint_auth_method:
+          type: string
       type: object
     PermissionSet:
       properties:
@@ -1746,4 +1790,4 @@ security:
 servers:
 - url: /
 
-# Retrieved from scp-openapi commit be624d2f60855c3e54656de7dfe2b0decf01cc68 path: identity/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit 52337012d0c2d1d5e4772c536c705e32af7b8c07 path: identity/v2beta1/openapi.yaml

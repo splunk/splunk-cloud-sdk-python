@@ -1590,7 +1590,7 @@ class SearchJob(SSCModel):
     @property
     def max_time(self) -> "float":
         """ Gets the max_time of this SearchJob.
-        The number of seconds to run the search before finalizing the search.  The default value is 3600 seconds (1 hour).  The maximum value is 21600 seconds (6 hours). 
+        The number of seconds to run the search before finalizing the search.  The default value is 3600 seconds (1 hour).  The maximum value is 3600 seconds (1 hour). 
         """
         return self._attrs.get("maxTime")
 
@@ -1598,7 +1598,7 @@ class SearchJob(SSCModel):
     def max_time(self, max_time: "float"):
         """Sets the max_time of this SearchJob.
 
-        The number of seconds to run the search before finalizing the search.  The default value is 3600 seconds (1 hour).  The maximum value is 21600 seconds (6 hours). 
+        The number of seconds to run the search before finalizing the search.  The default value is 3600 seconds (1 hour).  The maximum value is 3600 seconds (1 hour). 
 
         :param max_time: The max_time of this SearchJob.
         :type: float
