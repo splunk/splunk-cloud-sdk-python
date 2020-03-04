@@ -5,7 +5,7 @@
 ### Breaking Changes
 
 - AppRegistry
-	- Models `AppResponseCreateUpdate`, `AppResponseGetList`, `CreateAppRequest`, `UpdateAppRequest` have been refactored from single models encompassing all app-related properties to discriminator-based app-kind-specific models:  `NativeApp/NativeAppPOST`, `ServiceApp/ServiceAppPOST`, and  `WebApp/WebAppPOST`.
+	- Models `AppResponseCreateUpdate`, `AppResponseGetList`, `CreateAppRequest` have been refactored from single models encompassing all app-related properties to discriminator-based app-kind-specific models:  `NativeApp/NativeAppPOST`, `ServiceApp/ServiceAppPOST`, and  `WebApp/WebAppPOST`.
 - Catalog
 	- `JobDatasetPATCH` and `JobDatasetPOST` have been removed.
 - Forwarders
