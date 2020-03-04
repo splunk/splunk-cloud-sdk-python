@@ -32,6 +32,144 @@ from enum import Enum
 
 
 
+class JobEntitlement(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "JobEntitlement":
+        instance = JobEntitlement.__new__(JobEntitlement)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, name: "str", value: "object", **extra):
+        """JobEntitlement"""
+
+        self._attrs = dict()
+        if name is not None:
+            self._attrs["name"] = name
+        if value is not None:
+            self._attrs["value"] = value
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this JobEntitlement.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this JobEntitlement.
+
+
+        :param name: The name of this JobEntitlement.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def value(self) -> "object":
+        """ Gets the value of this JobEntitlement.
+        """
+        return self._attrs.get("value")
+
+    @value.setter
+    def value(self, value: "object"):
+        """Sets the value of this JobEntitlement.
+
+
+        :param value: The value of this JobEntitlement.
+        :type: object
+        """
+        if value is None:
+            raise ValueError("Invalid value for `value`, must not be `None`")
+        self._attrs["value"] = value
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class CreateEntitlementsJobBody(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "CreateEntitlementsJobBody":
+        instance = CreateEntitlementsJobBody.__new__(CreateEntitlementsJobBody)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, app_client_id: "str", entitlements: "List[JobEntitlement]", subscription_id: "str", **extra):
+        """CreateEntitlementsJobBody"""
+
+        self._attrs = dict()
+        if app_client_id is not None:
+            self._attrs["appClientID"] = app_client_id
+        if entitlements is not None:
+            self._attrs["entitlements"] = entitlements
+        if subscription_id is not None:
+            self._attrs["subscriptionID"] = subscription_id
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def app_client_id(self) -> "str":
+        """ Gets the app_client_id of this CreateEntitlementsJobBody.
+        """
+        return self._attrs.get("appClientID")
+
+    @app_client_id.setter
+    def app_client_id(self, app_client_id: "str"):
+        """Sets the app_client_id of this CreateEntitlementsJobBody.
+
+
+        :param app_client_id: The app_client_id of this CreateEntitlementsJobBody.
+        :type: str
+        """
+        if app_client_id is None:
+            raise ValueError("Invalid value for `app_client_id`, must not be `None`")
+        self._attrs["appClientID"] = app_client_id
+
+    @property
+    def entitlements(self) -> "List[JobEntitlement]":
+        """ Gets the entitlements of this CreateEntitlementsJobBody.
+        """
+        return [JobEntitlement._from_dict(i) for i in self._attrs.get("entitlements")]
+
+    @entitlements.setter
+    def entitlements(self, entitlements: "List[JobEntitlement]"):
+        """Sets the entitlements of this CreateEntitlementsJobBody.
+
+
+        :param entitlements: The entitlements of this CreateEntitlementsJobBody.
+        :type: List[JobEntitlement]
+        """
+        if entitlements is None:
+            raise ValueError("Invalid value for `entitlements`, must not be `None`")
+        self._attrs["entitlements"] = entitlements
+
+    @property
+    def subscription_id(self) -> "str":
+        """ Gets the subscription_id of this CreateEntitlementsJobBody.
+        """
+        return self._attrs.get("subscriptionID")
+
+    @subscription_id.setter
+    def subscription_id(self, subscription_id: "str"):
+        """Sets the subscription_id of this CreateEntitlementsJobBody.
+
+
+        :param subscription_id: The subscription_id of this CreateEntitlementsJobBody.
+        :type: str
+        """
+        if subscription_id is None:
+            raise ValueError("Invalid value for `subscription_id`, must not be `None`")
+        self._attrs["subscriptionID"] = subscription_id
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
 class CreateProvisionJobBody(SSCModel):
 
     @staticmethod
@@ -81,6 +219,341 @@ class CreateProvisionJobBody(SSCModel):
         :param tenant: The tenant of this CreateProvisionJobBody.
         :type: str
         """
+        self._attrs["tenant"] = tenant
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class EntitlementsJobInfoErrorsItems(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "EntitlementsJobInfoErrorsItems":
+        instance = EntitlementsJobInfoErrorsItems.__new__(EntitlementsJobInfoErrorsItems)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, code: "str", job_stage: "str", message: "str", app: "str" = None, entitlement_name: "str" = None, **extra):
+        """EntitlementsJobInfoErrorsItems"""
+
+        self._attrs = dict()
+        if code is not None:
+            self._attrs["code"] = code
+        if job_stage is not None:
+            self._attrs["jobStage"] = job_stage
+        if message is not None:
+            self._attrs["message"] = message
+        if app is not None:
+            self._attrs["app"] = app
+        if entitlement_name is not None:
+            self._attrs["entitlementName"] = entitlement_name
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def code(self) -> "str":
+        """ Gets the code of this EntitlementsJobInfoErrorsItems.
+        """
+        return self._attrs.get("code")
+
+    @code.setter
+    def code(self, code: "str"):
+        """Sets the code of this EntitlementsJobInfoErrorsItems.
+
+
+        :param code: The code of this EntitlementsJobInfoErrorsItems.
+        :type: str
+        """
+        if code is None:
+            raise ValueError("Invalid value for `code`, must not be `None`")
+        self._attrs["code"] = code
+
+    @property
+    def job_stage(self) -> "str":
+        """ Gets the job_stage of this EntitlementsJobInfoErrorsItems.
+        """
+        return self._attrs.get("jobStage")
+
+    @job_stage.setter
+    def job_stage(self, job_stage: "str"):
+        """Sets the job_stage of this EntitlementsJobInfoErrorsItems.
+
+
+        :param job_stage: The job_stage of this EntitlementsJobInfoErrorsItems.
+        :type: str
+        """
+        if job_stage is None:
+            raise ValueError("Invalid value for `job_stage`, must not be `None`")
+        self._attrs["jobStage"] = job_stage
+
+    @property
+    def message(self) -> "str":
+        """ Gets the message of this EntitlementsJobInfoErrorsItems.
+        """
+        return self._attrs.get("message")
+
+    @message.setter
+    def message(self, message: "str"):
+        """Sets the message of this EntitlementsJobInfoErrorsItems.
+
+
+        :param message: The message of this EntitlementsJobInfoErrorsItems.
+        :type: str
+        """
+        if message is None:
+            raise ValueError("Invalid value for `message`, must not be `None`")
+        self._attrs["message"] = message
+
+    @property
+    def app(self) -> "str":
+        """ Gets the app of this EntitlementsJobInfoErrorsItems.
+        """
+        return self._attrs.get("app")
+
+    @app.setter
+    def app(self, app: "str"):
+        """Sets the app of this EntitlementsJobInfoErrorsItems.
+
+
+        :param app: The app of this EntitlementsJobInfoErrorsItems.
+        :type: str
+        """
+        self._attrs["app"] = app
+
+    @property
+    def entitlement_name(self) -> "str":
+        """ Gets the entitlement_name of this EntitlementsJobInfoErrorsItems.
+        """
+        return self._attrs.get("entitlementName")
+
+    @entitlement_name.setter
+    def entitlement_name(self, entitlement_name: "str"):
+        """Sets the entitlement_name of this EntitlementsJobInfoErrorsItems.
+
+
+        :param entitlement_name: The entitlement_name of this EntitlementsJobInfoErrorsItems.
+        :type: str
+        """
+        self._attrs["entitlementName"] = entitlement_name
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class StatusEnum(str, Enum):
+    CREATED = "created"
+    RUNNING = "running"
+    COMPLETED = "completed"
+    FAILED = "failed"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "created":
+            return StatusEnum.CREATED
+        if value == "running":
+            return StatusEnum.RUNNING
+        if value == "completed":
+            return StatusEnum.COMPLETED
+        if value == "failed":
+            return StatusEnum.FAILED
+
+
+class EntitlementsJobInfo(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "EntitlementsJobInfo":
+        instance = EntitlementsJobInfo.__new__(EntitlementsJobInfo)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, app_client_id: "str", created_at: "datetime", created_by: "str", entitlements: "List[JobEntitlement]", errors: "List[EntitlementsJobInfoErrorsItems]", job_id: "str", status: "str", subscription_id: "str", tenant: "str", **extra):
+        """EntitlementsJobInfo"""
+
+        self._attrs = dict()
+        if app_client_id is not None:
+            self._attrs["appClientID"] = app_client_id
+        if created_at is not None:
+            self._attrs["createdAt"] = created_at
+        if created_by is not None:
+            self._attrs["createdBy"] = created_by
+        if entitlements is not None:
+            self._attrs["entitlements"] = entitlements
+        if errors is not None:
+            self._attrs["errors"] = errors
+        if job_id is not None:
+            self._attrs["jobID"] = job_id
+        if status is not None:
+            self._attrs["status"] = status
+        if subscription_id is not None:
+            self._attrs["subscriptionID"] = subscription_id
+        if tenant is not None:
+            self._attrs["tenant"] = tenant
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def app_client_id(self) -> "str":
+        """ Gets the app_client_id of this EntitlementsJobInfo.
+        """
+        return self._attrs.get("appClientID")
+
+    @app_client_id.setter
+    def app_client_id(self, app_client_id: "str"):
+        """Sets the app_client_id of this EntitlementsJobInfo.
+
+
+        :param app_client_id: The app_client_id of this EntitlementsJobInfo.
+        :type: str
+        """
+        if app_client_id is None:
+            raise ValueError("Invalid value for `app_client_id`, must not be `None`")
+        self._attrs["appClientID"] = app_client_id
+
+    @property
+    def created_at(self) -> "datetime":
+        """ Gets the created_at of this EntitlementsJobInfo.
+        """
+        return self._attrs.get("createdAt")
+
+    @created_at.setter
+    def created_at(self, created_at: "datetime"):
+        """Sets the created_at of this EntitlementsJobInfo.
+
+
+        :param created_at: The created_at of this EntitlementsJobInfo.
+        :type: datetime
+        """
+        if created_at is None:
+            raise ValueError("Invalid value for `created_at`, must not be `None`")
+        self._attrs["createdAt"] = created_at
+
+    @property
+    def created_by(self) -> "str":
+        """ Gets the created_by of this EntitlementsJobInfo.
+        """
+        return self._attrs.get("createdBy")
+
+    @created_by.setter
+    def created_by(self, created_by: "str"):
+        """Sets the created_by of this EntitlementsJobInfo.
+
+
+        :param created_by: The created_by of this EntitlementsJobInfo.
+        :type: str
+        """
+        if created_by is None:
+            raise ValueError("Invalid value for `created_by`, must not be `None`")
+        self._attrs["createdBy"] = created_by
+
+    @property
+    def entitlements(self) -> "List[JobEntitlement]":
+        """ Gets the entitlements of this EntitlementsJobInfo.
+        """
+        return [JobEntitlement._from_dict(i) for i in self._attrs.get("entitlements")]
+
+    @entitlements.setter
+    def entitlements(self, entitlements: "List[JobEntitlement]"):
+        """Sets the entitlements of this EntitlementsJobInfo.
+
+
+        :param entitlements: The entitlements of this EntitlementsJobInfo.
+        :type: List[JobEntitlement]
+        """
+        if entitlements is None:
+            raise ValueError("Invalid value for `entitlements`, must not be `None`")
+        self._attrs["entitlements"] = entitlements
+
+    @property
+    def errors(self) -> "List[EntitlementsJobInfoErrorsItems]":
+        """ Gets the errors of this EntitlementsJobInfo.
+        """
+        return [EntitlementsJobInfoErrorsItems._from_dict(i) for i in self._attrs.get("errors")]
+
+    @errors.setter
+    def errors(self, errors: "List[EntitlementsJobInfoErrorsItems]"):
+        """Sets the errors of this EntitlementsJobInfo.
+
+
+        :param errors: The errors of this EntitlementsJobInfo.
+        :type: List[EntitlementsJobInfoErrorsItems]
+        """
+        if errors is None:
+            raise ValueError("Invalid value for `errors`, must not be `None`")
+        self._attrs["errors"] = errors
+
+    @property
+    def job_id(self) -> "str":
+        """ Gets the job_id of this EntitlementsJobInfo.
+        """
+        return self._attrs.get("jobID")
+
+    @job_id.setter
+    def job_id(self, job_id: "str"):
+        """Sets the job_id of this EntitlementsJobInfo.
+
+
+        :param job_id: The job_id of this EntitlementsJobInfo.
+        :type: str
+        """
+        if job_id is None:
+            raise ValueError("Invalid value for `job_id`, must not be `None`")
+        self._attrs["jobID"] = job_id
+
+    @property
+    def status(self) -> "StatusEnum":
+        """ Gets the status of this EntitlementsJobInfo.
+        """
+        return StatusEnum.from_value(self._attrs.get("status"))
+
+    @status.setter
+    def status(self, status: "str"):
+        """Sets the status of this EntitlementsJobInfo.
+
+
+        :param status: The status of this EntitlementsJobInfo.
+        :type: str
+        """
+        if status is None:
+            raise ValueError("Invalid value for `status`, must not be `None`")
+        if isinstance(status, Enum):
+            self._attrs["status"] = status.value
+        else:
+            self._attrs["status"] = status  # If you supply a string, we presume you know the service will take it.
+
+    @property
+    def subscription_id(self) -> "str":
+        """ Gets the subscription_id of this EntitlementsJobInfo.
+        """
+        return self._attrs.get("subscriptionID")
+
+    @subscription_id.setter
+    def subscription_id(self, subscription_id: "str"):
+        """Sets the subscription_id of this EntitlementsJobInfo.
+
+
+        :param subscription_id: The subscription_id of this EntitlementsJobInfo.
+        :type: str
+        """
+        if subscription_id is None:
+            raise ValueError("Invalid value for `subscription_id`, must not be `None`")
+        self._attrs["subscriptionID"] = subscription_id
+
+    @property
+    def tenant(self) -> "str":
+        """ Gets the tenant of this EntitlementsJobInfo.
+        """
+        return self._attrs.get("tenant")
+
+    @tenant.setter
+    def tenant(self, tenant: "str"):
+        """Sets the tenant of this EntitlementsJobInfo.
+
+
+        :param tenant: The tenant of this EntitlementsJobInfo.
+        :type: str
+        """
+        if tenant is None:
+            raise ValueError("Invalid value for `tenant`, must not be `None`")
         self._attrs["tenant"] = tenant
 
     def to_dict(self):

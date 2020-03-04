@@ -40,7 +40,7 @@ class Certificate(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, pem: "str" = None, **extra):
+    def __init__(self, pem: "str", **extra):
         """Certificate"""
 
         self._attrs = dict()
@@ -63,6 +63,8 @@ class Certificate(SSCModel):
         :param pem: The pem of this Certificate.
         :type: str
         """
+        if pem is None:
+            raise ValueError("Invalid value for `pem`, must not be `None`")
         self._attrs["pem"] = pem
 
     def to_dict(self):

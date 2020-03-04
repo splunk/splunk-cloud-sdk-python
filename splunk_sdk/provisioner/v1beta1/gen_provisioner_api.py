@@ -34,7 +34,9 @@ from splunk_sdk.base_client import handle_response
 from splunk_sdk.base_service import BaseService
 from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
+from splunk_sdk.provisioner.v1beta1.gen_models import CreateEntitlementsJobBody
 from splunk_sdk.provisioner.v1beta1.gen_models import CreateProvisionJobBody
+from splunk_sdk.provisioner.v1beta1.gen_models import EntitlementsJobInfo
 from splunk_sdk.provisioner.v1beta1.gen_models import Error
 from splunk_sdk.provisioner.v1beta1.gen_models import InviteBody
 from splunk_sdk.provisioner.v1beta1.gen_models import InviteInfo
@@ -52,6 +54,24 @@ class Provisioner(BaseService):
 
     def __init__(self, base_client):
         super().__init__(base_client)
+
+    def create_entitlements_job(self, tenant_name: str, job_id: str, create_entitlements_job_body: CreateEntitlementsJobBody, query_params: Dict[str, object] = None) -> EntitlementsJobInfo:
+        """
+        Creates an entitlements job.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "tenantName": tenant_name,
+            "jobId": job_id,
+        }
+
+        path = Template("/system/provisioner/v1beta1/jobs/tenants/${tenantName}/entitlements/${jobId}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = create_entitlements_job_body.to_dict()
+        response = self.base_client.put(url, json=data, params=query_params)
+        return handle_response(response, EntitlementsJobInfo)
 
     def create_invite(self, invite_body: InviteBody, query_params: Dict[str, object] = None) -> InviteInfo:
         """
@@ -100,6 +120,23 @@ class Provisioner(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.delete(url, params=query_params)
         return handle_response(response, )
+
+    def get_entitlements_job(self, tenant_name: str, job_id: str, query_params: Dict[str, object] = None) -> EntitlementsJobInfo:
+        """
+        Returns details of a specific entitlements job.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "tenantName": tenant_name,
+            "jobId": job_id,
+        }
+
+        path = Template("/system/provisioner/v1beta1/jobs/tenants/${tenantName}/entitlements/${jobId}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, EntitlementsJobInfo)
 
     def get_invite(self, invite_id: str, query_params: Dict[str, object] = None) -> InviteInfo:
         """

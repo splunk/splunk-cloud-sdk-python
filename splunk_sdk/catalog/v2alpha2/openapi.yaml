@@ -568,7 +568,6 @@ components:
       - $ref: '#/components/schemas/IndexDatasetPATCH'
       - $ref: '#/components/schemas/ViewDatasetPATCH'
       - $ref: '#/components/schemas/ImportDatasetPATCH'
-      - $ref: '#/components/schemas/JobDatasetPATCH'
       - $ref: '#/components/schemas/MetricDatasetPATCH'
       - $ref: '#/components/schemas/KVCollectionDatasetPATCH'
     DatasetPATCHCommon:
@@ -600,7 +599,6 @@ components:
         mapping:
           import: '#/components/schemas/ImportDatasetPOST'
           index: '#/components/schemas/IndexDatasetPOST'
-          job: '#/components/schemas/JobDatasetPOST'
           kvcollection: '#/components/schemas/KVCollectionDatasetPOST'
           lookup: '#/components/schemas/LookupDatasetPOST'
           metric: '#/components/schemas/MetricDatasetPOST'
@@ -611,7 +609,6 @@ components:
       - $ref: '#/components/schemas/IndexDatasetPOST'
       - $ref: '#/components/schemas/ViewDatasetPOST'
       - $ref: '#/components/schemas/ImportDatasetPOST'
-      - $ref: '#/components/schemas/JobDatasetPOST'
       - $ref: '#/components/schemas/MetricDatasetPOST'
       - $ref: '#/components/schemas/KVCollectionDatasetPOST'
     DatasetPOSTCommon:
@@ -4789,4 +4786,4 @@ paths:
     - $ref: '#/components/parameters/AuthorizationHeader'
     - $ref: '#/components/parameters/Tenant'
 
-# Retrieved from scp-openapi commit 52337012d0c2d1d5e4772c536c705e32af7b8c07 path: catalog/v2alpha2/openapi.yaml
+# Retrieved from scp-openapi commit 17ef0ea6af9b3c78539b628b8e9d2ece45fc8329 path: catalog/v2alpha2/openapi.yaml

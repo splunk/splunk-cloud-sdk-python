@@ -1233,6 +1233,7 @@ class TenantStatus(str, Enum):
     READY = "ready"
     DELETING = "deleting"
     DELETED = "deleted"
+    TOMBSTONED = "tombstoned"
     SUSPENDED = "suspended"
 
     @staticmethod
@@ -1247,6 +1248,8 @@ class TenantStatus(str, Enum):
             return TenantStatus.DELETING
         if value == "deleted":
             return TenantStatus.DELETED
+        if value == "tombstoned":
+            return TenantStatus.TOMBSTONED
         if value == "suspended":
             return TenantStatus.SUSPENDED
 

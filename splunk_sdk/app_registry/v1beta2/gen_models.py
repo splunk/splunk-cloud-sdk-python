@@ -88,32 +88,31 @@ class AppResourceKind(str, Enum):
 
 class AppResponseCreateUpdate(SSCModel):
 
+    from_dict_handlers = dict()
     @staticmethod
     def _from_dict(model: dict) -> "AppResponseCreateUpdate":
-        instance = AppResponseCreateUpdate.__new__(AppResponseCreateUpdate)
-        instance._attrs = model
-        return instance
 
-    def __init__(self, client_id: "str", client_secret: "str", created_at: "datetime", created_by: "str", kind: "AppResourceKind", name: "str", title: "str", app_principal_permissions: "List[str]" = None, description: "str" = None, login_url: "str" = None, logo_url: "str" = None, redirect_urls: "List[str]" = None, setup_url: "str" = None, user_permissions_filter: "List[str]" = None, webhook_url: "str" = None, **extra):
+        def default_handler(model: dict) -> "AppResponseCreateUpdate":
+            instance = AppResponseCreateUpdate.__new__(AppResponseCreateUpdate)
+            instance._attrs = model
+            return instance
+
+        kind = model['kind']
+        handler = AppResponseCreateUpdate.from_dict_handlers.get(kind, default_handler)
+        return handler(model)
+
+    def __init__(self, app_principal_permissions: "List[str]" = None, client_id: "str" = None, created_at: "datetime" = None, description: "str" = None, login_url: "str" = None, logo_url: "str" = None, name: "str" = None, redirect_urls: "List[str]" = None, setup_url: "str" = None, title: "str" = None, user_permissions_filter: "List[str]" = None, webhook_url: "str" = None, **extra):
         """AppResponseCreateUpdate"""
 
         self._attrs = dict()
-        if client_id is not None:
-            self._attrs["clientId"] = client_id
-        if client_secret is not None:
-            self._attrs["clientSecret"] = client_secret
-        if created_at is not None:
-            self._attrs["createdAt"] = created_at
-        if created_by is not None:
-            self._attrs["createdBy"] = created_by
-        if kind is not None:
-            self._attrs["kind"] = kind
         if name is not None:
             self._attrs["name"] = name
-        if title is not None:
-            self._attrs["title"] = title
         if app_principal_permissions is not None:
             self._attrs["appPrincipalPermissions"] = app_principal_permissions
+        if client_id is not None:
+            self._attrs["clientId"] = client_id
+        if created_at is not None:
+            self._attrs["createdAt"] = created_at
         if description is not None:
             self._attrs["description"] = description
         if login_url is not None:
@@ -124,113 +123,14 @@ class AppResponseCreateUpdate(SSCModel):
             self._attrs["redirectUrls"] = redirect_urls
         if setup_url is not None:
             self._attrs["setupUrl"] = setup_url
+        if title is not None:
+            self._attrs["title"] = title
         if user_permissions_filter is not None:
             self._attrs["userPermissionsFilter"] = user_permissions_filter
         if webhook_url is not None:
             self._attrs["webhookUrl"] = webhook_url
         for k, v in extra.items():
             self._attrs[k] = v
-
-    @property
-    def client_id(self) -> "str":
-        """ Gets the client_id of this AppResponseCreateUpdate.
-        OAuth 2.0 Client ID.
-        """
-        return self._attrs.get("clientId")
-
-    @client_id.setter
-    def client_id(self, client_id: "str"):
-        """Sets the client_id of this AppResponseCreateUpdate.
-
-        OAuth 2.0 Client ID.
-
-        :param client_id: The client_id of this AppResponseCreateUpdate.
-        :type: str
-        """
-        if client_id is None:
-            raise ValueError("Invalid value for `client_id`, must not be `None`")
-        self._attrs["clientId"] = client_id
-
-    @property
-    def client_secret(self) -> "str":
-        """ Gets the client_secret of this AppResponseCreateUpdate.
-        OAuth 2.0 Client Secret string (used for confidential clients).
-        """
-        return self._attrs.get("clientSecret")
-
-    @client_secret.setter
-    def client_secret(self, client_secret: "str"):
-        """Sets the client_secret of this AppResponseCreateUpdate.
-
-        OAuth 2.0 Client Secret string (used for confidential clients).
-
-        :param client_secret: The client_secret of this AppResponseCreateUpdate.
-        :type: str
-        """
-        if client_secret is None:
-            raise ValueError("Invalid value for `client_secret`, must not be `None`")
-        self._attrs["clientSecret"] = client_secret
-
-    @property
-    def created_at(self) -> "datetime":
-        """ Gets the created_at of this AppResponseCreateUpdate.
-        The date that the app was created.
-        """
-        return self._attrs.get("createdAt")
-
-    @created_at.setter
-    def created_at(self, created_at: "datetime"):
-        """Sets the created_at of this AppResponseCreateUpdate.
-
-        The date that the app was created.
-
-        :param created_at: The created_at of this AppResponseCreateUpdate.
-        :type: datetime
-        """
-        if created_at is None:
-            raise ValueError("Invalid value for `created_at`, must not be `None`")
-        self._attrs["createdAt"] = created_at
-
-    @property
-    def created_by(self) -> "str":
-        """ Gets the created_by of this AppResponseCreateUpdate.
-        The principal who created this app.
-        """
-        return self._attrs.get("createdBy")
-
-    @created_by.setter
-    def created_by(self, created_by: "str"):
-        """Sets the created_by of this AppResponseCreateUpdate.
-
-        The principal who created this app.
-
-        :param created_by: The created_by of this AppResponseCreateUpdate.
-        :type: str
-        """
-        if created_by is None:
-            raise ValueError("Invalid value for `created_by`, must not be `None`")
-        self._attrs["createdBy"] = created_by
-
-    @property
-    def kind(self) -> "AppResourceKind":
-        """ Gets the kind of this AppResponseCreateUpdate.
-        """
-        return AppResourceKind.from_value(self._attrs.get("kind"))
-
-    @kind.setter
-    def kind(self, kind: "AppResourceKind"):
-        """Sets the kind of this AppResponseCreateUpdate.
-
-
-        :param kind: The kind of this AppResponseCreateUpdate.
-        :type: AppResourceKind
-        """
-        if kind is None:
-            raise ValueError("Invalid value for `kind`, must not be `None`")
-        if isinstance(kind, Enum):
-            self._attrs["kind"] = kind.value
-        else:
-            self._attrs["kind"] = kind  # If you supply a string, we presume you know the service will take it.
 
     @property
     def name(self) -> "str":
@@ -253,26 +153,6 @@ class AppResponseCreateUpdate(SSCModel):
         self._attrs["name"] = name
 
     @property
-    def title(self) -> "str":
-        """ Gets the title of this AppResponseCreateUpdate.
-        Human-readable title for the app.
-        """
-        return self._attrs.get("title")
-
-    @title.setter
-    def title(self, title: "str"):
-        """Sets the title of this AppResponseCreateUpdate.
-
-        Human-readable title for the app.
-
-        :param title: The title of this AppResponseCreateUpdate.
-        :type: str
-        """
-        if title is None:
-            raise ValueError("Invalid value for `title`, must not be `None`")
-        self._attrs["title"] = title
-
-    @property
     def app_principal_permissions(self) -> "List[str]":
         """ Gets the app_principal_permissions of this AppResponseCreateUpdate.
         Array of permission templates that are used to grant permission to the app principal when a tenant subscribes.
@@ -289,6 +169,42 @@ class AppResponseCreateUpdate(SSCModel):
         :type: List[str]
         """
         self._attrs["appPrincipalPermissions"] = app_principal_permissions
+
+    @property
+    def client_id(self) -> "str":
+        """ Gets the client_id of this AppResponseCreateUpdate.
+        OAuth 2.0 Client ID.
+        """
+        return self._attrs.get("clientId")
+
+    @client_id.setter
+    def client_id(self, client_id: "str"):
+        """Sets the client_id of this AppResponseCreateUpdate.
+
+        OAuth 2.0 Client ID.
+
+        :param client_id: The client_id of this AppResponseCreateUpdate.
+        :type: str
+        """
+        self._attrs["clientId"] = client_id
+
+    @property
+    def created_at(self) -> "datetime":
+        """ Gets the created_at of this AppResponseCreateUpdate.
+        The date that the app was created.
+        """
+        return self._attrs.get("createdAt")
+
+    @created_at.setter
+    def created_at(self, created_at: "datetime"):
+        """Sets the created_at of this AppResponseCreateUpdate.
+
+        The date that the app was created.
+
+        :param created_at: The created_at of this AppResponseCreateUpdate.
+        :type: datetime
+        """
+        self._attrs["createdAt"] = created_at
 
     @property
     def description(self) -> "str":
@@ -381,6 +297,24 @@ class AppResponseCreateUpdate(SSCModel):
         self._attrs["setupUrl"] = setup_url
 
     @property
+    def title(self) -> "str":
+        """ Gets the title of this AppResponseCreateUpdate.
+        Human-readable title for the app.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this AppResponseCreateUpdate.
+
+        Human-readable title for the app.
+
+        :param title: The title of this AppResponseCreateUpdate.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
     def user_permissions_filter(self) -> "List[str]":
         """ Gets the user_permissions_filter of this AppResponseCreateUpdate.
         Array of permission filter templates that are used to intersect with a user's permissions when using the app.
@@ -417,35 +351,36 @@ class AppResponseCreateUpdate(SSCModel):
         self._attrs["webhookUrl"] = webhook_url
 
     def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
+        raise NotImplementedError()
 
 
 class AppResponseGetList(SSCModel):
 
+    from_dict_handlers = dict()
     @staticmethod
     def _from_dict(model: dict) -> "AppResponseGetList":
-        instance = AppResponseGetList.__new__(AppResponseGetList)
-        instance._attrs = model
-        return instance
 
-    def __init__(self, client_id: "str", created_at: "datetime", created_by: "str", kind: "AppResourceKind", name: "str", title: "str", app_principal_permissions: "List[str]" = None, description: "str" = None, login_url: "str" = None, logo_url: "str" = None, redirect_urls: "List[str]" = None, setup_url: "str" = None, user_permissions_filter: "List[str]" = None, webhook_url: "str" = None, **extra):
+        def default_handler(model: dict) -> "AppResponseGetList":
+            instance = AppResponseGetList.__new__(AppResponseGetList)
+            instance._attrs = model
+            return instance
+
+        kind = model['kind']
+        handler = AppResponseGetList.from_dict_handlers.get(kind, default_handler)
+        return handler(model)
+
+    def __init__(self, app_principal_permissions: "List[str]" = None, client_id: "str" = None, created_at: "datetime" = None, description: "str" = None, login_url: "str" = None, logo_url: "str" = None, name: "str" = None, redirect_urls: "List[str]" = None, setup_url: "str" = None, title: "str" = None, user_permissions_filter: "List[str]" = None, webhook_url: "str" = None, **extra):
         """AppResponseGetList"""
 
         self._attrs = dict()
+        if name is not None:
+            self._attrs["name"] = name
+        if app_principal_permissions is not None:
+            self._attrs["appPrincipalPermissions"] = app_principal_permissions
         if client_id is not None:
             self._attrs["clientId"] = client_id
         if created_at is not None:
             self._attrs["createdAt"] = created_at
-        if created_by is not None:
-            self._attrs["createdBy"] = created_by
-        if kind is not None:
-            self._attrs["kind"] = kind
-        if name is not None:
-            self._attrs["name"] = name
-        if title is not None:
-            self._attrs["title"] = title
-        if app_principal_permissions is not None:
-            self._attrs["appPrincipalPermissions"] = app_principal_permissions
         if description is not None:
             self._attrs["description"] = description
         if login_url is not None:
@@ -456,93 +391,14 @@ class AppResponseGetList(SSCModel):
             self._attrs["redirectUrls"] = redirect_urls
         if setup_url is not None:
             self._attrs["setupUrl"] = setup_url
+        if title is not None:
+            self._attrs["title"] = title
         if user_permissions_filter is not None:
             self._attrs["userPermissionsFilter"] = user_permissions_filter
         if webhook_url is not None:
             self._attrs["webhookUrl"] = webhook_url
         for k, v in extra.items():
             self._attrs[k] = v
-
-    @property
-    def client_id(self) -> "str":
-        """ Gets the client_id of this AppResponseGetList.
-        OAuth 2.0 Client ID.
-        """
-        return self._attrs.get("clientId")
-
-    @client_id.setter
-    def client_id(self, client_id: "str"):
-        """Sets the client_id of this AppResponseGetList.
-
-        OAuth 2.0 Client ID.
-
-        :param client_id: The client_id of this AppResponseGetList.
-        :type: str
-        """
-        if client_id is None:
-            raise ValueError("Invalid value for `client_id`, must not be `None`")
-        self._attrs["clientId"] = client_id
-
-    @property
-    def created_at(self) -> "datetime":
-        """ Gets the created_at of this AppResponseGetList.
-        The date that the app was created.
-        """
-        return self._attrs.get("createdAt")
-
-    @created_at.setter
-    def created_at(self, created_at: "datetime"):
-        """Sets the created_at of this AppResponseGetList.
-
-        The date that the app was created.
-
-        :param created_at: The created_at of this AppResponseGetList.
-        :type: datetime
-        """
-        if created_at is None:
-            raise ValueError("Invalid value for `created_at`, must not be `None`")
-        self._attrs["createdAt"] = created_at
-
-    @property
-    def created_by(self) -> "str":
-        """ Gets the created_by of this AppResponseGetList.
-        The principal who created this app.
-        """
-        return self._attrs.get("createdBy")
-
-    @created_by.setter
-    def created_by(self, created_by: "str"):
-        """Sets the created_by of this AppResponseGetList.
-
-        The principal who created this app.
-
-        :param created_by: The created_by of this AppResponseGetList.
-        :type: str
-        """
-        if created_by is None:
-            raise ValueError("Invalid value for `created_by`, must not be `None`")
-        self._attrs["createdBy"] = created_by
-
-    @property
-    def kind(self) -> "AppResourceKind":
-        """ Gets the kind of this AppResponseGetList.
-        """
-        return AppResourceKind.from_value(self._attrs.get("kind"))
-
-    @kind.setter
-    def kind(self, kind: "AppResourceKind"):
-        """Sets the kind of this AppResponseGetList.
-
-
-        :param kind: The kind of this AppResponseGetList.
-        :type: AppResourceKind
-        """
-        if kind is None:
-            raise ValueError("Invalid value for `kind`, must not be `None`")
-        if isinstance(kind, Enum):
-            self._attrs["kind"] = kind.value
-        else:
-            self._attrs["kind"] = kind  # If you supply a string, we presume you know the service will take it.
 
     @property
     def name(self) -> "str":
@@ -565,26 +421,6 @@ class AppResponseGetList(SSCModel):
         self._attrs["name"] = name
 
     @property
-    def title(self) -> "str":
-        """ Gets the title of this AppResponseGetList.
-        Human-readable title for the app.
-        """
-        return self._attrs.get("title")
-
-    @title.setter
-    def title(self, title: "str"):
-        """Sets the title of this AppResponseGetList.
-
-        Human-readable title for the app.
-
-        :param title: The title of this AppResponseGetList.
-        :type: str
-        """
-        if title is None:
-            raise ValueError("Invalid value for `title`, must not be `None`")
-        self._attrs["title"] = title
-
-    @property
     def app_principal_permissions(self) -> "List[str]":
         """ Gets the app_principal_permissions of this AppResponseGetList.
         Array of permission templates that are used to grant permission to the app principal when a tenant subscribes.
@@ -601,6 +437,42 @@ class AppResponseGetList(SSCModel):
         :type: List[str]
         """
         self._attrs["appPrincipalPermissions"] = app_principal_permissions
+
+    @property
+    def client_id(self) -> "str":
+        """ Gets the client_id of this AppResponseGetList.
+        OAuth 2.0 Client ID.
+        """
+        return self._attrs.get("clientId")
+
+    @client_id.setter
+    def client_id(self, client_id: "str"):
+        """Sets the client_id of this AppResponseGetList.
+
+        OAuth 2.0 Client ID.
+
+        :param client_id: The client_id of this AppResponseGetList.
+        :type: str
+        """
+        self._attrs["clientId"] = client_id
+
+    @property
+    def created_at(self) -> "datetime":
+        """ Gets the created_at of this AppResponseGetList.
+        The date that the app was created.
+        """
+        return self._attrs.get("createdAt")
+
+    @created_at.setter
+    def created_at(self, created_at: "datetime"):
+        """Sets the created_at of this AppResponseGetList.
+
+        The date that the app was created.
+
+        :param created_at: The created_at of this AppResponseGetList.
+        :type: datetime
+        """
+        self._attrs["createdAt"] = created_at
 
     @property
     def description(self) -> "str":
@@ -693,6 +565,24 @@ class AppResponseGetList(SSCModel):
         self._attrs["setupUrl"] = setup_url
 
     @property
+    def title(self) -> "str":
+        """ Gets the title of this AppResponseGetList.
+        Human-readable title for the app.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this AppResponseGetList.
+
+        Human-readable title for the app.
+
+        :param title: The title of this AppResponseGetList.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
     def user_permissions_filter(self) -> "List[str]":
         """ Gets the user_permissions_filter of this AppResponseGetList.
         Array of permission filter templates that are used to intersect with a user's permissions when using the app.
@@ -729,27 +619,30 @@ class AppResponseGetList(SSCModel):
         self._attrs["webhookUrl"] = webhook_url
 
     def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
+        raise NotImplementedError()
 
 
 class CreateAppRequest(SSCModel):
 
+    from_dict_handlers = dict()
     @staticmethod
     def _from_dict(model: dict) -> "CreateAppRequest":
-        instance = CreateAppRequest.__new__(CreateAppRequest)
-        instance._attrs = model
-        return instance
 
-    def __init__(self, kind: "AppResourceKind", name: "str", title: "str", app_principal_permissions: "List[str]" = None, description: "str" = None, login_url: "str" = None, logo_url: "str" = None, redirect_urls: "List[str]" = None, setup_url: "str" = None, user_permissions_filter: "List[str]" = None, webhook_url: "str" = None, **extra):
+        def default_handler(model: dict) -> "CreateAppRequest":
+            instance = CreateAppRequest.__new__(CreateAppRequest)
+            instance._attrs = model
+            return instance
+
+        kind = model['kind']
+        handler = CreateAppRequest.from_dict_handlers.get(kind, default_handler)
+        return handler(model)
+
+    def __init__(self, app_principal_permissions: "List[str]" = None, description: "str" = None, login_url: "str" = None, logo_url: "str" = None, name: "str" = None, redirect_urls: "List[str]" = None, setup_url: "str" = None, title: "str" = None, user_permissions_filter: "List[str]" = None, webhook_url: "str" = None, **extra):
         """CreateAppRequest"""
 
         self._attrs = dict()
-        if kind is not None:
-            self._attrs["kind"] = kind
         if name is not None:
             self._attrs["name"] = name
-        if title is not None:
-            self._attrs["title"] = title
         if app_principal_permissions is not None:
             self._attrs["appPrincipalPermissions"] = app_principal_permissions
         if description is not None:
@@ -762,33 +655,14 @@ class CreateAppRequest(SSCModel):
             self._attrs["redirectUrls"] = redirect_urls
         if setup_url is not None:
             self._attrs["setupUrl"] = setup_url
+        if title is not None:
+            self._attrs["title"] = title
         if user_permissions_filter is not None:
             self._attrs["userPermissionsFilter"] = user_permissions_filter
         if webhook_url is not None:
             self._attrs["webhookUrl"] = webhook_url
         for k, v in extra.items():
             self._attrs[k] = v
-
-    @property
-    def kind(self) -> "AppResourceKind":
-        """ Gets the kind of this CreateAppRequest.
-        """
-        return AppResourceKind.from_value(self._attrs.get("kind"))
-
-    @kind.setter
-    def kind(self, kind: "AppResourceKind"):
-        """Sets the kind of this CreateAppRequest.
-
-
-        :param kind: The kind of this CreateAppRequest.
-        :type: AppResourceKind
-        """
-        if kind is None:
-            raise ValueError("Invalid value for `kind`, must not be `None`")
-        if isinstance(kind, Enum):
-            self._attrs["kind"] = kind.value
-        else:
-            self._attrs["kind"] = kind  # If you supply a string, we presume you know the service will take it.
 
     @property
     def name(self) -> "str":
@@ -809,26 +683,6 @@ class CreateAppRequest(SSCModel):
         if name is None:
             raise ValueError("Invalid value for `name`, must not be `None`")
         self._attrs["name"] = name
-
-    @property
-    def title(self) -> "str":
-        """ Gets the title of this CreateAppRequest.
-        Human-readable title for the app.
-        """
-        return self._attrs.get("title")
-
-    @title.setter
-    def title(self, title: "str"):
-        """Sets the title of this CreateAppRequest.
-
-        Human-readable title for the app.
-
-        :param title: The title of this CreateAppRequest.
-        :type: str
-        """
-        if title is None:
-            raise ValueError("Invalid value for `title`, must not be `None`")
-        self._attrs["title"] = title
 
     @property
     def app_principal_permissions(self) -> "List[str]":
@@ -939,6 +793,24 @@ class CreateAppRequest(SSCModel):
         self._attrs["setupUrl"] = setup_url
 
     @property
+    def title(self) -> "str":
+        """ Gets the title of this CreateAppRequest.
+        Human-readable title for the app.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this CreateAppRequest.
+
+        Human-readable title for the app.
+
+        :param title: The title of this CreateAppRequest.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
     def user_permissions_filter(self) -> "List[str]":
         """ Gets the user_permissions_filter of this CreateAppRequest.
         Array of permission filter templates that are used to intersect with a user's permissions when using the app.
@@ -975,7 +847,7 @@ class CreateAppRequest(SSCModel):
         self._attrs["webhookUrl"] = webhook_url
 
     def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
+        raise NotImplementedError()
 
 
 class Error(SSCModel):
@@ -1074,6 +946,1070 @@ class Key(SSCModel):
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class NativeApp(AppResponseGetList):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "NativeApp":
+        instance = NativeApp.__new__(NativeApp)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, name: "str", app_principal_permissions: "List[str]" = None, client_id: "str" = None, created_at: "datetime" = None, created_by: "str" = None, description: "str" = None, login_url: "str" = None, logo_url: "str" = None, redirect_urls: "List[str]" = None, setup_url: "str" = None, title: "str" = None, user_permissions_filter: "List[str]" = None, webhook_url: "str" = None, **extra):
+        """NativeApp"""
+
+        self._attrs = dict()
+        self._attrs["kind"] = "native" 
+        if name is not None:
+            self._attrs["name"] = name
+        if app_principal_permissions is not None:
+            self._attrs["appPrincipalPermissions"] = app_principal_permissions
+        if client_id is not None:
+            self._attrs["clientId"] = client_id
+        if created_at is not None:
+            self._attrs["createdAt"] = created_at
+        if created_by is not None:
+            self._attrs["createdBy"] = created_by
+        if description is not None:
+            self._attrs["description"] = description
+        if login_url is not None:
+            self._attrs["loginUrl"] = login_url
+        if logo_url is not None:
+            self._attrs["logoUrl"] = logo_url
+        if redirect_urls is not None:
+            self._attrs["redirectUrls"] = redirect_urls
+        if setup_url is not None:
+            self._attrs["setupUrl"] = setup_url
+        if title is not None:
+            self._attrs["title"] = title
+        if user_permissions_filter is not None:
+            self._attrs["userPermissionsFilter"] = user_permissions_filter
+        if webhook_url is not None:
+            self._attrs["webhookUrl"] = webhook_url
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def kind(self) -> str:
+        return "native"
+
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this NativeApp.
+        App name that is unique within Splunk Cloud Platform.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this NativeApp.
+
+        App name that is unique within Splunk Cloud Platform.
+
+        :param name: The name of this NativeApp.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def app_principal_permissions(self) -> "List[str]":
+        """ Gets the app_principal_permissions of this NativeApp.
+        Array of permission templates that are used to grant permission to the app principal when a tenant subscribes.
+        """
+        return self._attrs.get("appPrincipalPermissions")
+
+    @app_principal_permissions.setter
+    def app_principal_permissions(self, app_principal_permissions: "List[str]"):
+        """Sets the app_principal_permissions of this NativeApp.
+
+        Array of permission templates that are used to grant permission to the app principal when a tenant subscribes.
+
+        :param app_principal_permissions: The app_principal_permissions of this NativeApp.
+        :type: List[str]
+        """
+        self._attrs["appPrincipalPermissions"] = app_principal_permissions
+
+    @property
+    def client_id(self) -> "str":
+        """ Gets the client_id of this NativeApp.
+        OAuth 2.0 Client ID.
+        """
+        return self._attrs.get("clientId")
+
+    @client_id.setter
+    def client_id(self, client_id: "str"):
+        """Sets the client_id of this NativeApp.
+
+        OAuth 2.0 Client ID.
+
+        :param client_id: The client_id of this NativeApp.
+        :type: str
+        """
+        self._attrs["clientId"] = client_id
+
+    @property
+    def created_at(self) -> "datetime":
+        """ Gets the created_at of this NativeApp.
+        The date that the app was created.
+        """
+        return self._attrs.get("createdAt")
+
+    @created_at.setter
+    def created_at(self, created_at: "datetime"):
+        """Sets the created_at of this NativeApp.
+
+        The date that the app was created.
+
+        :param created_at: The created_at of this NativeApp.
+        :type: datetime
+        """
+        self._attrs["createdAt"] = created_at
+
+    @property
+    def created_by(self) -> "str":
+        """ Gets the created_by of this NativeApp.
+        The principal who created this app.
+        """
+        return self._attrs.get("createdBy")
+
+    @created_by.setter
+    def created_by(self, created_by: "str"):
+        """Sets the created_by of this NativeApp.
+
+        The principal who created this app.
+
+        :param created_by: The created_by of this NativeApp.
+        :type: str
+        """
+        self._attrs["createdBy"] = created_by
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this NativeApp.
+        Short paragraph describing the app.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this NativeApp.
+
+        Short paragraph describing the app.
+
+        :param description: The description of this NativeApp.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def login_url(self) -> "str":
+        """ Gets the login_url of this NativeApp.
+        The URL used to log in to the app.
+        """
+        return self._attrs.get("loginUrl")
+
+    @login_url.setter
+    def login_url(self, login_url: "str"):
+        """Sets the login_url of this NativeApp.
+
+        The URL used to log in to the app.
+
+        :param login_url: The login_url of this NativeApp.
+        :type: str
+        """
+        self._attrs["loginUrl"] = login_url
+
+    @property
+    def logo_url(self) -> "str":
+        """ Gets the logo_url of this NativeApp.
+        The URL used to display the app's logo.
+        """
+        return self._attrs.get("logoUrl")
+
+    @logo_url.setter
+    def logo_url(self, logo_url: "str"):
+        """Sets the logo_url of this NativeApp.
+
+        The URL used to display the app's logo.
+
+        :param logo_url: The logo_url of this NativeApp.
+        :type: str
+        """
+        self._attrs["logoUrl"] = logo_url
+
+    @property
+    def redirect_urls(self) -> "List[str]":
+        """ Gets the redirect_urls of this NativeApp.
+        Array of URLs that can be used for redirect after logging into the app.
+        """
+        return self._attrs.get("redirectUrls")
+
+    @redirect_urls.setter
+    def redirect_urls(self, redirect_urls: "List[str]"):
+        """Sets the redirect_urls of this NativeApp.
+
+        Array of URLs that can be used for redirect after logging into the app.
+
+        :param redirect_urls: The redirect_urls of this NativeApp.
+        :type: List[str]
+        """
+        self._attrs["redirectUrls"] = redirect_urls
+
+    @property
+    def setup_url(self) -> "str":
+        """ Gets the setup_url of this NativeApp.
+        URL to redirect to after a subscription is created.
+        """
+        return self._attrs.get("setupUrl")
+
+    @setup_url.setter
+    def setup_url(self, setup_url: "str"):
+        """Sets the setup_url of this NativeApp.
+
+        URL to redirect to after a subscription is created.
+
+        :param setup_url: The setup_url of this NativeApp.
+        :type: str
+        """
+        self._attrs["setupUrl"] = setup_url
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this NativeApp.
+        Human-readable title for the app.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this NativeApp.
+
+        Human-readable title for the app.
+
+        :param title: The title of this NativeApp.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
+    def user_permissions_filter(self) -> "List[str]":
+        """ Gets the user_permissions_filter of this NativeApp.
+        Array of permission filter templates that are used to intersect with a user's permissions when using the app.
+        """
+        return self._attrs.get("userPermissionsFilter")
+
+    @user_permissions_filter.setter
+    def user_permissions_filter(self, user_permissions_filter: "List[str]"):
+        """Sets the user_permissions_filter of this NativeApp.
+
+        Array of permission filter templates that are used to intersect with a user's permissions when using the app.
+
+        :param user_permissions_filter: The user_permissions_filter of this NativeApp.
+        :type: List[str]
+        """
+        self._attrs["userPermissionsFilter"] = user_permissions_filter
+
+    @property
+    def webhook_url(self) -> "str":
+        """ Gets the webhook_url of this NativeApp.
+        URL that webhook events are sent to.
+        """
+        return self._attrs.get("webhookUrl")
+
+    @webhook_url.setter
+    def webhook_url(self, webhook_url: "str"):
+        """Sets the webhook_url of this NativeApp.
+
+        URL that webhook events are sent to.
+
+        :param webhook_url: The webhook_url of this NativeApp.
+        :type: str
+        """
+        self._attrs["webhookUrl"] = webhook_url
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+AppResponseGetList.from_dict_handlers["native"] = NativeApp._from_dict
+
+
+
+class NativeAppPOST(CreateAppRequest):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "NativeAppPOST":
+        instance = NativeAppPOST.__new__(NativeAppPOST)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, name: "str", app_principal_permissions: "List[str]" = None, description: "str" = None, login_url: "str" = None, logo_url: "str" = None, redirect_urls: "List[str]" = None, setup_url: "str" = None, title: "str" = None, user_permissions_filter: "List[str]" = None, webhook_url: "str" = None, **extra):
+        """NativeAppPOST"""
+
+        self._attrs = dict()
+        self._attrs["kind"] = "native" 
+        if name is not None:
+            self._attrs["name"] = name
+        if app_principal_permissions is not None:
+            self._attrs["appPrincipalPermissions"] = app_principal_permissions
+        if description is not None:
+            self._attrs["description"] = description
+        if login_url is not None:
+            self._attrs["loginUrl"] = login_url
+        if logo_url is not None:
+            self._attrs["logoUrl"] = logo_url
+        if redirect_urls is not None:
+            self._attrs["redirectUrls"] = redirect_urls
+        if setup_url is not None:
+            self._attrs["setupUrl"] = setup_url
+        if title is not None:
+            self._attrs["title"] = title
+        if user_permissions_filter is not None:
+            self._attrs["userPermissionsFilter"] = user_permissions_filter
+        if webhook_url is not None:
+            self._attrs["webhookUrl"] = webhook_url
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def kind(self) -> str:
+        return "native"
+
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this NativeAppPOST.
+        App name that is unique within Splunk Cloud Platform.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this NativeAppPOST.
+
+        App name that is unique within Splunk Cloud Platform.
+
+        :param name: The name of this NativeAppPOST.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def app_principal_permissions(self) -> "List[str]":
+        """ Gets the app_principal_permissions of this NativeAppPOST.
+        Array of permission templates that are used to grant permission to the app principal when a tenant subscribes.
+        """
+        return self._attrs.get("appPrincipalPermissions")
+
+    @app_principal_permissions.setter
+    def app_principal_permissions(self, app_principal_permissions: "List[str]"):
+        """Sets the app_principal_permissions of this NativeAppPOST.
+
+        Array of permission templates that are used to grant permission to the app principal when a tenant subscribes.
+
+        :param app_principal_permissions: The app_principal_permissions of this NativeAppPOST.
+        :type: List[str]
+        """
+        self._attrs["appPrincipalPermissions"] = app_principal_permissions
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this NativeAppPOST.
+        Short paragraph describing the app.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this NativeAppPOST.
+
+        Short paragraph describing the app.
+
+        :param description: The description of this NativeAppPOST.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def login_url(self) -> "str":
+        """ Gets the login_url of this NativeAppPOST.
+        The URL used to log in to the app.
+        """
+        return self._attrs.get("loginUrl")
+
+    @login_url.setter
+    def login_url(self, login_url: "str"):
+        """Sets the login_url of this NativeAppPOST.
+
+        The URL used to log in to the app.
+
+        :param login_url: The login_url of this NativeAppPOST.
+        :type: str
+        """
+        self._attrs["loginUrl"] = login_url
+
+    @property
+    def logo_url(self) -> "str":
+        """ Gets the logo_url of this NativeAppPOST.
+        The URL used to display the app's logo.
+        """
+        return self._attrs.get("logoUrl")
+
+    @logo_url.setter
+    def logo_url(self, logo_url: "str"):
+        """Sets the logo_url of this NativeAppPOST.
+
+        The URL used to display the app's logo.
+
+        :param logo_url: The logo_url of this NativeAppPOST.
+        :type: str
+        """
+        self._attrs["logoUrl"] = logo_url
+
+    @property
+    def redirect_urls(self) -> "List[str]":
+        """ Gets the redirect_urls of this NativeAppPOST.
+        Array of URLs that can be used for redirect after logging into the app.
+        """
+        return self._attrs.get("redirectUrls")
+
+    @redirect_urls.setter
+    def redirect_urls(self, redirect_urls: "List[str]"):
+        """Sets the redirect_urls of this NativeAppPOST.
+
+        Array of URLs that can be used for redirect after logging into the app.
+
+        :param redirect_urls: The redirect_urls of this NativeAppPOST.
+        :type: List[str]
+        """
+        self._attrs["redirectUrls"] = redirect_urls
+
+    @property
+    def setup_url(self) -> "str":
+        """ Gets the setup_url of this NativeAppPOST.
+        URL to redirect to after a subscription is created.
+        """
+        return self._attrs.get("setupUrl")
+
+    @setup_url.setter
+    def setup_url(self, setup_url: "str"):
+        """Sets the setup_url of this NativeAppPOST.
+
+        URL to redirect to after a subscription is created.
+
+        :param setup_url: The setup_url of this NativeAppPOST.
+        :type: str
+        """
+        self._attrs["setupUrl"] = setup_url
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this NativeAppPOST.
+        Human-readable title for the app.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this NativeAppPOST.
+
+        Human-readable title for the app.
+
+        :param title: The title of this NativeAppPOST.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
+    def user_permissions_filter(self) -> "List[str]":
+        """ Gets the user_permissions_filter of this NativeAppPOST.
+        Array of permission filter templates that are used to intersect with a user's permissions when using the app.
+        """
+        return self._attrs.get("userPermissionsFilter")
+
+    @user_permissions_filter.setter
+    def user_permissions_filter(self, user_permissions_filter: "List[str]"):
+        """Sets the user_permissions_filter of this NativeAppPOST.
+
+        Array of permission filter templates that are used to intersect with a user's permissions when using the app.
+
+        :param user_permissions_filter: The user_permissions_filter of this NativeAppPOST.
+        :type: List[str]
+        """
+        self._attrs["userPermissionsFilter"] = user_permissions_filter
+
+    @property
+    def webhook_url(self) -> "str":
+        """ Gets the webhook_url of this NativeAppPOST.
+        URL that webhook events are sent to.
+        """
+        return self._attrs.get("webhookUrl")
+
+    @webhook_url.setter
+    def webhook_url(self, webhook_url: "str"):
+        """Sets the webhook_url of this NativeAppPOST.
+
+        URL that webhook events are sent to.
+
+        :param webhook_url: The webhook_url of this NativeAppPOST.
+        :type: str
+        """
+        self._attrs["webhookUrl"] = webhook_url
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+CreateAppRequest.from_dict_handlers["native"] = NativeAppPOST._from_dict
+
+
+
+class ServiceApp(AppResponseGetList):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "ServiceApp":
+        instance = ServiceApp.__new__(ServiceApp)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, name: "str", app_principal_permissions: "List[str]" = None, client_id: "str" = None, client_secret: "str" = None, created_at: "datetime" = None, created_by: "str" = None, description: "str" = None, login_url: "str" = None, logo_url: "str" = None, redirect_urls: "List[str]" = None, setup_url: "str" = None, title: "str" = None, user_permissions_filter: "List[str]" = None, webhook_url: "str" = None, **extra):
+        """ServiceApp"""
+
+        self._attrs = dict()
+        self._attrs["kind"] = "service" 
+        if name is not None:
+            self._attrs["name"] = name
+        if app_principal_permissions is not None:
+            self._attrs["appPrincipalPermissions"] = app_principal_permissions
+        if client_id is not None:
+            self._attrs["clientId"] = client_id
+        if client_secret is not None:
+            self._attrs["clientSecret"] = client_secret
+        if created_at is not None:
+            self._attrs["createdAt"] = created_at
+        if created_by is not None:
+            self._attrs["createdBy"] = created_by
+        if description is not None:
+            self._attrs["description"] = description
+        if login_url is not None:
+            self._attrs["loginUrl"] = login_url
+        if logo_url is not None:
+            self._attrs["logoUrl"] = logo_url
+        if redirect_urls is not None:
+            self._attrs["redirectUrls"] = redirect_urls
+        if setup_url is not None:
+            self._attrs["setupUrl"] = setup_url
+        if title is not None:
+            self._attrs["title"] = title
+        if user_permissions_filter is not None:
+            self._attrs["userPermissionsFilter"] = user_permissions_filter
+        if webhook_url is not None:
+            self._attrs["webhookUrl"] = webhook_url
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def kind(self) -> str:
+        return "service"
+
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this ServiceApp.
+        App name that is unique within Splunk Cloud Platform.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this ServiceApp.
+
+        App name that is unique within Splunk Cloud Platform.
+
+        :param name: The name of this ServiceApp.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def app_principal_permissions(self) -> "List[str]":
+        """ Gets the app_principal_permissions of this ServiceApp.
+        Array of permission templates that are used to grant permission to the app principal when a tenant subscribes.
+        """
+        return self._attrs.get("appPrincipalPermissions")
+
+    @app_principal_permissions.setter
+    def app_principal_permissions(self, app_principal_permissions: "List[str]"):
+        """Sets the app_principal_permissions of this ServiceApp.
+
+        Array of permission templates that are used to grant permission to the app principal when a tenant subscribes.
+
+        :param app_principal_permissions: The app_principal_permissions of this ServiceApp.
+        :type: List[str]
+        """
+        self._attrs["appPrincipalPermissions"] = app_principal_permissions
+
+    @property
+    def client_id(self) -> "str":
+        """ Gets the client_id of this ServiceApp.
+        OAuth 2.0 Client ID.
+        """
+        return self._attrs.get("clientId")
+
+    @client_id.setter
+    def client_id(self, client_id: "str"):
+        """Sets the client_id of this ServiceApp.
+
+        OAuth 2.0 Client ID.
+
+        :param client_id: The client_id of this ServiceApp.
+        :type: str
+        """
+        self._attrs["clientId"] = client_id
+
+    @property
+    def client_secret(self) -> "str":
+        """ Gets the client_secret of this ServiceApp.
+        OAuth 2.0 Client Secret string (used for confidential clients).
+        """
+        return self._attrs.get("clientSecret")
+
+    @client_secret.setter
+    def client_secret(self, client_secret: "str"):
+        """Sets the client_secret of this ServiceApp.
+
+        OAuth 2.0 Client Secret string (used for confidential clients).
+
+        :param client_secret: The client_secret of this ServiceApp.
+        :type: str
+        """
+        self._attrs["clientSecret"] = client_secret
+
+    @property
+    def created_at(self) -> "datetime":
+        """ Gets the created_at of this ServiceApp.
+        The date that the app was created.
+        """
+        return self._attrs.get("createdAt")
+
+    @created_at.setter
+    def created_at(self, created_at: "datetime"):
+        """Sets the created_at of this ServiceApp.
+
+        The date that the app was created.
+
+        :param created_at: The created_at of this ServiceApp.
+        :type: datetime
+        """
+        self._attrs["createdAt"] = created_at
+
+    @property
+    def created_by(self) -> "str":
+        """ Gets the created_by of this ServiceApp.
+        The principal who created this app.
+        """
+        return self._attrs.get("createdBy")
+
+    @created_by.setter
+    def created_by(self, created_by: "str"):
+        """Sets the created_by of this ServiceApp.
+
+        The principal who created this app.
+
+        :param created_by: The created_by of this ServiceApp.
+        :type: str
+        """
+        self._attrs["createdBy"] = created_by
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this ServiceApp.
+        Short paragraph describing the app.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this ServiceApp.
+
+        Short paragraph describing the app.
+
+        :param description: The description of this ServiceApp.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def login_url(self) -> "str":
+        """ Gets the login_url of this ServiceApp.
+        The URL used to log in to the app.
+        """
+        return self._attrs.get("loginUrl")
+
+    @login_url.setter
+    def login_url(self, login_url: "str"):
+        """Sets the login_url of this ServiceApp.
+
+        The URL used to log in to the app.
+
+        :param login_url: The login_url of this ServiceApp.
+        :type: str
+        """
+        self._attrs["loginUrl"] = login_url
+
+    @property
+    def logo_url(self) -> "str":
+        """ Gets the logo_url of this ServiceApp.
+        The URL used to display the app's logo.
+        """
+        return self._attrs.get("logoUrl")
+
+    @logo_url.setter
+    def logo_url(self, logo_url: "str"):
+        """Sets the logo_url of this ServiceApp.
+
+        The URL used to display the app's logo.
+
+        :param logo_url: The logo_url of this ServiceApp.
+        :type: str
+        """
+        self._attrs["logoUrl"] = logo_url
+
+    @property
+    def redirect_urls(self) -> "List[str]":
+        """ Gets the redirect_urls of this ServiceApp.
+        Array of URLs that can be used for redirect after logging into the app.
+        """
+        return self._attrs.get("redirectUrls")
+
+    @redirect_urls.setter
+    def redirect_urls(self, redirect_urls: "List[str]"):
+        """Sets the redirect_urls of this ServiceApp.
+
+        Array of URLs that can be used for redirect after logging into the app.
+
+        :param redirect_urls: The redirect_urls of this ServiceApp.
+        :type: List[str]
+        """
+        self._attrs["redirectUrls"] = redirect_urls
+
+    @property
+    def setup_url(self) -> "str":
+        """ Gets the setup_url of this ServiceApp.
+        URL to redirect to after a subscription is created.
+        """
+        return self._attrs.get("setupUrl")
+
+    @setup_url.setter
+    def setup_url(self, setup_url: "str"):
+        """Sets the setup_url of this ServiceApp.
+
+        URL to redirect to after a subscription is created.
+
+        :param setup_url: The setup_url of this ServiceApp.
+        :type: str
+        """
+        self._attrs["setupUrl"] = setup_url
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this ServiceApp.
+        Human-readable title for the app.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this ServiceApp.
+
+        Human-readable title for the app.
+
+        :param title: The title of this ServiceApp.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
+    def user_permissions_filter(self) -> "List[str]":
+        """ Gets the user_permissions_filter of this ServiceApp.
+        Array of permission filter templates that are used to intersect with a user's permissions when using the app.
+        """
+        return self._attrs.get("userPermissionsFilter")
+
+    @user_permissions_filter.setter
+    def user_permissions_filter(self, user_permissions_filter: "List[str]"):
+        """Sets the user_permissions_filter of this ServiceApp.
+
+        Array of permission filter templates that are used to intersect with a user's permissions when using the app.
+
+        :param user_permissions_filter: The user_permissions_filter of this ServiceApp.
+        :type: List[str]
+        """
+        self._attrs["userPermissionsFilter"] = user_permissions_filter
+
+    @property
+    def webhook_url(self) -> "str":
+        """ Gets the webhook_url of this ServiceApp.
+        URL that webhook events are sent to.
+        """
+        return self._attrs.get("webhookUrl")
+
+    @webhook_url.setter
+    def webhook_url(self, webhook_url: "str"):
+        """Sets the webhook_url of this ServiceApp.
+
+        URL that webhook events are sent to.
+
+        :param webhook_url: The webhook_url of this ServiceApp.
+        :type: str
+        """
+        self._attrs["webhookUrl"] = webhook_url
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+AppResponseGetList.from_dict_handlers["service"] = ServiceApp._from_dict
+
+
+
+class ServiceAppPOST(CreateAppRequest):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "ServiceAppPOST":
+        instance = ServiceAppPOST.__new__(ServiceAppPOST)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, name: "str", app_principal_permissions: "List[str]" = None, description: "str" = None, login_url: "str" = None, logo_url: "str" = None, redirect_urls: "List[str]" = None, setup_url: "str" = None, title: "str" = None, user_permissions_filter: "List[str]" = None, webhook_url: "str" = None, **extra):
+        """ServiceAppPOST"""
+
+        self._attrs = dict()
+        self._attrs["kind"] = "service" 
+        if name is not None:
+            self._attrs["name"] = name
+        if app_principal_permissions is not None:
+            self._attrs["appPrincipalPermissions"] = app_principal_permissions
+        if description is not None:
+            self._attrs["description"] = description
+        if login_url is not None:
+            self._attrs["loginUrl"] = login_url
+        if logo_url is not None:
+            self._attrs["logoUrl"] = logo_url
+        if redirect_urls is not None:
+            self._attrs["redirectUrls"] = redirect_urls
+        if setup_url is not None:
+            self._attrs["setupUrl"] = setup_url
+        if title is not None:
+            self._attrs["title"] = title
+        if user_permissions_filter is not None:
+            self._attrs["userPermissionsFilter"] = user_permissions_filter
+        if webhook_url is not None:
+            self._attrs["webhookUrl"] = webhook_url
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def kind(self) -> str:
+        return "service"
+
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this ServiceAppPOST.
+        App name that is unique within Splunk Cloud Platform.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this ServiceAppPOST.
+
+        App name that is unique within Splunk Cloud Platform.
+
+        :param name: The name of this ServiceAppPOST.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def app_principal_permissions(self) -> "List[str]":
+        """ Gets the app_principal_permissions of this ServiceAppPOST.
+        Array of permission templates that are used to grant permission to the app principal when a tenant subscribes.
+        """
+        return self._attrs.get("appPrincipalPermissions")
+
+    @app_principal_permissions.setter
+    def app_principal_permissions(self, app_principal_permissions: "List[str]"):
+        """Sets the app_principal_permissions of this ServiceAppPOST.
+
+        Array of permission templates that are used to grant permission to the app principal when a tenant subscribes.
+
+        :param app_principal_permissions: The app_principal_permissions of this ServiceAppPOST.
+        :type: List[str]
+        """
+        self._attrs["appPrincipalPermissions"] = app_principal_permissions
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this ServiceAppPOST.
+        Short paragraph describing the app.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this ServiceAppPOST.
+
+        Short paragraph describing the app.
+
+        :param description: The description of this ServiceAppPOST.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def login_url(self) -> "str":
+        """ Gets the login_url of this ServiceAppPOST.
+        The URL used to log in to the app.
+        """
+        return self._attrs.get("loginUrl")
+
+    @login_url.setter
+    def login_url(self, login_url: "str"):
+        """Sets the login_url of this ServiceAppPOST.
+
+        The URL used to log in to the app.
+
+        :param login_url: The login_url of this ServiceAppPOST.
+        :type: str
+        """
+        self._attrs["loginUrl"] = login_url
+
+    @property
+    def logo_url(self) -> "str":
+        """ Gets the logo_url of this ServiceAppPOST.
+        The URL used to display the app's logo.
+        """
+        return self._attrs.get("logoUrl")
+
+    @logo_url.setter
+    def logo_url(self, logo_url: "str"):
+        """Sets the logo_url of this ServiceAppPOST.
+
+        The URL used to display the app's logo.
+
+        :param logo_url: The logo_url of this ServiceAppPOST.
+        :type: str
+        """
+        self._attrs["logoUrl"] = logo_url
+
+    @property
+    def redirect_urls(self) -> "List[str]":
+        """ Gets the redirect_urls of this ServiceAppPOST.
+        Array of URLs that can be used for redirect after logging into the app.
+        """
+        return self._attrs.get("redirectUrls")
+
+    @redirect_urls.setter
+    def redirect_urls(self, redirect_urls: "List[str]"):
+        """Sets the redirect_urls of this ServiceAppPOST.
+
+        Array of URLs that can be used for redirect after logging into the app.
+
+        :param redirect_urls: The redirect_urls of this ServiceAppPOST.
+        :type: List[str]
+        """
+        self._attrs["redirectUrls"] = redirect_urls
+
+    @property
+    def setup_url(self) -> "str":
+        """ Gets the setup_url of this ServiceAppPOST.
+        URL to redirect to after a subscription is created.
+        """
+        return self._attrs.get("setupUrl")
+
+    @setup_url.setter
+    def setup_url(self, setup_url: "str"):
+        """Sets the setup_url of this ServiceAppPOST.
+
+        URL to redirect to after a subscription is created.
+
+        :param setup_url: The setup_url of this ServiceAppPOST.
+        :type: str
+        """
+        self._attrs["setupUrl"] = setup_url
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this ServiceAppPOST.
+        Human-readable title for the app.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this ServiceAppPOST.
+
+        Human-readable title for the app.
+
+        :param title: The title of this ServiceAppPOST.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
+    def user_permissions_filter(self) -> "List[str]":
+        """ Gets the user_permissions_filter of this ServiceAppPOST.
+        Array of permission filter templates that are used to intersect with a user's permissions when using the app.
+        """
+        return self._attrs.get("userPermissionsFilter")
+
+    @user_permissions_filter.setter
+    def user_permissions_filter(self, user_permissions_filter: "List[str]"):
+        """Sets the user_permissions_filter of this ServiceAppPOST.
+
+        Array of permission filter templates that are used to intersect with a user's permissions when using the app.
+
+        :param user_permissions_filter: The user_permissions_filter of this ServiceAppPOST.
+        :type: List[str]
+        """
+        self._attrs["userPermissionsFilter"] = user_permissions_filter
+
+    @property
+    def webhook_url(self) -> "str":
+        """ Gets the webhook_url of this ServiceAppPOST.
+        URL that webhook events are sent to.
+        """
+        return self._attrs.get("webhookUrl")
+
+    @webhook_url.setter
+    def webhook_url(self, webhook_url: "str"):
+        """Sets the webhook_url of this ServiceAppPOST.
+
+        URL that webhook events are sent to.
+
+        :param webhook_url: The webhook_url of this ServiceAppPOST.
+        :type: str
+        """
+        self._attrs["webhookUrl"] = webhook_url
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+CreateAppRequest.from_dict_handlers["service"] = ServiceAppPOST._from_dict
+
 
 
 class Subscription(SSCModel):
@@ -1277,12 +2213,10 @@ class UpdateAppRequest(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, title: "str", app_principal_permissions: "List[str]" = None, description: "str" = None, login_url: "str" = None, logo_url: "str" = None, redirect_urls: "List[str]" = None, setup_url: "str" = None, user_permissions_filter: "List[str]" = None, webhook_url: "str" = None, **extra):
+    def __init__(self, app_principal_permissions: "List[str]" = None, description: "str" = None, login_url: "str" = None, logo_url: "str" = None, redirect_urls: "List[str]" = None, setup_url: "str" = None, title: "str" = None, user_permissions_filter: "List[str]" = None, webhook_url: "str" = None, **extra):
         """UpdateAppRequest"""
 
         self._attrs = dict()
-        if title is not None:
-            self._attrs["title"] = title
         if app_principal_permissions is not None:
             self._attrs["appPrincipalPermissions"] = app_principal_permissions
         if description is not None:
@@ -1295,32 +2229,14 @@ class UpdateAppRequest(SSCModel):
             self._attrs["redirectUrls"] = redirect_urls
         if setup_url is not None:
             self._attrs["setupUrl"] = setup_url
+        if title is not None:
+            self._attrs["title"] = title
         if user_permissions_filter is not None:
             self._attrs["userPermissionsFilter"] = user_permissions_filter
         if webhook_url is not None:
             self._attrs["webhookUrl"] = webhook_url
         for k, v in extra.items():
             self._attrs[k] = v
-
-    @property
-    def title(self) -> "str":
-        """ Gets the title of this UpdateAppRequest.
-        Human-readable title for the app.
-        """
-        return self._attrs.get("title")
-
-    @title.setter
-    def title(self, title: "str"):
-        """Sets the title of this UpdateAppRequest.
-
-        Human-readable title for the app.
-
-        :param title: The title of this UpdateAppRequest.
-        :type: str
-        """
-        if title is None:
-            raise ValueError("Invalid value for `title`, must not be `None`")
-        self._attrs["title"] = title
 
     @property
     def app_principal_permissions(self) -> "List[str]":
@@ -1431,6 +2347,24 @@ class UpdateAppRequest(SSCModel):
         self._attrs["setupUrl"] = setup_url
 
     @property
+    def title(self) -> "str":
+        """ Gets the title of this UpdateAppRequest.
+        Human-readable title for the app.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this UpdateAppRequest.
+
+        Human-readable title for the app.
+
+        :param title: The title of this UpdateAppRequest.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
     def user_permissions_filter(self) -> "List[str]":
         """ Gets the user_permissions_filter of this UpdateAppRequest.
         Array of permission filter templates that are used to intersect with a user's permissions when using the app.
@@ -1468,3 +2402,545 @@ class UpdateAppRequest(SSCModel):
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class WebApp(AppResponseGetList):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "WebApp":
+        instance = WebApp.__new__(WebApp)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, name: "str", app_principal_permissions: "List[str]" = None, client_id: "str" = None, client_secret: "str" = None, created_at: "datetime" = None, created_by: "str" = None, description: "str" = None, login_url: "str" = None, logo_url: "str" = None, redirect_urls: "List[str]" = None, setup_url: "str" = None, title: "str" = None, user_permissions_filter: "List[str]" = None, webhook_url: "str" = None, **extra):
+        """WebApp"""
+
+        self._attrs = dict()
+        self._attrs["kind"] = "web" 
+        if name is not None:
+            self._attrs["name"] = name
+        if app_principal_permissions is not None:
+            self._attrs["appPrincipalPermissions"] = app_principal_permissions
+        if client_id is not None:
+            self._attrs["clientId"] = client_id
+        if client_secret is not None:
+            self._attrs["clientSecret"] = client_secret
+        if created_at is not None:
+            self._attrs["createdAt"] = created_at
+        if created_by is not None:
+            self._attrs["createdBy"] = created_by
+        if description is not None:
+            self._attrs["description"] = description
+        if login_url is not None:
+            self._attrs["loginUrl"] = login_url
+        if logo_url is not None:
+            self._attrs["logoUrl"] = logo_url
+        if redirect_urls is not None:
+            self._attrs["redirectUrls"] = redirect_urls
+        if setup_url is not None:
+            self._attrs["setupUrl"] = setup_url
+        if title is not None:
+            self._attrs["title"] = title
+        if user_permissions_filter is not None:
+            self._attrs["userPermissionsFilter"] = user_permissions_filter
+        if webhook_url is not None:
+            self._attrs["webhookUrl"] = webhook_url
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def kind(self) -> str:
+        return "web"
+
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this WebApp.
+        App name that is unique within Splunk Cloud Platform.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this WebApp.
+
+        App name that is unique within Splunk Cloud Platform.
+
+        :param name: The name of this WebApp.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def app_principal_permissions(self) -> "List[str]":
+        """ Gets the app_principal_permissions of this WebApp.
+        Array of permission templates that are used to grant permission to the app principal when a tenant subscribes.
+        """
+        return self._attrs.get("appPrincipalPermissions")
+
+    @app_principal_permissions.setter
+    def app_principal_permissions(self, app_principal_permissions: "List[str]"):
+        """Sets the app_principal_permissions of this WebApp.
+
+        Array of permission templates that are used to grant permission to the app principal when a tenant subscribes.
+
+        :param app_principal_permissions: The app_principal_permissions of this WebApp.
+        :type: List[str]
+        """
+        self._attrs["appPrincipalPermissions"] = app_principal_permissions
+
+    @property
+    def client_id(self) -> "str":
+        """ Gets the client_id of this WebApp.
+        OAuth 2.0 Client ID.
+        """
+        return self._attrs.get("clientId")
+
+    @client_id.setter
+    def client_id(self, client_id: "str"):
+        """Sets the client_id of this WebApp.
+
+        OAuth 2.0 Client ID.
+
+        :param client_id: The client_id of this WebApp.
+        :type: str
+        """
+        self._attrs["clientId"] = client_id
+
+    @property
+    def client_secret(self) -> "str":
+        """ Gets the client_secret of this WebApp.
+        OAuth 2.0 Client Secret string (used for confidential clients).
+        """
+        return self._attrs.get("clientSecret")
+
+    @client_secret.setter
+    def client_secret(self, client_secret: "str"):
+        """Sets the client_secret of this WebApp.
+
+        OAuth 2.0 Client Secret string (used for confidential clients).
+
+        :param client_secret: The client_secret of this WebApp.
+        :type: str
+        """
+        self._attrs["clientSecret"] = client_secret
+
+    @property
+    def created_at(self) -> "datetime":
+        """ Gets the created_at of this WebApp.
+        The date that the app was created.
+        """
+        return self._attrs.get("createdAt")
+
+    @created_at.setter
+    def created_at(self, created_at: "datetime"):
+        """Sets the created_at of this WebApp.
+
+        The date that the app was created.
+
+        :param created_at: The created_at of this WebApp.
+        :type: datetime
+        """
+        self._attrs["createdAt"] = created_at
+
+    @property
+    def created_by(self) -> "str":
+        """ Gets the created_by of this WebApp.
+        The principal who created this app.
+        """
+        return self._attrs.get("createdBy")
+
+    @created_by.setter
+    def created_by(self, created_by: "str"):
+        """Sets the created_by of this WebApp.
+
+        The principal who created this app.
+
+        :param created_by: The created_by of this WebApp.
+        :type: str
+        """
+        self._attrs["createdBy"] = created_by
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this WebApp.
+        Short paragraph describing the app.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this WebApp.
+
+        Short paragraph describing the app.
+
+        :param description: The description of this WebApp.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def login_url(self) -> "str":
+        """ Gets the login_url of this WebApp.
+        The URL used to log in to the app.
+        """
+        return self._attrs.get("loginUrl")
+
+    @login_url.setter
+    def login_url(self, login_url: "str"):
+        """Sets the login_url of this WebApp.
+
+        The URL used to log in to the app.
+
+        :param login_url: The login_url of this WebApp.
+        :type: str
+        """
+        self._attrs["loginUrl"] = login_url
+
+    @property
+    def logo_url(self) -> "str":
+        """ Gets the logo_url of this WebApp.
+        The URL used to display the app's logo.
+        """
+        return self._attrs.get("logoUrl")
+
+    @logo_url.setter
+    def logo_url(self, logo_url: "str"):
+        """Sets the logo_url of this WebApp.
+
+        The URL used to display the app's logo.
+
+        :param logo_url: The logo_url of this WebApp.
+        :type: str
+        """
+        self._attrs["logoUrl"] = logo_url
+
+    @property
+    def redirect_urls(self) -> "List[str]":
+        """ Gets the redirect_urls of this WebApp.
+        Array of URLs that can be used for redirect after logging into the app.
+        """
+        return self._attrs.get("redirectUrls")
+
+    @redirect_urls.setter
+    def redirect_urls(self, redirect_urls: "List[str]"):
+        """Sets the redirect_urls of this WebApp.
+
+        Array of URLs that can be used for redirect after logging into the app.
+
+        :param redirect_urls: The redirect_urls of this WebApp.
+        :type: List[str]
+        """
+        self._attrs["redirectUrls"] = redirect_urls
+
+    @property
+    def setup_url(self) -> "str":
+        """ Gets the setup_url of this WebApp.
+        URL to redirect to after a subscription is created.
+        """
+        return self._attrs.get("setupUrl")
+
+    @setup_url.setter
+    def setup_url(self, setup_url: "str"):
+        """Sets the setup_url of this WebApp.
+
+        URL to redirect to after a subscription is created.
+
+        :param setup_url: The setup_url of this WebApp.
+        :type: str
+        """
+        self._attrs["setupUrl"] = setup_url
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this WebApp.
+        Human-readable title for the app.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this WebApp.
+
+        Human-readable title for the app.
+
+        :param title: The title of this WebApp.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
+    def user_permissions_filter(self) -> "List[str]":
+        """ Gets the user_permissions_filter of this WebApp.
+        Array of permission filter templates that are used to intersect with a user's permissions when using the app.
+        """
+        return self._attrs.get("userPermissionsFilter")
+
+    @user_permissions_filter.setter
+    def user_permissions_filter(self, user_permissions_filter: "List[str]"):
+        """Sets the user_permissions_filter of this WebApp.
+
+        Array of permission filter templates that are used to intersect with a user's permissions when using the app.
+
+        :param user_permissions_filter: The user_permissions_filter of this WebApp.
+        :type: List[str]
+        """
+        self._attrs["userPermissionsFilter"] = user_permissions_filter
+
+    @property
+    def webhook_url(self) -> "str":
+        """ Gets the webhook_url of this WebApp.
+        URL that webhook events are sent to.
+        """
+        return self._attrs.get("webhookUrl")
+
+    @webhook_url.setter
+    def webhook_url(self, webhook_url: "str"):
+        """Sets the webhook_url of this WebApp.
+
+        URL that webhook events are sent to.
+
+        :param webhook_url: The webhook_url of this WebApp.
+        :type: str
+        """
+        self._attrs["webhookUrl"] = webhook_url
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+AppResponseGetList.from_dict_handlers["web"] = WebApp._from_dict
+
+
+
+class WebAppPOST(CreateAppRequest):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "WebAppPOST":
+        instance = WebAppPOST.__new__(WebAppPOST)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, name: "str", app_principal_permissions: "List[str]" = None, description: "str" = None, login_url: "str" = None, logo_url: "str" = None, redirect_urls: "List[str]" = None, setup_url: "str" = None, title: "str" = None, user_permissions_filter: "List[str]" = None, webhook_url: "str" = None, **extra):
+        """WebAppPOST"""
+
+        self._attrs = dict()
+        self._attrs["kind"] = "web" 
+        if name is not None:
+            self._attrs["name"] = name
+        if app_principal_permissions is not None:
+            self._attrs["appPrincipalPermissions"] = app_principal_permissions
+        if description is not None:
+            self._attrs["description"] = description
+        if login_url is not None:
+            self._attrs["loginUrl"] = login_url
+        if logo_url is not None:
+            self._attrs["logoUrl"] = logo_url
+        if redirect_urls is not None:
+            self._attrs["redirectUrls"] = redirect_urls
+        if setup_url is not None:
+            self._attrs["setupUrl"] = setup_url
+        if title is not None:
+            self._attrs["title"] = title
+        if user_permissions_filter is not None:
+            self._attrs["userPermissionsFilter"] = user_permissions_filter
+        if webhook_url is not None:
+            self._attrs["webhookUrl"] = webhook_url
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def kind(self) -> str:
+        return "web"
+
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this WebAppPOST.
+        App name that is unique within Splunk Cloud Platform.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this WebAppPOST.
+
+        App name that is unique within Splunk Cloud Platform.
+
+        :param name: The name of this WebAppPOST.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def app_principal_permissions(self) -> "List[str]":
+        """ Gets the app_principal_permissions of this WebAppPOST.
+        Array of permission templates that are used to grant permission to the app principal when a tenant subscribes.
+        """
+        return self._attrs.get("appPrincipalPermissions")
+
+    @app_principal_permissions.setter
+    def app_principal_permissions(self, app_principal_permissions: "List[str]"):
+        """Sets the app_principal_permissions of this WebAppPOST.
+
+        Array of permission templates that are used to grant permission to the app principal when a tenant subscribes.
+
+        :param app_principal_permissions: The app_principal_permissions of this WebAppPOST.
+        :type: List[str]
+        """
+        self._attrs["appPrincipalPermissions"] = app_principal_permissions
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this WebAppPOST.
+        Short paragraph describing the app.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this WebAppPOST.
+
+        Short paragraph describing the app.
+
+        :param description: The description of this WebAppPOST.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def login_url(self) -> "str":
+        """ Gets the login_url of this WebAppPOST.
+        The URL used to log in to the app.
+        """
+        return self._attrs.get("loginUrl")
+
+    @login_url.setter
+    def login_url(self, login_url: "str"):
+        """Sets the login_url of this WebAppPOST.
+
+        The URL used to log in to the app.
+
+        :param login_url: The login_url of this WebAppPOST.
+        :type: str
+        """
+        self._attrs["loginUrl"] = login_url
+
+    @property
+    def logo_url(self) -> "str":
+        """ Gets the logo_url of this WebAppPOST.
+        The URL used to display the app's logo.
+        """
+        return self._attrs.get("logoUrl")
+
+    @logo_url.setter
+    def logo_url(self, logo_url: "str"):
+        """Sets the logo_url of this WebAppPOST.
+
+        The URL used to display the app's logo.
+
+        :param logo_url: The logo_url of this WebAppPOST.
+        :type: str
+        """
+        self._attrs["logoUrl"] = logo_url
+
+    @property
+    def redirect_urls(self) -> "List[str]":
+        """ Gets the redirect_urls of this WebAppPOST.
+        Array of URLs that can be used for redirect after logging into the app.
+        """
+        return self._attrs.get("redirectUrls")
+
+    @redirect_urls.setter
+    def redirect_urls(self, redirect_urls: "List[str]"):
+        """Sets the redirect_urls of this WebAppPOST.
+
+        Array of URLs that can be used for redirect after logging into the app.
+
+        :param redirect_urls: The redirect_urls of this WebAppPOST.
+        :type: List[str]
+        """
+        self._attrs["redirectUrls"] = redirect_urls
+
+    @property
+    def setup_url(self) -> "str":
+        """ Gets the setup_url of this WebAppPOST.
+        URL to redirect to after a subscription is created.
+        """
+        return self._attrs.get("setupUrl")
+
+    @setup_url.setter
+    def setup_url(self, setup_url: "str"):
+        """Sets the setup_url of this WebAppPOST.
+
+        URL to redirect to after a subscription is created.
+
+        :param setup_url: The setup_url of this WebAppPOST.
+        :type: str
+        """
+        self._attrs["setupUrl"] = setup_url
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this WebAppPOST.
+        Human-readable title for the app.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this WebAppPOST.
+
+        Human-readable title for the app.
+
+        :param title: The title of this WebAppPOST.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
+    def user_permissions_filter(self) -> "List[str]":
+        """ Gets the user_permissions_filter of this WebAppPOST.
+        Array of permission filter templates that are used to intersect with a user's permissions when using the app.
+        """
+        return self._attrs.get("userPermissionsFilter")
+
+    @user_permissions_filter.setter
+    def user_permissions_filter(self, user_permissions_filter: "List[str]"):
+        """Sets the user_permissions_filter of this WebAppPOST.
+
+        Array of permission filter templates that are used to intersect with a user's permissions when using the app.
+
+        :param user_permissions_filter: The user_permissions_filter of this WebAppPOST.
+        :type: List[str]
+        """
+        self._attrs["userPermissionsFilter"] = user_permissions_filter
+
+    @property
+    def webhook_url(self) -> "str":
+        """ Gets the webhook_url of this WebAppPOST.
+        URL that webhook events are sent to.
+        """
+        return self._attrs.get("webhookUrl")
+
+    @webhook_url.setter
+    def webhook_url(self, webhook_url: "str"):
+        """Sets the webhook_url of this WebAppPOST.
+
+        URL that webhook events are sent to.
+
+        :param webhook_url: The webhook_url of this WebAppPOST.
+        :type: str
+        """
+        self._attrs["webhookUrl"] = webhook_url
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+CreateAppRequest.from_dict_handlers["web"] = WebAppPOST._from_dict
+

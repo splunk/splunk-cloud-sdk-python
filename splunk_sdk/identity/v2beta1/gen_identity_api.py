@@ -337,12 +337,14 @@ class Identity(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, str)
 
-    def list_groups(self, query_params: Dict[str, object] = None) -> List[str]:
+    def list_groups(self, access: str = None, query_params: Dict[str, object] = None) -> List[str]:
         """
         List the groups that exist in a given tenant.
         """
         if query_params is None:
             query_params = {}
+        if access is not None:
+            query_params['access'] = access
 
         path_params = {
         }
@@ -544,6 +546,22 @@ class Identity(BaseService):
         path = Template("/identity/v2beta1/roles/${role}/permissions/${permission}").substitute(path_params)
         url = self.base_client.build_url(path)
         response = self.base_client.delete(url, params=query_params)
+        return handle_response(response, )
+
+    def revoke_principal_auth_tokens(self, principal: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
+        """
+        Revoke all existing tokens issued to a principal
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "principal": principal,
+        }
+
+        path = Template("/system/identity/v2beta1/principals/${principal}/revoke").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.post(url, params=query_params)
         return handle_response(response, )
 
     def validate_token(self, include: List[str] = None, query_params: Dict[str, object] = None) -> ValidateInfo:

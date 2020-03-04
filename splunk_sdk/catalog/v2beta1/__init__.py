@@ -81,8 +81,6 @@ from splunk_sdk.catalog.v2beta1.gen_models import Action, \
     JobDatasetTimeBucketsAvailableStatus, \
     JobDataset, \
     JobDatasetKind, \
-    JobDatasetPATCH, \
-    JobDatasetPOST, \
     KVCollectionDataset, \
     KVCollectionDatasetKind, \
     KVCollectionDatasetPATCH, \
