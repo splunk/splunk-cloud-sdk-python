@@ -12,7 +12,7 @@ import pytest
 
 from time import time
 
-from splunk_sdk.app_registry import CreateAppRequest, UpdateAppRequest, AppRegistry, AppName
+from splunk_sdk.app_registry import CreateAppRequest, UpdateAppRequest, AppRegistry, AppName, WebAppPOST, WebApp
 from splunk_sdk.base_client import BaseClient
 from test.fixtures import get_test_client as test_client  # NOQA
 
@@ -28,7 +28,7 @@ def test_crud_app(test_client: BaseClient):
         app_title = "psdk-" + app_name + "-" + secs
         redirect_urls = ["https://localhost"]
 
-        app = appregistry.create_app(CreateAppRequest(
+        app = appregistry.create_app(WebAppPOST(
             kind="web",
             name=app_name,
             title=app_title,
@@ -73,15 +73,17 @@ def test_app_rotate_secret(test_client: BaseClient):
         app_title = "psdk-" + app_name + "-" + secs
         redirect_urls = ["https://localhost"]
 
-        app = appregistry.create_app(CreateAppRequest(
+        app = appregistry.create_app(WebAppPOST(
             kind="web",
             name=app_name,
             title=app_title,
             redirect_urls=redirect_urls,
         ))
-
+        secret1 = app.to_dict()["clientSecret"]
         app_response = appregistry.rotate_secret(app_name)
-        assert(app.client_secret != app_response.client_secret)
+        secret2 = app_response.to_dict()["clientSecret"]
+
+        assert (secret1 != secret2)
 
     finally:
         appregistry.delete_app(app_name)

@@ -351,7 +351,7 @@ class AppResponseCreateUpdate(SSCModel):
         self._attrs["webhookUrl"] = webhook_url
 
     def to_dict(self):
-        raise NotImplementedError()
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
 class AppResponseGetList(SSCModel):
@@ -619,8 +619,7 @@ class AppResponseGetList(SSCModel):
         self._attrs["webhookUrl"] = webhook_url
 
     def to_dict(self):
-        raise NotImplementedError()
-
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 class CreateAppRequest(SSCModel):
 
@@ -847,8 +846,7 @@ class CreateAppRequest(SSCModel):
         self._attrs["webhookUrl"] = webhook_url
 
     def to_dict(self):
-        raise NotImplementedError()
-
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 class Error(SSCModel):
 

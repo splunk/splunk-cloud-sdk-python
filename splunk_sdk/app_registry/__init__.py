@@ -42,4 +42,6 @@ from splunk_sdk.app_registry.v1beta2.gen_models import AppName, \
     Error, \
     Key, \
     Subscription, \
-    UpdateAppRequest
+    UpdateAppRequest, \
+    WebAppPOST, \
+    WebApp
