@@ -19,8 +19,13 @@ generate:
 update_dependencies:
 	pip3 freeze > requirements.txt
 
-test:
-	pytest
+test: test_integration
+
+test_integration:
+	tox -e py38
+
+test_specific:
+	sh ./scripts/test_specific.sh
 
 package:
 	python setup.py sdist bdist_wheel
