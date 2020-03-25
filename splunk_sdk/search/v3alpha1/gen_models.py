@@ -1368,7 +1368,7 @@ class SearchJob(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, query: "str", allow_side_effects: "object" = None, collect_event_summary: "bool" = False, collect_field_summary: "bool" = False, collect_time_buckets: "bool" = False, completion_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = False, extract_all_fields: "bool" = False, max_time: "float" = 3600, messages: "List[Message]" = None, module: "str" = '', name: "str" = None, parent: "str" = None, percent_complete: "int" = 0, preview_available: "str" = 'false', query_parameters: "QueryParameters" = None, required_freshness: "float" = 0, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = 0, results_preview_available: "int" = 0, sid: "str" = None, status: "SearchStatus" = None, **extra):
+    def __init__(self, query: "str", allow_side_effects: "bool" = False, collect_event_summary: "bool" = False, collect_field_summary: "bool" = False, collect_time_buckets: "bool" = False, completion_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = False, extract_all_fields: "bool" = False, max_time: "float" = 3600, messages: "List[Message]" = None, module: "str" = '', name: "str" = None, parent: "str" = None, percent_complete: "int" = 0, preview_available: "str" = 'false', query_parameters: "QueryParameters" = None, required_freshness: "float" = 0, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = 0, results_preview_available: "int" = 0, sid: "str" = None, status: "SearchStatus" = None, **extra):
         """SearchJob"""
 
         self._attrs = dict()
@@ -1444,20 +1444,20 @@ class SearchJob(SSCModel):
         self._attrs["query"] = query
 
     @property
-    def allow_side_effects(self) -> "object":
+    def allow_side_effects(self) -> "bool":
         """ Gets the allow_side_effects of this SearchJob.
-        Specifies whether a search that contains commands with side effects  (with possible security risks) is allowed to run. type: boolean default: false 
+        Specifies whether a search that contains commands with side effects  (with possible security risks) is allowed to run. 
         """
         return self._attrs.get("allowSideEffects")
 
     @allow_side_effects.setter
-    def allow_side_effects(self, allow_side_effects: "object"):
+    def allow_side_effects(self, allow_side_effects: "bool"):
         """Sets the allow_side_effects of this SearchJob.
 
-        Specifies whether a search that contains commands with side effects  (with possible security risks) is allowed to run. type: boolean default: false 
+        Specifies whether a search that contains commands with side effects  (with possible security risks) is allowed to run. 
 
         :param allow_side_effects: The allow_side_effects of this SearchJob.
-        :type: object
+        :type: bool
         """
         self._attrs["allowSideEffects"] = allow_side_effects
 

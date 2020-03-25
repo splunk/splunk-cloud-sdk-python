@@ -80,7 +80,7 @@ class MetadataCatalog(BaseService):
 
     def create_action_for_rule(self, ruleresourcename: str, action_post: ActionPOST, query_params: Dict[str, object] = None) -> Action:
         """
-        Create a new action for a rule associated with a specific resource name.
+        Creates a new action for a rule with the specified resource name.
         """
         if query_params is None:
             query_params = {}
@@ -97,7 +97,7 @@ class MetadataCatalog(BaseService):
 
     def create_action_for_rule_by_id(self, ruleid: str, action_post: ActionPOST, query_params: Dict[str, object] = None) -> Action:
         """
-        Create a new action for a specific rule.
+        Creates a new action for the specified rule.
         """
         if query_params is None:
             query_params = {}
@@ -114,7 +114,7 @@ class MetadataCatalog(BaseService):
 
     def create_annotation_for_dashboardby_id(self, dashboardid: str, annotation_post: AnnotationPOST, query_params: Dict[str, object] = None) -> Annotation:
         """
-        Create a new annotation for a specific dashboard.
+        Creates a new annotation for the specified dashboard.
         """
         if query_params is None:
             query_params = {}
@@ -131,7 +131,7 @@ class MetadataCatalog(BaseService):
 
     def create_annotation_for_dashboards_by_resource_name(self, dashboardresourcename: str, annotation_post: AnnotationPOST, query_params: Dict[str, object] = None) -> Annotation:
         """
-        Create a new annotation for a specific dataset.
+        Creates a new annotation for the specified dataset resource name.
         """
         if query_params is None:
             query_params = {}
@@ -148,7 +148,7 @@ class MetadataCatalog(BaseService):
 
     def create_annotation_for_dataset_by_id(self, datasetid: str, annotation_post: AnnotationPOST, query_params: Dict[str, object] = None) -> Annotation:
         """
-        Create a new annotation for a specific dataset.
+        Creates a new annotation for the specified dataset.
         """
         if query_params is None:
             query_params = {}
@@ -165,7 +165,7 @@ class MetadataCatalog(BaseService):
 
     def create_annotation_for_dataset_by_resource_name(self, datasetresourcename: str, annotation_post: AnnotationPOST, query_params: Dict[str, object] = None) -> Annotation:
         """
-        Create a new annotation for a specific dataset.
+        Creates a new annotation for the specified dataset.
         """
         if query_params is None:
             query_params = {}
@@ -182,7 +182,7 @@ class MetadataCatalog(BaseService):
 
     def create_dashboard(self, dashboard_post: DashboardPOST, query_params: Dict[str, object] = None) -> Dashboard:
         """
-        Create a new dashboard.
+        Creates a new dashboard.
         """
         if query_params is None:
             query_params = {}
@@ -198,7 +198,7 @@ class MetadataCatalog(BaseService):
 
     def create_dataset(self, dataset_post: DatasetPOST, query_params: Dict[str, object] = None) -> Dataset:
         """
-        Create a new dataset.
+        Creates a new dataset.
         """
         if query_params is None:
             query_params = {}
@@ -214,7 +214,7 @@ class MetadataCatalog(BaseService):
 
     def create_dataset_import(self, datasetresourcename: str, dataset_imported_by: DatasetImportedBy = None, query_params: Dict[str, object] = None) -> ImportDataset:
         """
-        Create a new dataset import.
+        Creates a new dataset import using the resource name of the imported dataset.
         """
         if query_params is None:
             query_params = {}
@@ -231,7 +231,7 @@ class MetadataCatalog(BaseService):
 
     def create_dataset_import_by_id(self, datasetid: str, dataset_imported_by: DatasetImportedBy = None, query_params: Dict[str, object] = None) -> ImportDataset:
         """
-        Create a new dataset import.
+        Creates a new dataset import using the ID of the imported dataset.
         """
         if query_params is None:
             query_params = {}
@@ -248,7 +248,7 @@ class MetadataCatalog(BaseService):
 
     def create_dataset_import_by_idv1(self, datasetid: str, dataset_imported_by: DatasetImportedBy = None, query_params: Dict[str, object] = None) -> DatasetImportedBy:
         """
-        Create a new dataset import.
+        Creates a new dataset import using the ID of the imported dataset.
         """
         if query_params is None:
             query_params = {}
@@ -265,7 +265,7 @@ class MetadataCatalog(BaseService):
 
     def create_dataset_importv1(self, datasetresourcename: str, dataset_imported_by: DatasetImportedBy = None, query_params: Dict[str, object] = None) -> Dataset:
         """
-        Create a new dataset import.
+        Creates a new dataset import using the resource name of the imported dataset.
         """
         if query_params is None:
             query_params = {}
@@ -282,7 +282,7 @@ class MetadataCatalog(BaseService):
 
     def create_field_for_dataset(self, datasetresourcename: str, field_post: FieldPOST, query_params: Dict[str, object] = None) -> Field:
         """
-        Create a new field on a specific dataset.
+        Creates a new field in the dataset with the specified resource name.
         """
         if query_params is None:
             query_params = {}
@@ -299,7 +299,7 @@ class MetadataCatalog(BaseService):
 
     def create_field_for_dataset_by_id(self, datasetid: str, field_post: FieldPOST, query_params: Dict[str, object] = None) -> Field:
         """
-        Add a new field to a dataset.
+        Adds a new field to the dataset with the specified ID.
         """
         if query_params is None:
             query_params = {}
@@ -316,7 +316,7 @@ class MetadataCatalog(BaseService):
 
     def create_relationship(self, relationship_post: RelationshipPOST, query_params: Dict[str, object] = None) -> Relationship:
         """
-        Create a new relationship.
+        Creates a new relationship.
         """
         if query_params is None:
             query_params = {}
@@ -332,7 +332,7 @@ class MetadataCatalog(BaseService):
 
     def create_rule(self, rule_post: RulePOST, query_params: Dict[str, object] = None) -> Rule:
         """
-        Create a new rule.
+        Creates a new rule.
         """
         if query_params is None:
             query_params = {}
@@ -348,7 +348,7 @@ class MetadataCatalog(BaseService):
 
     def create_workflow(self, workflow_post: WorkflowPOST, query_params: Dict[str, object] = None) -> Workflow:
         """
-        Create a new workflow configuration.
+        Creates a new workflow configuration.
         """
         if query_params is None:
             query_params = {}
@@ -364,7 +364,7 @@ class MetadataCatalog(BaseService):
 
     def create_workflow_build(self, workflowid: str, workflow_build_post: WorkflowBuildPOST, query_params: Dict[str, object] = None) -> WorkflowBuild:
         """
-        Create a new workflow build.
+        Creates a new workflow build.
         """
         if query_params is None:
             query_params = {}
@@ -381,7 +381,7 @@ class MetadataCatalog(BaseService):
 
     def create_workflow_run(self, workflowid: str, workflowbuildid: str, workflow_run_post: WorkflowRunPOST, query_params: Dict[str, object] = None) -> WorkflowRun:
         """
-        Create a new workflow run for the specified workflow build ID.
+        Creates a new workflow run for the specified workflow build ID.
         """
         if query_params is None:
             query_params = {}
@@ -399,7 +399,7 @@ class MetadataCatalog(BaseService):
 
     def delete_action_by_id_for_rule(self, ruleresourcename: str, actionid: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete an action on a rule.
+        Deletes the action with the specified ID that is associated with the specified rule resource name.
         """
         if query_params is None:
             query_params = {}
@@ -416,7 +416,7 @@ class MetadataCatalog(BaseService):
 
     def delete_action_by_id_for_rule_by_id(self, ruleid: str, actionid: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete an action that is part of a specific rule.
+        Deletes the action with the specified ID that is associated with the specified rule.
         """
         if query_params is None:
             query_params = {}
@@ -433,7 +433,7 @@ class MetadataCatalog(BaseService):
 
     def delete_annotation_of_dashboard_by_id(self, dashboardid: str, annotationid: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete a specific annotation of a dashboard.
+        Deletes the annotation with the speciifed ID that is associted with the specified dashboard.
         """
         if query_params is None:
             query_params = {}
@@ -450,7 +450,7 @@ class MetadataCatalog(BaseService):
 
     def delete_annotation_of_dashboard_by_resource_name(self, dashboardresourcename: str, annotationid: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete a specific annotation of a dashboard.
+        Deletes the annotation with the specified ID that is associated with the specified dashboard resource name.
         """
         if query_params is None:
             query_params = {}
@@ -467,7 +467,7 @@ class MetadataCatalog(BaseService):
 
     def delete_annotation_of_dataset_by_id(self, datasetid: str, annotationid: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete a specific annotation of a dataset.
+        Deletes the annotation with the specified ID that is associated with the specified dataset.
         """
         if query_params is None:
             query_params = {}
@@ -484,7 +484,7 @@ class MetadataCatalog(BaseService):
 
     def delete_annotation_of_dataset_by_resource_name(self, datasetresourcename: str, annotationid: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete a specific annotation of a dataset.
+        Deletes the annotation with the specified iD that is associated with the specified dataset resource name.
         """
         if query_params is None:
             query_params = {}
@@ -501,7 +501,7 @@ class MetadataCatalog(BaseService):
 
     def delete_dashboard_by_id(self, dashboardid: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete the dashboard with the specified ID.
+        Deletes the dashboard with the specified ID.
         """
         if query_params is None:
             query_params = {}
@@ -517,7 +517,7 @@ class MetadataCatalog(BaseService):
 
     def delete_dashboard_by_resource_name(self, dashboardresourcename: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete the dashboard with the specified resource name.
+        Deletes the dashboard with the specified resource name.
         """
         if query_params is None:
             query_params = {}
@@ -533,7 +533,7 @@ class MetadataCatalog(BaseService):
 
     def delete_dataset(self, datasetresourcename: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete the dataset with the specified resource name, along with its dependencies. For the default module, the resource name format is datasetName. Otherwise, the resource name format is module.datasetName.
+        Deletes the dataset with the specified resource name, along with its dependencies. For the default module, the resource name format is datasetName. Otherwise, the resource name format is module.datasetName.
         """
         if query_params is None:
             query_params = {}
@@ -549,7 +549,7 @@ class MetadataCatalog(BaseService):
 
     def delete_dataset_by_id(self, datasetid: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete a specific dataset. Deleting a dataset also deletes its dependent objects, such as fields.
+        Deletes the dataset with the specified ID. Deleting a dataset also deletes its dependent objects, such as fields.
         """
         if query_params is None:
             query_params = {}
@@ -565,7 +565,7 @@ class MetadataCatalog(BaseService):
 
     def delete_field_by_id_for_dataset(self, datasetresourcename: str, fieldid: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete a field that is part of a specific dataset.
+        Deletes the field with the specified ID that is part of the specified dataset.
         """
         if query_params is None:
             query_params = {}
@@ -582,7 +582,7 @@ class MetadataCatalog(BaseService):
 
     def delete_field_by_id_for_dataset_by_id(self, datasetid: str, fieldid: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete a field that is part of a specific dataset.
+        Deletes the field with the specified ID that is part of the specified dataset.
         """
         if query_params is None:
             query_params = {}
@@ -599,7 +599,7 @@ class MetadataCatalog(BaseService):
 
     def delete_relationship_by_id(self, relationshipid: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete a specific relationship. Deleting a relationship also deleletes any objects that are dependents of that relationship, such as relationship fields.
+        Deletes the relationship with the specified relationship ID. Deleting a relationship also deletes any objects that are dependents of that relationship, such as relationship fields.
         """
         if query_params is None:
             query_params = {}
@@ -615,7 +615,7 @@ class MetadataCatalog(BaseService):
 
     def delete_rule(self, ruleresourcename: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete the rule with the specified resource name and its dependencies.
+        Deletes the rule with the specified resource name and its dependencies.
         """
         if query_params is None:
             query_params = {}
@@ -631,7 +631,7 @@ class MetadataCatalog(BaseService):
 
     def delete_rule_by_id(self, ruleid: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete a specific rule. Deleting a rule also deleletes any objects that are dependents of that rule, such as rule actions.
+        Deletes the rule with the specfied ID. Deleting a rule also deleletes any objects that are dependents of that rule, such as rule actions.
         """
         if query_params is None:
             query_params = {}
@@ -647,7 +647,7 @@ class MetadataCatalog(BaseService):
 
     def delete_workflow_build_by_id(self, workflowid: str, workflowbuildid: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete the workflow build with the specified workflow build ID.
+        Deletes the workflow build with the specified workflow build ID.
         """
         if query_params is None:
             query_params = {}
@@ -664,7 +664,7 @@ class MetadataCatalog(BaseService):
 
     def delete_workflow_by_id(self, workflowid: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete the workflow with the specified workflow ID.
+        Deletes the workflow with the specified workflow ID.
         """
         if query_params is None:
             query_params = {}
@@ -680,7 +680,7 @@ class MetadataCatalog(BaseService):
 
     def delete_workflow_run_by_id(self, workflowid: str, workflowbuildid: str, workflowrunid: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Delete the workflow run with the specified workflow run ID.
+        Deletes the workflow run with the specified workflow run ID.
         """
         if query_params is None:
             query_params = {}
@@ -698,7 +698,7 @@ class MetadataCatalog(BaseService):
 
     def get_action_by_id_for_rule(self, ruleresourcename: str, actionid: str, query_params: Dict[str, object] = None) -> Action:
         """
-        Return an action that is part of a specified rule.
+        Returns the action with the specified ID that is associated with the specified rule resource name.
         """
         if query_params is None:
             query_params = {}
@@ -715,7 +715,7 @@ class MetadataCatalog(BaseService):
 
     def get_action_by_id_for_rule_by_id(self, ruleid: str, actionid: str, query_params: Dict[str, object] = None) -> Action:
         """
-        Return information about an action that is part of a specific rule.
+        Returns information about the action with the specified ID that is associated with the specified rule.
         """
         if query_params is None:
             query_params = {}
@@ -732,7 +732,7 @@ class MetadataCatalog(BaseService):
 
     def get_dashboard_by_id(self, dashboardid: str, query_params: Dict[str, object] = None) -> Dashboard:
         """
-        Return information about a dashboard with the specified ID.
+        Returns information about the dashboard with the specified ID.
         """
         if query_params is None:
             query_params = {}
@@ -748,7 +748,7 @@ class MetadataCatalog(BaseService):
 
     def get_dashboard_by_resource_name(self, dashboardresourcename: str, query_params: Dict[str, object] = None) -> Dashboard:
         """
-        Return information about a dashboard with the specified resource name.
+        Returns information about the dashboard with the specified resource name.
         """
         if query_params is None:
             query_params = {}
@@ -764,7 +764,7 @@ class MetadataCatalog(BaseService):
 
     def get_dataset(self, datasetresourcename: str, maxstale: int = None, query_params: Dict[str, object] = None) -> Dataset:
         """
-        Return the dataset with the specified resource name. For the default module, the resource name format is datasetName. Otherwise, the resource name format is module.datasetName.
+        Returns the dataset with the specified resource name. For the default module, the resource name format is datasetName. Otherwise, the resource name format is module.datasetName.
         """
         if query_params is None:
             query_params = {}
@@ -782,7 +782,7 @@ class MetadataCatalog(BaseService):
 
     def get_dataset_by_id(self, datasetid: str, maxstale: int = None, query_params: Dict[str, object] = None) -> Dataset:
         """
-        Return information about the dataset with the specified ID.
+        Returns information about the dataset with the specified ID.
         """
         if query_params is None:
             query_params = {}
@@ -800,7 +800,7 @@ class MetadataCatalog(BaseService):
 
     def get_field_by_id(self, fieldid: str, query_params: Dict[str, object] = None) -> Field:
         """
-        Get a field that corresponds to a specific field ID.
+        Returns the field with the specified field ID.
         """
         if query_params is None:
             query_params = {}
@@ -816,7 +816,7 @@ class MetadataCatalog(BaseService):
 
     def get_field_by_id_for_dataset(self, datasetresourcename: str, fieldid: str, query_params: Dict[str, object] = None) -> Field:
         """
-        Return a field that is part of a specific dataset.
+        Returns the field with the specified ID that is part of the specified dataset.
         """
         if query_params is None:
             query_params = {}
@@ -833,7 +833,7 @@ class MetadataCatalog(BaseService):
 
     def get_field_by_id_for_dataset_by_id(self, datasetid: str, fieldid: str, query_params: Dict[str, object] = None) -> Field:
         """
-        Return a field that is part of a specific dataset.
+        Returns the field with the specified ID that is part of the specified dataset.
         """
         if query_params is None:
             query_params = {}
@@ -850,7 +850,7 @@ class MetadataCatalog(BaseService):
 
     def get_relationship_by_id(self, relationshipid: str, query_params: Dict[str, object] = None) -> Relationship:
         """
-        Get a specific relationship.
+        Returns the relationship with the specified relationship ID.
         """
         if query_params is None:
             query_params = {}
@@ -866,7 +866,7 @@ class MetadataCatalog(BaseService):
 
     def get_rule(self, ruleresourcename: str, query_params: Dict[str, object] = None) -> Rule:
         """
-        Get a rule with a specified resource name.
+        Returrns the rule with the specified resource name.
         """
         if query_params is None:
             query_params = {}
@@ -882,7 +882,7 @@ class MetadataCatalog(BaseService):
 
     def get_rule_by_id(self, ruleid: str, query_params: Dict[str, object] = None) -> Rule:
         """
-        Get information about a specific rule.
+        Returns information about rule with the specified rule ID.
         """
         if query_params is None:
             query_params = {}
@@ -898,7 +898,7 @@ class MetadataCatalog(BaseService):
 
     def get_workflow_build_by_id(self, workflowid: str, workflowbuildid: str, query_params: Dict[str, object] = None) -> WorkflowBuild:
         """
-        Return information about the workflow build with the specified workflow build ID.
+        Returns information about the workflow build with the specified workflow build ID.
         """
         if query_params is None:
             query_params = {}
@@ -915,7 +915,7 @@ class MetadataCatalog(BaseService):
 
     def get_workflow_by_id(self, workflowid: str, query_params: Dict[str, object] = None) -> Workflow:
         """
-        Return information about a workflow with the specified workflow ID.
+        Returns information about the workflow with the specified workflow ID.
         """
         if query_params is None:
             query_params = {}
@@ -931,7 +931,7 @@ class MetadataCatalog(BaseService):
 
     def get_workflow_run_by_id(self, workflowid: str, workflowbuildid: str, workflowrunid: str, query_params: Dict[str, object] = None) -> WorkflowRun:
         """
-        Return information about the workflow run with the specified workflow build ID.
+        Returns information about the workflow run with the specified workflow build ID.
         """
         if query_params is None:
             query_params = {}
@@ -949,7 +949,7 @@ class MetadataCatalog(BaseService):
 
     def list_actions_for_rule(self, ruleresourcename: str, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Action]:
         """
-        Return the list of actions that are part of a specified rule.
+        Returns the list of actions that are associated with the specified rule.
         """
         if query_params is None:
             query_params = {}
@@ -973,7 +973,7 @@ class MetadataCatalog(BaseService):
 
     def list_actions_for_rule_by_id(self, ruleid: str, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Action]:
         """
-        Return the set of actions that are part of a rule.
+        Returns the set of actions that are part of the specified rule.
         """
         if query_params is None:
             query_params = {}
@@ -997,7 +997,7 @@ class MetadataCatalog(BaseService):
 
     def list_annotations(self, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Annotation]:
         """
-        Return the set of annotations across all objects.
+        Returns the set of annotations across all objects.
         """
         if query_params is None:
             query_params = {}
@@ -1020,7 +1020,7 @@ class MetadataCatalog(BaseService):
 
     def list_annotations_for_dashboard_by_id(self, dashboardid: str, filter: str = None, query_params: Dict[str, object] = None) -> List[Annotation]:
         """
-        Return the set of annotations that are part of a dashboard.
+        Returns the set of annotations that are associated with the specified dashboard.
         """
         if query_params is None:
             query_params = {}
@@ -1038,7 +1038,7 @@ class MetadataCatalog(BaseService):
 
     def list_annotations_for_dashboard_by_resource_name(self, dashboardresourcename: str, filter: str = None, query_params: Dict[str, object] = None) -> List[Annotation]:
         """
-        Return the set of annotations that are part of a dashboard.
+        Returns the set of annotations that are associated with the specified dashboard resource name.
         """
         if query_params is None:
             query_params = {}
@@ -1056,7 +1056,7 @@ class MetadataCatalog(BaseService):
 
     def list_annotations_for_dataset_by_id(self, datasetid: str, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Annotation]:
         """
-        Return the set of annotations that are part of a dataset.
+        Returns the set of annotations that are associated with the specified dataset.
         """
         if query_params is None:
             query_params = {}
@@ -1080,7 +1080,7 @@ class MetadataCatalog(BaseService):
 
     def list_annotations_for_dataset_by_resource_name(self, datasetresourcename: str, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Annotation]:
         """
-        Return the set of annotations that are part of a dataset.
+        Returns the set of annotations that are associated with the specified dataset resource name.
         """
         if query_params is None:
             query_params = {}
@@ -1104,7 +1104,7 @@ class MetadataCatalog(BaseService):
 
     def list_dashboards(self, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Dashboard]:
         """
-        Return a list of Dashboards.
+        Returns a list of dashboards.
         """
         if query_params is None:
             query_params = {}
@@ -1127,7 +1127,7 @@ class MetadataCatalog(BaseService):
 
     def list_datasets(self, count: int = None, filter: str = None, maxstale: int = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Dataset]:
         """
-        Returns a list of all datasets, unless you specify a filter. Use a filter to return a specific list of datasets.
+        Returns a list of all datasets. Use a filter to return a specific list of datasets.
         """
         if query_params is None:
             query_params = {}
@@ -1152,7 +1152,7 @@ class MetadataCatalog(BaseService):
 
     def list_fields(self, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Field]:
         """
-        Get a list of all fields in the Catalog.
+        Returns a list of all fields in the Metadata Catalog.
         """
         if query_params is None:
             query_params = {}
@@ -1175,7 +1175,7 @@ class MetadataCatalog(BaseService):
 
     def list_fields_for_dataset(self, datasetresourcename: str, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Field]:
         """
-        Return the list of fields that are part of a specified dataset.
+        Returns the list of fields in the specified dataset.
         """
         if query_params is None:
             query_params = {}
@@ -1199,7 +1199,7 @@ class MetadataCatalog(BaseService):
 
     def list_fields_for_dataset_by_id(self, datasetid: str, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Field]:
         """
-        Return the set of fields for the specified dataset.
+        Returns the set of fields for the the dataset with the specified ID.
         """
         if query_params is None:
             query_params = {}
@@ -1223,7 +1223,7 @@ class MetadataCatalog(BaseService):
 
     def list_modules(self, filter: str = None, query_params: Dict[str, object] = None) -> List[Module]:
         """
-        Return a list of all modules, unless you specify a filter. Use a filter to return a specific list of modules.
+        Returns a list of all modules. Use a filter to return a specific list of modules.
         """
         if query_params is None:
             query_params = {}
@@ -1240,7 +1240,7 @@ class MetadataCatalog(BaseService):
 
     def list_relationships(self, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Relationship]:
         """
-        Returns a list of all relationships, unless you specify a filter. Use a filter to return a specific list of relationships.
+        Returns a list of all relationships. Use a filter to return a specific list of relationships.
         """
         if query_params is None:
             query_params = {}
@@ -1263,7 +1263,7 @@ class MetadataCatalog(BaseService):
 
     def list_rules(self, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Rule]:
         """
-        Return a list of rules that match a filter query if it is given, otherwise return all rules.
+        Returns a list of rules that match a filter, if specified, otherwise returns all rules.
         """
         if query_params is None:
             query_params = {}
@@ -1286,7 +1286,7 @@ class MetadataCatalog(BaseService):
 
     def list_workflow_builds(self, workflowid: str, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[WorkflowBuild]:
         """
-        Return a list of Machine Learning workflow builds.
+        Returns a list of Machine Learning workflow builds.
         """
         if query_params is None:
             query_params = {}
@@ -1310,7 +1310,7 @@ class MetadataCatalog(BaseService):
 
     def list_workflow_runs(self, workflowid: str, workflowbuildid: str, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[WorkflowRun]:
         """
-        Return a list of Machine Learning workflow runs for specified workflow build ID.
+        Returns a list of Machine Learning workflow runs for specified workflow build ID.
         """
         if query_params is None:
             query_params = {}
@@ -1358,7 +1358,7 @@ class MetadataCatalog(BaseService):
 
     def update_action_by_id_for_rule(self, ruleresourcename: str, actionid: str, action_patch: ActionPATCH, query_params: Dict[str, object] = None) -> Action:
         """
-        Update the Action with the specified id for the specified Rule
+        Modifies the action with the specified ID that is associated with the specified rule resource name.
         """
         if query_params is None:
             query_params = {}
@@ -1376,7 +1376,7 @@ class MetadataCatalog(BaseService):
 
     def update_action_by_id_for_rule_by_id(self, ruleid: str, actionid: str, action_patch: ActionPATCH, query_params: Dict[str, object] = None) -> Action:
         """
-        Update an action for a specific rule.
+        Modifies the action with the specified ID that is associated with the specified rule.
         """
         if query_params is None:
             query_params = {}
@@ -1394,7 +1394,7 @@ class MetadataCatalog(BaseService):
 
     def update_dashboard_by_id(self, dashboardid: str, dashboard_patch: DashboardPATCH, query_params: Dict[str, object] = None) -> Dashboard:
         """
-        Update the dashboard with the specified ID.
+        Modifies the dashboard with the specified ID.
         """
         if query_params is None:
             query_params = {}
@@ -1411,7 +1411,7 @@ class MetadataCatalog(BaseService):
 
     def update_dashboard_by_resource_name(self, dashboardresourcename: str, dashboard_patch: DashboardPATCH, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Update the dashboard with the specified resource name.
+        Modifies the dashboard with the specified resource name.
         """
         if query_params is None:
             query_params = {}
@@ -1428,7 +1428,7 @@ class MetadataCatalog(BaseService):
 
     def update_dataset(self, datasetresourcename: str, dataset_patch: DatasetPATCH, query_params: Dict[str, object] = None) -> Dataset:
         """
-        Update the dataset with the specified resource name. For the default module, the resource name format is datasetName. Otherwise, the resource name format is module.datasetName.
+        Modifies the dataset with the specified resource name. For the default module, the resource name format is datasetName. Otherwise, the resource name format is module.datasetName.
         """
         if query_params is None:
             query_params = {}
@@ -1445,7 +1445,7 @@ class MetadataCatalog(BaseService):
 
     def update_dataset_by_id(self, datasetid: str, dataset_patch: DatasetPATCH, query_params: Dict[str, object] = None) -> Dataset:
         """
-        Update a specific dataset.
+        Modifies the dataset with the specified ID.
         """
         if query_params is None:
             query_params = {}
@@ -1462,7 +1462,7 @@ class MetadataCatalog(BaseService):
 
     def update_field_by_id_for_dataset(self, datasetresourcename: str, fieldid: str, field_patch: FieldPATCH, query_params: Dict[str, object] = None) -> Field:
         """
-        Update a field with a specified ID for a specified dataset.
+        Modifies the field with the specified ID that is part of the specified dataset.
         """
         if query_params is None:
             query_params = {}
@@ -1480,7 +1480,7 @@ class MetadataCatalog(BaseService):
 
     def update_field_by_id_for_dataset_by_id(self, datasetid: str, fieldid: str, field_patch: FieldPATCH, query_params: Dict[str, object] = None) -> Field:
         """
-        Update a field for a specific dataset.
+        Modifies the field with the specified ID that is part of the specified dataset.
         """
         if query_params is None:
             query_params = {}
@@ -1498,7 +1498,7 @@ class MetadataCatalog(BaseService):
 
     def update_relationship_by_id(self, relationshipid: str, relationship_patch: RelationshipPATCH, query_params: Dict[str, object] = None) -> Relationship:
         """
-        Update a specific relationship.
+        Modifies the relationship with the specified relationship ID.
         """
         if query_params is None:
             query_params = {}
@@ -1515,7 +1515,7 @@ class MetadataCatalog(BaseService):
 
     def update_rule(self, ruleresourcename: str, rule_patch: RulePATCH, query_params: Dict[str, object] = None) -> Rule:
         """
-        Update the Rule with the specified resourcename
+        Modifies the rule with the specified resource name.
         """
         if query_params is None:
             query_params = {}
@@ -1532,7 +1532,7 @@ class MetadataCatalog(BaseService):
 
     def update_rule_by_id(self, ruleid: str, rule_patch: RulePATCH, query_params: Dict[str, object] = None) -> Rule:
         """
-        Update a specific rule.
+        Modifies the rule with the specified rule ID.
         """
         if query_params is None:
             query_params = {}
@@ -1549,7 +1549,7 @@ class MetadataCatalog(BaseService):
 
     def update_workflow_build_by_id(self, workflowid: str, workflowbuildid: str, workflow_build_patch: WorkflowBuildPATCH, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Update the workflow build with the specified workflow build ID.
+        Modifies the workflow build with the specified workflow build ID.
         """
         if query_params is None:
             query_params = {}
@@ -1567,7 +1567,7 @@ class MetadataCatalog(BaseService):
 
     def update_workflow_by_id(self, workflowid: str, workflow_patch: WorkflowPATCH, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Update the workflow with the specified workflow ID.
+        Modifies the workflow with the specified workflow ID.
         """
         if query_params is None:
             query_params = {}
@@ -1584,7 +1584,7 @@ class MetadataCatalog(BaseService):
 
     def update_workflow_run_by_id(self, workflowid: str, workflowbuildid: str, workflowrunid: str, workflow_run_patch: WorkflowRunPATCH, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Update the workflow run with the specified workflow run ID.
+        Modifies the workflow run with the specified workflow run ID.
         """
         if query_params is None:
             query_params = {}

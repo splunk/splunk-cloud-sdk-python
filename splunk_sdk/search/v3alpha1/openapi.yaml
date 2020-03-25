@@ -283,8 +283,10 @@ components:
       description: A fully-constructed search job, including read-only fields.
       properties:
         allowSideEffects:
+          default: false
           description: |
-            Specifies whether a search that contains commands with side effects  (with possible security risks) is allowed to run. type: boolean default: false
+            Specifies whether a search that contains commands with side effects  (with possible security risks) is allowed to run.
+          type: boolean
         collectEventSummary:
           default: false
           description: |
@@ -913,7 +915,7 @@ paths:
         "403":
           description: The operation isn't authorized.
         "409":
-          description: Another recurring search already exists with this name.
+          description: The recurring search name already exists.
         "412":
           description: The precondition check failed. The search query contains commands,
             thru or into, that have side effects. However, the 'allowSideEffects'
@@ -1053,4 +1055,4 @@ paths:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/rsid'
 
-# Retrieved from scp-openapi commit 17ef0ea6af9b3c78539b628b8e9d2ece45fc8329 path: search/v3alpha1/openapi.yaml
+# Retrieved from scp-openapi commit 1f1cb97cb92c343b7c251291a7abf74ef6e0d819 path: search/v3alpha1/openapi.yaml
