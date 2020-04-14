@@ -5,6 +5,4 @@ requests==2.22.0
 urllib3==1.25.2
 Jinja2==2.10.1
 MarkupSafe==1.1.1
-
--i https://repo.splunk.com/artifactory/api/pypi/pypi/simple
-docmd==0.1.0
+pdoc==0.3.2
