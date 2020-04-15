@@ -40,14 +40,14 @@ class SingleFieldSummary(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, count: "int" = None, distict_count: "int" = None, is_exact: "bool" = None, max: "str" = None, mean: "float" = None, min: "str" = None, modes: "List[SingleValueMode]" = None, numeric_count: "int" = None, relevant: "bool" = None, stddev: "float" = None, **extra):
+    def __init__(self, count: "int" = None, distinct_count: "int" = None, is_exact: "bool" = None, max: "str" = None, mean: "float" = None, min: "str" = None, modes: "List[SingleValueMode]" = None, numeric_count: "int" = None, relevant: "bool" = None, stddev: "float" = None, **extra):
         """SingleFieldSummary"""
 
         self._attrs = dict()
         if count is not None:
             self._attrs["count"] = count
-        if distict_count is not None:
-            self._attrs["distictCount"] = distict_count
+        if distinct_count is not None:
+            self._attrs["distinctCount"] = distinct_count
         if is_exact is not None:
             self._attrs["isExact"] = is_exact
         if max is not None:
@@ -86,22 +86,22 @@ class SingleFieldSummary(SSCModel):
         self._attrs["count"] = count
 
     @property
-    def distict_count(self) -> "int":
-        """ Gets the distict_count of this SingleFieldSummary.
+    def distinct_count(self) -> "int":
+        """ Gets the distinct_count of this SingleFieldSummary.
         The total number of unique values in the field.
         """
-        return self._attrs.get("distictCount")
+        return self._attrs.get("distinctCount")
 
-    @distict_count.setter
-    def distict_count(self, distict_count: "int"):
-        """Sets the distict_count of this SingleFieldSummary.
+    @distinct_count.setter
+    def distinct_count(self, distinct_count: "int"):
+        """Sets the distinct_count of this SingleFieldSummary.
 
         The total number of unique values in the field.
 
-        :param distict_count: The distict_count of this SingleFieldSummary.
+        :param distinct_count: The distinct_count of this SingleFieldSummary.
         :type: int
         """
-        self._attrs["distictCount"] = distict_count
+        self._attrs["distinctCount"] = distinct_count
 
     @property
     def is_exact(self) -> "bool":

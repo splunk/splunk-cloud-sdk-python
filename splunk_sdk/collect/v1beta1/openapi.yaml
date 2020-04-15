@@ -474,6 +474,8 @@ components:
           - canceled
           title: status
           type: string
+      required:
+      - status
       title: executionPatch
       type: object
       required:
@@ -939,6 +941,7 @@ paths:
           $ref: '#/components/responses/500'
       summary: Creates an execution for a scheduled job based on the job ID.
       x-authz-scope: collect.jobs.executions.create
+      x-internal: false
   /{tenant}/collect/v1beta1/jobs/{jobId}/executions/{executionUid}:
     get:
       operationId: getExecution
@@ -968,6 +971,7 @@ paths:
           $ref: '#/components/responses/500'
       summary: Returns the execution details based on the execution ID and job ID.
       x-authz-scope: collect.jobs.executions.read
+      x-internal: false
     patch:
       operationId: patchExecution
       parameters:
@@ -1012,5 +1016,6 @@ paths:
           $ref: '#/components/responses/500'
       summary: Modifies an execution based on the job ID.
       x-authz-scope: collect.jobs.executions.update
+      x-internal: false
 
-# Retrieved from scp-openapi commit 1f1cb97cb92c343b7c251291a7abf74ef6e0d819 path: collect/v1beta1/openapi.yaml
+# Retrieved from scp-openapi commit 1a58317339e18d6d996946a3e068abf030892b83 path: collect/v1beta1/openapi.yaml

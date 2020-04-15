@@ -37,13 +37,15 @@ from splunk_sdk.catalog.v2alpha2.gen_metadata_catalog_api import MetadataCatalog
 from splunk_sdk.catalog.v2alpha2.gen_models import Action, \
     ActionPATCH, \
     ActionPOST, \
-    AliasAction, \
+    AliasActionFromAction, \
+    AliasActionFromActionPOST, \
     AliasActionKind, \
     AliasActionPATCH, \
     AliasActionPOST, \
     Annotation, \
     AnnotationPOST, \
-    AutoKVAction, \
+    AutoKVActionFromAction, \
+    AutoKVActionFromActionPOST, \
     AutoKVActionKind, \
     AutoKVActionPATCH, \
     AutoKVActionPOST, \
@@ -58,7 +60,8 @@ from splunk_sdk.catalog.v2alpha2.gen_models import Action, \
     FieldType, \
     FieldPrevalence, \
     DatasetPOST, \
-    EvalAction, \
+    EvalActionFromAction, \
+    EvalActionFromActionPOST, \
     EvalActionKind, \
     EvalActionPATCH, \
     EvalActionPOST, \
@@ -85,7 +88,8 @@ from splunk_sdk.catalog.v2alpha2.gen_models import Action, \
     KVCollectionDatasetKind, \
     KVCollectionDatasetPATCH, \
     KVCollectionDatasetPOST, \
-    LookupAction, \
+    LookupActionFromAction, \
+    LookupActionFromActionPOST, \
     LookupActionKind, \
     LookupActionPATCH, \
     LookupActionPOST, \
@@ -99,7 +103,8 @@ from splunk_sdk.catalog.v2alpha2.gen_models import Action, \
     MetricDatasetPATCH, \
     MetricDatasetPOST, \
     Module, \
-    RegexAction, \
+    RegexActionFromAction, \
+    RegexActionFromActionPOST, \
     RegexActionKind, \
     RegexActionPATCH, \
     RegexActionPOST, \

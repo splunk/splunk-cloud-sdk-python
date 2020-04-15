@@ -32,6 +32,719 @@ from enum import Enum
 
 
 
+class TypeEnum(str, Enum):
+    INFO = "INFO"
+    DEBUG = "DEBUG"
+    FATAL = "FATAL"
+    ERROR = "ERROR"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "INFO":
+            return TypeEnum.INFO
+        if value == "DEBUG":
+            return TypeEnum.DEBUG
+        if value == "FATAL":
+            return TypeEnum.FATAL
+        if value == "ERROR":
+            return TypeEnum.ERROR
+
+
+class Message(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "Message":
+        instance = Message.__new__(Message)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, text: "str" = None, type: "str" = None, **extra):
+        """Message"""
+
+        self._attrs = dict()
+        if text is not None:
+            self._attrs["text"] = text
+        if type is not None:
+            self._attrs["type"] = type
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def text(self) -> "str":
+        """ Gets the text of this Message.
+        """
+        return self._attrs.get("text")
+
+    @text.setter
+    def text(self, text: "str"):
+        """Sets the text of this Message.
+
+
+        :param text: The text of this Message.
+        :type: str
+        """
+        self._attrs["text"] = text
+
+    @property
+    def type(self) -> "TypeEnum":
+        """ Gets the type of this Message.
+        """
+        return TypeEnum.from_value(self._attrs.get("type"))
+
+    @type.setter
+    def type(self, type: "str"):
+        """Sets the type of this Message.
+
+
+        :param type: The type of this Message.
+        :type: str
+        """
+        if isinstance(type, Enum):
+            self._attrs["type"] = type.value
+        else:
+            self._attrs["type"] = type  # If you supply a string, we presume you know the service will take it.
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class QueryParameters(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "QueryParameters":
+        instance = QueryParameters.__new__(QueryParameters)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, earliest: "str" = '-24h@h', latest: "str" = 'now', relative_time_anchor: "datetime" = None, timezone: "object" = None, **extra):
+        """QueryParameters"""
+
+        self._attrs = dict()
+        if earliest is not None:
+            self._attrs["earliest"] = earliest
+        if latest is not None:
+            self._attrs["latest"] = latest
+        if relative_time_anchor is not None:
+            self._attrs["relativeTimeAnchor"] = relative_time_anchor
+        if timezone is not None:
+            self._attrs["timezone"] = timezone
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def earliest(self) -> "str":
+        """ Gets the earliest of this QueryParameters.
+        The earliest time, in absolute or relative format, to retrieve events.  When specifying an absolute time specify either UNIX time,  or UTC in seconds using the ISO-8601 (%FT%T.%Q) format.  For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC.  Any offset specified is ignored. 
+        """
+        return self._attrs.get("earliest")
+
+    @earliest.setter
+    def earliest(self, earliest: "str"):
+        """Sets the earliest of this QueryParameters.
+
+        The earliest time, in absolute or relative format, to retrieve events.  When specifying an absolute time specify either UNIX time,  or UTC in seconds using the ISO-8601 (%FT%T.%Q) format.  For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC.  Any offset specified is ignored. 
+
+        :param earliest: The earliest of this QueryParameters.
+        :type: str
+        """
+        self._attrs["earliest"] = earliest
+
+    @property
+    def latest(self) -> "str":
+        """ Gets the latest of this QueryParameters.
+        The latest time, in absolute or relative format, to retrieve events.  When specifying an absolute time specify either UNIX time,  or UTC in seconds using the ISO-8601 (%FT%T.%Q) format.  For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC.  Any offset specified is ignored. 
+        """
+        return self._attrs.get("latest")
+
+    @latest.setter
+    def latest(self, latest: "str"):
+        """Sets the latest of this QueryParameters.
+
+        The latest time, in absolute or relative format, to retrieve events.  When specifying an absolute time specify either UNIX time,  or UTC in seconds using the ISO-8601 (%FT%T.%Q) format.  For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC.  Any offset specified is ignored. 
+
+        :param latest: The latest of this QueryParameters.
+        :type: str
+        """
+        self._attrs["latest"] = latest
+
+    @property
+    def relative_time_anchor(self) -> "datetime":
+        """ Gets the relative_time_anchor of this QueryParameters.
+        Relative values for the 'earliest' and 'latest' parameters  snap to the unit that you specify.  For example, if 'earliest' is set to -d@d, the unit is day.  If the 'relativeTimeAnchor' is is set to '1994-11-05T13:15:30Z'  then 'resolvedEarliest' is snapped to '1994-11-05T00:00:00Z',  which is the day. Hours, minutes, and seconds are dropped.  If no 'relativeTimeAnchor' is specified, the default value  is set to the time the search job was created. 
+        """
+        return self._attrs.get("relativeTimeAnchor")
+
+    @relative_time_anchor.setter
+    def relative_time_anchor(self, relative_time_anchor: "datetime"):
+        """Sets the relative_time_anchor of this QueryParameters.
+
+        Relative values for the 'earliest' and 'latest' parameters  snap to the unit that you specify.  For example, if 'earliest' is set to -d@d, the unit is day.  If the 'relativeTimeAnchor' is is set to '1994-11-05T13:15:30Z'  then 'resolvedEarliest' is snapped to '1994-11-05T00:00:00Z',  which is the day. Hours, minutes, and seconds are dropped.  If no 'relativeTimeAnchor' is specified, the default value  is set to the time the search job was created. 
+
+        :param relative_time_anchor: The relative_time_anchor of this QueryParameters.
+        :type: datetime
+        """
+        self._attrs["relativeTimeAnchor"] = relative_time_anchor
+
+    @property
+    def timezone(self) -> "object":
+        """ Gets the timezone of this QueryParameters.
+        The timezone that relative time specifiers are based off of.  Timezone only applies to relative time literals for 'earliest' and 'latest'.  If UNIX time or UTC format is used for 'earliest' and 'latest',  this field is ignored. For the list of supported timezone formats, see https://docs.splunk.com/Documentation/Splunk/latest/Data/Applytimezoneoffsetstotimestamps#zoneinfo_.28TZ.29_database type: string default: \"GMT\" 
+        """
+        return self._attrs.get("timezone")
+
+    @timezone.setter
+    def timezone(self, timezone: "object"):
+        """Sets the timezone of this QueryParameters.
+
+        The timezone that relative time specifiers are based off of.  Timezone only applies to relative time literals for 'earliest' and 'latest'.  If UNIX time or UTC format is used for 'earliest' and 'latest',  this field is ignored. For the list of supported timezone formats, see https://docs.splunk.com/Documentation/Splunk/latest/Data/Applytimezoneoffsetstotimestamps#zoneinfo_.28TZ.29_database type: string default: \"GMT\" 
+
+        :param timezone: The timezone of this QueryParameters.
+        :type: object
+        """
+        self._attrs["timezone"] = timezone
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class SearchStatus(str, Enum):
+    RUNNING = "running"
+    DONE = "done"
+    CANCELED = "canceled"
+    FAILED = "failed"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "running":
+            return SearchStatus.RUNNING
+        if value == "done":
+            return SearchStatus.DONE
+        if value == "canceled":
+            return SearchStatus.CANCELED
+        if value == "failed":
+            return SearchStatus.FAILED
+
+
+class DeleteSearchJob(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "DeleteSearchJob":
+        instance = DeleteSearchJob.__new__(DeleteSearchJob)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, index: "str", allow_side_effects: "bool" = True, collect_event_summary: "bool" = False, collect_field_summary: "bool" = False, collect_time_buckets: "bool" = False, completion_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = False, extract_all_fields: "bool" = False, max_time: "float" = 3600, messages: "List[Message]" = None, module: "str" = '', name: "str" = None, percent_complete: "int" = 0, prediate: "str" = '', preview_available: "str" = 'false', query: "str" = None, query_parameters: "QueryParameters" = None, required_freshness: "float" = 0, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = 0, results_preview_available: "int" = 0, sid: "str" = None, status: "SearchStatus" = None, **extra):
+        """DeleteSearchJob"""
+
+        self._attrs = dict()
+        if index is not None:
+            self._attrs["index"] = index
+        if allow_side_effects is not None:
+            self._attrs["allowSideEffects"] = allow_side_effects
+        if collect_event_summary is not None:
+            self._attrs["collectEventSummary"] = collect_event_summary
+        if collect_field_summary is not None:
+            self._attrs["collectFieldSummary"] = collect_field_summary
+        if collect_time_buckets is not None:
+            self._attrs["collectTimeBuckets"] = collect_time_buckets
+        if completion_time is not None:
+            self._attrs["completionTime"] = completion_time
+        if dispatch_time is not None:
+            self._attrs["dispatchTime"] = dispatch_time
+        if enable_preview is not None:
+            self._attrs["enablePreview"] = enable_preview
+        if extract_all_fields is not None:
+            self._attrs["extractAllFields"] = extract_all_fields
+        if max_time is not None:
+            self._attrs["maxTime"] = max_time
+        if messages is not None:
+            self._attrs["messages"] = messages
+        if module is not None:
+            self._attrs["module"] = module
+        if name is not None:
+            self._attrs["name"] = name
+        if percent_complete is not None:
+            self._attrs["percentComplete"] = percent_complete
+        if prediate is not None:
+            self._attrs["prediate"] = prediate
+        if preview_available is not None:
+            self._attrs["previewAvailable"] = preview_available
+        if query is not None:
+            self._attrs["query"] = query
+        if query_parameters is not None:
+            self._attrs["queryParameters"] = query_parameters.to_dict()
+        if required_freshness is not None:
+            self._attrs["requiredFreshness"] = required_freshness
+        if resolved_earliest is not None:
+            self._attrs["resolvedEarliest"] = resolved_earliest
+        if resolved_latest is not None:
+            self._attrs["resolvedLatest"] = resolved_latest
+        if results_available is not None:
+            self._attrs["resultsAvailable"] = results_available
+        if results_preview_available is not None:
+            self._attrs["resultsPreviewAvailable"] = results_preview_available
+        if sid is not None:
+            self._attrs["sid"] = sid
+        if status is not None:
+            self._attrs["status"] = status
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def index(self) -> "str":
+        """ Gets the index of this DeleteSearchJob.
+        The index to delete events from.
+        """
+        return self._attrs.get("index")
+
+    @index.setter
+    def index(self, index: "str"):
+        """Sets the index of this DeleteSearchJob.
+
+        The index to delete events from.
+
+        :param index: The index of this DeleteSearchJob.
+        :type: str
+        """
+        if index is None:
+            raise ValueError("Invalid value for `index`, must not be `None`")
+        self._attrs["index"] = index
+
+    @property
+    def allow_side_effects(self) -> "bool":
+        """ Gets the allow_side_effects of this DeleteSearchJob.
+        Specifies that the delete search job will contain side effects, with possible security risks. 
+        """
+        return self._attrs.get("allowSideEffects")
+
+    @allow_side_effects.setter
+    def allow_side_effects(self, allow_side_effects: "bool"):
+        """Sets the allow_side_effects of this DeleteSearchJob.
+
+        Specifies that the delete search job will contain side effects, with possible security risks. 
+
+        :param allow_side_effects: The allow_side_effects of this DeleteSearchJob.
+        :type: bool
+        """
+        self._attrs["allowSideEffects"] = allow_side_effects
+
+    @property
+    def collect_event_summary(self) -> "bool":
+        """ Gets the collect_event_summary of this DeleteSearchJob.
+        This field does not apply to delete search jobs and is defaulted to false. 
+        """
+        return self._attrs.get("collectEventSummary")
+
+    @collect_event_summary.setter
+    def collect_event_summary(self, collect_event_summary: "bool"):
+        """Sets the collect_event_summary of this DeleteSearchJob.
+
+        This field does not apply to delete search jobs and is defaulted to false. 
+
+        :param collect_event_summary: The collect_event_summary of this DeleteSearchJob.
+        :type: bool
+        """
+        self._attrs["collectEventSummary"] = collect_event_summary
+
+    @property
+    def collect_field_summary(self) -> "bool":
+        """ Gets the collect_field_summary of this DeleteSearchJob.
+        This field does not apply to delete search jobs and is defaulted to false. 
+        """
+        return self._attrs.get("collectFieldSummary")
+
+    @collect_field_summary.setter
+    def collect_field_summary(self, collect_field_summary: "bool"):
+        """Sets the collect_field_summary of this DeleteSearchJob.
+
+        This field does not apply to delete search jobs and is defaulted to false. 
+
+        :param collect_field_summary: The collect_field_summary of this DeleteSearchJob.
+        :type: bool
+        """
+        self._attrs["collectFieldSummary"] = collect_field_summary
+
+    @property
+    def collect_time_buckets(self) -> "bool":
+        """ Gets the collect_time_buckets of this DeleteSearchJob.
+        This field does not apply to delete search jobs and is defaulted to false. 
+        """
+        return self._attrs.get("collectTimeBuckets")
+
+    @collect_time_buckets.setter
+    def collect_time_buckets(self, collect_time_buckets: "bool"):
+        """Sets the collect_time_buckets of this DeleteSearchJob.
+
+        This field does not apply to delete search jobs and is defaulted to false. 
+
+        :param collect_time_buckets: The collect_time_buckets of this DeleteSearchJob.
+        :type: bool
+        """
+        self._attrs["collectTimeBuckets"] = collect_time_buckets
+
+    @property
+    def completion_time(self) -> "str":
+        """ Gets the completion_time of this DeleteSearchJob.
+        The time, in GMT, that the search job is finished. Empty if the search job has not completed. 
+        """
+        return self._attrs.get("completionTime")
+
+    @completion_time.setter
+    def completion_time(self, completion_time: "str"):
+        """Sets the completion_time of this DeleteSearchJob.
+
+        The time, in GMT, that the search job is finished. Empty if the search job has not completed. 
+
+        :param completion_time: The completion_time of this DeleteSearchJob.
+        :type: str
+        """
+        self._attrs["completionTime"] = completion_time
+
+    @property
+    def dispatch_time(self) -> "str":
+        """ Gets the dispatch_time of this DeleteSearchJob.
+        The time, in GMT, that the search job is dispatched. 
+        """
+        return self._attrs.get("dispatchTime")
+
+    @dispatch_time.setter
+    def dispatch_time(self, dispatch_time: "str"):
+        """Sets the dispatch_time of this DeleteSearchJob.
+
+        The time, in GMT, that the search job is dispatched. 
+
+        :param dispatch_time: The dispatch_time of this DeleteSearchJob.
+        :type: str
+        """
+        self._attrs["dispatchTime"] = dispatch_time
+
+    @property
+    def enable_preview(self) -> "bool":
+        """ Gets the enable_preview of this DeleteSearchJob.
+        This field does not apply to delete search jobs and is defaulted to false. 
+        """
+        return self._attrs.get("enablePreview")
+
+    @enable_preview.setter
+    def enable_preview(self, enable_preview: "bool"):
+        """Sets the enable_preview of this DeleteSearchJob.
+
+        This field does not apply to delete search jobs and is defaulted to false. 
+
+        :param enable_preview: The enable_preview of this DeleteSearchJob.
+        :type: bool
+        """
+        self._attrs["enablePreview"] = enable_preview
+
+    @property
+    def extract_all_fields(self) -> "bool":
+        """ Gets the extract_all_fields of this DeleteSearchJob.
+        Specifies whether the Search service should extract all of the available fields in the data, including fields not mentioned in the SPL for the search job. Set to 'false' for better search peformance. 
+        """
+        return self._attrs.get("extractAllFields")
+
+    @extract_all_fields.setter
+    def extract_all_fields(self, extract_all_fields: "bool"):
+        """Sets the extract_all_fields of this DeleteSearchJob.
+
+        Specifies whether the Search service should extract all of the available fields in the data, including fields not mentioned in the SPL for the search job. Set to 'false' for better search peformance. 
+
+        :param extract_all_fields: The extract_all_fields of this DeleteSearchJob.
+        :type: bool
+        """
+        self._attrs["extractAllFields"] = extract_all_fields
+
+    @property
+    def max_time(self) -> "float":
+        """ Gets the max_time of this DeleteSearchJob.
+        The amount of time, in seconds, to run the delete search job before finalizing the search. The maximum value is 3600 seconds (1 hour). 
+        """
+        return self._attrs.get("maxTime")
+
+    @max_time.setter
+    def max_time(self, max_time: "float"):
+        """Sets the max_time of this DeleteSearchJob.
+
+        The amount of time, in seconds, to run the delete search job before finalizing the search. The maximum value is 3600 seconds (1 hour). 
+
+        :param max_time: The max_time of this DeleteSearchJob.
+        :type: float
+        """
+        self._attrs["maxTime"] = max_time
+
+    @property
+    def messages(self) -> "List[Message]":
+        """ Gets the messages of this DeleteSearchJob.
+        """
+        return [Message._from_dict(i) for i in self._attrs.get("messages")]
+
+    @messages.setter
+    def messages(self, messages: "List[Message]"):
+        """Sets the messages of this DeleteSearchJob.
+
+
+        :param messages: The messages of this DeleteSearchJob.
+        :type: List[Message]
+        """
+        self._attrs["messages"] = messages
+
+    @property
+    def module(self) -> "str":
+        """ Gets the module of this DeleteSearchJob.
+        The module to run the delete search job in. The default module is used if a module is not specified.
+        """
+        return self._attrs.get("module")
+
+    @module.setter
+    def module(self, module: "str"):
+        """Sets the module of this DeleteSearchJob.
+
+        The module to run the delete search job in. The default module is used if a module is not specified.
+
+        :param module: The module of this DeleteSearchJob.
+        :type: str
+        """
+        self._attrs["module"] = module
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this DeleteSearchJob.
+        The name of the created search job.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this DeleteSearchJob.
+
+        The name of the created search job.
+
+        :param name: The name of this DeleteSearchJob.
+        :type: str
+        """
+        self._attrs["name"] = name
+
+    @property
+    def percent_complete(self) -> "int":
+        """ Gets the percent_complete of this DeleteSearchJob.
+        An estimate of the percent of time remaining before the delete search job completes.
+        """
+        return self._attrs.get("percentComplete")
+
+    @percent_complete.setter
+    def percent_complete(self, percent_complete: "int"):
+        """Sets the percent_complete of this DeleteSearchJob.
+
+        An estimate of the percent of time remaining before the delete search job completes.
+
+        :param percent_complete: The percent_complete of this DeleteSearchJob.
+        :type: int
+        """
+        self._attrs["percentComplete"] = percent_complete
+
+    @property
+    def prediate(self) -> "str":
+        """ Gets the prediate of this DeleteSearchJob.
+        Events satisfying this predicate are going to be deleted.
+        """
+        return self._attrs.get("prediate")
+
+    @prediate.setter
+    def prediate(self, prediate: "str"):
+        """Sets the prediate of this DeleteSearchJob.
+
+        Events satisfying this predicate are going to be deleted.
+
+        :param prediate: The prediate of this DeleteSearchJob.
+        :type: str
+        """
+        self._attrs["prediate"] = prediate
+
+    @property
+    def preview_available(self) -> "str":
+        """ Gets the preview_available of this DeleteSearchJob.
+        This field does not apply to delete search jobs and is defaulted to false.
+        """
+        return self._attrs.get("previewAvailable")
+
+    @preview_available.setter
+    def preview_available(self, preview_available: "str"):
+        """Sets the preview_available of this DeleteSearchJob.
+
+        This field does not apply to delete search jobs and is defaulted to false.
+
+        :param preview_available: The preview_available of this DeleteSearchJob.
+        :type: str
+        """
+        self._attrs["previewAvailable"] = preview_available
+
+    @property
+    def query(self) -> "str":
+        """ Gets the query of this DeleteSearchJob.
+        The SPL search string that is generated based on index, module and predicate that are specified.
+        """
+        return self._attrs.get("query")
+
+    @query.setter
+    def query(self, query: "str"):
+        """Sets the query of this DeleteSearchJob.
+
+        The SPL search string that is generated based on index, module and predicate that are specified.
+
+        :param query: The query of this DeleteSearchJob.
+        :type: str
+        """
+        self._attrs["query"] = query
+
+    @property
+    def query_parameters(self) -> "QueryParameters":
+        """ Gets the query_parameters of this DeleteSearchJob.
+        Represents parameters on the search job such as 'earliest' and 'latest'.
+        """
+        return QueryParameters._from_dict(self._attrs["queryParameters"])
+
+    @query_parameters.setter
+    def query_parameters(self, query_parameters: "QueryParameters"):
+        """Sets the query_parameters of this DeleteSearchJob.
+
+        Represents parameters on the search job such as 'earliest' and 'latest'.
+
+        :param query_parameters: The query_parameters of this DeleteSearchJob.
+        :type: QueryParameters
+        """
+        self._attrs["queryParameters"] = query_parameters.to_dict()
+
+    @property
+    def required_freshness(self) -> "float":
+        """ Gets the required_freshness of this DeleteSearchJob.
+        This field does not apply to delete search jobs and is set to 0. 
+        """
+        return self._attrs.get("requiredFreshness")
+
+    @required_freshness.setter
+    def required_freshness(self, required_freshness: "float"):
+        """Sets the required_freshness of this DeleteSearchJob.
+
+        This field does not apply to delete search jobs and is set to 0. 
+
+        :param required_freshness: The required_freshness of this DeleteSearchJob.
+        :type: float
+        """
+        self._attrs["requiredFreshness"] = required_freshness
+
+    @property
+    def resolved_earliest(self) -> "str":
+        """ Gets the resolved_earliest of this DeleteSearchJob.
+        The earliest time speciifed as an absolute value in GMT. The time is computed based on the values you specify for the 'timezone' and 'earliest' queryParameters. 
+        """
+        return self._attrs.get("resolvedEarliest")
+
+    @resolved_earliest.setter
+    def resolved_earliest(self, resolved_earliest: "str"):
+        """Sets the resolved_earliest of this DeleteSearchJob.
+
+        The earliest time speciifed as an absolute value in GMT. The time is computed based on the values you specify for the 'timezone' and 'earliest' queryParameters. 
+
+        :param resolved_earliest: The resolved_earliest of this DeleteSearchJob.
+        :type: str
+        """
+        self._attrs["resolvedEarliest"] = resolved_earliest
+
+    @property
+    def resolved_latest(self) -> "str":
+        """ Gets the resolved_latest of this DeleteSearchJob.
+        The latest time specified as an absolute value in GMT. The time is computed based on the values you specify for the 'timezone' and 'earliest' queryParameters. 
+        """
+        return self._attrs.get("resolvedLatest")
+
+    @resolved_latest.setter
+    def resolved_latest(self, resolved_latest: "str"):
+        """Sets the resolved_latest of this DeleteSearchJob.
+
+        The latest time specified as an absolute value in GMT. The time is computed based on the values you specify for the 'timezone' and 'earliest' queryParameters. 
+
+        :param resolved_latest: The resolved_latest of this DeleteSearchJob.
+        :type: str
+        """
+        self._attrs["resolvedLatest"] = resolved_latest
+
+    @property
+    def results_available(self) -> "int":
+        """ Gets the results_available of this DeleteSearchJob.
+        The number of results produced so far by the delete search job that are going to be deleted.
+        """
+        return self._attrs.get("resultsAvailable")
+
+    @results_available.setter
+    def results_available(self, results_available: "int"):
+        """Sets the results_available of this DeleteSearchJob.
+
+        The number of results produced so far by the delete search job that are going to be deleted.
+
+        :param results_available: The results_available of this DeleteSearchJob.
+        :type: int
+        """
+        self._attrs["resultsAvailable"] = results_available
+
+    @property
+    def results_preview_available(self) -> "int":
+        """ Gets the results_preview_available of this DeleteSearchJob.
+        This field does not apply to delete search jobs and is defaulted to 0.
+        """
+        return self._attrs.get("resultsPreviewAvailable")
+
+    @results_preview_available.setter
+    def results_preview_available(self, results_preview_available: "int"):
+        """Sets the results_preview_available of this DeleteSearchJob.
+
+        This field does not apply to delete search jobs and is defaulted to 0.
+
+        :param results_preview_available: The results_preview_available of this DeleteSearchJob.
+        :type: int
+        """
+        self._attrs["resultsPreviewAvailable"] = results_preview_available
+
+    @property
+    def sid(self) -> "str":
+        """ Gets the sid of this DeleteSearchJob.
+        The ID assigned to the delete search job.
+        """
+        return self._attrs.get("sid")
+
+    @sid.setter
+    def sid(self, sid: "str"):
+        """Sets the sid of this DeleteSearchJob.
+
+        The ID assigned to the delete search job.
+
+        :param sid: The sid of this DeleteSearchJob.
+        :type: str
+        """
+        self._attrs["sid"] = sid
+
+    @property
+    def status(self) -> "SearchStatus":
+        """ Gets the status of this DeleteSearchJob.
+        """
+        return SearchStatus.from_value(self._attrs.get("status"))
+
+    @status.setter
+    def status(self, status: "SearchStatus"):
+        """Sets the status of this DeleteSearchJob.
+
+
+        :param status: The status of this DeleteSearchJob.
+        :type: SearchStatus
+        """
+        if isinstance(status, Enum):
+            self._attrs["status"] = status.value
+        else:
+            self._attrs["status"] = status  # If you supply a string, we presume you know the service will take it.
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
 class SingleFieldSummary(SSCModel):
 
     @staticmethod
@@ -40,14 +753,14 @@ class SingleFieldSummary(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, count: "int" = None, distict_count: "int" = None, is_exact: "bool" = None, max: "str" = None, mean: "float" = None, min: "str" = None, modes: "List[SingleValueMode]" = None, numeric_count: "int" = None, relevant: "bool" = None, stddev: "float" = None, **extra):
+    def __init__(self, count: "int" = None, distinct_count: "int" = None, is_exact: "bool" = None, max: "str" = None, mean: "float" = None, min: "str" = None, modes: "List[SingleValueMode]" = None, numeric_count: "int" = None, relevant: "bool" = None, stddev: "float" = None, **extra):
         """SingleFieldSummary"""
 
         self._attrs = dict()
         if count is not None:
             self._attrs["count"] = count
-        if distict_count is not None:
-            self._attrs["distictCount"] = distict_count
+        if distinct_count is not None:
+            self._attrs["distinctCount"] = distinct_count
         if is_exact is not None:
             self._attrs["isExact"] = is_exact
         if max is not None:
@@ -86,22 +799,22 @@ class SingleFieldSummary(SSCModel):
         self._attrs["count"] = count
 
     @property
-    def distict_count(self) -> "int":
-        """ Gets the distict_count of this SingleFieldSummary.
+    def distinct_count(self) -> "int":
+        """ Gets the distinct_count of this SingleFieldSummary.
         The total number of unique values in the field.
         """
-        return self._attrs.get("distictCount")
+        return self._attrs.get("distinctCount")
 
-    @distict_count.setter
-    def distict_count(self, distict_count: "int"):
-        """Sets the distict_count of this SingleFieldSummary.
+    @distinct_count.setter
+    def distinct_count(self, distinct_count: "int"):
+        """Sets the distinct_count of this SingleFieldSummary.
 
         The total number of unique values in the field.
 
-        :param distict_count: The distict_count of this SingleFieldSummary.
+        :param distinct_count: The distinct_count of this SingleFieldSummary.
         :type: int
         """
-        self._attrs["distictCount"] = distict_count
+        self._attrs["distinctCount"] = distinct_count
 
     @property
     def is_exact(self) -> "bool":
@@ -596,82 +1309,6 @@ class ListSearchResultsResponseFields(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-class TypeEnum(str, Enum):
-    INFO = "INFO"
-    DEBUG = "DEBUG"
-    FATAL = "FATAL"
-    ERROR = "ERROR"
-
-    @staticmethod
-    def from_value(value: str):
-        if value == "INFO":
-            return TypeEnum.INFO
-        if value == "DEBUG":
-            return TypeEnum.DEBUG
-        if value == "FATAL":
-            return TypeEnum.FATAL
-        if value == "ERROR":
-            return TypeEnum.ERROR
-
-
-class Message(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "Message":
-        instance = Message.__new__(Message)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, text: "str" = None, type: "str" = None, **extra):
-        """Message"""
-
-        self._attrs = dict()
-        if text is not None:
-            self._attrs["text"] = text
-        if type is not None:
-            self._attrs["type"] = type
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def text(self) -> "str":
-        """ Gets the text of this Message.
-        """
-        return self._attrs.get("text")
-
-    @text.setter
-    def text(self, text: "str"):
-        """Sets the text of this Message.
-
-
-        :param text: The text of this Message.
-        :type: str
-        """
-        self._attrs["text"] = text
-
-    @property
-    def type(self) -> "TypeEnum":
-        """ Gets the type of this Message.
-        """
-        return TypeEnum.from_value(self._attrs.get("type"))
-
-    @type.setter
-    def type(self, type: "str"):
-        """Sets the type of this Message.
-
-
-        :param type: The type of this Message.
-        :type: str
-        """
-        if isinstance(type, Enum):
-            self._attrs["type"] = type.value
-        else:
-            self._attrs["type"] = type  # If you supply a string, we presume you know the service will take it.
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
 class ListPreviewResultsResponse(SSCModel):
 
     @staticmethod
@@ -909,105 +1546,6 @@ class ListSearchResultsResponse(SSCModel):
         :type: str
         """
         self._attrs["wait"] = wait
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class QueryParameters(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "QueryParameters":
-        instance = QueryParameters.__new__(QueryParameters)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, earliest: "str" = '-24h@h', latest: "str" = 'now', relative_time_anchor: "datetime" = None, timezone: "object" = None, **extra):
-        """QueryParameters"""
-
-        self._attrs = dict()
-        if earliest is not None:
-            self._attrs["earliest"] = earliest
-        if latest is not None:
-            self._attrs["latest"] = latest
-        if relative_time_anchor is not None:
-            self._attrs["relativeTimeAnchor"] = relative_time_anchor
-        if timezone is not None:
-            self._attrs["timezone"] = timezone
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def earliest(self) -> "str":
-        """ Gets the earliest of this QueryParameters.
-        The earliest time, in absolute or relative format, to retrieve events.  When specifying an absolute time specify either UNIX time,  or UTC in seconds using the ISO-8601 (%FT%T.%Q) format.  For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC.  Any offset specified is ignored. 
-        """
-        return self._attrs.get("earliest")
-
-    @earliest.setter
-    def earliest(self, earliest: "str"):
-        """Sets the earliest of this QueryParameters.
-
-        The earliest time, in absolute or relative format, to retrieve events.  When specifying an absolute time specify either UNIX time,  or UTC in seconds using the ISO-8601 (%FT%T.%Q) format.  For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC.  Any offset specified is ignored. 
-
-        :param earliest: The earliest of this QueryParameters.
-        :type: str
-        """
-        self._attrs["earliest"] = earliest
-
-    @property
-    def latest(self) -> "str":
-        """ Gets the latest of this QueryParameters.
-        The latest time, in absolute or relative format, to retrieve events.  When specifying an absolute time specify either UNIX time,  or UTC in seconds using the ISO-8601 (%FT%T.%Q) format.  For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC.  Any offset specified is ignored. 
-        """
-        return self._attrs.get("latest")
-
-    @latest.setter
-    def latest(self, latest: "str"):
-        """Sets the latest of this QueryParameters.
-
-        The latest time, in absolute or relative format, to retrieve events.  When specifying an absolute time specify either UNIX time,  or UTC in seconds using the ISO-8601 (%FT%T.%Q) format.  For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC.  Any offset specified is ignored. 
-
-        :param latest: The latest of this QueryParameters.
-        :type: str
-        """
-        self._attrs["latest"] = latest
-
-    @property
-    def relative_time_anchor(self) -> "datetime":
-        """ Gets the relative_time_anchor of this QueryParameters.
-        Relative values for the 'earliest' and 'latest' parameters  snap to the unit that you specify.  For example, if 'earliest' is set to -d@d, the unit is day.  If the 'relativeTimeAnchor' is is set to '1994-11-05T13:15:30Z'  then 'resolvedEarliest' is snapped to '1994-11-05T00:00:00Z',  which is the day. Hours, minutes, and seconds are dropped.  If no 'relativeTimeAnchor' is specified, the default value  is set to the time the search job was created. 
-        """
-        return self._attrs.get("relativeTimeAnchor")
-
-    @relative_time_anchor.setter
-    def relative_time_anchor(self, relative_time_anchor: "datetime"):
-        """Sets the relative_time_anchor of this QueryParameters.
-
-        Relative values for the 'earliest' and 'latest' parameters  snap to the unit that you specify.  For example, if 'earliest' is set to -d@d, the unit is day.  If the 'relativeTimeAnchor' is is set to '1994-11-05T13:15:30Z'  then 'resolvedEarliest' is snapped to '1994-11-05T00:00:00Z',  which is the day. Hours, minutes, and seconds are dropped.  If no 'relativeTimeAnchor' is specified, the default value  is set to the time the search job was created. 
-
-        :param relative_time_anchor: The relative_time_anchor of this QueryParameters.
-        :type: datetime
-        """
-        self._attrs["relativeTimeAnchor"] = relative_time_anchor
-
-    @property
-    def timezone(self) -> "object":
-        """ Gets the timezone of this QueryParameters.
-        The timezone that relative time specifiers are based off of.  Timezone only applies to relative time literals for 'earliest' and 'latest'.  If UNIX time or UTC format is used for 'earliest' and 'latest',  this field is ignored. For the list of supported timezone formats, see https://docs.splunk.com/Documentation/Splunk/latest/Data/Applytimezoneoffsetstotimestamps#zoneinfo_.28TZ.29_database type: string default: \"GMT\" 
-        """
-        return self._attrs.get("timezone")
-
-    @timezone.setter
-    def timezone(self, timezone: "object"):
-        """Sets the timezone of this QueryParameters.
-
-        The timezone that relative time specifiers are based off of.  Timezone only applies to relative time literals for 'earliest' and 'latest'.  If UNIX time or UTC format is used for 'earliest' and 'latest',  this field is ignored. For the list of supported timezone formats, see https://docs.splunk.com/Documentation/Splunk/latest/Data/Applytimezoneoffsetstotimestamps#zoneinfo_.28TZ.29_database type: string default: \"GMT\" 
-
-        :param timezone: The timezone of this QueryParameters.
-        :type: object
-        """
-        self._attrs["timezone"] = timezone
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
@@ -1340,24 +1878,6 @@ class RecurringSearch(SSCModel):
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class SearchStatus(str, Enum):
-    RUNNING = "running"
-    DONE = "done"
-    CANCELED = "canceled"
-    FAILED = "failed"
-
-    @staticmethod
-    def from_value(value: str):
-        if value == "running":
-            return SearchStatus.RUNNING
-        if value == "done":
-            return SearchStatus.DONE
-        if value == "canceled":
-            return SearchStatus.CANCELED
-        if value == "failed":
-            return SearchStatus.FAILED
 
 
 class SearchJob(SSCModel):

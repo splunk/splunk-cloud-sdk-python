@@ -34,11 +34,7 @@ __version__ = "1.0.0"
 from splunk_sdk.provisioner.v1beta1.gen_provisioner_api import Provisioner
 
 # import models into sdk package
-from splunk_sdk.provisioner.v1beta1.gen_models import JobEntitlement, \
-    CreateEntitlementsJobBody, \
-    CreateProvisionJobBody, \
-    EntitlementsJobInfoErrorsItems, \
-    EntitlementsJobInfo, \
+from splunk_sdk.provisioner.v1beta1.gen_models import CreateProvisionJobBody, \
     Error, \
     InviteBody, \
     InviteInfoErrorsItems, \
