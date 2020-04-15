@@ -1,4 +1,4 @@
 include:
   - project: 'devplat-pr-32/gitlab-central'
-    ref: master
+    ref: '2c61b4b5'
     file: '/splunk-cloud-sdk-python/.gitlab-ci.yml'
