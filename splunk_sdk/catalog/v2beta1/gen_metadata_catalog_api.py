@@ -800,7 +800,7 @@ class MetadataCatalog(BaseService):
 
     def get_field_by_id(self, fieldid: str, query_params: Dict[str, object] = None) -> Field:
         """
-        Returns the field with the specified field ID.
+        Returns the field with the specified ID.
         """
         if query_params is None:
             query_params = {}
@@ -1152,7 +1152,7 @@ class MetadataCatalog(BaseService):
 
     def list_fields(self, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Field]:
         """
-        Returns a list of all fields in the Metadata Catalog.
+        Returns a list of all of the fields in the Metadata Catalog.
         """
         if query_params is None:
             query_params = {}
@@ -1199,7 +1199,7 @@ class MetadataCatalog(BaseService):
 
     def list_fields_for_dataset_by_id(self, datasetid: str, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Field]:
         """
-        Returns the set of fields for the the dataset with the specified ID.
+        Returns the set of fields for the dataset with the specified ID.
         """
         if query_params is None:
             query_params = {}

@@ -89,6 +89,141 @@ components:
       schema:
         type: string
   schemas:
+    DeleteSearchJob:
+      description: A fully-constructed delete search job, including read-only fields.
+      properties:
+        allowSideEffects:
+          default: true
+          description: |
+            Specifies that the delete search job will contain side effects, with possible security risks.
+          readOnly: true
+          type: boolean
+        collectEventSummary:
+          default: false
+          description: |
+            This field does not apply to delete search jobs and is defaulted to false.
+          readOnly: true
+          type: boolean
+        collectFieldSummary:
+          default: false
+          description: |
+            This field does not apply to delete search jobs and is defaulted to false.
+          readOnly: true
+          type: boolean
+        collectTimeBuckets:
+          default: false
+          description: |
+            This field does not apply to delete search jobs and is defaulted to false.
+          readOnly: true
+          type: boolean
+        completionTime:
+          description: |
+            The time, in GMT, that the search job is finished. Empty if the search job has not completed.
+          readOnly: true
+          type: string
+        dispatchTime:
+          description: |
+            The time, in GMT, that the search job is dispatched.
+          readOnly: true
+          type: string
+        enablePreview:
+          default: false
+          description: |
+            This field does not apply to delete search jobs and is defaulted to false.
+          readOnly: true
+          type: boolean
+        extractAllFields:
+          default: false
+          description: |
+            Specifies whether the Search service should extract all of the available fields in the data, including fields not mentioned in the SPL for the search job. Set to 'false' for better search peformance.
+          type: boolean
+        index:
+          description: The index to delete events from.
+          type: string
+        maxTime:
+          default: 3600
+          description: |
+            The amount of time, in seconds, to run the delete search job before finalizing the search. The maximum value is 3600 seconds (1 hour).
+          maximum: 3600
+          minimum: 1
+          type: number
+        messages:
+          items:
+            $ref: '#/components/schemas/Message'
+          type: array
+        module:
+          default: ""
+          description: The module to run the delete search job in. The default module
+            is used if a module is not specified.
+          type: string
+        name:
+          description: The name of the created search job.
+          maxLength: 100
+          readOnly: true
+          type: string
+        percentComplete:
+          default: 0
+          description: An estimate of the percent of time remaining before the delete
+            search job completes.
+          readOnly: true
+          type: integer
+        prediate:
+          default: ""
+          description: Events satisfying this predicate are going to be deleted.
+          type: string
+        previewAvailable:
+          default: false
+          description: This field does not apply to delete search jobs and is defaulted
+            to false.
+          readOnly: true
+          type: string
+        query:
+          description: The SPL search string that is generated based on index, module
+            and predicate that are specified.
+          readOnly: true
+          type: string
+        queryParameters:
+          allOf:
+          - $ref: '#/components/schemas/QueryParameters'
+          description: Represents parameters on the search job such as 'earliest'
+            and 'latest'.
+        requiredFreshness:
+          default: 0
+          description: |
+            This field does not apply to delete search jobs and is set to 0.
+          readOnly: true
+          type: number
+        resolvedEarliest:
+          description: |
+            The earliest time speciifed as an absolute value in GMT. The time is computed based on the values you specify for the 'timezone' and 'earliest' queryParameters.
+          readOnly: true
+          type: string
+        resolvedLatest:
+          description: |
+            The latest time specified as an absolute value in GMT. The time is computed based on the values you specify for the 'timezone' and 'earliest' queryParameters.
+          readOnly: true
+          type: string
+        resultsAvailable:
+          default: 0
+          description: The number of results produced so far by the delete search
+            job that are going to be deleted.
+          readOnly: true
+          type: integer
+        resultsPreviewAvailable:
+          default: 0
+          description: This field does not apply to delete search jobs and is defaulted
+            to 0.
+          readOnly: true
+          type: integer
+        sid:
+          description: The ID assigned to the delete search job.
+          readOnly: true
+          type: string
+        status:
+          $ref: '#/components/schemas/SearchStatus'
+      required:
+      - index
+      type: object
     Error:
       properties:
         code:
@@ -373,6 +508,8 @@ components:
           default: 0
           description: |
             Specifies a maximum time interval, in seconds, between identical existing searches. The 'requiredFreshness' parameter is used to determine if an existing search with the same query and the same time boundaries can be reused, instead of running the same search again. Freshness is applied to the resolvedEarliest and resolvedLatest parameters. If an existing search has the same exact criteria as this search and the resolvedEarliest and resolvedLatest values are within the freshness interval, the existing search metadata is returned instead of initiating a new search job. By default, the requiredFreshness parameter is set to 0 which means that the platform does not attempt to use an existing search.
+          maximum: 259200
+          minimum: 0
           type: number
         resolvedEarliest:
           description: |
@@ -419,7 +556,7 @@ components:
         count:
           description: The total number of events that contain the field.
           type: integer
-        distictCount:
+        distinctCount:
           description: The total number of unique values in the field.
           type: integer
         isExact:
@@ -869,6 +1006,31 @@ paths:
           description: The resource wan't found.
         "500":
           description: An internal service error occurred.
+  /{tenant}/search/v3alpha1/jobs/delete:
+    parameters:
+    - $ref: '#/components/parameters/AuthorizationHeader'
+    - $ref: '#/components/parameters/tenant'
+    post:
+      description: |
+        Creates a search job that deletes events from an index. The events are deleted from the index in the specified module, based on the search criteria as specified by the predicate.
+      operationId: deleteJob
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteSearchJob'
+          description: The delete search job was created successfully.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn’t authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "500":
+          description: An internal service error occurred.
   /{tenant}/search/v3alpha1/recurring-searches:
     get:
       description: Returns a matching list of all recurring searches.
@@ -1055,4 +1217,4 @@ paths:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/rsid'
 
-# Retrieved from scp-openapi commit 1f1cb97cb92c343b7c251291a7abf74ef6e0d819 path: search/v3alpha1/openapi.yaml
+# Retrieved from scp-openapi commit 1a58317339e18d6d996946a3e068abf030892b83 path: search/v3alpha1/openapi.yaml

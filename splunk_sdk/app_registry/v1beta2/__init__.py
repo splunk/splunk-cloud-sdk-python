@@ -41,11 +41,14 @@ from splunk_sdk.app_registry.v1beta2.gen_models import AppName, \
     CreateAppRequest, \
     Error, \
     Key, \
-    NativeApp, \
+    NativeAppFromAppResponseCreateUpdate, \
+    NativeAppFromAppResponseGetList, \
     NativeAppPOST, \
-    ServiceApp, \
+    ServiceAppFromAppResponseCreateUpdate, \
+    ServiceAppFromAppResponseGetList, \
     ServiceAppPOST, \
     Subscription, \
     UpdateAppRequest, \
-    WebApp, \
+    WebAppFromAppResponseCreateUpdate, \
+    WebAppFromAppResponseGetList, \
     WebAppPOST
