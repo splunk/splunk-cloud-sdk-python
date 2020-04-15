@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-rm -rf docs
-mkdir -p docs
+rm -rf docs/splunk_sdk
+rm docs/README.md
 
 pdoc --output-dir docs splunk_sdk
 
