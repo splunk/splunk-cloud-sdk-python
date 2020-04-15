@@ -1,5 +1,39 @@
 # Splunk Cloud SDK for Python Changelog
 
+## Version 5.0.0
+
+### Library
+
+#### Breaking Changes
+
+- Class collisions are now properly disambiguated.
+	- AppRegistry
+	  - WebApp -> [WebAppFromAppResponseCreateUpdate, WebAppFromAppResponseGetList]
+		- ServiceApp -> [ServiceAppFromAppResponseCreateUpdate, ServiceAppFromAppResponseGetList]
+		- NativeApp -> [NativeAppFromAppResponseCreateUpdate, NativeAppFromAppResponseGetList]
+	- Catalog
+		- AliasAction -> [AliasActionFromAction, AliasActionFromActionPOST]
+		- AutoKVAction -> [AutoKVActionFromAction, AutoKVActionFromActionPOST]
+		- EvalAction -> [EvalActionFromAction, EvalActionFromActionPOST]
+		- LookupAction -> [LookupActionFromAction, LookupActionFromActionPOST]
+		- RegexAction -> [RegexActionFromAction, RegexActionFromActionPOST]
+  - Previously, code generation could produce classes with identical names but different parents. These classes are now given distinct names.
+	- Bugs associated with this issue related to `Dict` conversion have been fixed.
+
+### Services
+
+#### Breaking Changes
+
+- Provisioner
+	- Removed endpoints: `CreateEntitlementsJob` and `GetEntitlementsJob`
+
+#### Features
+
+- Ingest
+  - Support for new operations: `deleteAllCollectorTokens`, `listCollectorTokens`, `postCollectorTokens`, `deleteCollectorToken`, `getCollectorToken`, `putCollectorToken`
+- Search
+  - Support for new operation: `deleteJob`
+
 ## Version 4.0.0
 
 ### Breaking Changes
