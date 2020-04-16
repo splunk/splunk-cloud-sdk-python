@@ -17,7 +17,7 @@
 		- EvalAction -> [EvalActionFromAction, EvalActionFromActionPOST]
 		- LookupAction -> [LookupActionFromAction, LookupActionFromActionPOST]
 		- RegexAction -> [RegexActionFromAction, RegexActionFromActionPOST]
-  - Previously, code generation could produce classes with identical names but different parents. These classes are now given distinct names.
+  - Previously, code generation failed to correctly generate discriminator-based subclasses. This caused returned objects to have missing properties associated with those subclasses.
 	- Bugs associated with this issue related to `Dict` conversion have been fixed.
 
 ### Services
