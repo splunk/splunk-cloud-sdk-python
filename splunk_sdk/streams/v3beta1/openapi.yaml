@@ -298,66 +298,13 @@ components:
       required:
       - uplJson
       type: object
-    JsonNode:
-      description: ""
-      properties:
-        array:
-          type: boolean
-        bigDecimal:
-          type: boolean
-        bigInteger:
-          type: boolean
-        binary:
-          type: boolean
-        boolean:
-          type: boolean
-        containerNode:
-          type: boolean
-        double:
-          type: boolean
-        float:
-          type: boolean
-        floatingPointNumber:
-          type: boolean
-        int:
-          type: boolean
-        integralNumber:
-          type: boolean
-        long:
-          type: boolean
-        missingNode:
-          type: boolean
-        nodeType:
-          enum:
-          - ARRAY
-          - BINARY
-          - BOOLEAN
-          - MISSING
-          - "NULL"
-          - NUMBER
-          - OBJECT
-          - POJO
-          - STRING
-          type: string
-        number:
-          type: boolean
-        object:
-          type: boolean
-        pojo:
-          type: boolean
-        short:
-          type: boolean
-        textual:
-          type: boolean
-        valueNode:
-          type: boolean
-      type: object
     LookupTableResponse:
       description: ""
       properties:
         data:
           items:
-            $ref: '#/components/schemas/JsonNode'
+            properties: {}
+            type: object
           type: array
         types:
           additionalProperties:
@@ -3987,4 +3934,4 @@ tags:
 - description: V3Beta1 Preview API Endpoints
   name: preview
 
-# Retrieved from scp-openapi commit ae71b4bbf09256bf99e116a06f1de945e742b26c path: streams/v3beta1/openapi.yaml
+# Retrieved from scp-openapi commit eeca479623b096d60a163519a72a8ef9e72ac25d path: streams/v3beta1/openapi.yaml

@@ -56,7 +56,6 @@ from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     FunctionModel, \
     GetInputSchemaRequest, \
     GetOutputSchemaRequest, \
-    JsonNode, \
     LookupTableResponse, \
     NodeMetrics, \
     MetricsResponse, \

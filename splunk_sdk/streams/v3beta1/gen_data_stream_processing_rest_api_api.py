@@ -26,7 +26,7 @@
 """
 
 
-# from requests import Response
+from requests import Response
 from string import Template
 from typing import List, Dict
 
