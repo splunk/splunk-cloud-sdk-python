@@ -1,5 +1,48 @@
 # Splunk Cloud SDK for Python Changelog
 
+## Version 6.0.0
+
+### Services
+
+#### Breaking Changes
+
+##### Features
+- Streams
+    - A new version of spec: v3beta1 has been added. Changes in the new version:
+      - `CompileDSL` is not longer supported, substituted by Compile which leverages SPL instead of DSL to produce streams JSON object
+      - CRUD on `Group` endpoints have been removed and all models corresponding to Groups have been removed
+      - `ExpandGroup` which creates and returns the expanded version of a group has been removed
+      - `UplPipeline` model replaced by `Pipeline` model
+      - `UplNode` model replaced by `PipelineNode` model
+      - `UplEdge` model replaced by `PipelineEdge` model
+	  - `UplRegistry` model replaced by `RegistryModel` model
+	  - `UplFunction` model replaced by `FunctionalModel` model
+	  - `UplArgument` model replaced by `ArgumentModel` model
+	  - `UplCategory` model has been removed
+	  - `MergePipelines` support has been removed
+	  - `PipelinesMergeRequest` model has been removed
+	  - `PipelineDeleteResponse` model has been removed
+	  - `DslCompilationRequest` model has been removed
+	  - `ObjectNode`model has been removed
+    - The default version changed from v2beta1.2 to v3beta1.1
+    
+#### Non-Breaking Changes
+
+##### Features
+- Search 
+    - In v2beta1 spec version:
+      - Support for new endpoint: `DeleteSearchJob` has been added
+	  - New `DeleteSearchJob` creates a search job that deletes events from an index.
+- Streams
+    - In v2beta1 spec version:
+      - Models `GroupFunctionArguments`, `GroupFunctionMappings`, `PipelineMigrationInfo`, `PipelineUpgradeResponse` have been added.
+    - In v3beta1 spec version:
+      - Models `FilesMetaDataResponse`, `LookupTableResponse`, `ErrorResponse`, `RuleMetrics` have been added.
+	  - New `GetLookupTable` endpoint returns lookup table results
+	  - New `Decompile` endpoint decompiles UPL and returns SPL 
+	  - New `DeleteFile` endpoint deletes a file give a file-id
+	  - New `GetFilesMetaData` endpoint returns files metadata
+
 ## Version 5.0.0
 
 ### Library
