@@ -4886,4 +4886,4 @@ paths:
         "404":
           description: The workflow run was not found.
 
-# Retrieved from scp-openapi commit 1a58317339e18d6d996946a3e068abf030892b83 path: catalog/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit ae71b4bbf09256bf99e116a06f1de945e742b26c path: catalog/v2beta1/openapi.yaml

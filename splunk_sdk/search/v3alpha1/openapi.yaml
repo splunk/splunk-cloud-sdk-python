@@ -152,9 +152,8 @@ components:
             $ref: '#/components/schemas/Message'
           type: array
         module:
-          default: ""
           description: The module to run the delete search job in. The default module
-            is used if a module is not specified.
+            is used if module field is empty.
           type: string
         name:
           description: The name of the created search job.
@@ -168,8 +167,9 @@ components:
           readOnly: true
           type: integer
         prediate:
-          default: ""
-          description: Events satisfying this predicate are going to be deleted.
+          description: Events satisfying this predicate are going to be deleted. To
+            delete all events from the index, "true" should be specified for this
+            field.
           type: string
         previewAvailable:
           default: false
@@ -223,6 +223,8 @@ components:
           $ref: '#/components/schemas/SearchStatus'
       required:
       - index
+      - module
+      - predicate
       type: object
     Error:
       properties:
@@ -1217,4 +1219,4 @@ paths:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/rsid'
 
-# Retrieved from scp-openapi commit 1a58317339e18d6d996946a3e068abf030892b83 path: search/v3alpha1/openapi.yaml
+# Retrieved from scp-openapi commit ae71b4bbf09256bf99e116a06f1de945e742b26c path: search/v3alpha1/openapi.yaml

@@ -49,15 +49,14 @@ def test_retrieve_datasets(test_client: BaseClient):
     catalog = MetadataCatalog(test_client)
     datasets = catalog.list_datasets()
     assert (len(datasets) > 0)
-    assert (len(datasets[0].kind) > 0)
 
 
 @pytest.mark.usefixtures("test_client")  # NOQA
 def test_retreive_datasets_with_filter(test_client: BaseClient):
     catalog = MetadataCatalog(test_client)
-    datasets = catalog.list_datasets(filter='kind=="index"')
+    datasets = catalog.list_datasets(filter='version==2')
     assert (len(datasets) > 0)
-    assert (datasets[0].kind == "index")
+    assert (datasets[0].version == 2)
 
 
 @pytest.mark.usefixtures("test_client")  # NOQA

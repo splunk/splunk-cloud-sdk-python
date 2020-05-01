@@ -233,12 +233,14 @@ class DeleteSearchJob(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, index: "str", allow_side_effects: "bool" = True, collect_event_summary: "bool" = False, collect_field_summary: "bool" = False, collect_time_buckets: "bool" = False, completion_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = False, extract_all_fields: "bool" = False, max_time: "float" = 3600, messages: "List[Message]" = None, module: "str" = '', name: "str" = None, percent_complete: "int" = 0, prediate: "str" = '', preview_available: "str" = 'false', query: "str" = None, query_parameters: "QueryParameters" = None, required_freshness: "float" = 0, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = 0, results_preview_available: "int" = 0, sid: "str" = None, status: "SearchStatus" = None, **extra):
+    def __init__(self, index: "str", module: "str", allow_side_effects: "bool" = True, collect_event_summary: "bool" = False, collect_field_summary: "bool" = False, collect_time_buckets: "bool" = False, completion_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = False, extract_all_fields: "bool" = False, max_time: "float" = 3600, messages: "List[Message]" = None, name: "str" = None, percent_complete: "int" = 0, prediate: "str" = None, preview_available: "str" = 'false', query: "str" = None, query_parameters: "QueryParameters" = None, required_freshness: "float" = 0, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = 0, results_preview_available: "int" = 0, sid: "str" = None, status: "SearchStatus" = None, **extra):
         """DeleteSearchJob"""
 
         self._attrs = dict()
         if index is not None:
             self._attrs["index"] = index
+        if module is not None:
+            self._attrs["module"] = module
         if allow_side_effects is not None:
             self._attrs["allowSideEffects"] = allow_side_effects
         if collect_event_summary is not None:
@@ -259,8 +261,6 @@ class DeleteSearchJob(SSCModel):
             self._attrs["maxTime"] = max_time
         if messages is not None:
             self._attrs["messages"] = messages
-        if module is not None:
-            self._attrs["module"] = module
         if name is not None:
             self._attrs["name"] = name
         if percent_complete is not None:
@@ -309,6 +309,26 @@ class DeleteSearchJob(SSCModel):
         if index is None:
             raise ValueError("Invalid value for `index`, must not be `None`")
         self._attrs["index"] = index
+
+    @property
+    def module(self) -> "str":
+        """ Gets the module of this DeleteSearchJob.
+        The module to run the delete search job in. The default module is used if module field is empty.
+        """
+        return self._attrs.get("module")
+
+    @module.setter
+    def module(self, module: "str"):
+        """Sets the module of this DeleteSearchJob.
+
+        The module to run the delete search job in. The default module is used if module field is empty.
+
+        :param module: The module of this DeleteSearchJob.
+        :type: str
+        """
+        if module is None:
+            raise ValueError("Invalid value for `module`, must not be `None`")
+        self._attrs["module"] = module
 
     @property
     def allow_side_effects(self) -> "bool":
@@ -489,24 +509,6 @@ class DeleteSearchJob(SSCModel):
         self._attrs["messages"] = messages
 
     @property
-    def module(self) -> "str":
-        """ Gets the module of this DeleteSearchJob.
-        The module to run the delete search job in. The default module is used if a module is not specified.
-        """
-        return self._attrs.get("module")
-
-    @module.setter
-    def module(self, module: "str"):
-        """Sets the module of this DeleteSearchJob.
-
-        The module to run the delete search job in. The default module is used if a module is not specified.
-
-        :param module: The module of this DeleteSearchJob.
-        :type: str
-        """
-        self._attrs["module"] = module
-
-    @property
     def name(self) -> "str":
         """ Gets the name of this DeleteSearchJob.
         The name of the created search job.
@@ -545,7 +547,7 @@ class DeleteSearchJob(SSCModel):
     @property
     def prediate(self) -> "str":
         """ Gets the prediate of this DeleteSearchJob.
-        Events satisfying this predicate are going to be deleted.
+        Events satisfying this predicate are going to be deleted. To delete all events from the index, \"true\" should be specified for this field.
         """
         return self._attrs.get("prediate")
 
@@ -553,7 +555,7 @@ class DeleteSearchJob(SSCModel):
     def prediate(self, prediate: "str"):
         """Sets the prediate of this DeleteSearchJob.
 
-        Events satisfying this predicate are going to be deleted.
+        Events satisfying this predicate are going to be deleted. To delete all events from the index, \"true\" should be specified for this field.
 
         :param prediate: The prediate of this DeleteSearchJob.
         :type: str

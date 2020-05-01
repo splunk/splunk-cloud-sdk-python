@@ -309,6 +309,33 @@ components:
       - functionArg
       - groupArg
       type: object
+    GroupFunctionArguments:
+      description: ""
+      properties:
+        names:
+          items:
+            type: string
+          type: array
+        orderedNames:
+          items:
+            type: string
+          type: array
+        positions:
+          additionalProperties:
+            format: int32
+            type: integer
+          type: object
+      type: object
+    GroupFunctionMappings:
+      description: ""
+      properties:
+        mappings:
+          additionalProperties:
+            additionalProperties:
+              type: string
+            type: object
+          type: object
+      type: object
     GroupPatchRequest:
       description: ""
       properties:
@@ -332,6 +359,10 @@ components:
             format: int64
             type: integer
           type: array
+        groupFunctionArguments:
+          $ref: '#/components/schemas/GroupFunctionArguments'
+        groupFunctionMappings:
+          $ref: '#/components/schemas/GroupFunctionMappings'
         mappings:
           description: Group function mappings list.
           example: ""
@@ -374,6 +405,10 @@ components:
             format: int64
             type: integer
           type: array
+        groupFunctionArguments:
+          $ref: '#/components/schemas/GroupFunctionArguments'
+        groupFunctionMappings:
+          $ref: '#/components/schemas/GroupFunctionMappings'
         mappings:
           description: The group function mappings list.
           example: ""
@@ -424,6 +459,10 @@ components:
             format: int64
             type: integer
           type: array
+        groupFunctionArguments:
+          $ref: '#/components/schemas/GroupFunctionArguments'
+        groupFunctionMappings:
+          $ref: '#/components/schemas/GroupFunctionMappings'
         mappings:
           description: The group function mappings list.
           example: ""
@@ -496,6 +535,11 @@ components:
           type: boolean
       type: object
     MapOfstringAndobject:
+      description: ""
+      type: object
+    MapOfstringAndstring:
+      additionalProperties:
+        type: string
       description: ""
       type: object
     MetricsResponse:
@@ -624,6 +668,67 @@ components:
           format: int64
           type: integer
       type: object
+    Pipeline:
+      description: ""
+      properties:
+        activatedDate:
+          format: int64
+          type: integer
+        activatedUserId:
+          type: string
+        activatedVersion:
+          format: int64
+          type: integer
+        createDate:
+          format: int64
+          type: integer
+        createUserId:
+          type: string
+        currentVersion:
+          format: int64
+          type: integer
+        data:
+          $ref: '#/components/schemas/UplPipeline'
+        description:
+          type: string
+        flinkVersion:
+          type: string
+        id:
+          type: string
+        jobId:
+          type: string
+        lastUpdateDate:
+          format: int64
+          type: integer
+        lastUpdateUserId:
+          type: string
+        name:
+          type: string
+        status:
+          enum:
+          - CREATED
+          - ACTIVATED
+          - FAILED
+          - RESTARTING
+          - FINISHED
+          type: string
+        statusMessage:
+          type: string
+        streamingConfigurationId:
+          format: int64
+          type: integer
+        tenantId:
+          type: string
+        uberJarSha256:
+          type: string
+        validationMessages:
+          items:
+            type: string
+          type: array
+        version:
+          format: int64
+          type: integer
+      type: object
     PipelineDeleteResponse:
       description: ""
       properties:
@@ -641,6 +746,18 @@ components:
           type: string
         pipelineId:
           type: string
+      type: object
+    PipelineMigrationInfo:
+      description: ""
+      properties:
+        canMigrate:
+          type: boolean
+        createApiVersion:
+          format: int32
+          type: integer
+        targetApiVersion:
+          format: int32
+          type: integer
       type: object
     PipelinePatchRequest:
       description: ""
@@ -760,6 +877,28 @@ components:
           format: int64
           type: integer
       type: object
+    PipelineUpgradeResponse:
+      description: ""
+      properties:
+        flinkVersion:
+          type: string
+        pipelineId:
+          type: string
+        pipelineUpgradeError:
+          type: string
+        pipelineUpgradeStatus:
+          enum:
+          - upgraded
+          - not upgraded, restored back on old cluster
+          - not upgraded because it's not active
+          - not upgraded, couldn't restore back on old cluster, send help
+          - already upgraded
+          - not upgraded, pipeline version is not supported
+          - Couldn't be stopped on old cluster
+          type: string
+        tenantId:
+          type: string
+      type: object
     PipelinesMergeRequest:
       description: ""
       properties:
@@ -825,15 +964,8 @@ components:
             to 300,000.
           format: int64
           type: integer
-        streamingConfigurationId:
-          description: Deprecated. Must be null if set.
-          format: int64
-          type: integer
         upl:
           $ref: '#/components/schemas/UplPipeline'
-        useNewData:
-          description: Deprecated. Must be true if set.
-          type: boolean
       required:
       - upl
       type: object
@@ -907,6 +1039,9 @@ components:
           - UNKNOWN
           example: ""
           type: string
+        validate:
+          description: A boolean flag to indicate whether the pipeline should be validated.
+          type: boolean
       required:
       - spl
       type: object
@@ -1096,6 +1231,8 @@ components:
           items:
             $ref: '#/components/schemas/UplEdge'
           type: array
+        migrationInfo:
+          $ref: '#/components/schemas/PipelineMigrationInfo'
         nodes:
           description: The functions (or nodes) in your entire pipeline, including
             each function's operations, attributes, and properties
@@ -1106,6 +1243,10 @@ components:
         rootNode:
           description: The UUIDs of all sink functions in a given pipeline
           example: ""
+          items:
+            type: string
+          type: array
+        rootNodeFromUplPipeline:
           items:
             type: string
           type: array
@@ -1153,6 +1294,8 @@ components:
     ValidateResponse:
       description: ""
       properties:
+        spl:
+          type: string
         success:
           type: boolean
         validationMessages:
@@ -1165,7 +1308,7 @@ info:
     (CRUD) operations on your data pipeline. The Streams service also has metrics
     and preview session endpoints and gives you full control over your data pipeline.
   title: Data Stream Processing REST API
-  version: v2beta1.3
+  version: v2beta1.4
 openapi: 3.0.1
 paths:
   /{tenantId}/streams/v2beta1/connections:
@@ -2936,6 +3079,8 @@ paths:
 servers:
 - url: /
 tags:
+- description: Services Endpoint
+  name: apiv-2-beta-1-admin-controller
 - description: V2Beta1 Connectors and Connections Endpoints
   name: apiv-2-beta-1-connector-controller
 - description: V2Beta1 Group API Endpoints
@@ -2947,4 +3092,4 @@ tags:
 - description: V2Beta1 Preview API Endpoints
   name: apiv-2-beta-1-preview-controller
 
-# Retrieved from scp-openapi commit 1f1cb97cb92c343b7c251291a7abf74ef6e0d819 path: streams/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit ae71b4bbf09256bf99e116a06f1de945e742b26c path: streams/v2beta1/openapi.yaml

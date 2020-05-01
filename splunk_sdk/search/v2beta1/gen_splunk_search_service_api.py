@@ -34,6 +34,7 @@ from splunk_sdk.base_client import handle_response
 from splunk_sdk.base_service import BaseService
 from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
+from splunk_sdk.search.v2beta1.gen_models import DeleteSearchJob
 from splunk_sdk.search.v2beta1.gen_models import FieldsSummary
 from splunk_sdk.search.v2beta1.gen_models import ListPreviewResultsResponse
 from splunk_sdk.search.v2beta1.gen_models import ListSearchResultsResponse
@@ -68,6 +69,22 @@ class SplunkSearchService(BaseService):
         data = search_job.to_dict()
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, SearchJob)
+
+    def delete_job(self, query_params: Dict[str, object] = None) -> DeleteSearchJob:
+        """
+        Creates a search job that deletes events from an index. The events are deleted from the index in the specified module, based on the search criteria as specified by the predicate.
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/search/v2beta1/jobs/delete").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.post(url, params=query_params)
+        return handle_response(response, DeleteSearchJob)
 
     def get_job(self, sid: str, query_params: Dict[str, object] = None) -> SearchJob:
         """
