@@ -17,6 +17,7 @@ This package defines base functionality for making requests from Splunk Cloud se
 import requests
 import json
 import logging
+import time
 
 from requests import Response
 
@@ -32,10 +33,15 @@ from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
 logger = logging.getLogger(__name__)
 
+"""Default retry count to be used when RetryRequests is True but no other config is supplied"""
+DEFAULT_RETRY_COUNT = 10
+"""Default retry interval to be used when RetryRequests is True but no other config is supplied"""
+DEFAULT_RETRY_INTERVAL = 1000
+
 
 def log_http(fn):
     """
-    Decorates requests to log the request and response when debugging is enabled 
+    Decorates requests to log the request and response when debugging is enabled
     on the underlying client context.\n
     To log requests, set `debug=True` when creating your initial SDK context.
     :param fn: TODO DOCS
@@ -80,7 +86,7 @@ def preprocess_body(fn):
 
 class BaseClient(object):
     """
-    The BaseClient class encapsulates conventions, authorization, and URL handling 
+    The BaseClient class encapsulates conventions, authorization, and URL handling
     to make basic requests against the Splunk Cloud Platform. You can use this class
     to access a feature that has not implemented in the SDK.\n
 
@@ -89,7 +95,7 @@ class BaseClient(object):
         bc.get(bc.build_url("/identity/v2/validate")) #=> HTTP response (presuming that v2 of the validate service is deployed)
     """
 
-    def __init__(self, context: Context, auth_manager: AuthManager, requests_hooks=None):
+    def __init__(self, context: Context, auth_manager: AuthManager, retry_config=None, requests_hooks=None):
         self.context = context
         self._session = requests.Session()
         self._session.headers.update({
@@ -97,6 +103,7 @@ class BaseClient(object):
         self._session.headers.update({
             'Splunk-Client': 'client-python/{}'.format(__version__)})
         self._auth_manager = auth_manager
+        self._retry_config = retry_config
 
         self._session.hooks[REQUESTS_HOOK_NAME_RESPONSE].extend(requests_hooks or [])
 
@@ -117,9 +124,12 @@ class BaseClient(object):
         :param kwargs: TODO DOCS
         :return: TODO DOCS
         """
+
         self.update_auth()
         # Params are used for querystring vars
-        return self._session.get(url, **kwargs)
+        response = self._session.get(url, **kwargs)
+
+        return self.handle_error_response("GET", response, url, self._retry_config, **kwargs)
 
     @log_http
     def options(self, url: str, **kwargs) -> requests.Response:
@@ -129,8 +139,12 @@ class BaseClient(object):
         :param kwargs: TODO DOCS
         :return: TODO DOCS
         """
+
         self.update_auth()
-        return self._session.options(url, **kwargs)
+
+        response = self._session.options(url, **kwargs)
+
+        return self.handle_error_response("OPTIONS", response, url, self._retry_config, **kwargs)
 
     @log_http
     def head(self, url, **kwargs) -> requests.Response:
@@ -140,8 +154,12 @@ class BaseClient(object):
         :param kwargs: TODO DOCS
         :return: TODO DOCS
         """
+
         self.update_auth()
-        return self._session.head(url, **kwargs)
+
+        response = self._session.head(url, **kwargs)
+
+        return self.handle_error_response("HEAD", response, url, self._retry_config, **kwargs)
 
     @log_http
     @preprocess_body
@@ -154,8 +172,12 @@ class BaseClient(object):
         :param kwargs: TODO DOCS
         :return: TODO DOCS
         """
+
         self.update_auth()
-        return self._session.post(url, data, json, **kwargs)
+
+        response = self._session.post(url, data, json, **kwargs)
+
+        return self.handle_error_response("POST", response, url, data, json, self._retry_config, **kwargs)
 
     @log_http
     @preprocess_body
@@ -167,8 +189,12 @@ class BaseClient(object):
         :param kwargs: TODO DOCS
         :return: TODO DOCS
         """
+
         self.update_auth()
-        return self._session.put(url, data, **kwargs)
+
+        response = self._session.put(url, data, **kwargs)
+
+        return self.handle_error_response("PUT", response, url, data, self._retry_config, **kwargs)
 
     @log_http
     @preprocess_body
@@ -180,8 +206,12 @@ class BaseClient(object):
         :param kwargs:
         :return:
         """
+
         self.update_auth()
-        return self._session.patch(url, data, **kwargs)
+
+        response = self._session.patch(url, data, **kwargs)
+
+        return self.handle_error_response("PATCH", response, url, data, self._retry_config, **kwargs)
 
     @log_http
     def delete(self, url: str, **kwargs) -> requests.Response:
@@ -192,14 +222,17 @@ class BaseClient(object):
         :return: TODO DOCS
         """
         self.update_auth()
-        return self._session.delete(url, **kwargs)
+
+        response = self._session.delete(url, **kwargs)
+
+        return self.handle_error_response("DELETE", response, url, self._retry_config, **kwargs)
 
     def build_url(self, route: str, **kwargs) -> str:
         """
         Builds a full URL from the specified path template by adding the current
-        tenant (if the path does not start with '/system') and the configured host, 
+        tenant (if the path does not start with '/system') and the configured host,
         and applying any `kwargs` to the path template. \n
-        You can pass the returned URL to GET, PUT, POST, PATCH, DELETE, OPTIONS, 
+        You can pass the returned URL to GET, PUT, POST, PATCH, DELETE, OPTIONS,
         and HEAD requests.
         :param route: TODO DOCS
         :param kwargs: TODO DOCS
@@ -227,6 +260,20 @@ class BaseClient(object):
         """
         return self.context.tenant
 
+    def handle_error_response(self, method: str, response: Response, url, data=None, json_data=None, retry_config=None, **kwargs) -> requests.Response:
+
+        if response.status_code != 429 or retry_config is None or (retry_config is not None and retry_config.retry_requests_enabled is not True):
+            return response
+
+        retry_count = 0
+        success_response = self._retry_config.handle_response(self, method, url, retry_count, data, json_data, **kwargs)
+        while (success_response is not None and success_response.status_code == 429) and retry_count < self._retry_config.retry_count:
+            retry_count += 1
+            success_response = self._retry_config.handle_response(self, method, url, retry_count, data, json_data, **kwargs)
+            if success_response is not None and success_response.status_code != 429:
+                response = success_response
+
+        return response
 
 def inflate(data, model, is_collection: bool):
     """ Handles deserializing responses from services into model objects."""
@@ -246,8 +293,8 @@ def inflate(data, model, is_collection: bool):
 
 def dictify(obj):
     """
-    Private. Serializes the model into JSON. The naming conventions for the services 
-    differ from Python naming conventions, so serialization involves changing from 
+    Private. Serializes the model into JSON. The naming conventions for the services
+    differ from Python naming conventions, so serialization involves changing from
     Python conventions to those defined by the Splunk Cloud services.
     :param obj: TODO DOCS
     :return: TODO DOCS
@@ -262,9 +309,11 @@ def dictify(obj):
         return obj
 
 
-def get_client(context, auth_manager, requests_hooks=None):
+def get_client(context, auth_manager, retry_config=None, requests_hooks=None):
     """Returns a Service Client object for the specified authorization manager."""
-    return BaseClient(context, auth_manager, requests_hooks=requests_hooks)
+    client = BaseClient(context, auth_manager, retry_config=retry_config, requests_hooks=requests_hooks)
+    client.update_auth()
+    return client
 
 
 # TODO: refactor this helper away and make handle_response cleaner
@@ -322,6 +371,69 @@ def handle_response(response: Response, klass=None, key=None):
     else:
         raise HTTPError(response.status_code, response.text)
 
+
+class RetryConfig(object):
+    """The RetryConfig class wraps around the configuration values for retrying requests that fail
+    when a 429 is encountered at the server."""
+
+    def __init__(self, retry_requests_enabled: bool, retry_count=None, retry_interval=None):
+        self._retry_requests_enabled = retry_requests_enabled
+        if retry_count is not None:
+            self._retry_count = retry_count
+        else:
+            self._retry_count = DEFAULT_RETRY_COUNT
+
+        if retry_interval is not None:
+            self._retry_interval = retry_interval
+        else:
+            self._retry_interval = DEFAULT_RETRY_INTERVAL
+
+    @property
+    def retry_requests_enabled(self) -> bool:
+        return self._retry_requests_enabled
+
+    @retry_requests_enabled.setter
+    def retry_requests_enabled(self, retry_requests_enabled: bool):
+        self._retry_requests_enabled = retry_requests_enabled
+
+    @property
+    def retry_count(self) -> int:
+        return self._retry_count
+
+    @retry_count.setter
+    def retry_count(self, retry_count: int):
+        self._retry_count = retry_count
+
+    @property
+    def retry_interval(self) -> bool:
+        return self._retry_interval
+
+    @retry_interval.setter
+    def retry_interval(self, retry_interval: bool):
+        self._retry_interval = retry_interval
+
+    # implement exponential back off by increasing the waiting time between retries after each retry failure.
+    def handle_response(self, client, method, url, retry_count, data=None, json_data=None, **kwargs) -> requests.Response:
+        response = None
+        backOffSeconds = ((1 << retry_count) * self._retry_interval) / 1000
+        time.sleep(backOffSeconds)
+
+        if method == "POST":
+            response = client._session.post(url, data, json_data, **kwargs)
+        elif method == "GET":
+            response = self._session.get(url, **kwargs)
+        elif method == "DELETE":
+            response = self._session.delete(url, **kwargs)
+        elif method == "OPTIONS":
+            response = self._session.options(url, **kwargs)
+        elif method == "HEAD":
+            response = self._session.head(url, **kwargs)
+        elif method == "PUT":
+            response = self._session.put(url, data, **kwargs)
+        elif method == "PATCH":
+            response = self._session.patch(url, data, **kwargs)
+
+        return response
 
 class HTTPError(Exception):
     """The HTTPError class provides an exception wrapper for HTTP error responses."""

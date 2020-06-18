@@ -15,6 +15,8 @@ from splunk_sdk.search import SplunkSearchService as Search
 from splunk_sdk.search import SearchJob, UpdateJob, Message, \
     ListSearchResultsResponse
 
+import itertools
+
 from splunk_sdk.search.search_helper import wait_for_job
 
 STANDARD_QUERY = '| from index:main | head 5'
@@ -22,18 +24,17 @@ STANDARD_QUERY = '| from index:main | head 5'
 # TODO(shakeel): add test_list_results w/ a search using a module when catalog
 #  is ready for that
 
-
 @pytest.mark.usefixtures("test_client")  # NOQA
 def test_create_job(test_client):
     search = Search(test_client)
 
     search_job = SearchJob(query=STANDARD_QUERY)
     job = search.create_job(search_job=search_job)
+
     assert (isinstance(job, SearchJob))
     assert (job.query == STANDARD_QUERY)
     assert (job.sid is not None)
     assert (job.status is not None)
-
 
 @pytest.mark.usefixtures("test_client")  # NOQA
 def test_update_job(test_client):
@@ -131,31 +132,6 @@ async def test_wait_for_job(test_client):
     search_job = SearchJob(query=STANDARD_QUERY)
     job = search.create_job(search_job=search_job)
 
-    job2 = await wait_for_job(search.get_job, job.sid)
-    assert (isinstance(job2, SearchJob))
-    assert (job2.status == 'done')
-    assert (job2.results_available == 5)
-    assert (job2.sid is not None)
-    assert (job2.query is not None)
-    assert (job2.module is not None)
-    assert (job2.percent_complete is not None)
-
-
-@pytest.mark.usefixtures("test_client")  # NOQA
-def test_list_jobs(test_client):
-    search = Search(test_client)
-
-    jobs = search.list_jobs()
-    assert (len(jobs) > 0)
-    assert (isinstance(jobs, list))
-
-    for job in jobs:
-        assert (isinstance(job, SearchJob))
-
-
-@pytest.mark.usefixtures("test_client")  # NOQA
-def test_list_jobs_with_args(test_client):
-    search = Search(test_client)
 
     jobs = search.list_jobs()
     assert (len(jobs) > 0)

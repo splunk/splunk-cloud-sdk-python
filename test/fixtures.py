@@ -17,6 +17,8 @@ from splunk_sdk.auth import ClientAuthManager, PKCEAuthManager
 from splunk_sdk.common.context import Context
 from splunk_sdk.base_client import get_client
 
+from splunk_sdk.base_client import RetryConfig
+
 # create logger
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -37,6 +39,51 @@ logger.addHandler(ch)
 
 
 @pytest.fixture(scope='session')
+def get_test_client_default_retry():
+    context = Context(host=os.environ.get('SPLUNK_HOST'),
+                      api_host=os.environ.get('SPLUNK_HOST'),
+                      tenant=os.environ.get('SPLUNK_TENANT'),
+                      debug=os.environ.get(
+                          'SPLUNK_DEBUG', 'false').lower().strip() == 'true')
+
+    retry_config = RetryConfig(retry_requests_enabled=True)
+
+    # integration tests use pkce by default
+    service_client = get_client(context, _get_pkce_manager(), retry_config)
+    assert (service_client is not None)
+    return service_client
+
+@pytest.fixture(scope='session')
+def get_test_client_retry_false():
+    context = Context(host=os.environ.get('SPLUNK_HOST'),
+                      api_host=os.environ.get('SPLUNK_HOST'),
+                      tenant=os.environ.get('SPLUNK_TENANT'),
+                      debug=os.environ.get(
+                          'SPLUNK_DEBUG', 'false').lower().strip() == 'true')
+
+    retry_config = RetryConfig(retry_requests_enabled=False)
+
+    # integration tests use pkce by default
+    service_client = get_client(context, _get_pkce_manager(), retry_config)
+    assert (service_client is not None)
+    return service_client
+
+@pytest.fixture(scope='session')
+def get_test_client_custom_retry():
+    context = Context(host=os.environ.get('SPLUNK_HOST'),
+                      api_host=os.environ.get('SPLUNK_HOST'),
+                      tenant=os.environ.get('SPLUNK_TENANT'),
+                      debug=os.environ.get(
+                          'SPLUNK_DEBUG', 'false').lower().strip() == 'true')
+
+    retry_config = RetryConfig(retry_requests_enabled=True, retry_count=12, retry_interval=1200)
+
+    # integration tests use pkce by default
+    service_client = get_client(context, _get_pkce_manager(), retry_config)
+    assert (service_client is not None)
+    return service_client
+
+@pytest.fixture(scope='session')
 def get_test_client():
     context = Context(host=os.environ.get('SPLUNK_HOST'),
                       api_host=os.environ.get('SPLUNK_HOST'),
@@ -48,7 +95,6 @@ def get_test_client():
     service_client = get_client(context, _get_pkce_manager())
     assert (service_client is not None)
     return service_client
-
 
 @pytest.fixture(scope='session')
 def get_test_client_ml():
