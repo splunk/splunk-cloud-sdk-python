@@ -103,7 +103,7 @@ class SplunkSearchService(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, SearchJob)
 
-    def list_events_summary(self, sid: str, count: float = None, earliest: str = None, field: str = None, latest: str = None, offset: float = None, query_params: Dict[str, object] = None) -> ListSearchResultsResponse:
+    def list_events_summary(self, sid: str, count: int = None, earliest: str = None, field: str = None, latest: str = None, offset: int = None, query_params: Dict[str, object] = None) -> ListSearchResultsResponse:
         """
         Return events summary, for search ID (SID) search.
         """
@@ -149,7 +149,7 @@ class SplunkSearchService(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, FieldsSummary)
 
-    def list_jobs(self, count: float = None, filter: str = None, status: SearchStatus = None, query_params: Dict[str, object] = None) -> List[SearchJob]:
+    def list_jobs(self, count: int = None, filter: str = None, status: SearchStatus = None, query_params: Dict[str, object] = None) -> List[SearchJob]:
         """
         Return the matching list of search jobs.
         """
@@ -170,7 +170,7 @@ class SplunkSearchService(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, SearchJob)
 
-    def list_preview_results(self, sid: str, count: float = None, offset: float = None, query_params: Dict[str, object] = None) -> ListPreviewResultsResponse:
+    def list_preview_results(self, sid: str, count: int = None, offset: int = None, query_params: Dict[str, object] = None) -> ListPreviewResultsResponse:
         """
         Return the preview search results for the job with the specified search ID (SID). Can be used when a job is running to return interim results.
         """
@@ -190,7 +190,7 @@ class SplunkSearchService(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, ListPreviewResultsResponse)
 
-    def list_results(self, sid: str, count: float = None, field: str = None, offset: float = None, query_params: Dict[str, object] = None) -> ListSearchResultsResponse:
+    def list_results(self, sid: str, count: int = None, field: str = None, offset: int = None, query_params: Dict[str, object] = None) -> ListSearchResultsResponse:
         """
         Return the search results for the job with the specified search ID (SID).
         """

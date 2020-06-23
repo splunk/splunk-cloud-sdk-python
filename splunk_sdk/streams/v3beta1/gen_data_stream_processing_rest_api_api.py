@@ -42,7 +42,7 @@ from splunk_sdk.streams.v3beta1.gen_models import ConnectionSaveResponse
 from splunk_sdk.streams.v3beta1.gen_models import DeactivatePipelineRequest
 from splunk_sdk.streams.v3beta1.gen_models import DecompileRequest
 from splunk_sdk.streams.v3beta1.gen_models import DecompileResponse
-# from splunk_sdk.streams.v3beta1.gen_models import ErrorResponse
+from splunk_sdk.streams.v3beta1.gen_models import ErrorResponse
 from splunk_sdk.streams.v3beta1.gen_models import FilesMetaDataResponse
 from splunk_sdk.streams.v3beta1.gen_models import GetInputSchemaRequest
 from splunk_sdk.streams.v3beta1.gen_models import GetOutputSchemaRequest
@@ -70,7 +70,7 @@ from splunk_sdk.streams.v3beta1.gen_models import TemplatePutRequest
 from splunk_sdk.streams.v3beta1.gen_models import TemplateRequest
 from splunk_sdk.streams.v3beta1.gen_models import TemplateResponse
 from splunk_sdk.streams.v3beta1.gen_models import UplType
-# from splunk_sdk.streams.v3beta1.gen_models import UploadFile
+from splunk_sdk.streams.v3beta1.gen_models import UploadFile
 from splunk_sdk.streams.v3beta1.gen_models import ValidateRequest
 from splunk_sdk.streams.v3beta1.gen_models import ValidateResponse
 
@@ -262,6 +262,22 @@ class DataStreamProcessingRESTAPI(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.delete(url, params=query_params)
         return handle_response(response, )
+
+    def get_file_metadata(self, file_id: str, query_params: Dict[str, object] = None) -> UploadFile:
+        """
+        Get file metadata.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "fileId": file_id,
+        }
+
+        path = Template("/streams/v3beta1/files/${fileId}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, UploadFile)
 
     def get_files_metadata(self, query_params: Dict[str, object] = None) -> FilesMetaDataResponse:
         """
@@ -476,7 +492,7 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, TemplateResponse)
 
-    def list_connections(self, connector_id: str = None, create_user_id: str = None, function_id: str = None, name: str = None, offset: int = None, page_size: int = None, show_secret_names: str = None, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> PaginatedResponseOfConnectionResponse:
+    def list_connections(self, connector_id: List[str] = None, create_user_id: str = None, function_id: str = None, name: str = None, offset: int = None, page_size: int = None, show_secret_names: str = None, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> PaginatedResponseOfConnectionResponse:
         """
         Returns a list of connections (latest versions only) by tenant ID.
         """
@@ -727,22 +743,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         data = template_patch_request.to_dict()
         response = self.base_client.patch(url, json=data, params=query_params)
         return handle_response(response, TemplateResponse)
-
-    # todo: Manually implement uploadFile endpoint. Bug registered: DVPL-8224
-    # def upload_file(self, file: file = None, query_params: Dict[str, object] = None) -> UploadFile:
-    #     """
-    #     Upload new file.
-    #     """
-    #     if query_params is None:
-    #         query_params = {}
-    #
-    #     path_params = {
-    #     }
-    #
-    #     path = Template("/streams/v3beta1/files").substitute(path_params)
-    #     url = self.base_client.build_url(path)
-    #     response = self.base_client.post(url, params=query_params)
-    #     return handle_response(response, UploadFile)
 
     def validate_pipeline(self, validate_request: ValidateRequest, query_params: Dict[str, object] = None) -> ValidateResponse:
         """

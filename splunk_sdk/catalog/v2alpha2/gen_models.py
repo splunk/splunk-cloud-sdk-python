@@ -47,7 +47,7 @@ class Action(SSCModel):
         handler = Action.from_dict_handlers.get(kind, default_handler)
         return handler(model)
 
-    def __init__(self, created: "datetime" = None, createdby: "str" = None, id: "str" = None, modified: "datetime" = None, modifiedby: "str" = None, owner: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+    def __init__(self, appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, created: "datetime" = None, createdby: "str" = None, id: "str" = None, modified: "datetime" = None, modifiedby: "str" = None, owner: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
         """Action"""
 
         self._attrs = dict()
@@ -61,6 +61,10 @@ class Action(SSCModel):
             self._attrs["modifiedby"] = modifiedby
         if owner is not None:
             self._attrs["owner"] = owner
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if id is not None:
             self._attrs["id"] = id
         if ruleid is not None:
@@ -169,6 +173,42 @@ class Action(SSCModel):
         if owner is None:
             raise ValueError("Invalid value for `owner`, must not be `None`")
         self._attrs["owner"] = owner
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this Action.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this Action.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this Action.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this Action.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this Action.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this Action.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def id(self) -> "str":
@@ -381,7 +421,7 @@ class AliasActionFromAction(Action):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", alias: "str" = None, field: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", alias: "str" = None, appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, field: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
         """AliasActionFromAction"""
 
         self._attrs = dict()
@@ -397,6 +437,10 @@ class AliasActionFromAction(Action):
             self._attrs["owner"] = owner
         if alias is not None:
             self._attrs["alias"] = alias
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if field is not None:
             self._attrs["field"] = field
         if id is not None:
@@ -528,6 +572,42 @@ class AliasActionFromAction(Action):
         self._attrs["alias"] = alias
 
     @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this AliasActionFromAction.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this AliasActionFromAction.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this AliasActionFromAction.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this AliasActionFromAction.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this AliasActionFromAction.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this AliasActionFromAction.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
     def field(self) -> "str":
         """ Gets the field of this AliasActionFromAction.
         The name of the field to be aliased.
@@ -620,7 +700,7 @@ class AliasActionFromActionPOST(ActionPOST):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", alias: "str" = None, field: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", alias: "str" = None, appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, field: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
         """AliasActionFromActionPOST"""
 
         self._attrs = dict()
@@ -636,6 +716,10 @@ class AliasActionFromActionPOST(ActionPOST):
             self._attrs["owner"] = owner
         if alias is not None:
             self._attrs["alias"] = alias
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if field is not None:
             self._attrs["field"] = field
         if id is not None:
@@ -765,6 +849,42 @@ class AliasActionFromActionPOST(ActionPOST):
         :type: str
         """
         self._attrs["alias"] = alias
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this AliasActionFromActionPOST.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this AliasActionFromActionPOST.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this AliasActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this AliasActionFromActionPOST.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this AliasActionFromActionPOST.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this AliasActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def field(self) -> "str":
@@ -1128,7 +1248,7 @@ class Annotation(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", annotationtypeid: "str" = None, dashboardid: "str" = None, datasetid: "str" = None, fieldid: "str" = None, id: "str" = None, relationshipid: "str" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", annotationtypeid: "str" = None, appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, dashboardid: "str" = None, datasetid: "str" = None, fieldid: "str" = None, id: "str" = None, relationshipid: "str" = None, **extra):
         """Annotation"""
 
         self._attrs = dict()
@@ -1144,6 +1264,10 @@ class Annotation(SSCModel):
             self._attrs["owner"] = owner
         if annotationtypeid is not None:
             self._attrs["annotationtypeid"] = annotationtypeid
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if dashboardid is not None:
             self._attrs["dashboardid"] = dashboardid
         if datasetid is not None:
@@ -1274,6 +1398,42 @@ class Annotation(SSCModel):
         :type: str
         """
         self._attrs["annotationtypeid"] = annotationtypeid
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this Annotation.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this Annotation.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this Annotation.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this Annotation.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this Annotation.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this Annotation.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def dashboardid(self) -> "str":
@@ -1536,7 +1696,7 @@ class AutoKVActionFromAction(Action):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", id: "str" = None, mode: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, id: "str" = None, mode: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
         """AutoKVActionFromAction"""
 
         self._attrs = dict()
@@ -1550,6 +1710,10 @@ class AutoKVActionFromAction(Action):
             self._attrs["modifiedby"] = modifiedby
         if owner is not None:
             self._attrs["owner"] = owner
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if id is not None:
             self._attrs["id"] = id
         self._attrs["kind"] = "AUTOKV" 
@@ -1663,6 +1827,42 @@ class AutoKVActionFromAction(Action):
         self._attrs["owner"] = owner
 
     @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this AutoKVActionFromAction.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this AutoKVActionFromAction.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this AutoKVActionFromAction.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this AutoKVActionFromAction.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this AutoKVActionFromAction.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this AutoKVActionFromAction.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
     def id(self) -> "str":
         """ Gets the id of this AutoKVActionFromAction.
         A unique action ID.
@@ -1755,7 +1955,7 @@ class AutoKVActionFromActionPOST(ActionPOST):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", id: "str" = None, mode: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, id: "str" = None, mode: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
         """AutoKVActionFromActionPOST"""
 
         self._attrs = dict()
@@ -1769,6 +1969,10 @@ class AutoKVActionFromActionPOST(ActionPOST):
             self._attrs["modifiedby"] = modifiedby
         if owner is not None:
             self._attrs["owner"] = owner
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if id is not None:
             self._attrs["id"] = id
         self._attrs["kind"] = "AUTOKV" 
@@ -1880,6 +2084,42 @@ class AutoKVActionFromActionPOST(ActionPOST):
         if owner is None:
             raise ValueError("Invalid value for `owner`, must not be `None`")
         self._attrs["owner"] = owner
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this AutoKVActionFromActionPOST.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this AutoKVActionFromActionPOST.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this AutoKVActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this AutoKVActionFromActionPOST.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this AutoKVActionFromActionPOST.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this AutoKVActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def id(self) -> "str":
@@ -2203,7 +2443,7 @@ class Dashboard(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", definition: "str" = None, id: "str" = None, isactive: "bool" = None, module: "str" = None, name: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, definition: "str" = None, id: "str" = None, isactive: "bool" = None, module: "str" = None, name: "str" = None, version: "int" = None, **extra):
         """Dashboard"""
 
         self._attrs = dict()
@@ -2217,6 +2457,10 @@ class Dashboard(SSCModel):
             self._attrs["modifiedby"] = modifiedby
         if owner is not None:
             self._attrs["owner"] = owner
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if definition is not None:
             self._attrs["definition"] = definition
         if id is not None:
@@ -2331,6 +2575,42 @@ class Dashboard(SSCModel):
         if owner is None:
             raise ValueError("Invalid value for `owner`, must not be `None`")
         self._attrs["owner"] = owner
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this Dashboard.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this Dashboard.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this Dashboard.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this Dashboard.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this Dashboard.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this Dashboard.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def definition(self) -> "str":
@@ -2717,7 +2997,7 @@ class Dataset(SSCModel):
         handler = Dataset.from_dict_handlers.get(kind, default_handler)
         return handler(model)
 
-    def __init__(self, created: "datetime" = None, createdby: "str" = None, description: "str" = None, id: "str" = None, modified: "datetime" = None, modifiedby: "str" = None, module: "str" = None, name: "str" = None, owner: "str" = None, resourcename: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+    def __init__(self, appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, created: "datetime" = None, createdby: "str" = None, description: "str" = None, id: "str" = None, modified: "datetime" = None, modifiedby: "str" = None, module: "str" = None, name: "str" = None, owner: "str" = None, resourcename: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
         """Dataset"""
 
         self._attrs = dict()
@@ -2739,6 +3019,10 @@ class Dataset(SSCModel):
             self._attrs["owner"] = owner
         if resourcename is not None:
             self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if description is not None:
             self._attrs["description"] = description
         if summary is not None:
@@ -2929,6 +3213,42 @@ class Dataset(SSCModel):
         if resourcename is None:
             raise ValueError("Invalid value for `resourcename`, must not be `None`")
         self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this Dataset.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this Dataset.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this Dataset.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this Dataset.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this Dataset.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this Dataset.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def description(self) -> "str":
@@ -3495,7 +3815,7 @@ class EvalActionFromAction(Action):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", expression: "str" = None, field: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, expression: "str" = None, field: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
         """EvalActionFromAction"""
 
         self._attrs = dict()
@@ -3509,6 +3829,10 @@ class EvalActionFromAction(Action):
             self._attrs["modifiedby"] = modifiedby
         if owner is not None:
             self._attrs["owner"] = owner
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if expression is not None:
             self._attrs["expression"] = expression
         if field is not None:
@@ -3624,6 +3948,42 @@ class EvalActionFromAction(Action):
         self._attrs["owner"] = owner
 
     @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this EvalActionFromAction.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this EvalActionFromAction.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this EvalActionFromAction.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this EvalActionFromAction.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this EvalActionFromAction.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this EvalActionFromAction.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
     def expression(self) -> "str":
         """ Gets the expression of this EvalActionFromAction.
         The EVAL expression that calculates the field.
@@ -3734,7 +4094,7 @@ class EvalActionFromActionPOST(ActionPOST):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", expression: "str" = None, field: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, expression: "str" = None, field: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
         """EvalActionFromActionPOST"""
 
         self._attrs = dict()
@@ -3748,6 +4108,10 @@ class EvalActionFromActionPOST(ActionPOST):
             self._attrs["modifiedby"] = modifiedby
         if owner is not None:
             self._attrs["owner"] = owner
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if expression is not None:
             self._attrs["expression"] = expression
         if field is not None:
@@ -3861,6 +4225,42 @@ class EvalActionFromActionPOST(ActionPOST):
         if owner is None:
             raise ValueError("Invalid value for `owner`, must not be `None`")
         self._attrs["owner"] = owner
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this EvalActionFromActionPOST.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this EvalActionFromActionPOST.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this EvalActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this EvalActionFromActionPOST.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this EvalActionFromActionPOST.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this EvalActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def expression(self) -> "str":
@@ -4242,7 +4642,7 @@ class Field(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", modified: "datetime", datasetid: "str" = None, datatype: "FieldDataType" = None, description: "str" = None, fieldtype: "FieldType" = None, id: "str" = None, indexed: "bool" = None, name: "str" = None, prevalence: "FieldPrevalence" = None, summary: "str" = None, title: "str" = None, **extra):
+    def __init__(self, created: "datetime", modified: "datetime", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, datasetid: "str" = None, datatype: "FieldDataType" = None, description: "str" = None, fieldtype: "FieldType" = None, id: "str" = None, indexed: "bool" = None, name: "str" = None, prevalence: "FieldPrevalence" = None, summary: "str" = None, title: "str" = None, **extra):
         """Field"""
 
         self._attrs = dict()
@@ -4250,6 +4650,10 @@ class Field(SSCModel):
             self._attrs["created"] = created
         if modified is not None:
             self._attrs["modified"] = modified
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if datasetid is not None:
             self._attrs["datasetid"] = datasetid
         if datatype is not None:
@@ -4312,6 +4716,42 @@ class Field(SSCModel):
         if modified is None:
             raise ValueError("Invalid value for `modified`, must not be `None`")
         self._attrs["modified"] = modified
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this Field.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this Field.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this Field.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this Field.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this Field.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this Field.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def datasetid(self) -> "str":
@@ -4690,7 +5130,7 @@ class ImportDataset(Dataset):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", description: "str" = None, source_module: "str" = None, source_name: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, source_module: "str" = None, source_name: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
         """ImportDataset"""
 
         self._attrs = dict()
@@ -4712,6 +5152,10 @@ class ImportDataset(Dataset):
             self._attrs["owner"] = owner
         if resourcename is not None:
             self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if description is not None:
             self._attrs["description"] = description
         self._attrs["kind"] = "import" 
@@ -4907,6 +5351,42 @@ class ImportDataset(Dataset):
         if resourcename is None:
             raise ValueError("Invalid value for `resourcename`, must not be `None`")
         self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this ImportDataset.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this ImportDataset.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this ImportDataset.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this ImportDataset.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this ImportDataset.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this ImportDataset.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def description(self) -> "str":
@@ -5512,7 +5992,7 @@ class IndexDataset(Dataset):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", description: "str" = None, disabled: "bool" = None, earliest_event_time: "str" = None, earliest_ingest_time: "str" = None, frozen_time_period_in_secs: "int" = None, latest_event_time: "str" = None, latest_ingest_time: "str" = None, latest_metadata_update_time: "str" = None, summary: "str" = None, title: "str" = None, total_event_count: "int" = None, total_size: "int" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, disabled: "bool" = None, earliest_event_time: "str" = None, earliest_ingest_time: "str" = None, frozen_time_period_in_secs: "int" = None, latest_event_time: "str" = None, latest_ingest_time: "str" = None, latest_metadata_update_time: "str" = None, summary: "str" = None, title: "str" = None, total_event_count: "int" = None, total_size: "int" = None, version: "int" = None, **extra):
         """IndexDataset"""
 
         self._attrs = dict()
@@ -5534,6 +6014,10 @@ class IndexDataset(Dataset):
             self._attrs["owner"] = owner
         if resourcename is not None:
             self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if description is not None:
             self._attrs["description"] = description
         if disabled is not None:
@@ -5743,6 +6227,42 @@ class IndexDataset(Dataset):
         if resourcename is None:
             raise ValueError("Invalid value for `resourcename`, must not be `None`")
         self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this IndexDataset.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this IndexDataset.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this IndexDataset.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this IndexDataset.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this IndexDataset.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this IndexDataset.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def description(self) -> "str":
@@ -6463,7 +6983,7 @@ class JobDataset(Dataset):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", collect_event_summary: "bool" = None, collect_field_summary: "bool" = None, collect_time_buckets: "bool" = None, completion_time: "str" = None, delete_time: "str" = None, description: "str" = None, dispatch_time: "str" = None, execution_time: "float" = None, extract_all_fields: "bool" = None, has_side_effects: "bool" = None, max_time: "int" = None, parameters: "object" = None, parent: "str" = None, percent_complete: "int" = None, query: "str" = None, resolved_earliest: "str" = None, resolved_latest: "str" = None, result_count: "int" = None, results_available: "int" = None, search_head: "str" = None, sid: "str" = None, spl: "str" = None, status: "str" = None, summary: "str" = None, timeline_metadata: "JobDatasetPropertiesTimelineMetadata" = None, title: "str" = None, triggering_automation: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, collect_event_summary: "bool" = None, collect_field_summary: "bool" = None, collect_time_buckets: "bool" = None, completion_time: "str" = None, delete_time: "str" = None, description: "str" = None, dispatch_time: "str" = None, execution_time: "float" = None, extract_all_fields: "bool" = None, has_side_effects: "bool" = None, max_time: "int" = None, parameters: "object" = None, parent: "str" = None, percent_complete: "int" = None, query: "str" = None, resolved_earliest: "str" = None, resolved_latest: "str" = None, result_count: "int" = None, results_available: "int" = None, search_head: "str" = None, sid: "str" = None, spl: "str" = None, status: "str" = None, summary: "str" = None, timeline_metadata: "JobDatasetPropertiesTimelineMetadata" = None, title: "str" = None, triggering_automation: "str" = None, version: "int" = None, **extra):
         """JobDataset"""
 
         self._attrs = dict()
@@ -6485,6 +7005,10 @@ class JobDataset(Dataset):
             self._attrs["owner"] = owner
         if resourcename is not None:
             self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if collect_event_summary is not None:
             self._attrs["collectEventSummary"] = collect_event_summary
         if collect_field_summary is not None:
@@ -6724,6 +7248,42 @@ class JobDataset(Dataset):
         if resourcename is None:
             raise ValueError("Invalid value for `resourcename`, must not be `None`")
         self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this JobDataset.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this JobDataset.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this JobDataset.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this JobDataset.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this JobDataset.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this JobDataset.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def collect_event_summary(self) -> "bool":
@@ -7255,7 +7815,7 @@ class KVCollectionDataset(Dataset):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", description: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
         """KVCollectionDataset"""
 
         self._attrs = dict()
@@ -7277,6 +7837,10 @@ class KVCollectionDataset(Dataset):
             self._attrs["owner"] = owner
         if resourcename is not None:
             self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if description is not None:
             self._attrs["description"] = description
         self._attrs["kind"] = "kvcollection" 
@@ -7468,6 +8032,42 @@ class KVCollectionDataset(Dataset):
         if resourcename is None:
             raise ValueError("Invalid value for `resourcename`, must not be `None`")
         self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this KVCollectionDataset.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this KVCollectionDataset.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this KVCollectionDataset.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this KVCollectionDataset.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this KVCollectionDataset.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this KVCollectionDataset.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def description(self) -> "str":
@@ -7782,7 +8382,7 @@ class LookupActionFromAction(Action):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", expression: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, expression: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
         """LookupActionFromAction"""
 
         self._attrs = dict()
@@ -7796,6 +8396,10 @@ class LookupActionFromAction(Action):
             self._attrs["modifiedby"] = modifiedby
         if owner is not None:
             self._attrs["owner"] = owner
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if expression is not None:
             self._attrs["expression"] = expression
         if id is not None:
@@ -7909,6 +8513,42 @@ class LookupActionFromAction(Action):
         self._attrs["owner"] = owner
 
     @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this LookupActionFromAction.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this LookupActionFromAction.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this LookupActionFromAction.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this LookupActionFromAction.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this LookupActionFromAction.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this LookupActionFromAction.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
     def expression(self) -> "str":
         """ Gets the expression of this LookupActionFromAction.
         The lookup body.
@@ -8001,7 +8641,7 @@ class LookupActionFromActionPOST(ActionPOST):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", expression: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, expression: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
         """LookupActionFromActionPOST"""
 
         self._attrs = dict()
@@ -8015,6 +8655,10 @@ class LookupActionFromActionPOST(ActionPOST):
             self._attrs["modifiedby"] = modifiedby
         if owner is not None:
             self._attrs["owner"] = owner
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if expression is not None:
             self._attrs["expression"] = expression
         if id is not None:
@@ -8126,6 +8770,42 @@ class LookupActionFromActionPOST(ActionPOST):
         if owner is None:
             raise ValueError("Invalid value for `owner`, must not be `None`")
         self._attrs["owner"] = owner
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this LookupActionFromActionPOST.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this LookupActionFromActionPOST.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this LookupActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this LookupActionFromActionPOST.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this LookupActionFromActionPOST.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this LookupActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def expression(self) -> "str":
@@ -8458,7 +9138,7 @@ class LookupDataset(Dataset):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", case_sensitive_match: "bool" = True, description: "str" = None, external_kind: "LookupDatasetExternalKind" = None, external_name: "str" = None, filter: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, case_sensitive_match: "bool" = True, description: "str" = None, external_kind: "LookupDatasetExternalKind" = None, external_name: "str" = None, filter: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
         """LookupDataset"""
 
         self._attrs = dict()
@@ -8480,6 +9160,10 @@ class LookupDataset(Dataset):
             self._attrs["owner"] = owner
         if resourcename is not None:
             self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if case_sensitive_match is not None:
             self._attrs["caseSensitiveMatch"] = case_sensitive_match
         if description is not None:
@@ -8679,6 +9363,42 @@ class LookupDataset(Dataset):
         if resourcename is None:
             raise ValueError("Invalid value for `resourcename`, must not be `None`")
         self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this LookupDataset.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this LookupDataset.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this LookupDataset.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this LookupDataset.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this LookupDataset.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this LookupDataset.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def case_sensitive_match(self) -> "bool":
@@ -9228,7 +9948,7 @@ class MetricDataset(Dataset):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", description: "str" = None, disabled: "bool" = None, earliest_event_time: "str" = None, earliest_ingest_time: "str" = None, frozen_time_period_in_secs: "int" = None, latest_event_time: "str" = None, latest_ingest_time: "str" = None, latest_metadata_update_time: "str" = None, summary: "str" = None, title: "str" = None, total_event_count: "int" = None, total_size: "int" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, disabled: "bool" = None, earliest_event_time: "str" = None, earliest_ingest_time: "str" = None, frozen_time_period_in_secs: "int" = None, latest_event_time: "str" = None, latest_ingest_time: "str" = None, latest_metadata_update_time: "str" = None, summary: "str" = None, title: "str" = None, total_event_count: "int" = None, total_size: "int" = None, version: "int" = None, **extra):
         """MetricDataset"""
 
         self._attrs = dict()
@@ -9250,6 +9970,10 @@ class MetricDataset(Dataset):
             self._attrs["owner"] = owner
         if resourcename is not None:
             self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if description is not None:
             self._attrs["description"] = description
         if disabled is not None:
@@ -9459,6 +10183,42 @@ class MetricDataset(Dataset):
         if resourcename is None:
             raise ValueError("Invalid value for `resourcename`, must not be `None`")
         self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this MetricDataset.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this MetricDataset.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this MetricDataset.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this MetricDataset.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this MetricDataset.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this MetricDataset.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def description(self) -> "str":
@@ -10052,7 +10812,7 @@ class RegexActionFromAction(Action):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", field: "str" = None, id: "str" = None, limit: "int" = None, pattern: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, field: "str" = None, id: "str" = None, limit: "int" = None, pattern: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
         """RegexActionFromAction"""
 
         self._attrs = dict()
@@ -10066,6 +10826,10 @@ class RegexActionFromAction(Action):
             self._attrs["modifiedby"] = modifiedby
         if owner is not None:
             self._attrs["owner"] = owner
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if field is not None:
             self._attrs["field"] = field
         if id is not None:
@@ -10181,6 +10945,42 @@ class RegexActionFromAction(Action):
         if owner is None:
             raise ValueError("Invalid value for `owner`, must not be `None`")
         self._attrs["owner"] = owner
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this RegexActionFromAction.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this RegexActionFromAction.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this RegexActionFromAction.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this RegexActionFromAction.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this RegexActionFromAction.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this RegexActionFromAction.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def field(self) -> "str":
@@ -10311,7 +11111,7 @@ class RegexActionFromActionPOST(ActionPOST):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", field: "str" = None, id: "str" = None, limit: "int" = None, pattern: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, field: "str" = None, id: "str" = None, limit: "int" = None, pattern: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
         """RegexActionFromActionPOST"""
 
         self._attrs = dict()
@@ -10325,6 +11125,10 @@ class RegexActionFromActionPOST(ActionPOST):
             self._attrs["modifiedby"] = modifiedby
         if owner is not None:
             self._attrs["owner"] = owner
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if field is not None:
             self._attrs["field"] = field
         if id is not None:
@@ -10440,6 +11244,42 @@ class RegexActionFromActionPOST(ActionPOST):
         if owner is None:
             raise ValueError("Invalid value for `owner`, must not be `None`")
         self._attrs["owner"] = owner
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this RegexActionFromActionPOST.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this RegexActionFromActionPOST.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this RegexActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this RegexActionFromActionPOST.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this RegexActionFromActionPOST.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this RegexActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def field(self) -> "str":
@@ -11050,7 +11890,7 @@ class Relationship(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", fields: "List[RelationshipField]" = None, id: "str" = None, kind: "RelationshipKind" = None, module: "str" = 'The module of the source dataset.', name: "str" = None, sourceid: "str" = None, sourceresourcename: "str" = None, targetid: "str" = None, targetresourcename: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, fields: "List[RelationshipField]" = None, id: "str" = None, kind: "RelationshipKind" = None, module: "str" = 'The module of the source dataset.', name: "str" = None, sourceid: "str" = None, sourceresourcename: "str" = None, targetid: "str" = None, targetresourcename: "str" = None, version: "int" = None, **extra):
         """Relationship"""
 
         self._attrs = dict()
@@ -11064,6 +11904,10 @@ class Relationship(SSCModel):
             self._attrs["modifiedby"] = modifiedby
         if owner is not None:
             self._attrs["owner"] = owner
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if fields is not None:
             self._attrs["fields"] = fields
         if id is not None:
@@ -11186,6 +12030,42 @@ class Relationship(SSCModel):
         if owner is None:
             raise ValueError("Invalid value for `owner`, must not be `None`")
         self._attrs["owner"] = owner
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this Relationship.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this Relationship.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this Relationship.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this Relationship.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this Relationship.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this Relationship.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def fields(self) -> "List[RelationshipField]":
@@ -11759,7 +12639,7 @@ class Rule(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", actions: "List[Action]" = None, id: "str" = None, match: "str" = None, module: "str" = '', name: "str" = None, resourcename: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", actions: "List[Action]" = None, appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, id: "str" = None, match: "str" = None, module: "str" = '', name: "str" = None, resourcename: "str" = None, version: "int" = None, **extra):
         """Rule"""
 
         self._attrs = dict()
@@ -11775,6 +12655,10 @@ class Rule(SSCModel):
             self._attrs["owner"] = owner
         if actions is not None:
             self._attrs["actions"] = actions
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if id is not None:
             self._attrs["id"] = id
         if match is not None:
@@ -11907,6 +12791,42 @@ class Rule(SSCModel):
         :type: List[Action]
         """
         self._attrs["actions"] = actions
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this Rule.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this Rule.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this Rule.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this Rule.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this Rule.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this Rule.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def id(self) -> "str":
@@ -13104,7 +14024,7 @@ class ViewDataset(Dataset):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", description: "str" = None, search: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, search: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
         """ViewDataset"""
 
         self._attrs = dict()
@@ -13126,6 +14046,10 @@ class ViewDataset(Dataset):
             self._attrs["owner"] = owner
         if resourcename is not None:
             self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if description is not None:
             self._attrs["description"] = description
         self._attrs["kind"] = "view" 
@@ -13319,6 +14243,42 @@ class ViewDataset(Dataset):
         if resourcename is None:
             raise ValueError("Invalid value for `resourcename`, must not be `None`")
         self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this ViewDataset.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this ViewDataset.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this ViewDataset.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this ViewDataset.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this ViewDataset.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this ViewDataset.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def description(self) -> "str":

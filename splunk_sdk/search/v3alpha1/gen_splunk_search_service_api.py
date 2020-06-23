@@ -88,7 +88,7 @@ class SplunkSearchService(BaseService):
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, RecurringSearch)
 
-    def delete_job(self, query_params: Dict[str, object] = None) -> DeleteSearchJob:
+    def delete_job(self, delete_search_job: DeleteSearchJob = None, query_params: Dict[str, object] = None) -> DeleteSearchJob:
         """
         Creates a search job that deletes events from an index. The events are deleted from the index in the specified module, based on the search criteria as specified by the predicate.
 
@@ -101,7 +101,8 @@ class SplunkSearchService(BaseService):
 
         path = Template("/search/v3alpha1/jobs/delete").substitute(path_params)
         url = self.base_client.build_url(path)
-        response = self.base_client.post(url, params=query_params)
+        data = delete_search_job.to_dict()
+        response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, DeleteSearchJob)
 
     def delete_recurring_search(self, rsid: str, query_params: Dict[str, object] = None) -> RecurringSearch:
@@ -121,7 +122,7 @@ class SplunkSearchService(BaseService):
         response = self.base_client.delete(url, params=query_params)
         return handle_response(response, RecurringSearch)
 
-    def get_all_jobs_for_recurring_search(self, rsid: str, count: float = None, query_params: Dict[str, object] = None) -> List[SearchJob]:
+    def get_all_jobs_for_recurring_search(self, rsid: str, count: int = None, query_params: Dict[str, object] = None) -> List[SearchJob]:
         """
         Returns all search jobs associated with a recurring search with a specified recurring search ID (rsid).
 
@@ -190,7 +191,7 @@ class SplunkSearchService(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, RecurringSearch)
 
-    def list_events_summary(self, sid: str, count: float = None, earliest: str = None, field: str = None, latest: str = None, offset: float = None, query_params: Dict[str, object] = None) -> ListSearchResultsResponse:
+    def list_events_summary(self, sid: str, count: int = None, earliest: str = None, field: str = None, latest: str = None, offset: int = None, query_params: Dict[str, object] = None) -> ListSearchResultsResponse:
         """
         Return events summary, for search ID (SID) search.
         """
@@ -236,7 +237,7 @@ class SplunkSearchService(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, FieldsSummary)
 
-    def list_jobs(self, count: float = None, filter: str = None, status: SearchStatus = None, query_params: Dict[str, object] = None) -> List[SearchJob]:
+    def list_jobs(self, count: int = None, filter: str = None, status: SearchStatus = None, query_params: Dict[str, object] = None) -> List[SearchJob]:
         """
         Returns a matching list of search jobs.
         """
@@ -257,7 +258,7 @@ class SplunkSearchService(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, SearchJob)
 
-    def list_preview_results(self, sid: str, count: float = None, offset: float = None, query_params: Dict[str, object] = None) -> ListPreviewResultsResponse:
+    def list_preview_results(self, sid: str, count: int = None, offset: int = None, query_params: Dict[str, object] = None) -> ListPreviewResultsResponse:
         """
         Return the preview search results for the job with the specified search ID (SID). Can be used when a job is running to return interim results.
         """
@@ -292,7 +293,7 @@ class SplunkSearchService(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, RecurringSearch)
 
-    def list_results(self, sid: str, count: float = None, field: str = None, offset: float = None, query_params: Dict[str, object] = None) -> ListSearchResultsResponse:
+    def list_results(self, sid: str, count: int = None, field: str = None, offset: int = None, query_params: Dict[str, object] = None) -> ListSearchResultsResponse:
         """
         Returns search results for a job with a specified search ID (sid).
         """

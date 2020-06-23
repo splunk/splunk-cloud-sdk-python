@@ -206,6 +206,7 @@ components:
       - $ref: '#/components/schemas/MetadataProperties'
       - $ref: '#/components/schemas/ActionCommon'
       - $ref: '#/components/schemas/AliasActionProperties'
+      - $ref: '#/components/schemas/AppClientIDProperties'
       description: A complete alias action as rendered in POST, PATCH, and GET responses.
       required:
       - kind
@@ -258,6 +259,7 @@ components:
       allOf:
       - $ref: '#/components/schemas/AnnotationsProperties'
       - $ref: '#/components/schemas/MetadataProperties'
+      - $ref: '#/components/schemas/AppClientIDProperties'
       - properties:
           id:
             description: A unique annotation ID.
@@ -355,11 +357,23 @@ components:
           minLength: 24
           type: string
       type: object
+    AppClientIDProperties:
+      description: Appclientidcreatedby, appclientidmodifiedby app clientid properties
+        for inclusion in othert objects.
+      properties:
+        appclientidcreatedby:
+          description: AppClinetId of the creator app of the dataset.
+          type: string
+        appclientidmodifiedby:
+          description: AppClinetId of the modifier app of the dataset.
+          type: string
+      type: object
     AutoKVAction:
       allOf:
       - $ref: '#/components/schemas/MetadataProperties'
       - $ref: '#/components/schemas/ActionCommon'
       - $ref: '#/components/schemas/AutoKVActionProperties'
+      - $ref: '#/components/schemas/AppClientIDProperties'
       description: A complete autokv action as rendered in POST, PATCH, and GET responses.
       required:
       - kind
@@ -412,6 +426,7 @@ components:
         type: object
       - $ref: '#/components/schemas/MetadataProperties'
       - $ref: '#/components/schemas/DashboardMutable'
+      - $ref: '#/components/schemas/AppClientIDProperties'
       description: A complete dashboard as rendered in POST, PATCH, and GET responses.
       required:
       - definition
@@ -496,6 +511,12 @@ components:
       description: Properties that are common across all Dataset kinds rendered in
         POST, PATCH, and GET responses.
       properties:
+        appclientidcreatedby:
+          description: AppClinetId of the creator app of the dataset.
+          type: string
+        appclientidmodifiedby:
+          description: AppClinetId of the modifier app of the dataset.
+          type: string
         description:
           description: Detailed description of the dataset.
           type: string
@@ -666,6 +687,7 @@ components:
       - $ref: '#/components/schemas/MetadataProperties'
       - $ref: '#/components/schemas/ActionCommon'
       - $ref: '#/components/schemas/EvalActionProperties'
+      - $ref: '#/components/schemas/AppClientIDProperties'
       description: A complete eval action as rendered in POST, PATCH, and GET responses.
       required:
       - kind
@@ -732,6 +754,7 @@ components:
         type: object
       - $ref: '#/components/schemas/FieldProperties'
       - $ref: '#/components/schemas/DateMetadataProperties'
+      - $ref: '#/components/schemas/AppClientIDProperties'
       description: A complete field as rendered in POST, PATCH, and GET responses.
       required:
       - id
@@ -1202,6 +1225,7 @@ components:
       - $ref: '#/components/schemas/MetadataProperties'
       - $ref: '#/components/schemas/ActionCommon'
       - $ref: '#/components/schemas/LookupActionProperties'
+      - $ref: '#/components/schemas/AppClientIDProperties'
       description: A complete lookup action as rendered in POST, PATCH, and GET responses.
       required:
       - kind
@@ -1394,6 +1418,7 @@ components:
       - $ref: '#/components/schemas/MetadataProperties'
       - $ref: '#/components/schemas/ActionCommon'
       - $ref: '#/components/schemas/RegexActionProperties'
+      - $ref: '#/components/schemas/AppClientIDProperties'
       description: A complete regex action as rendered in POST, PATCH, and GET responses.
       required:
       - kind
@@ -1448,6 +1473,7 @@ components:
       allOf:
       - $ref: '#/components/schemas/RelationshipProperties'
       - $ref: '#/components/schemas/MetadataProperties'
+      - $ref: '#/components/schemas/AppClientIDProperties'
       - properties:
           fields:
             description: The relationship fields associated with the relationship.
@@ -1631,6 +1657,7 @@ components:
       allOf:
       - $ref: '#/components/schemas/RuleProperties'
       - $ref: '#/components/schemas/MetadataProperties'
+      - $ref: '#/components/schemas/AppClientIDProperties'
       - properties:
           actions:
             description: The actions associated with the rule.
@@ -4786,4 +4813,4 @@ paths:
     - $ref: '#/components/parameters/AuthorizationHeader'
     - $ref: '#/components/parameters/Tenant'
 
-# Retrieved from scp-openapi commit eeca479623b096d60a163519a72a8ef9e72ac25d path: catalog/v2alpha2/openapi.yaml
+# Retrieved from scp-openapi commit 2552e9a85ce32779e55e91977eddb123f9082103 path: catalog/v2alpha2/openapi.yaml

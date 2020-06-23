@@ -233,7 +233,7 @@ class DeleteSearchJob(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, index: "str", module: "str", allow_side_effects: "bool" = True, collect_event_summary: "bool" = False, collect_field_summary: "bool" = False, collect_time_buckets: "bool" = False, completion_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = False, extract_all_fields: "bool" = False, max_time: "float" = 3600, messages: "List[Message]" = None, name: "str" = None, percent_complete: "int" = 0, prediate: "str" = None, preview_available: "str" = 'false', query: "str" = None, query_parameters: "QueryParameters" = None, required_freshness: "float" = 0, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = 0, results_preview_available: "int" = 0, sid: "str" = None, status: "SearchStatus" = None, **extra):
+    def __init__(self, index: "str", module: "str", predicate: "str", allow_side_effects: "bool" = True, collect_event_summary: "bool" = False, collect_field_summary: "bool" = False, collect_time_buckets: "bool" = False, completion_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = False, extract_all_fields: "bool" = False, max_time: "int" = 3600, messages: "List[Message]" = None, name: "str" = None, percent_complete: "int" = 0, preview_available: "str" = 'false', query: "str" = None, query_parameters: "QueryParameters" = None, required_freshness: "int" = 0, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = 0, results_preview_available: "int" = 0, sid: "str" = None, status: "SearchStatus" = None, **extra):
         """DeleteSearchJob"""
 
         self._attrs = dict()
@@ -241,6 +241,8 @@ class DeleteSearchJob(SSCModel):
             self._attrs["index"] = index
         if module is not None:
             self._attrs["module"] = module
+        if predicate is not None:
+            self._attrs["predicate"] = predicate
         if allow_side_effects is not None:
             self._attrs["allowSideEffects"] = allow_side_effects
         if collect_event_summary is not None:
@@ -265,8 +267,6 @@ class DeleteSearchJob(SSCModel):
             self._attrs["name"] = name
         if percent_complete is not None:
             self._attrs["percentComplete"] = percent_complete
-        if prediate is not None:
-            self._attrs["prediate"] = prediate
         if preview_available is not None:
             self._attrs["previewAvailable"] = preview_available
         if query is not None:
@@ -329,6 +329,26 @@ class DeleteSearchJob(SSCModel):
         if module is None:
             raise ValueError("Invalid value for `module`, must not be `None`")
         self._attrs["module"] = module
+
+    @property
+    def predicate(self) -> "str":
+        """ Gets the predicate of this DeleteSearchJob.
+        The predicate expression that identifies the events to delete from the index. This expression must return true or false. To delete all events from the index, specify \"true\" instead of an expression.
+        """
+        return self._attrs.get("predicate")
+
+    @predicate.setter
+    def predicate(self, predicate: "str"):
+        """Sets the predicate of this DeleteSearchJob.
+
+        The predicate expression that identifies the events to delete from the index. This expression must return true or false. To delete all events from the index, specify \"true\" instead of an expression.
+
+        :param predicate: The predicate of this DeleteSearchJob.
+        :type: str
+        """
+        if predicate is None:
+            raise ValueError("Invalid value for `predicate`, must not be `None`")
+        self._attrs["predicate"] = predicate
 
     @property
     def allow_side_effects(self) -> "bool":
@@ -475,20 +495,20 @@ class DeleteSearchJob(SSCModel):
         self._attrs["extractAllFields"] = extract_all_fields
 
     @property
-    def max_time(self) -> "float":
+    def max_time(self) -> "int":
         """ Gets the max_time of this DeleteSearchJob.
         The amount of time, in seconds, to run the delete search job before finalizing the search. The maximum value is 3600 seconds (1 hour). 
         """
         return self._attrs.get("maxTime")
 
     @max_time.setter
-    def max_time(self, max_time: "float"):
+    def max_time(self, max_time: "int"):
         """Sets the max_time of this DeleteSearchJob.
 
         The amount of time, in seconds, to run the delete search job before finalizing the search. The maximum value is 3600 seconds (1 hour). 
 
         :param max_time: The max_time of this DeleteSearchJob.
-        :type: float
+        :type: int
         """
         self._attrs["maxTime"] = max_time
 
@@ -545,24 +565,6 @@ class DeleteSearchJob(SSCModel):
         self._attrs["percentComplete"] = percent_complete
 
     @property
-    def prediate(self) -> "str":
-        """ Gets the prediate of this DeleteSearchJob.
-        Events satisfying this predicate are going to be deleted. To delete all events from the index, \"true\" should be specified for this field.
-        """
-        return self._attrs.get("prediate")
-
-    @prediate.setter
-    def prediate(self, prediate: "str"):
-        """Sets the prediate of this DeleteSearchJob.
-
-        Events satisfying this predicate are going to be deleted. To delete all events from the index, \"true\" should be specified for this field.
-
-        :param prediate: The prediate of this DeleteSearchJob.
-        :type: str
-        """
-        self._attrs["prediate"] = prediate
-
-    @property
     def preview_available(self) -> "str":
         """ Gets the preview_available of this DeleteSearchJob.
         This field does not apply to delete search jobs and is defaulted to false.
@@ -617,20 +619,20 @@ class DeleteSearchJob(SSCModel):
         self._attrs["queryParameters"] = query_parameters.to_dict()
 
     @property
-    def required_freshness(self) -> "float":
+    def required_freshness(self) -> "int":
         """ Gets the required_freshness of this DeleteSearchJob.
         This field does not apply to delete search jobs and is set to 0. 
         """
         return self._attrs.get("requiredFreshness")
 
     @required_freshness.setter
-    def required_freshness(self, required_freshness: "float"):
+    def required_freshness(self, required_freshness: "int"):
         """Sets the required_freshness of this DeleteSearchJob.
 
         This field does not apply to delete search jobs and is set to 0. 
 
         :param required_freshness: The required_freshness of this DeleteSearchJob.
-        :type: float
+        :type: int
         """
         self._attrs["requiredFreshness"] = required_freshness
 
@@ -1561,7 +1563,7 @@ class SearchJob(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, query: "str", allow_side_effects: "bool" = False, collect_event_summary: "bool" = False, collect_field_summary: "bool" = False, collect_time_buckets: "bool" = False, completion_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = False, extract_all_fields: "bool" = False, max_time: "float" = 3600, messages: "List[Message]" = None, module: "str" = '', name: "str" = None, percent_complete: "int" = 0, preview_available: "str" = 'false', query_parameters: "QueryParameters" = None, required_freshness: "float" = 0, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = 0, results_preview_available: "int" = 0, sid: "str" = None, status: "SearchStatus" = None, **extra):
+    def __init__(self, query: "str", allow_side_effects: "bool" = False, collect_event_summary: "bool" = False, collect_field_summary: "bool" = False, collect_time_buckets: "bool" = False, completion_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = False, extract_all_fields: "bool" = False, max_time: "int" = 3600, messages: "List[Message]" = None, module: "str" = '', name: "str" = None, percent_complete: "int" = 0, preview_available: "str" = 'false', query_parameters: "QueryParameters" = None, required_freshness: "int" = 0, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = 0, results_preview_available: "int" = 0, sid: "str" = None, status: "SearchStatus" = None, **extra):
         """SearchJob"""
 
         self._attrs = dict()
@@ -1763,7 +1765,7 @@ class SearchJob(SSCModel):
     @property
     def extract_all_fields(self) -> "bool":
         """ Gets the extract_all_fields of this SearchJob.
-        Specifies whether the Search service should extract all of the available fields in the data, including fields not mentioned in the SPL for the search job. Set to 'false' for better search peformance. 
+        Specifies whether the Search service should extract all of the available fields in the data,  including fields not mentioned in the SPL for the search job.  Set to 'false' for better search performance. 
         """
         return self._attrs.get("extractAllFields")
 
@@ -1771,7 +1773,7 @@ class SearchJob(SSCModel):
     def extract_all_fields(self, extract_all_fields: "bool"):
         """Sets the extract_all_fields of this SearchJob.
 
-        Specifies whether the Search service should extract all of the available fields in the data, including fields not mentioned in the SPL for the search job. Set to 'false' for better search peformance. 
+        Specifies whether the Search service should extract all of the available fields in the data,  including fields not mentioned in the SPL for the search job.  Set to 'false' for better search performance. 
 
         :param extract_all_fields: The extract_all_fields of this SearchJob.
         :type: bool
@@ -1779,20 +1781,20 @@ class SearchJob(SSCModel):
         self._attrs["extractAllFields"] = extract_all_fields
 
     @property
-    def max_time(self) -> "float":
+    def max_time(self) -> "int":
         """ Gets the max_time of this SearchJob.
         The number of seconds to run the search before finalizing the search. The maximum value is 3600 seconds (1 hour). 
         """
         return self._attrs.get("maxTime")
 
     @max_time.setter
-    def max_time(self, max_time: "float"):
+    def max_time(self, max_time: "int"):
         """Sets the max_time of this SearchJob.
 
         The number of seconds to run the search before finalizing the search. The maximum value is 3600 seconds (1 hour). 
 
         :param max_time: The max_time of this SearchJob.
-        :type: float
+        :type: int
         """
         self._attrs["maxTime"] = max_time
 
@@ -1903,20 +1905,20 @@ class SearchJob(SSCModel):
         self._attrs["queryParameters"] = query_parameters.to_dict()
 
     @property
-    def required_freshness(self) -> "float":
+    def required_freshness(self) -> "int":
         """ Gets the required_freshness of this SearchJob.
         Specifies a maximum time interval, in seconds, between identical existing searches. The 'requiredFreshness' parameter is used to determine if an existing search with the same query and the same time boundaries can be reused, instead of running the same search again. Freshness is applied to the resolvedEarliest and resolvedLatest parameters. If an existing search has the same exact criteria as this search and the resolvedEarliest and resolvedLatest values are within the freshness interval, the existing search metadata is returned instead of initiating a new search job. By default, the requiredFreshness parameter is set to 0 which means that the platform does not attempt to use an existing search. 
         """
         return self._attrs.get("requiredFreshness")
 
     @required_freshness.setter
-    def required_freshness(self, required_freshness: "float"):
+    def required_freshness(self, required_freshness: "int"):
         """Sets the required_freshness of this SearchJob.
 
         Specifies a maximum time interval, in seconds, between identical existing searches. The 'requiredFreshness' parameter is used to determine if an existing search with the same query and the same time boundaries can be reused, instead of running the same search again. Freshness is applied to the resolvedEarliest and resolvedLatest parameters. If an existing search has the same exact criteria as this search and the resolvedEarliest and resolvedLatest values are within the freshness interval, the existing search metadata is returned instead of initiating a new search job. By default, the requiredFreshness parameter is set to 0 which means that the platform does not attempt to use an existing search. 
 
         :param required_freshness: The required_freshness of this SearchJob.
-        :type: float
+        :type: int
         """
         self._attrs["requiredFreshness"] = required_freshness
 

@@ -2,7 +2,7 @@
 
 # flake8: noqa
 
-# Copyright © 2019 Splunk, Inc.
+# Copyright © 2020 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -34,15 +34,16 @@ __version__ = "1.0.0"
 from splunk_sdk.search.v2beta1.gen_splunk_search_service_api import SplunkSearchService
 
 # import models into sdk package
-from splunk_sdk.search.v2beta1.gen_models import SingleFieldSummary, \
+from splunk_sdk.search.v2beta1.gen_models import Message, \
+    QueryParameters, \
+    SearchStatus, \
+    DeleteSearchJob, \
+    SingleFieldSummary, \
     SingleValueMode, \
     FieldsSummary, \
     ListSearchResultsResponseFields, \
-    Message, \
     ListPreviewResultsResponse, \
     ListSearchResultsResponse, \
-    QueryParameters, \
-    SearchStatus, \
     SearchJob, \
     SingleTimeBucket, \
     TimeBucketsSummary, \

@@ -378,6 +378,17 @@ components:
           format: int64
           type: integer
       type: object
+    PaginatedResponseOfPlugin:
+      description: ""
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/Plugin'
+          type: array
+        total:
+          format: int64
+          type: integer
+      type: object
     PaginatedResponseOfTemplateResponse:
       description: ""
       properties:
@@ -582,6 +593,72 @@ components:
           items:
             type: string
           type: array
+        version:
+          format: int64
+          type: integer
+      type: object
+    Plugin:
+      description: ""
+      properties:
+        description:
+          type: string
+        isDeleted:
+          type: boolean
+        lastUpdateDate:
+          format: int64
+          type: integer
+        lastUpdateUserId:
+          type: string
+        name:
+          type: string
+        pluginId:
+          type: string
+        tenantId:
+          type: string
+      type: object
+    PluginPatchRequest:
+      description: ""
+      properties:
+        description:
+          description: Plugin description
+          example: ""
+          type: string
+        name:
+          description: Plugin name
+          example: ""
+          type: string
+      type: object
+    PluginRequest:
+      description: ""
+      properties:
+        description:
+          description: Plugin description
+          example: ""
+          type: string
+        name:
+          description: Plugin name
+          example: ""
+          type: string
+      required:
+      - description
+      - name
+      type: object
+    PluginResponse:
+      description: ""
+      properties:
+        createDate:
+          format: int64
+          type: integer
+        createUserId:
+          type: string
+        description:
+          type: string
+        jarLocation:
+          type: string
+        name:
+          type: string
+        pluginId:
+          type: string
         version:
           format: int64
           type: integer
@@ -829,6 +906,8 @@ components:
     ValidateResponse:
       description: ""
       properties:
+        nodeId:
+          type: string
         spl:
           type: string
         success:
@@ -857,16 +936,20 @@ paths:
         required: true
         schema:
           type: string
+      - explode: true
+        in: query
+        name: connectorId
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
       - in: query
         name: functionId
         schema:
           type: string
       - in: query
         name: createUserId
-        schema:
-          type: string
-      - in: query
-        name: connectorId
         schema:
           type: string
       - in: query
@@ -1413,6 +1496,7 @@ paths:
     post:
       deprecated: false
       operationId: uploadFile
+      x-hidden: true
       parameters:
       - description: Tenant ID
         in: path
@@ -1561,6 +1645,81 @@ paths:
       tags:
       - files
       x-authz-scope: streams.files.delete
+    get:
+      deprecated: false
+      operationId: getFileMetadata
+      parameters:
+      - description: Tenant ID
+        in: path
+        name: tenantId
+        required: true
+        schema:
+          type: string
+      - description: File ID
+        in: path
+        name: fileId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadFile'
+          description: Returns files metadata.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: The request isn't well-formed or is incorrect.
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: The user isn?t authenticated.
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: The operation isn?t authorized.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: The resource wasn?t found.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: There is a conflict with the existing state of your pipeline.
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: The media type isn't supported.
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: The provided fields aren't valid
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: An internal service error has occurred.
+      summary: Get file metadata.
+      tags:
+      - files
+      x-authz-scope: streams.files.read
   /{tenantId}/streams/v3beta1/lookups/{connectionId}:
     get:
       deprecated: false
@@ -3929,9 +4088,11 @@ tags:
   name: files
 - description: Lookups API Endpoints
   name: lookup
+- description: Services Endpoint
+  name: apiv-3-beta-1-admin-controller
 - description: V3Beta1 Pipeline API Endpoints
   name: pipelines
 - description: V3Beta1 Preview API Endpoints
   name: preview
 
-# Retrieved from scp-openapi commit eeca479623b096d60a163519a72a8ef9e72ac25d path: streams/v3beta1/openapi.yaml
+# Retrieved from scp-openapi commit 2552e9a85ce32779e55e91977eddb123f9082103 path: streams/v3beta1/openapi.yaml

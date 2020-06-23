@@ -6326,10 +6326,12 @@ class ValidateResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, spl: "str" = None, success: "bool" = None, validation_messages: "List[str]" = None, **extra):
+    def __init__(self, node_id: "str" = None, spl: "str" = None, success: "bool" = None, validation_messages: "List[str]" = None, **extra):
         """ValidateResponse"""
 
         self._attrs = dict()
+        if node_id is not None:
+            self._attrs["nodeId"] = node_id
         if spl is not None:
             self._attrs["spl"] = spl
         if success is not None:
@@ -6338,6 +6340,22 @@ class ValidateResponse(SSCModel):
             self._attrs["validationMessages"] = validation_messages
         for k, v in extra.items():
             self._attrs[k] = v
+
+    @property
+    def node_id(self) -> "str":
+        """ Gets the node_id of this ValidateResponse.
+        """
+        return self._attrs.get("nodeId")
+
+    @node_id.setter
+    def node_id(self, node_id: "str"):
+        """Sets the node_id of this ValidateResponse.
+
+
+        :param node_id: The node_id of this ValidateResponse.
+        :type: str
+        """
+        self._attrs["nodeId"] = node_id
 
     @property
     def spl(self) -> "str":

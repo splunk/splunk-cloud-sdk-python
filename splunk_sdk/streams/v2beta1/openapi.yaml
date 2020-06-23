@@ -1294,6 +1294,8 @@ components:
     ValidateResponse:
       description: ""
       properties:
+        nodeId:
+          type: string
         spl:
           type: string
         success:
@@ -1322,16 +1324,20 @@ paths:
         required: true
         schema:
           type: string
+      - explode: true
+        in: query
+        name: connectorId
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
       - in: query
         name: functionId
         schema:
           type: string
       - in: query
         name: createUserId
-        schema:
-          type: string
-      - in: query
-        name: connectorId
         schema:
           type: string
       - in: query
@@ -3092,4 +3098,4 @@ tags:
 - description: V2Beta1 Preview API Endpoints
   name: apiv-2-beta-1-preview-controller
 
-# Retrieved from scp-openapi commit eeca479623b096d60a163519a72a8ef9e72ac25d path: streams/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit 2552e9a85ce32779e55e91977eddb123f9082103 path: streams/v2beta1/openapi.yaml

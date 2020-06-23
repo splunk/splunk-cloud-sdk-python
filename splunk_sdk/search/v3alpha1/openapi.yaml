@@ -16,7 +16,7 @@ components:
       name: count
       schema:
         default: 1000
-        type: number
+        type: integer
     Earliest:
       description: |
         The earliest time filter, in absolute time. When specifying an absolute time specify either UNIX time, or UTC  in seconds using the ISO-8601 (%FT%T.%Q) format.  For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC.  Any offset specified is ignored.
@@ -59,14 +59,14 @@ components:
       name: count
       schema:
         default: 30
-        type: number
+        type: integer
     offset:
       description: The index of the first item to return.
       in: query
       name: offset
       schema:
         default: 0
-        type: number
+        type: integer
     rsid:
       description: The recurring job ID.
       in: path
@@ -146,7 +146,7 @@ components:
             The amount of time, in seconds, to run the delete search job before finalizing the search. The maximum value is 3600 seconds (1 hour).
           maximum: 3600
           minimum: 1
-          type: number
+          type: integer
         messages:
           items:
             $ref: '#/components/schemas/Message'
@@ -166,10 +166,10 @@ components:
             search job completes.
           readOnly: true
           type: integer
-        prediate:
-          description: Events satisfying this predicate are going to be deleted. To
-            delete all events from the index, "true" should be specified for this
-            field.
+        predicate:
+          description: The predicate expression that identifies the events to delete
+            from the index. This expression must return true or false. To delete all
+            events from the index, specify "true" instead of an expression.
           type: string
         previewAvailable:
           default: false
@@ -192,7 +192,7 @@ components:
           description: |
             This field does not apply to delete search jobs and is set to 0.
           readOnly: true
-          type: number
+          type: integer
         resolvedEarliest:
           description: |
             The earliest time speciifed as an absolute value in GMT. The time is computed based on the values you specify for the 'timezone' and 'earliest' queryParameters.
@@ -244,6 +244,7 @@ components:
         duration:
           description: |
             The amount of time, in seconds, that a time bucket  spans from the earliest to the latest time.
+          format: double
           type: number
         earliestTime:
           description: |
@@ -457,7 +458,7 @@ components:
         extractAllFields:
           default: false
           description: |
-            Specifies whether the Search service should extract all of the  available fields in the data, including fields not mentioned in the  SPL for the search job. Set to 'false' for better search peformance.
+            Specifies whether the Search service should extract all of the available fields in the data, including fields not mentioned in the SPL for the search job. Set to 'false' for better search performance.
           type: boolean
         maxTime:
           default: 3600
@@ -465,7 +466,7 @@ components:
             The number of seconds to run the search before finalizing the search.  The default value is 3600 seconds (1 hour).  The maximum value is 3600 seconds (1 hour).
           maximum: 3600
           minimum: 1
-          type: number
+          type: integer
         messages:
           items:
             $ref: '#/components/schemas/Message'
@@ -512,7 +513,7 @@ components:
             Specifies a maximum time interval, in seconds, between identical existing searches. The 'requiredFreshness' parameter is used to determine if an existing search with the same query and the same time boundaries can be reused, instead of running the same search again. Freshness is applied to the resolvedEarliest and resolvedLatest parameters. If an existing search has the same exact criteria as this search and the resolvedEarliest and resolvedLatest values are within the freshness interval, the existing search metadata is returned instead of initiating a new search job. By default, the requiredFreshness parameter is set to 0 which means that the platform does not attempt to use an existing search.
           maximum: 259200
           minimum: 0
-          type: number
+          type: integer
         resolvedEarliest:
           description: |
             The earliest time speciifed as an absolute value in GMT.  The time is computed based on the values you specify for the  'timezone' and 'earliest' queryParameters.
@@ -570,6 +571,7 @@ components:
           type: string
         mean:
           description: The mean (average) for the numeric values in the field.
+          format: double
           type: number
         min:
           description: The minimum numeric values in the field.
@@ -588,6 +590,7 @@ components:
           type: boolean
         stddev:
           description: The standard deviation for the numeric values in the field.
+          format: double
           type: number
       type: object
     SingleTimeBucket:
@@ -598,10 +601,12 @@ components:
             Count of available events. Not all events in a bucket  are retrievable. Typically this count is capped at 10000.
           type: integer
         duration:
+          format: double
           type: number
         earliestTime:
           description: |
             The timestamp of the earliest event in the current bucket,  in UNIX format. This is the same time as 'earliestTimeStrfTime'  in UNIX format.
+          format: double
           type: number
         earliestTimeStrfTime:
           description: |
@@ -1016,6 +1021,11 @@ paths:
       description: |
         Creates a search job that deletes events from an index. The events are deleted from the index in the specified module, based on the search criteria as specified by the predicate.
       operationId: deleteJob
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteSearchJob'
       responses:
         "201":
           content:
@@ -1219,4 +1229,4 @@ paths:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/rsid'
 
-# Retrieved from scp-openapi commit eeca479623b096d60a163519a72a8ef9e72ac25d path: search/v3alpha1/openapi.yaml
+# Retrieved from scp-openapi commit 2552e9a85ce32779e55e91977eddb123f9082103 path: search/v3alpha1/openapi.yaml
