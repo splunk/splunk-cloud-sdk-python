@@ -1,5 +1,59 @@
 # Splunk Cloud SDK for Python Changelog
 
+## Version 7.0.0
+
+### Library
+
+#### Breaking Changes
+
+#### Non-Breaking Changes
+- App Registry
+	- `NativeAppFromAppResponseCreateUpdate` has been added
+	- `NativeAppFromAppResponseGetList` has been added
+	- `NativeAppPOST`  has been added
+	- `ServiceAppFromAppResponseCreateUpdate`  has been added
+	- `ServiceAppFromAppResponseGetList` has been added
+	- `ServiceAppPOST`  has been added
+- Collect
+	- `Execution` has been added
+	- `ExecutionConflictError` has been added
+	- `ExecutionPath` has been added
+	- `SingleExecutionResponse` has been added
+- Ingest
+	- `HECResponse` has been added
+	- `HECTokenAccessResponse` has been added
+	- `HECTokenCreateRequest` has been added
+	- `HECTokenCreateResponse` has been added
+	- `HECTokenUpdateRequest` has been added
+
+### Service
+
+####  Breaking Changes
+- Streams
+	- In v3beta1:
+		- Modified `connector_id` parameter to type List[str] in `List_connections` endpoint  
+
+#### Non-Breaking Changes
+- Catalog
+	- In v2beta1:
+		- `AppClientIDProperties` model has been added
+
+- Identity
+	- In v2beta1:
+		- Added `scope_filter` parameter to  `list_member_permissions ` endpoint 
+		- New `Set_principale_public_keys` endpoint
+
+- Search
+	- In v2beta:
+		- Float typed parameter changed to Int for endpoints: `List_events_summary`, `List_jobs`, `List_preview_results` `list_results`
+
+- Streams
+	- New `get_file_metadata` endpoint
+
+- New feature
+	- 429 Retry Handling
+
+
 ## Version 6.0.0
 
 ### Services
