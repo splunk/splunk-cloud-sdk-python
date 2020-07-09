@@ -443,6 +443,8 @@ class RefreshTokenAuthManager(AuthManager):
             "client_id": client_id,
             "grant_type": "refresh_token",
             "refresh_token": self._refresh_token,
-            "scope": self._scope}
-        response = self._post_token(data)
+            "scope": self._scope
+        }
+
+        response = self._post_token(**data)
         return AuthContext(**response.json())

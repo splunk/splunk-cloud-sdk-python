@@ -4,7 +4,7 @@ import pytest
 
 from splunk_sdk import Context
 from splunk_sdk.auth import TokenAuthManager
-from splunk_sdk.auth.auth_manager import AuthnError
+from splunk_sdk.auth.auth_manager import AuthnError, RefreshTokenAuthManager
 from splunk_sdk.base_client import BaseClient
 from splunk_sdk.identity import Identity as IdentityAndAccessControl
 from splunk_sdk.auth import PKCEAuthManager, ClientAuthManager
@@ -34,6 +34,31 @@ def test_auth_error_properties(pkce_auth_manager):
     finally:
         pkce_auth_manager._password = save_passwd
 
+@pytest.mark.usefixtures('pkce_auth_manager')  # NOQA
+def test_refresh_token_authenticate(pkce_auth_manager):
+    auth_context = pkce_auth_manager.authenticate()
+
+    # use existing token from auth_context
+    refresh_token_mgr = RefreshTokenAuthManager(client_id=os.environ.get('SPLUNK_APP_CLIENT_ID'),
+                                                refresh_token=auth_context.refresh_token,
+                                                host=os.environ.get('SPLUNK_AUTH_HOST'))
+
+    new_auth_context = refresh_token_mgr.authenticate()
+
+    assert (new_auth_context.refresh_token is not None)
+    assert (new_auth_context.access_token is not None)
+    assert (new_auth_context.id_token is not None)
+    assert (new_auth_context.token_type is not None)
+    assert (new_auth_context.expires_in is not None)
+    assert (new_auth_context.scope is not None)
+
+def test_error_refresh_token_authenticate():
+    refresh_token_mgr = RefreshTokenAuthManager(client_id=os.environ.get('SPLUNK_APP_CLIENT_ID'),
+                                                refresh_token="refresh",
+                                                host=os.environ.get('SPLUNK_AUTH_HOST'))
+
+    with pytest.raises(AuthnError):
+        refresh_token_mgr.authenticate()
 
 @pytest.mark.usefixtures('client_auth_manager')  # NOQA
 def test_client_credentials_authenticate(client_auth_manager):
