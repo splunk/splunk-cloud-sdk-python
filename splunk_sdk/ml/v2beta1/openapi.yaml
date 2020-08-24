@@ -1925,4 +1925,4 @@ paths:
 tags:
 - name: mlTag
 
-# Retrieved from scp-openapi commit 2552e9a85ce32779e55e91977eddb123f9082103 path: ml/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit 1899bf005088f76091287fccf1b37a5268609818 path: ml/v2beta1/openapi.yaml

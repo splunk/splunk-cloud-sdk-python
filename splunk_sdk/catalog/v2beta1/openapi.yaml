@@ -417,6 +417,30 @@ components:
           description: The autokv action mode.
           type: string
       type: object
+    CatalogDataset:
+      allOf:
+      - $ref: '#/components/schemas/CatalogDatasetProperties'
+      - $ref: '#/components/schemas/MetadataProperties'
+      - $ref: '#/components/schemas/DatasetCommon'
+      description: A complete catalog dataset as rendered in POST, PATCH, and GET
+        responses.
+      required:
+      - kind
+      type: object
+    CatalogDatasetKind:
+      description: The dataset kind.
+      enum:
+      - catalog
+      type: string
+    CatalogDatasetProperties:
+      description: Properties of catalog datasets which can be read, set, and changed
+        through the API.
+      properties:
+        kind:
+          $ref: '#/components/schemas/CatalogDatasetKind'
+        url:
+          description: Internal use only.
+          type: string
     Dashboard:
       allOf:
       - properties:
@@ -492,12 +516,11 @@ components:
       - name
       type: object
     Dataset:
-      description: A complete dataset as rendered in POST, PATCH, and GET responses.
+      description: A complete dataset as rendered in POST, PATCH responses.
       discriminator:
         mapping:
           import: '#/components/schemas/ImportDataset'
           index: '#/components/schemas/IndexDataset'
-          job: '#/components/schemas/JobDataset'
           kvcollection: '#/components/schemas/KVCollectionDataset'
           lookup: '#/components/schemas/LookupDataset'
           metric: '#/components/schemas/MetricDataset'
@@ -508,7 +531,6 @@ components:
       - $ref: '#/components/schemas/IndexDataset'
       - $ref: '#/components/schemas/ViewDataset'
       - $ref: '#/components/schemas/ImportDataset'
-      - $ref: '#/components/schemas/JobDataset'
       - $ref: '#/components/schemas/MetricDataset'
       - $ref: '#/components/schemas/KVCollectionDataset'
     DatasetCommon:
@@ -530,6 +552,14 @@ components:
           format: mongo-object-id
           maxLength: 24
           minLength: 24
+          type: string
+        internalname:
+          description: The dataset name qualified by the module name, primarily used
+            to distinguish between index/metric versus other datasets. Index/metric
+            datasets have a distinct underscore separator (_____) between name and
+            module. Internal use only.
+          example: nameOfModule_____nameOfDataset
+          readOnly: true
           type: string
         module:
           description: The name of the module that contains the dataset.
@@ -564,6 +594,30 @@ components:
       - name
       - resourcename
       type: object
+    DatasetGet:
+      description: A complete dataset as rendered in GET responses.
+      discriminator:
+        mapping:
+          catalog: '#/components/schemas/CatalogDataset'
+          import: '#/components/schemas/ImportDataset'
+          index: '#/components/schemas/IndexDataset'
+          job: '#/components/schemas/JobDatasetGET'
+          kvcollection: '#/components/schemas/KVCollectionDataset'
+          lookup: '#/components/schemas/LookupDataset'
+          metric: '#/components/schemas/MetricDataset'
+          splv1sink: '#/components/schemas/Splv1sinkDataset'
+          view: '#/components/schemas/ViewDataset'
+        propertyName: kind
+      oneOf:
+      - $ref: '#/components/schemas/LookupDataset'
+      - $ref: '#/components/schemas/IndexDataset'
+      - $ref: '#/components/schemas/ViewDataset'
+      - $ref: '#/components/schemas/ImportDataset'
+      - $ref: '#/components/schemas/JobDatasetGET'
+      - $ref: '#/components/schemas/MetricDataset'
+      - $ref: '#/components/schemas/KVCollectionDataset'
+      - $ref: '#/components/schemas/CatalogDataset'
+      - $ref: '#/components/schemas/Splv1sinkDataset'
     DatasetImportedBy:
       properties:
         module:
@@ -1026,6 +1080,7 @@ components:
       - $ref: '#/components/schemas/JobDatasetProperties'
       - $ref: '#/components/schemas/MetadataProperties'
       - $ref: '#/components/schemas/DatasetCommon'
+      - $ref: '#/components/schemas/JobDatasetInternalProperties'
       description: A complete job dataset as rendered in POST, PATCH, and GET responses.
       required:
       - kind
@@ -1053,6 +1108,30 @@ components:
       - false
       - UNKNOWN
       type: string
+    JobDatasetGET:
+      allOf:
+      - $ref: '#/components/schemas/JobDatasetProperties'
+      - $ref: '#/components/schemas/DatasetPOSTCommon'
+      description: Job dataset as rendered in POST response for dataset API endpoint.
+      required:
+      - kind
+      - sid
+      - query
+      - sql
+      - resolvedEarliest
+      - resolvedLatest
+      - dispatchTime
+      - completionTime
+      - deleteTime
+      - parameters
+      type: object
+    JobDatasetInternalProperties:
+      description: Properties of job datasets which internal use only.
+      properties:
+        unresolvedTimeSpl:
+          description: Search without the time range resolved, internal search service
+            use only.
+          type: string
     JobDatasetKind:
       description: The dataset kind.
       enum:
@@ -1061,6 +1140,7 @@ components:
     JobDatasetPATCH:
       allOf:
       - $ref: '#/components/schemas/JobDatasetProperties'
+      - $ref: '#/components/schemas/JobDatasetInternalProperties'
       - $ref: '#/components/schemas/DatasetPATCHCommon'
       description: Property values to be set in an existing job dataset using a PATCH
         request.
@@ -1068,6 +1148,7 @@ components:
       allOf:
       - $ref: '#/components/schemas/JobDatasetProperties'
       - $ref: '#/components/schemas/DatasetPOSTCommon'
+      - $ref: '#/components/schemas/JobDatasetInternalProperties'
       description: Initial property values for creating a new job dataset using a
         POST request.
       required:
@@ -1105,6 +1186,10 @@ components:
         dispatchTime:
           description: Time that the job was dispatched
           type: string
+        enablePreview:
+          description: Specifies whether a search is allowed to collect preview results
+            during the runtime, internal search service use only.
+          type: boolean
         executionTime:
           description: The runtime of the search in seconds.
           type: number
@@ -1743,6 +1828,31 @@ components:
           minimum: 1
           type: integer
       type: object
+    Splv1sinkDataset:
+      allOf:
+      - $ref: '#/components/schemas/Splv1sinkDatasetProperties'
+      - $ref: '#/components/schemas/MetadataProperties'
+      - $ref: '#/components/schemas/DatasetCommon'
+      description: A complete catalog dataset as rendered in GET responses.
+      required:
+      - kind
+      - splv1
+      type: object
+    Splv1sinkDatasetKind:
+      description: The dataset kind.
+      enum:
+      - splv1sink
+      type: string
+    Splv1sinkDatasetProperties:
+      description: Properties of splv1sink datasets which can be read through the
+        API.
+      properties:
+        kind:
+          $ref: '#/components/schemas/Splv1sinkDatasetKind'
+        splv1:
+          description: Internal use by common-ast, contains the converted SPL for
+            a SPL2 search query.
+          type: string
     Task:
       allOf:
       - $ref: '#/components/schemas/MetadataProperties'
@@ -2982,7 +3092,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/Dataset'
+                  $ref: '#/components/schemas/DatasetGet'
                 type: array
           description: A list of datasets that match your filter has been returned.
         "401":
@@ -3056,7 +3166,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Dataset'
+                $ref: '#/components/schemas/DatasetGet'
           description: Information about the dataset with the specified ID was returned.
         "401":
           description: The operation isn't authorized.
@@ -3441,7 +3551,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Dataset'
+                $ref: '#/components/schemas/DatasetGet'
           description: A dataset with the specified resource name was returned.
         "401":
           description: The operation isn't authorized.
@@ -4913,4 +5023,4 @@ paths:
         "404":
           description: The workflow run was not found.
 
-# Retrieved from scp-openapi commit 2552e9a85ce32779e55e91977eddb123f9082103 path: catalog/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit 1899bf005088f76091287fccf1b37a5268609818 path: catalog/v2beta1/openapi.yaml

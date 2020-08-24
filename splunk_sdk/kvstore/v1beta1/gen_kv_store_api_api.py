@@ -155,12 +155,14 @@ class KVStoreAPI(BaseService):
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, Key)
 
-    def insert_records(self, collection: str, request_body: List[object], query_params: Dict[str, object] = None) -> List[str]:
+    def insert_records(self, collection: str, request_body: List[object], allow_updates: bool = None, query_params: Dict[str, object] = None) -> List[str]:
         """
         Inserts multiple records in a single request.
         """
         if query_params is None:
             query_params = {}
+        if allow_updates is not None:
+            query_params['allow_updates'] = allow_updates
 
         path_params = {
             "collection": collection,

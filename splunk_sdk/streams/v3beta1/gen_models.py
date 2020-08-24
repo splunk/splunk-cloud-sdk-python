@@ -184,6 +184,443 @@ class ArgumentModel(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
+class CollectJobRequest(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "CollectJobRequest":
+        instance = CollectJobRequest.__new__(CollectJobRequest)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, connection_id: "str", connector_id: "str", description: "str", name: "str", parameters: "object", **extra):
+        """CollectJobRequest"""
+
+        self._attrs = dict()
+        if connection_id is not None:
+            self._attrs["connectionId"] = connection_id
+        if connector_id is not None:
+            self._attrs["connectorId"] = connector_id
+        if description is not None:
+            self._attrs["description"] = description
+        if name is not None:
+            self._attrs["name"] = name
+        if parameters is not None:
+            self._attrs["parameters"] = parameters
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def connection_id(self) -> "str":
+        """ Gets the connection_id of this CollectJobRequest.
+        The ID of the connection that is assigned to this collect job.
+        """
+        return self._attrs.get("connectionId")
+
+    @connection_id.setter
+    def connection_id(self, connection_id: "str"):
+        """Sets the connection_id of this CollectJobRequest.
+
+        The ID of the connection that is assigned to this collect job.
+
+        :param connection_id: The connection_id of this CollectJobRequest.
+        :type: str
+        """
+        if connection_id is None:
+            raise ValueError("Invalid value for `connection_id`, must not be `None`")
+        self._attrs["connectionId"] = connection_id
+
+    @property
+    def connector_id(self) -> "str":
+        """ Gets the connector_id of this CollectJobRequest.
+        The ID of the connector this collect job uses.
+        """
+        return self._attrs.get("connectorId")
+
+    @connector_id.setter
+    def connector_id(self, connector_id: "str"):
+        """Sets the connector_id of this CollectJobRequest.
+
+        The ID of the connector this collect job uses.
+
+        :param connector_id: The connector_id of this CollectJobRequest.
+        :type: str
+        """
+        if connector_id is None:
+            raise ValueError("Invalid value for `connector_id`, must not be `None`")
+        self._attrs["connectorId"] = connector_id
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this CollectJobRequest.
+        The description of the collect job.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this CollectJobRequest.
+
+        The description of the collect job.
+
+        :param description: The description of this CollectJobRequest.
+        :type: str
+        """
+        if description is None:
+            raise ValueError("Invalid value for `description`, must not be `None`")
+        self._attrs["description"] = description
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this CollectJobRequest.
+        The name of the collect job.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this CollectJobRequest.
+
+        The name of the collect job.
+
+        :param name: The name of this CollectJobRequest.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def parameters(self) -> "dict":
+        """ Gets the parameters of this CollectJobRequest.
+        The key-value pairs of parameters for this collect job. Collect jobs may have some configurations that are required, which all collect jobs must provide values for. For configuration values of type BYTES, the provided values must be Base64 encoded.
+        """
+        return self._attrs.get("parameters")
+
+    @parameters.setter
+    def parameters(self, parameters: "dict"):
+        """Sets the parameters of this CollectJobRequest.
+
+        The key-value pairs of parameters for this collect job. Collect jobs may have some configurations that are required, which all collect jobs must provide values for. For configuration values of type BYTES, the provided values must be Base64 encoded.
+
+        :param parameters: The parameters of this CollectJobRequest.
+        :type: object
+        """
+        if parameters is None:
+            raise ValueError("Invalid value for `parameters`, must not be `None`")
+        self._attrs["parameters"] = parameters
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class CollectJobResponse(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "CollectJobResponse":
+        instance = CollectJobResponse.__new__(CollectJobResponse)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, active_pipelines_using: "List[object]" = None, connection_id: "str" = None, connector_id: "str" = None, create_date: "int" = None, create_user_id: "str" = None, description: "str" = None, id: "str" = None, last_update_date: "int" = None, last_update_user_id: "str" = None, name: "str" = None, parameters: "object" = None, status: "str" = None, version: "int" = None, **extra):
+        """CollectJobResponse"""
+
+        self._attrs = dict()
+        if active_pipelines_using is not None:
+            self._attrs["activePipelinesUsing"] = active_pipelines_using
+        if connection_id is not None:
+            self._attrs["connectionId"] = connection_id
+        if connector_id is not None:
+            self._attrs["connectorId"] = connector_id
+        if create_date is not None:
+            self._attrs["createDate"] = create_date
+        if create_user_id is not None:
+            self._attrs["createUserId"] = create_user_id
+        if description is not None:
+            self._attrs["description"] = description
+        if id is not None:
+            self._attrs["id"] = id
+        if last_update_date is not None:
+            self._attrs["lastUpdateDate"] = last_update_date
+        if last_update_user_id is not None:
+            self._attrs["lastUpdateUserId"] = last_update_user_id
+        if name is not None:
+            self._attrs["name"] = name
+        if parameters is not None:
+            self._attrs["parameters"] = parameters
+        if status is not None:
+            self._attrs["status"] = status
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def active_pipelines_using(self) -> "List[object]":
+        """ Gets the active_pipelines_using of this CollectJobResponse.
+        """
+        return self._attrs.get("activePipelinesUsing")
+
+    @active_pipelines_using.setter
+    def active_pipelines_using(self, active_pipelines_using: "List[object]"):
+        """Sets the active_pipelines_using of this CollectJobResponse.
+
+
+        :param active_pipelines_using: The active_pipelines_using of this CollectJobResponse.
+        :type: List[object]
+        """
+        self._attrs["activePipelinesUsing"] = active_pipelines_using
+
+    @property
+    def connection_id(self) -> "str":
+        """ Gets the connection_id of this CollectJobResponse.
+        """
+        return self._attrs.get("connectionId")
+
+    @connection_id.setter
+    def connection_id(self, connection_id: "str"):
+        """Sets the connection_id of this CollectJobResponse.
+
+
+        :param connection_id: The connection_id of this CollectJobResponse.
+        :type: str
+        """
+        self._attrs["connectionId"] = connection_id
+
+    @property
+    def connector_id(self) -> "str":
+        """ Gets the connector_id of this CollectJobResponse.
+        """
+        return self._attrs.get("connectorId")
+
+    @connector_id.setter
+    def connector_id(self, connector_id: "str"):
+        """Sets the connector_id of this CollectJobResponse.
+
+
+        :param connector_id: The connector_id of this CollectJobResponse.
+        :type: str
+        """
+        self._attrs["connectorId"] = connector_id
+
+    @property
+    def create_date(self) -> "int":
+        """ Gets the create_date of this CollectJobResponse.
+        """
+        return self._attrs.get("createDate")
+
+    @create_date.setter
+    def create_date(self, create_date: "int"):
+        """Sets the create_date of this CollectJobResponse.
+
+
+        :param create_date: The create_date of this CollectJobResponse.
+        :type: int
+        """
+        self._attrs["createDate"] = create_date
+
+    @property
+    def create_user_id(self) -> "str":
+        """ Gets the create_user_id of this CollectJobResponse.
+        """
+        return self._attrs.get("createUserId")
+
+    @create_user_id.setter
+    def create_user_id(self, create_user_id: "str"):
+        """Sets the create_user_id of this CollectJobResponse.
+
+
+        :param create_user_id: The create_user_id of this CollectJobResponse.
+        :type: str
+        """
+        self._attrs["createUserId"] = create_user_id
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this CollectJobResponse.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this CollectJobResponse.
+
+
+        :param description: The description of this CollectJobResponse.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this CollectJobResponse.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this CollectJobResponse.
+
+
+        :param id: The id of this CollectJobResponse.
+        :type: str
+        """
+        self._attrs["id"] = id
+
+    @property
+    def last_update_date(self) -> "int":
+        """ Gets the last_update_date of this CollectJobResponse.
+        """
+        return self._attrs.get("lastUpdateDate")
+
+    @last_update_date.setter
+    def last_update_date(self, last_update_date: "int"):
+        """Sets the last_update_date of this CollectJobResponse.
+
+
+        :param last_update_date: The last_update_date of this CollectJobResponse.
+        :type: int
+        """
+        self._attrs["lastUpdateDate"] = last_update_date
+
+    @property
+    def last_update_user_id(self) -> "str":
+        """ Gets the last_update_user_id of this CollectJobResponse.
+        """
+        return self._attrs.get("lastUpdateUserId")
+
+    @last_update_user_id.setter
+    def last_update_user_id(self, last_update_user_id: "str"):
+        """Sets the last_update_user_id of this CollectJobResponse.
+
+
+        :param last_update_user_id: The last_update_user_id of this CollectJobResponse.
+        :type: str
+        """
+        self._attrs["lastUpdateUserId"] = last_update_user_id
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this CollectJobResponse.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this CollectJobResponse.
+
+
+        :param name: The name of this CollectJobResponse.
+        :type: str
+        """
+        self._attrs["name"] = name
+
+    @property
+    def parameters(self) -> "dict":
+        """ Gets the parameters of this CollectJobResponse.
+        """
+        return self._attrs.get("parameters")
+
+    @parameters.setter
+    def parameters(self, parameters: "dict"):
+        """Sets the parameters of this CollectJobResponse.
+
+
+        :param parameters: The parameters of this CollectJobResponse.
+        :type: object
+        """
+        self._attrs["parameters"] = parameters
+
+    @property
+    def status(self) -> "str":
+        """ Gets the status of this CollectJobResponse.
+        """
+        return self._attrs.get("status")
+
+    @status.setter
+    def status(self, status: "str"):
+        """Sets the status of this CollectJobResponse.
+
+
+        :param status: The status of this CollectJobResponse.
+        :type: str
+        """
+        self._attrs["status"] = status
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this CollectJobResponse.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this CollectJobResponse.
+
+
+        :param version: The version of this CollectJobResponse.
+        :type: int
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class CollectJobStartStopResponse(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "CollectJobStartStopResponse":
+        instance = CollectJobStartStopResponse.__new__(CollectJobStartStopResponse)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, id: "str" = None, status: "str" = None, **extra):
+        """CollectJobStartStopResponse"""
+
+        self._attrs = dict()
+        if id is not None:
+            self._attrs["id"] = id
+        if status is not None:
+            self._attrs["status"] = status
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this CollectJobStartStopResponse.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this CollectJobStartStopResponse.
+
+
+        :param id: The id of this CollectJobStartStopResponse.
+        :type: str
+        """
+        self._attrs["id"] = id
+
+    @property
+    def status(self) -> "str":
+        """ Gets the status of this CollectJobStartStopResponse.
+        """
+        return self._attrs.get("status")
+
+    @status.setter
+    def status(self, status: "str"):
+        """Sets the status of this CollectJobStartStopResponse.
+
+
+        :param status: The status of this CollectJobStartStopResponse.
+        :type: str
+        """
+        self._attrs["status"] = status
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
 class ConnectionPatchRequest(SSCModel):
 
     @staticmethod
@@ -1346,26 +1783,69 @@ class PipelineNode(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, arguments: "object" = None, attributes: "object" = None, id: "str" = None, op: "str" = None, resolved_id: "str" = None, **extra):
+    def __init__(self, id: "str", op: "str", arguments: "object" = None, attributes: "object" = None, resolved_id: "str" = None, statement_name: "str" = None, **extra):
         """PipelineNode"""
 
         self._attrs = dict()
-        if arguments is not None:
-            self._attrs["arguments"] = arguments
-        if attributes is not None:
-            self._attrs["attributes"] = attributes
         if id is not None:
             self._attrs["id"] = id
         if op is not None:
             self._attrs["op"] = op
+        if arguments is not None:
+            self._attrs["arguments"] = arguments
+        if attributes is not None:
+            self._attrs["attributes"] = attributes
         if resolved_id is not None:
             self._attrs["resolvedId"] = resolved_id
+        if statement_name is not None:
+            self._attrs["statementName"] = statement_name
         for k, v in extra.items():
             self._attrs[k] = v
 
     @property
+    def id(self) -> "str":
+        """ Gets the id of this PipelineNode.
+        A unique identifier for the function.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this PipelineNode.
+
+        A unique identifier for the function.
+
+        :param id: The id of this PipelineNode.
+        :type: str
+        """
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")
+        self._attrs["id"] = id
+
+    @property
+    def op(self) -> "str":
+        """ Gets the op of this PipelineNode.
+        The operation name.
+        """
+        return self._attrs.get("op")
+
+    @op.setter
+    def op(self, op: "str"):
+        """Sets the op of this PipelineNode.
+
+        The operation name.
+
+        :param op: The op of this PipelineNode.
+        :type: str
+        """
+        if op is None:
+            raise ValueError("Invalid value for `op`, must not be `None`")
+        self._attrs["op"] = op
+
+    @property
     def arguments(self) -> "dict":
         """ Gets the arguments of this PipelineNode.
+        Function arguments keyed by argument name.
         """
         return self._attrs.get("arguments")
 
@@ -1373,6 +1853,7 @@ class PipelineNode(SSCModel):
     def arguments(self, arguments: "dict"):
         """Sets the arguments of this PipelineNode.
 
+        Function arguments keyed by argument name.
 
         :param arguments: The arguments of this PipelineNode.
         :type: object
@@ -1382,6 +1863,7 @@ class PipelineNode(SSCModel):
     @property
     def attributes(self) -> "dict":
         """ Gets the attributes of this PipelineNode.
+        For internal use only. This field is ignored.
         """
         return self._attrs.get("attributes")
 
@@ -1389,6 +1871,7 @@ class PipelineNode(SSCModel):
     def attributes(self, attributes: "dict"):
         """Sets the attributes of this PipelineNode.
 
+        For internal use only. This field is ignored.
 
         :param attributes: The attributes of this PipelineNode.
         :type: object
@@ -1396,40 +1879,9 @@ class PipelineNode(SSCModel):
         self._attrs["attributes"] = attributes
 
     @property
-    def id(self) -> "str":
-        """ Gets the id of this PipelineNode.
-        """
-        return self._attrs.get("id")
-
-    @id.setter
-    def id(self, id: "str"):
-        """Sets the id of this PipelineNode.
-
-
-        :param id: The id of this PipelineNode.
-        :type: str
-        """
-        self._attrs["id"] = id
-
-    @property
-    def op(self) -> "str":
-        """ Gets the op of this PipelineNode.
-        """
-        return self._attrs.get("op")
-
-    @op.setter
-    def op(self, op: "str"):
-        """Sets the op of this PipelineNode.
-
-
-        :param op: The op of this PipelineNode.
-        :type: str
-        """
-        self._attrs["op"] = op
-
-    @property
     def resolved_id(self) -> "str":
         """ Gets the resolved_id of this PipelineNode.
+        The identifier describing the operation name and required argument types. This field is ignored.
         """
         return self._attrs.get("resolvedId")
 
@@ -1437,11 +1889,30 @@ class PipelineNode(SSCModel):
     def resolved_id(self, resolved_id: "str"):
         """Sets the resolved_id of this PipelineNode.
 
+        The identifier describing the operation name and required argument types. This field is ignored.
 
         :param resolved_id: The resolved_id of this PipelineNode.
         :type: str
         """
         self._attrs["resolvedId"] = resolved_id
+
+    @property
+    def statement_name(self) -> "str":
+        """ Gets the statement_name of this PipelineNode.
+        If present, creates a named statement when decompiling to SPL2. For example, \"$events = | from splunk_firehose();\".
+        """
+        return self._attrs.get("statementName")
+
+    @statement_name.setter
+    def statement_name(self, statement_name: "str"):
+        """Sets the statement_name of this PipelineNode.
+
+        If present, creates a named statement when decompiling to SPL2. For example, \"$events = | from splunk_firehose();\".
+
+        :param statement_name: The statement_name of this PipelineNode.
+        :type: str
+        """
+        self._attrs["statementName"] = statement_name
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
@@ -2911,6 +3382,206 @@ class PaginatedResponseOfPipelineResponse(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
+class Plugin(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "Plugin":
+        instance = Plugin.__new__(Plugin)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, description: "str" = None, is_deleted: "bool" = None, last_update_date: "int" = None, last_update_user_id: "str" = None, name: "str" = None, plugin_id: "str" = None, tenant_id: "str" = None, **extra):
+        """Plugin"""
+
+        self._attrs = dict()
+        if description is not None:
+            self._attrs["description"] = description
+        if is_deleted is not None:
+            self._attrs["isDeleted"] = is_deleted
+        if last_update_date is not None:
+            self._attrs["lastUpdateDate"] = last_update_date
+        if last_update_user_id is not None:
+            self._attrs["lastUpdateUserId"] = last_update_user_id
+        if name is not None:
+            self._attrs["name"] = name
+        if plugin_id is not None:
+            self._attrs["pluginId"] = plugin_id
+        if tenant_id is not None:
+            self._attrs["tenantId"] = tenant_id
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this Plugin.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this Plugin.
+
+
+        :param description: The description of this Plugin.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def is_deleted(self) -> "bool":
+        """ Gets the is_deleted of this Plugin.
+        """
+        return self._attrs.get("isDeleted")
+
+    @is_deleted.setter
+    def is_deleted(self, is_deleted: "bool"):
+        """Sets the is_deleted of this Plugin.
+
+
+        :param is_deleted: The is_deleted of this Plugin.
+        :type: bool
+        """
+        self._attrs["isDeleted"] = is_deleted
+
+    @property
+    def last_update_date(self) -> "int":
+        """ Gets the last_update_date of this Plugin.
+        """
+        return self._attrs.get("lastUpdateDate")
+
+    @last_update_date.setter
+    def last_update_date(self, last_update_date: "int"):
+        """Sets the last_update_date of this Plugin.
+
+
+        :param last_update_date: The last_update_date of this Plugin.
+        :type: int
+        """
+        self._attrs["lastUpdateDate"] = last_update_date
+
+    @property
+    def last_update_user_id(self) -> "str":
+        """ Gets the last_update_user_id of this Plugin.
+        """
+        return self._attrs.get("lastUpdateUserId")
+
+    @last_update_user_id.setter
+    def last_update_user_id(self, last_update_user_id: "str"):
+        """Sets the last_update_user_id of this Plugin.
+
+
+        :param last_update_user_id: The last_update_user_id of this Plugin.
+        :type: str
+        """
+        self._attrs["lastUpdateUserId"] = last_update_user_id
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this Plugin.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this Plugin.
+
+
+        :param name: The name of this Plugin.
+        :type: str
+        """
+        self._attrs["name"] = name
+
+    @property
+    def plugin_id(self) -> "str":
+        """ Gets the plugin_id of this Plugin.
+        """
+        return self._attrs.get("pluginId")
+
+    @plugin_id.setter
+    def plugin_id(self, plugin_id: "str"):
+        """Sets the plugin_id of this Plugin.
+
+
+        :param plugin_id: The plugin_id of this Plugin.
+        :type: str
+        """
+        self._attrs["pluginId"] = plugin_id
+
+    @property
+    def tenant_id(self) -> "str":
+        """ Gets the tenant_id of this Plugin.
+        """
+        return self._attrs.get("tenantId")
+
+    @tenant_id.setter
+    def tenant_id(self, tenant_id: "str"):
+        """Sets the tenant_id of this Plugin.
+
+
+        :param tenant_id: The tenant_id of this Plugin.
+        :type: str
+        """
+        self._attrs["tenantId"] = tenant_id
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class PaginatedResponseOfPlugin(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "PaginatedResponseOfPlugin":
+        instance = PaginatedResponseOfPlugin.__new__(PaginatedResponseOfPlugin)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, items: "List[Plugin]" = None, total: "int" = None, **extra):
+        """PaginatedResponseOfPlugin"""
+
+        self._attrs = dict()
+        if items is not None:
+            self._attrs["items"] = items
+        if total is not None:
+            self._attrs["total"] = total
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def items(self) -> "List[Plugin]":
+        """ Gets the items of this PaginatedResponseOfPlugin.
+        """
+        return [Plugin._from_dict(i) for i in self._attrs.get("items")]
+
+    @items.setter
+    def items(self, items: "List[Plugin]"):
+        """Sets the items of this PaginatedResponseOfPlugin.
+
+
+        :param items: The items of this PaginatedResponseOfPlugin.
+        :type: List[Plugin]
+        """
+        self._attrs["items"] = items
+
+    @property
+    def total(self) -> "int":
+        """ Gets the total of this PaginatedResponseOfPlugin.
+        """
+        return self._attrs.get("total")
+
+    @total.setter
+    def total(self, total: "int"):
+        """Sets the total of this PaginatedResponseOfPlugin.
+
+
+        :param total: The total of this PaginatedResponseOfPlugin.
+        :type: int
+        """
+        self._attrs["total"] = total
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
 class TemplateResponse(SSCModel):
 
     @staticmethod
@@ -3447,6 +4118,128 @@ class PipelineRequest(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
+class PluginPatchRequest(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "PluginPatchRequest":
+        instance = PluginPatchRequest.__new__(PluginPatchRequest)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, description: "str" = None, name: "str" = None, **extra):
+        """PluginPatchRequest"""
+
+        self._attrs = dict()
+        if description is not None:
+            self._attrs["description"] = description
+        if name is not None:
+            self._attrs["name"] = name
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this PluginPatchRequest.
+        Plugin description
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this PluginPatchRequest.
+
+        Plugin description
+
+        :param description: The description of this PluginPatchRequest.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this PluginPatchRequest.
+        Plugin name
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this PluginPatchRequest.
+
+        Plugin name
+
+        :param name: The name of this PluginPatchRequest.
+        :type: str
+        """
+        self._attrs["name"] = name
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class PluginRequest(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "PluginRequest":
+        instance = PluginRequest.__new__(PluginRequest)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, description: "str", name: "str", **extra):
+        """PluginRequest"""
+
+        self._attrs = dict()
+        if description is not None:
+            self._attrs["description"] = description
+        if name is not None:
+            self._attrs["name"] = name
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this PluginRequest.
+        Plugin description
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this PluginRequest.
+
+        Plugin description
+
+        :param description: The description of this PluginRequest.
+        :type: str
+        """
+        if description is None:
+            raise ValueError("Invalid value for `description`, must not be `None`")
+        self._attrs["description"] = description
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this PluginRequest.
+        Plugin name
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this PluginRequest.
+
+        Plugin name
+
+        :param name: The name of this PluginRequest.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
 class PreviewNode(SSCModel):
 
     @staticmethod
@@ -3960,6 +4753,65 @@ class PreviewState(SSCModel):
         :type: int
         """
         self._attrs["recordsPerPipeline"] = records_per_pipeline
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class ReactivatePipelineRequest(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "ReactivatePipelineRequest":
+        instance = ReactivatePipelineRequest.__new__(ReactivatePipelineRequest)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, allow_non_restored_state: "bool" = None, skip_restore_state: "bool" = None, **extra):
+        """ReactivatePipelineRequest"""
+
+        self._attrs = dict()
+        if allow_non_restored_state is not None:
+            self._attrs["allowNonRestoredState"] = allow_non_restored_state
+        if skip_restore_state is not None:
+            self._attrs["skipRestoreState"] = skip_restore_state
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def allow_non_restored_state(self) -> "bool":
+        """ Gets the allow_non_restored_state of this ReactivatePipelineRequest.
+        Set to true to allow the pipeline to ignore any unused progress states. In some cases, when a data pipeline is changed, the progress state will be stored for functions that no longer exist, so this must be set to reactivate a pipeline in this state. Defaults to false.
+        """
+        return self._attrs.get("allowNonRestoredState")
+
+    @allow_non_restored_state.setter
+    def allow_non_restored_state(self, allow_non_restored_state: "bool"):
+        """Sets the allow_non_restored_state of this ReactivatePipelineRequest.
+
+        Set to true to allow the pipeline to ignore any unused progress states. In some cases, when a data pipeline is changed, the progress state will be stored for functions that no longer exist, so this must be set to reactivate a pipeline in this state. Defaults to false.
+
+        :param allow_non_restored_state: The allow_non_restored_state of this ReactivatePipelineRequest.
+        :type: bool
+        """
+        self._attrs["allowNonRestoredState"] = allow_non_restored_state
+
+    @property
+    def skip_restore_state(self) -> "bool":
+        """ Gets the skip_restore_state of this ReactivatePipelineRequest.
+        Set to true to start reading from the latest input rather than from where the pipeline's previous run left off, which can cause data loss. Defaults to false.
+        """
+        return self._attrs.get("skipRestoreState")
+
+    @skip_restore_state.setter
+    def skip_restore_state(self, skip_restore_state: "bool"):
+        """Sets the skip_restore_state of this ReactivatePipelineRequest.
+
+        Set to true to start reading from the latest input rather than from where the pipeline's previous run left off, which can cause data loss. Defaults to false.
+
+        :param skip_restore_state: The skip_restore_state of this ReactivatePipelineRequest.
+        :type: bool
+        """
+        self._attrs["skipRestoreState"] = skip_restore_state
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}

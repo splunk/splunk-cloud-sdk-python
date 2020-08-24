@@ -390,7 +390,7 @@ class ConnectionVersionResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, create_date: "int" = None, create_user_id: "str" = None, data: "ObjectNode" = None, description: "str" = None, name: "str" = None, version: "int" = None, **extra):
+    def __init__(self, create_date: "int" = None, create_user_id: "str" = None, data: "object" = None, description: "str" = None, name: "str" = None, version: "int" = None, **extra):
         """ConnectionVersionResponse"""
 
         self._attrs = dict()
@@ -399,7 +399,7 @@ class ConnectionVersionResponse(SSCModel):
         if create_user_id is not None:
             self._attrs["createUserId"] = create_user_id
         if data is not None:
-            self._attrs["data"] = data.to_dict()
+            self._attrs["data"] = data
         if description is not None:
             self._attrs["description"] = description
         if name is not None:
@@ -442,20 +442,20 @@ class ConnectionVersionResponse(SSCModel):
         self._attrs["createUserId"] = create_user_id
 
     @property
-    def data(self) -> "ObjectNode":
+    def data(self) -> "dict":
         """ Gets the data of this ConnectionVersionResponse.
         """
-        return ObjectNode._from_dict(self._attrs["data"])
+        return self._attrs.get("data")
 
     @data.setter
-    def data(self, data: "ObjectNode"):
+    def data(self, data: "dict"):
         """Sets the data of this ConnectionVersionResponse.
 
 
         :param data: The data of this ConnectionVersionResponse.
-        :type: ObjectNode
+        :type: object
         """
-        self._attrs["data"] = data.to_dict()
+        self._attrs["data"] = data
 
     @property
     def description(self) -> "str":
@@ -504,439 +504,6 @@ class ConnectionVersionResponse(SSCModel):
         :type: int
         """
         self._attrs["version"] = version
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class Node_typeEnum(str, Enum):
-    ARRAY = "ARRAY"
-    BINARY = "BINARY"
-    BOOLEAN = "BOOLEAN"
-    MISSING = "MISSING"
-    NULL = "NULL"
-    NUMBER = "NUMBER"
-    OBJECT = "OBJECT"
-    POJO = "POJO"
-    STRING = "STRING"
-
-    @staticmethod
-    def from_value(value: str):
-        if value == "ARRAY":
-            return Node_typeEnum.ARRAY
-        if value == "BINARY":
-            return Node_typeEnum.BINARY
-        if value == "BOOLEAN":
-            return Node_typeEnum.BOOLEAN
-        if value == "MISSING":
-            return Node_typeEnum.MISSING
-        if value == "NULL":
-            return Node_typeEnum.NULL
-        if value == "NUMBER":
-            return Node_typeEnum.NUMBER
-        if value == "OBJECT":
-            return Node_typeEnum.OBJECT
-        if value == "POJO":
-            return Node_typeEnum.POJO
-        if value == "STRING":
-            return Node_typeEnum.STRING
-
-
-class ObjectNode(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "ObjectNode":
-        instance = ObjectNode.__new__(ObjectNode)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, array: "bool" = None, big_decimal: "bool" = None, big_integer: "bool" = None, binary: "bool" = None, boolean: "bool" = None, container_node: "bool" = None, double: "bool" = None, float: "bool" = None, floating_point_number: "bool" = None, int: "bool" = None, integral_number: "bool" = None, long: "bool" = None, missing_node: "bool" = None, node_type: "str" = None, null: "bool" = None, number: "bool" = None, object: "bool" = None, pojo: "bool" = None, short: "bool" = None, textual: "bool" = None, value_node: "bool" = None, **extra):
-        """ObjectNode"""
-
-        self._attrs = dict()
-        if array is not None:
-            self._attrs["array"] = array
-        if big_decimal is not None:
-            self._attrs["bigDecimal"] = big_decimal
-        if big_integer is not None:
-            self._attrs["bigInteger"] = big_integer
-        if binary is not None:
-            self._attrs["binary"] = binary
-        if boolean is not None:
-            self._attrs["boolean"] = boolean
-        if container_node is not None:
-            self._attrs["containerNode"] = container_node
-        if double is not None:
-            self._attrs["double"] = double
-        if float is not None:
-            self._attrs["float"] = float
-        if floating_point_number is not None:
-            self._attrs["floatingPointNumber"] = floating_point_number
-        if int is not None:
-            self._attrs["int"] = int
-        if integral_number is not None:
-            self._attrs["integralNumber"] = integral_number
-        if long is not None:
-            self._attrs["long"] = long
-        if missing_node is not None:
-            self._attrs["missingNode"] = missing_node
-        if node_type is not None:
-            self._attrs["nodeType"] = node_type
-        if null is not None:
-            self._attrs["null"] = null
-        if number is not None:
-            self._attrs["number"] = number
-        if object is not None:
-            self._attrs["object"] = object
-        if pojo is not None:
-            self._attrs["pojo"] = pojo
-        if short is not None:
-            self._attrs["short"] = short
-        if textual is not None:
-            self._attrs["textual"] = textual
-        if value_node is not None:
-            self._attrs["valueNode"] = value_node
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def array(self) -> "bool":
-        """ Gets the array of this ObjectNode.
-        """
-        return self._attrs.get("array")
-
-    @array.setter
-    def array(self, array: "bool"):
-        """Sets the array of this ObjectNode.
-
-
-        :param array: The array of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["array"] = array
-
-    @property
-    def big_decimal(self) -> "bool":
-        """ Gets the big_decimal of this ObjectNode.
-        """
-        return self._attrs.get("bigDecimal")
-
-    @big_decimal.setter
-    def big_decimal(self, big_decimal: "bool"):
-        """Sets the big_decimal of this ObjectNode.
-
-
-        :param big_decimal: The big_decimal of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["bigDecimal"] = big_decimal
-
-    @property
-    def big_integer(self) -> "bool":
-        """ Gets the big_integer of this ObjectNode.
-        """
-        return self._attrs.get("bigInteger")
-
-    @big_integer.setter
-    def big_integer(self, big_integer: "bool"):
-        """Sets the big_integer of this ObjectNode.
-
-
-        :param big_integer: The big_integer of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["bigInteger"] = big_integer
-
-    @property
-    def binary(self) -> "bool":
-        """ Gets the binary of this ObjectNode.
-        """
-        return self._attrs.get("binary")
-
-    @binary.setter
-    def binary(self, binary: "bool"):
-        """Sets the binary of this ObjectNode.
-
-
-        :param binary: The binary of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["binary"] = binary
-
-    @property
-    def boolean(self) -> "bool":
-        """ Gets the boolean of this ObjectNode.
-        """
-        return self._attrs.get("boolean")
-
-    @boolean.setter
-    def boolean(self, boolean: "bool"):
-        """Sets the boolean of this ObjectNode.
-
-
-        :param boolean: The boolean of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["boolean"] = boolean
-
-    @property
-    def container_node(self) -> "bool":
-        """ Gets the container_node of this ObjectNode.
-        """
-        return self._attrs.get("containerNode")
-
-    @container_node.setter
-    def container_node(self, container_node: "bool"):
-        """Sets the container_node of this ObjectNode.
-
-
-        :param container_node: The container_node of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["containerNode"] = container_node
-
-    @property
-    def double(self) -> "bool":
-        """ Gets the double of this ObjectNode.
-        """
-        return self._attrs.get("double")
-
-    @double.setter
-    def double(self, double: "bool"):
-        """Sets the double of this ObjectNode.
-
-
-        :param double: The double of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["double"] = double
-
-    @property
-    def float(self) -> "bool":
-        """ Gets the float of this ObjectNode.
-        """
-        return self._attrs.get("float")
-
-    @float.setter
-    def float(self, float: "bool"):
-        """Sets the float of this ObjectNode.
-
-
-        :param float: The float of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["float"] = float
-
-    @property
-    def floating_point_number(self) -> "bool":
-        """ Gets the floating_point_number of this ObjectNode.
-        """
-        return self._attrs.get("floatingPointNumber")
-
-    @floating_point_number.setter
-    def floating_point_number(self, floating_point_number: "bool"):
-        """Sets the floating_point_number of this ObjectNode.
-
-
-        :param floating_point_number: The floating_point_number of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["floatingPointNumber"] = floating_point_number
-
-    @property
-    def int(self) -> "bool":
-        """ Gets the int of this ObjectNode.
-        """
-        return self._attrs.get("int")
-
-    @int.setter
-    def int(self, int: "bool"):
-        """Sets the int of this ObjectNode.
-
-
-        :param int: The int of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["int"] = int
-
-    @property
-    def integral_number(self) -> "bool":
-        """ Gets the integral_number of this ObjectNode.
-        """
-        return self._attrs.get("integralNumber")
-
-    @integral_number.setter
-    def integral_number(self, integral_number: "bool"):
-        """Sets the integral_number of this ObjectNode.
-
-
-        :param integral_number: The integral_number of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["integralNumber"] = integral_number
-
-    @property
-    def long(self) -> "bool":
-        """ Gets the long of this ObjectNode.
-        """
-        return self._attrs.get("long")
-
-    @long.setter
-    def long(self, long: "bool"):
-        """Sets the long of this ObjectNode.
-
-
-        :param long: The long of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["long"] = long
-
-    @property
-    def missing_node(self) -> "bool":
-        """ Gets the missing_node of this ObjectNode.
-        """
-        return self._attrs.get("missingNode")
-
-    @missing_node.setter
-    def missing_node(self, missing_node: "bool"):
-        """Sets the missing_node of this ObjectNode.
-
-
-        :param missing_node: The missing_node of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["missingNode"] = missing_node
-
-    @property
-    def node_type(self) -> "Node_typeEnum":
-        """ Gets the node_type of this ObjectNode.
-        """
-        return Node_typeEnum.from_value(self._attrs.get("nodeType"))
-
-    @node_type.setter
-    def node_type(self, node_type: "str"):
-        """Sets the node_type of this ObjectNode.
-
-
-        :param node_type: The node_type of this ObjectNode.
-        :type: str
-        """
-        if isinstance(node_type, Enum):
-            self._attrs["nodeType"] = node_type.value
-        else:
-            self._attrs["nodeType"] = node_type  # If you supply a string, we presume you know the service will take it.
-
-    @property
-    def null(self) -> "bool":
-        """ Gets the null of this ObjectNode.
-        """
-        return self._attrs.get("null")
-
-    @null.setter
-    def null(self, null: "bool"):
-        """Sets the null of this ObjectNode.
-
-
-        :param null: The null of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["null"] = null
-
-    @property
-    def number(self) -> "bool":
-        """ Gets the number of this ObjectNode.
-        """
-        return self._attrs.get("number")
-
-    @number.setter
-    def number(self, number: "bool"):
-        """Sets the number of this ObjectNode.
-
-
-        :param number: The number of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["number"] = number
-
-    @property
-    def object(self) -> "bool":
-        """ Gets the object of this ObjectNode.
-        """
-        return self._attrs.get("object")
-
-    @object.setter
-    def object(self, object: "bool"):
-        """Sets the object of this ObjectNode.
-
-
-        :param object: The object of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["object"] = object
-
-    @property
-    def pojo(self) -> "bool":
-        """ Gets the pojo of this ObjectNode.
-        """
-        return self._attrs.get("pojo")
-
-    @pojo.setter
-    def pojo(self, pojo: "bool"):
-        """Sets the pojo of this ObjectNode.
-
-
-        :param pojo: The pojo of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["pojo"] = pojo
-
-    @property
-    def short(self) -> "bool":
-        """ Gets the short of this ObjectNode.
-        """
-        return self._attrs.get("short")
-
-    @short.setter
-    def short(self, short: "bool"):
-        """Sets the short of this ObjectNode.
-
-
-        :param short: The short of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["short"] = short
-
-    @property
-    def textual(self) -> "bool":
-        """ Gets the textual of this ObjectNode.
-        """
-        return self._attrs.get("textual")
-
-    @textual.setter
-    def textual(self, textual: "bool"):
-        """Sets the textual of this ObjectNode.
-
-
-        :param textual: The textual of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["textual"] = textual
-
-    @property
-    def value_node(self) -> "bool":
-        """ Gets the value_node of this ObjectNode.
-        """
-        return self._attrs.get("valueNode")
-
-    @value_node.setter
-    def value_node(self, value_node: "bool"):
-        """Sets the value_node of this ObjectNode.
-
-
-        :param value_node: The value_node of this ObjectNode.
-        :type: bool
-        """
-        self._attrs["valueNode"] = value_node
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
@@ -1131,7 +698,7 @@ class ConnectionSaveResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, connector_id: "str" = None, create_date: "int" = None, create_user_id: "str" = None, data: "ObjectNode" = None, description: "str" = None, id: "str" = None, name: "str" = None, version: "int" = None, **extra):
+    def __init__(self, connector_id: "str" = None, create_date: "int" = None, create_user_id: "str" = None, data: "object" = None, description: "str" = None, id: "str" = None, name: "str" = None, version: "int" = None, **extra):
         """ConnectionSaveResponse"""
 
         self._attrs = dict()
@@ -1142,7 +709,7 @@ class ConnectionSaveResponse(SSCModel):
         if create_user_id is not None:
             self._attrs["createUserId"] = create_user_id
         if data is not None:
-            self._attrs["data"] = data.to_dict()
+            self._attrs["data"] = data
         if description is not None:
             self._attrs["description"] = description
         if id is not None:
@@ -1203,20 +770,20 @@ class ConnectionSaveResponse(SSCModel):
         self._attrs["createUserId"] = create_user_id
 
     @property
-    def data(self) -> "ObjectNode":
+    def data(self) -> "dict":
         """ Gets the data of this ConnectionSaveResponse.
         """
-        return ObjectNode._from_dict(self._attrs["data"])
+        return self._attrs.get("data")
 
     @data.setter
-    def data(self, data: "ObjectNode"):
+    def data(self, data: "dict"):
         """Sets the data of this ConnectionSaveResponse.
 
 
         :param data: The data of this ConnectionSaveResponse.
-        :type: ObjectNode
+        :type: object
         """
-        self._attrs["data"] = data.to_dict()
+        self._attrs["data"] = data
 
     @property
     def description(self) -> "str":
@@ -1294,12 +861,12 @@ class ConnectorResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, config: "ObjectNode" = None, connector_type: "str" = None, description: "str" = None, functions: "List[object]" = None, hidden: "bool" = None, id: "str" = None, name: "str" = None, panel_url: "str" = None, tag: "str" = None, **extra):
+    def __init__(self, config: "object" = None, connector_type: "str" = None, description: "str" = None, functions: "List[object]" = None, hidden: "bool" = None, id: "str" = None, name: "str" = None, panel_url: "str" = None, tag: "str" = None, **extra):
         """ConnectorResponse"""
 
         self._attrs = dict()
         if config is not None:
-            self._attrs["config"] = config.to_dict()
+            self._attrs["config"] = config
         if connector_type is not None:
             self._attrs["connectorType"] = connector_type
         if description is not None:
@@ -1320,20 +887,20 @@ class ConnectorResponse(SSCModel):
             self._attrs[k] = v
 
     @property
-    def config(self) -> "ObjectNode":
+    def config(self) -> "dict":
         """ Gets the config of this ConnectorResponse.
         """
-        return ObjectNode._from_dict(self._attrs["config"])
+        return self._attrs.get("config")
 
     @config.setter
-    def config(self, config: "ObjectNode"):
+    def config(self, config: "dict"):
         """Sets the config of this ConnectorResponse.
 
 
         :param config: The config of this ConnectorResponse.
-        :type: ObjectNode
+        :type: object
         """
-        self._attrs["config"] = config.to_dict()
+        self._attrs["config"] = config
 
     @property
     def connector_type(self) -> "str":
@@ -4953,7 +4520,7 @@ class PreviewNode(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, node_name: "str" = None, records: "List[ObjectNode]" = None, **extra):
+    def __init__(self, node_name: "str" = None, records: "List[object]" = None, **extra):
         """PreviewNode"""
 
         self._attrs = dict()
@@ -4981,18 +4548,18 @@ class PreviewNode(SSCModel):
         self._attrs["nodeName"] = node_name
 
     @property
-    def records(self) -> "List[ObjectNode]":
+    def records(self) -> "List[object]":
         """ Gets the records of this PreviewNode.
         """
-        return [ObjectNode._from_dict(i) for i in self._attrs.get("records")]
+        return self._attrs.get("records")
 
     @records.setter
-    def records(self, records: "List[ObjectNode]"):
+    def records(self, records: "List[object]"):
         """Sets the records of this PreviewNode.
 
 
         :param records: The records of this PreviewNode.
-        :type: List[ObjectNode]
+        :type: List[object]
         """
         self._attrs["records"] = records
 
@@ -5367,6 +4934,65 @@ class PreviewState(SSCModel):
         :type: int
         """
         self._attrs["recordsPerPipeline"] = records_per_pipeline
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class ReactivatePipelineRequest(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "ReactivatePipelineRequest":
+        instance = ReactivatePipelineRequest.__new__(ReactivatePipelineRequest)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, allow_non_restored_state: "bool" = None, skip_restore_state: "bool" = None, **extra):
+        """ReactivatePipelineRequest"""
+
+        self._attrs = dict()
+        if allow_non_restored_state is not None:
+            self._attrs["allowNonRestoredState"] = allow_non_restored_state
+        if skip_restore_state is not None:
+            self._attrs["skipRestoreState"] = skip_restore_state
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def allow_non_restored_state(self) -> "bool":
+        """ Gets the allow_non_restored_state of this ReactivatePipelineRequest.
+        Set to true to allow the pipeline to ignore any unused progress states. In some cases, when a data pipeline is changed, the progress state will be stored for functions that no longer exist, so this must be set to reactivate a pipeline in this state. Defaults to false.
+        """
+        return self._attrs.get("allowNonRestoredState")
+
+    @allow_non_restored_state.setter
+    def allow_non_restored_state(self, allow_non_restored_state: "bool"):
+        """Sets the allow_non_restored_state of this ReactivatePipelineRequest.
+
+        Set to true to allow the pipeline to ignore any unused progress states. In some cases, when a data pipeline is changed, the progress state will be stored for functions that no longer exist, so this must be set to reactivate a pipeline in this state. Defaults to false.
+
+        :param allow_non_restored_state: The allow_non_restored_state of this ReactivatePipelineRequest.
+        :type: bool
+        """
+        self._attrs["allowNonRestoredState"] = allow_non_restored_state
+
+    @property
+    def skip_restore_state(self) -> "bool":
+        """ Gets the skip_restore_state of this ReactivatePipelineRequest.
+        Set to true to start reading from the latest input rather than from where the pipeline's previous run left off, which can cause data loss. Defaults to false.
+        """
+        return self._attrs.get("skipRestoreState")
+
+    @skip_restore_state.setter
+    def skip_restore_state(self, skip_restore_state: "bool"):
+        """Sets the skip_restore_state of this ReactivatePipelineRequest.
+
+        Set to true to start reading from the latest input rather than from where the pipeline's previous run left off, which can cause data loss. Defaults to false.
+
+        :param skip_restore_state: The skip_restore_state of this ReactivatePipelineRequest.
+        :type: bool
+        """
+        self._attrs["skipRestoreState"] = skip_restore_state
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}

@@ -39,7 +39,6 @@ from splunk_sdk.streams.v2beta1.gen_models import ActivatePipelineRequest, \
     ConnectionPutRequest, \
     ConnectionRequest, \
     ConnectionVersionResponse, \
-    ObjectNode, \
     ConnectionResponse, \
     ConnectionSaveResponse, \
     ConnectorResponse, \
@@ -81,6 +80,7 @@ from splunk_sdk.streams.v2beta1.gen_models import ActivatePipelineRequest, \
     PreviewSessionStartRequest, \
     PreviewStartResponse, \
     PreviewState, \
+    ReactivatePipelineRequest, \
     Response, \
     SplCompileRequest, \
     TemplatePatchRequest, \

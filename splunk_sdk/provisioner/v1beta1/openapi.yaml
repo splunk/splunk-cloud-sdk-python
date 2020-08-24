@@ -8,6 +8,14 @@ components:
       schema:
         pattern: ^Bearer .+
         type: string
+    ECStackName:
+      in: path
+      name: ECStackName
+      required: true
+      schema:
+        maxLength: 200
+        minLength: 1
+        type: string
     Entitlement:
       in: path
       name: entitlement
@@ -807,4 +815,4 @@ paths:
 servers:
 - url: /
 
-# Retrieved from scp-openapi commit 2552e9a85ce32779e55e91977eddb123f9082103 path: provisioner/v1beta1/openapi.yaml
+# Retrieved from scp-openapi commit 1899bf005088f76091287fccf1b37a5268609818 path: provisioner/v1beta1/openapi.yaml

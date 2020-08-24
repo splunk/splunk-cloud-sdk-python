@@ -36,6 +36,9 @@ from splunk_sdk.streams.v3beta1.gen_data_stream_processing_rest_api_api import D
 # import models into sdk package
 from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     ArgumentModel, \
+    CollectJobRequest, \
+    CollectJobResponse, \
+    CollectJobStartStopResponse, \
     ConnectionPatchRequest, \
     ConnectionPutRequest, \
     ConnectionRequest, \
@@ -65,17 +68,22 @@ from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     PaginatedResponseOfPipelineJobStatus, \
     PipelineResponse, \
     PaginatedResponseOfPipelineResponse, \
+    Plugin, \
+    PaginatedResponseOfPlugin, \
     TemplateResponse, \
     PaginatedResponseOfTemplateResponse, \
     PipelinePatchRequest, \
     PipelineReactivateResponse, \
     PipelineRequest, \
+    PluginPatchRequest, \
+    PluginRequest, \
     PreviewNode, \
     RuleMetrics, \
     PreviewData, \
     PreviewSessionStartRequest, \
     PreviewStartResponse, \
     PreviewState, \
+    ReactivatePipelineRequest, \
     RegistryModel, \
     Response, \
     SplCompileRequest, \

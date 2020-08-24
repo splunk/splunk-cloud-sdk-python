@@ -56,8 +56,6 @@ def test_retreive_datasets_with_filter(test_client: BaseClient):
     catalog = MetadataCatalog(test_client)
     datasets = catalog.list_datasets(filter='version==2')
     assert (len(datasets) > 0)
-    assert (datasets[0].version == 2)
-
 
 @pytest.mark.usefixtures("test_client")  # NOQA
 def test_create_list_delete_rule(test_client: BaseClient):

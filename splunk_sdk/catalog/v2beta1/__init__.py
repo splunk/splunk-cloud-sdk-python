@@ -47,6 +47,9 @@ from splunk_sdk.catalog.v2beta1.gen_models import Action, \
     AutoKVActionKind, \
     AutoKVActionPATCH, \
     AutoKVActionPOST, \
+    DatasetGet, \
+    CatalogDataset, \
+    CatalogDatasetKind, \
     Dashboard, \
     DashboardPATCH, \
     DashboardPOST, \
@@ -64,24 +67,27 @@ from splunk_sdk.catalog.v2beta1.gen_models import Action, \
     EvalActionPOST, \
     Field, \
     FieldPATCH, \
-    ImportDataset, \
     ImportDatasetPOST, \
     ImportDatasetKind, \
     ImportDatasetByIdPOST, \
     ImportDatasetByNamePOST, \
+    ImportDatasetFromDataset, \
+    ImportDatasetFromDatasetGet, \
     ImportDatasetPATCH, \
-    IndexDataset, \
+    IndexDatasetFromDataset, \
+    IndexDatasetFromDatasetGet, \
     IndexDatasetKind, \
     IndexDatasetPATCH, \
     IndexDatasetPOST, \
-    JobDatasetPropertiesTimelineMetadata, \
-    JobDatasetPropertiesTimelineMetadataAuto, \
     JobDatasetEventSummaryAvailableStatus, \
     JobDatasetFieldSummaryAvailableStatus, \
+    JobDatasetPropertiesTimelineMetadata, \
+    JobDatasetPropertiesTimelineMetadataAuto, \
     JobDatasetTimeBucketsAvailableStatus, \
-    JobDataset, \
+    JobDatasetGET, \
     JobDatasetKind, \
-    KVCollectionDataset, \
+    KVCollectionDatasetFromDataset, \
+    KVCollectionDatasetFromDatasetGet, \
     KVCollectionDatasetKind, \
     KVCollectionDatasetPATCH, \
     KVCollectionDatasetPOST, \
@@ -90,11 +96,13 @@ from splunk_sdk.catalog.v2beta1.gen_models import Action, \
     LookupActionPATCH, \
     LookupActionPOST, \
     LookupDatasetExternalKind, \
-    LookupDataset, \
+    LookupDatasetFromDataset, \
+    LookupDatasetFromDatasetGet, \
     LookupDatasetKind, \
     LookupDatasetPATCH, \
     LookupDatasetPOST, \
-    MetricDataset, \
+    MetricDatasetFromDataset, \
+    MetricDatasetFromDatasetGet, \
     MetricDatasetKind, \
     MetricDatasetPATCH, \
     MetricDatasetPOST, \
@@ -113,9 +121,12 @@ from splunk_sdk.catalog.v2beta1.gen_models import Action, \
     Rule, \
     RulePATCH, \
     RulePOST, \
+    Splv1sinkDataset, \
+    Splv1sinkDatasetKind, \
     Task, \
     TaskPOST, \
-    ViewDataset, \
+    ViewDatasetFromDataset, \
+    ViewDatasetFromDatasetGet, \
     ViewDatasetKind, \
     ViewDatasetPATCH, \
     ViewDatasetPOST, \

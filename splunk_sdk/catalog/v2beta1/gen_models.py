@@ -1875,6 +1875,428 @@ ActionPOST.from_dict_handlers["AUTOKV"] = AutoKVActionPOST._from_dict
 
 
 
+class DatasetGet(SSCModel):
+
+    from_dict_handlers = dict()
+    @staticmethod
+    def _from_dict(model: dict) -> "DatasetGet":
+
+        def default_handler(model: dict) -> "DatasetGet":
+            instance = DatasetGet.__new__(DatasetGet)
+            instance._attrs = model
+            return instance
+
+        kind = model['kind']
+        handler = DatasetGet.from_dict_handlers.get(kind, default_handler)
+        return handler(model)
+
+    def __init__(self, **extra):
+        """DatasetGet"""
+
+        self._attrs = dict()
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    def to_dict(self):
+        raise NotImplementedError()
+
+
+class CatalogDataset(DatasetGet):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "CatalogDataset":
+        instance = CatalogDataset.__new__(CatalogDataset)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, internalname: "str" = None, summary: "str" = None, title: "str" = None, url: "str" = None, version: "int" = None, **extra):
+        """CatalogDataset"""
+
+        self._attrs = dict()
+        if created is not None:
+            self._attrs["created"] = created
+        if createdby is not None:
+            self._attrs["createdby"] = createdby
+        if id is not None:
+            self._attrs["id"] = id
+        if modified is not None:
+            self._attrs["modified"] = modified
+        if modifiedby is not None:
+            self._attrs["modifiedby"] = modifiedby
+        if module is not None:
+            self._attrs["module"] = module
+        if name is not None:
+            self._attrs["name"] = name
+        if owner is not None:
+            self._attrs["owner"] = owner
+        if resourcename is not None:
+            self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+        if description is not None:
+            self._attrs["description"] = description
+        if internalname is not None:
+            self._attrs["internalname"] = internalname
+        self._attrs["kind"] = "catalog" 
+        if summary is not None:
+            self._attrs["summary"] = summary
+        if title is not None:
+            self._attrs["title"] = title
+        if url is not None:
+            self._attrs["url"] = url
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def created(self) -> "datetime":
+        """ Gets the created of this CatalogDataset.
+        The date and time object was created.
+        """
+        return self._attrs.get("created")
+
+    @created.setter
+    def created(self, created: "datetime"):
+        """Sets the created of this CatalogDataset.
+
+        The date and time object was created.
+
+        :param created: The created of this CatalogDataset.
+        :type: datetime
+        """
+        if created is None:
+            raise ValueError("Invalid value for `created`, must not be `None`")
+        self._attrs["created"] = created
+
+    @property
+    def createdby(self) -> "str":
+        """ Gets the createdby of this CatalogDataset.
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+        """
+        return self._attrs.get("createdby")
+
+    @createdby.setter
+    def createdby(self, createdby: "str"):
+        """Sets the createdby of this CatalogDataset.
+
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+
+        :param createdby: The createdby of this CatalogDataset.
+        :type: str
+        """
+        if createdby is None:
+            raise ValueError("Invalid value for `createdby`, must not be `None`")
+        self._attrs["createdby"] = createdby
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this CatalogDataset.
+        A unique dataset ID.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this CatalogDataset.
+
+        A unique dataset ID.
+
+        :param id: The id of this CatalogDataset.
+        :type: str
+        """
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")
+        self._attrs["id"] = id
+
+    @property
+    def modified(self) -> "datetime":
+        """ Gets the modified of this CatalogDataset.
+        The date and time object was modified.
+        """
+        return self._attrs.get("modified")
+
+    @modified.setter
+    def modified(self, modified: "datetime"):
+        """Sets the modified of this CatalogDataset.
+
+        The date and time object was modified.
+
+        :param modified: The modified of this CatalogDataset.
+        :type: datetime
+        """
+        if modified is None:
+            raise ValueError("Invalid value for `modified`, must not be `None`")
+        self._attrs["modified"] = modified
+
+    @property
+    def modifiedby(self) -> "str":
+        """ Gets the modifiedby of this CatalogDataset.
+        The name of the user who most recently modified the object.
+        """
+        return self._attrs.get("modifiedby")
+
+    @modifiedby.setter
+    def modifiedby(self, modifiedby: "str"):
+        """Sets the modifiedby of this CatalogDataset.
+
+        The name of the user who most recently modified the object.
+
+        :param modifiedby: The modifiedby of this CatalogDataset.
+        :type: str
+        """
+        if modifiedby is None:
+            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
+        self._attrs["modifiedby"] = modifiedby
+
+    @property
+    def module(self) -> "str":
+        """ Gets the module of this CatalogDataset.
+        The name of the module that contains the dataset.
+        """
+        return self._attrs.get("module")
+
+    @module.setter
+    def module(self, module: "str"):
+        """Sets the module of this CatalogDataset.
+
+        The name of the module that contains the dataset.
+
+        :param module: The module of this CatalogDataset.
+        :type: str
+        """
+        if module is None:
+            raise ValueError("Invalid value for `module`, must not be `None`")
+        self._attrs["module"] = module
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this CatalogDataset.
+        The dataset name. Dataset names must be unique within each module.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this CatalogDataset.
+
+        The dataset name. Dataset names must be unique within each module.
+
+        :param name: The name of this CatalogDataset.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def owner(self) -> "str":
+        """ Gets the owner of this CatalogDataset.
+        The name of the object's owner.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this CatalogDataset.
+
+        The name of the object's owner.
+
+        :param owner: The owner of this CatalogDataset.
+        :type: str
+        """
+        if owner is None:
+            raise ValueError("Invalid value for `owner`, must not be `None`")
+        self._attrs["owner"] = owner
+
+    @property
+    def resourcename(self) -> "str":
+        """ Gets the resourcename of this CatalogDataset.
+        The dataset name qualified by the module name.
+        """
+        return self._attrs.get("resourcename")
+
+    @resourcename.setter
+    def resourcename(self, resourcename: "str"):
+        """Sets the resourcename of this CatalogDataset.
+
+        The dataset name qualified by the module name.
+
+        :param resourcename: The resourcename of this CatalogDataset.
+        :type: str
+        """
+        if resourcename is None:
+            raise ValueError("Invalid value for `resourcename`, must not be `None`")
+        self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this CatalogDataset.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this CatalogDataset.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this CatalogDataset.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this CatalogDataset.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this CatalogDataset.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this CatalogDataset.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this CatalogDataset.
+        Detailed description of the dataset.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this CatalogDataset.
+
+        Detailed description of the dataset.
+
+        :param description: The description of this CatalogDataset.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def internalname(self) -> "str":
+        """ Gets the internalname of this CatalogDataset.
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+        """
+        return self._attrs.get("internalname")
+
+    @internalname.setter
+    def internalname(self, internalname: "str"):
+        """Sets the internalname of this CatalogDataset.
+
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+
+        :param internalname: The internalname of this CatalogDataset.
+        :type: str
+        """
+        self._attrs["internalname"] = internalname
+
+    @property
+    def kind(self) -> str:
+        return "catalog"
+
+
+    @property
+    def summary(self) -> "str":
+        """ Gets the summary of this CatalogDataset.
+        Summary of the dataset's purpose.
+        """
+        return self._attrs.get("summary")
+
+    @summary.setter
+    def summary(self, summary: "str"):
+        """Sets the summary of this CatalogDataset.
+
+        Summary of the dataset's purpose.
+
+        :param summary: The summary of this CatalogDataset.
+        :type: str
+        """
+        self._attrs["summary"] = summary
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this CatalogDataset.
+        The title of the dataset.  Does not have to be unique.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this CatalogDataset.
+
+        The title of the dataset.  Does not have to be unique.
+
+        :param title: The title of this CatalogDataset.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
+    def url(self) -> "str":
+        """ Gets the url of this CatalogDataset.
+        Internal use only.
+        """
+        return self._attrs.get("url")
+
+    @url.setter
+    def url(self, url: "str"):
+        """Sets the url of this CatalogDataset.
+
+        Internal use only.
+
+        :param url: The url of this CatalogDataset.
+        :type: str
+        """
+        self._attrs["url"] = url
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this CatalogDataset.
+        The catalog version.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this CatalogDataset.
+
+        The catalog version.
+
+        :param version: The version of this CatalogDataset.
+        :type: int
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+DatasetGet.from_dict_handlers["catalog"] = CatalogDataset._from_dict
+
+
+
+class CatalogDatasetKind(str, Enum):
+    CATALOG = "catalog"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "catalog":
+            return CatalogDatasetKind.CATALOG
+
+
 class Dashboard(SSCModel):
 
     @staticmethod
@@ -2437,7 +2859,7 @@ class Dataset(SSCModel):
         handler = Dataset.from_dict_handlers.get(kind, default_handler)
         return handler(model)
 
-    def __init__(self, appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, created: "datetime" = None, createdby: "str" = None, description: "str" = None, id: "str" = None, modified: "datetime" = None, modifiedby: "str" = None, module: "str" = None, name: "str" = None, owner: "str" = None, resourcename: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+    def __init__(self, appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, created: "datetime" = None, createdby: "str" = None, description: "str" = None, id: "str" = None, internalname: "str" = None, modified: "datetime" = None, modifiedby: "str" = None, module: "str" = None, name: "str" = None, owner: "str" = None, resourcename: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
         """Dataset"""
 
         self._attrs = dict()
@@ -2465,6 +2887,8 @@ class Dataset(SSCModel):
             self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if description is not None:
             self._attrs["description"] = description
+        if internalname is not None:
+            self._attrs["internalname"] = internalname
         if summary is not None:
             self._attrs["summary"] = summary
         if title is not None:
@@ -2707,6 +3131,24 @@ class Dataset(SSCModel):
         :type: str
         """
         self._attrs["description"] = description
+
+    @property
+    def internalname(self) -> "str":
+        """ Gets the internalname of this Dataset.
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+        """
+        return self._attrs.get("internalname")
+
+    @internalname.setter
+    def internalname(self, internalname: "str"):
+        """Sets the internalname of this Dataset.
+
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+
+        :param internalname: The internalname of this Dataset.
+        :type: str
+        """
+        self._attrs["internalname"] = internalname
 
     @property
     def summary(self) -> "str":
@@ -4252,393 +4694,6 @@ class FieldPATCH(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-class ImportDataset(Dataset):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "ImportDataset":
-        instance = ImportDataset.__new__(ImportDataset)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, source_module: "str" = None, source_name: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
-        """ImportDataset"""
-
-        self._attrs = dict()
-        if created is not None:
-            self._attrs["created"] = created
-        if createdby is not None:
-            self._attrs["createdby"] = createdby
-        if id is not None:
-            self._attrs["id"] = id
-        if modified is not None:
-            self._attrs["modified"] = modified
-        if modifiedby is not None:
-            self._attrs["modifiedby"] = modifiedby
-        if module is not None:
-            self._attrs["module"] = module
-        if name is not None:
-            self._attrs["name"] = name
-        if owner is not None:
-            self._attrs["owner"] = owner
-        if resourcename is not None:
-            self._attrs["resourcename"] = resourcename
-        if appclientidcreatedby is not None:
-            self._attrs["appclientidcreatedby"] = appclientidcreatedby
-        if appclientidmodifiedby is not None:
-            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
-        if description is not None:
-            self._attrs["description"] = description
-        self._attrs["kind"] = "import" 
-        if source_module is not None:
-            self._attrs["sourceModule"] = source_module
-        if source_name is not None:
-            self._attrs["sourceName"] = source_name
-        if summary is not None:
-            self._attrs["summary"] = summary
-        if title is not None:
-            self._attrs["title"] = title
-        if version is not None:
-            self._attrs["version"] = version
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def created(self) -> "datetime":
-        """ Gets the created of this ImportDataset.
-        The date and time object was created.
-        """
-        return self._attrs.get("created")
-
-    @created.setter
-    def created(self, created: "datetime"):
-        """Sets the created of this ImportDataset.
-
-        The date and time object was created.
-
-        :param created: The created of this ImportDataset.
-        :type: datetime
-        """
-        if created is None:
-            raise ValueError("Invalid value for `created`, must not be `None`")
-        self._attrs["created"] = created
-
-    @property
-    def createdby(self) -> "str":
-        """ Gets the createdby of this ImportDataset.
-        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
-        """
-        return self._attrs.get("createdby")
-
-    @createdby.setter
-    def createdby(self, createdby: "str"):
-        """Sets the createdby of this ImportDataset.
-
-        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
-
-        :param createdby: The createdby of this ImportDataset.
-        :type: str
-        """
-        if createdby is None:
-            raise ValueError("Invalid value for `createdby`, must not be `None`")
-        self._attrs["createdby"] = createdby
-
-    @property
-    def id(self) -> "str":
-        """ Gets the id of this ImportDataset.
-        A unique dataset ID.
-        """
-        return self._attrs.get("id")
-
-    @id.setter
-    def id(self, id: "str"):
-        """Sets the id of this ImportDataset.
-
-        A unique dataset ID.
-
-        :param id: The id of this ImportDataset.
-        :type: str
-        """
-        if id is None:
-            raise ValueError("Invalid value for `id`, must not be `None`")
-        self._attrs["id"] = id
-
-    @property
-    def modified(self) -> "datetime":
-        """ Gets the modified of this ImportDataset.
-        The date and time object was modified.
-        """
-        return self._attrs.get("modified")
-
-    @modified.setter
-    def modified(self, modified: "datetime"):
-        """Sets the modified of this ImportDataset.
-
-        The date and time object was modified.
-
-        :param modified: The modified of this ImportDataset.
-        :type: datetime
-        """
-        if modified is None:
-            raise ValueError("Invalid value for `modified`, must not be `None`")
-        self._attrs["modified"] = modified
-
-    @property
-    def modifiedby(self) -> "str":
-        """ Gets the modifiedby of this ImportDataset.
-        The name of the user who most recently modified the object.
-        """
-        return self._attrs.get("modifiedby")
-
-    @modifiedby.setter
-    def modifiedby(self, modifiedby: "str"):
-        """Sets the modifiedby of this ImportDataset.
-
-        The name of the user who most recently modified the object.
-
-        :param modifiedby: The modifiedby of this ImportDataset.
-        :type: str
-        """
-        if modifiedby is None:
-            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
-        self._attrs["modifiedby"] = modifiedby
-
-    @property
-    def module(self) -> "str":
-        """ Gets the module of this ImportDataset.
-        The name of the module that contains the dataset.
-        """
-        return self._attrs.get("module")
-
-    @module.setter
-    def module(self, module: "str"):
-        """Sets the module of this ImportDataset.
-
-        The name of the module that contains the dataset.
-
-        :param module: The module of this ImportDataset.
-        :type: str
-        """
-        if module is None:
-            raise ValueError("Invalid value for `module`, must not be `None`")
-        self._attrs["module"] = module
-
-    @property
-    def name(self) -> "str":
-        """ Gets the name of this ImportDataset.
-        The dataset name. Dataset names must be unique within each module.
-        """
-        return self._attrs.get("name")
-
-    @name.setter
-    def name(self, name: "str"):
-        """Sets the name of this ImportDataset.
-
-        The dataset name. Dataset names must be unique within each module.
-
-        :param name: The name of this ImportDataset.
-        :type: str
-        """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
-        self._attrs["name"] = name
-
-    @property
-    def owner(self) -> "str":
-        """ Gets the owner of this ImportDataset.
-        The name of the object's owner.
-        """
-        return self._attrs.get("owner")
-
-    @owner.setter
-    def owner(self, owner: "str"):
-        """Sets the owner of this ImportDataset.
-
-        The name of the object's owner.
-
-        :param owner: The owner of this ImportDataset.
-        :type: str
-        """
-        if owner is None:
-            raise ValueError("Invalid value for `owner`, must not be `None`")
-        self._attrs["owner"] = owner
-
-    @property
-    def resourcename(self) -> "str":
-        """ Gets the resourcename of this ImportDataset.
-        The dataset name qualified by the module name.
-        """
-        return self._attrs.get("resourcename")
-
-    @resourcename.setter
-    def resourcename(self, resourcename: "str"):
-        """Sets the resourcename of this ImportDataset.
-
-        The dataset name qualified by the module name.
-
-        :param resourcename: The resourcename of this ImportDataset.
-        :type: str
-        """
-        if resourcename is None:
-            raise ValueError("Invalid value for `resourcename`, must not be `None`")
-        self._attrs["resourcename"] = resourcename
-
-    @property
-    def appclientidcreatedby(self) -> "str":
-        """ Gets the appclientidcreatedby of this ImportDataset.
-        AppClinetId of the creator app of the dataset.
-        """
-        return self._attrs.get("appclientidcreatedby")
-
-    @appclientidcreatedby.setter
-    def appclientidcreatedby(self, appclientidcreatedby: "str"):
-        """Sets the appclientidcreatedby of this ImportDataset.
-
-        AppClinetId of the creator app of the dataset.
-
-        :param appclientidcreatedby: The appclientidcreatedby of this ImportDataset.
-        :type: str
-        """
-        self._attrs["appclientidcreatedby"] = appclientidcreatedby
-
-    @property
-    def appclientidmodifiedby(self) -> "str":
-        """ Gets the appclientidmodifiedby of this ImportDataset.
-        AppClinetId of the modifier app of the dataset.
-        """
-        return self._attrs.get("appclientidmodifiedby")
-
-    @appclientidmodifiedby.setter
-    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
-        """Sets the appclientidmodifiedby of this ImportDataset.
-
-        AppClinetId of the modifier app of the dataset.
-
-        :param appclientidmodifiedby: The appclientidmodifiedby of this ImportDataset.
-        :type: str
-        """
-        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
-
-    @property
-    def description(self) -> "str":
-        """ Gets the description of this ImportDataset.
-        Detailed description of the dataset.
-        """
-        return self._attrs.get("description")
-
-    @description.setter
-    def description(self, description: "str"):
-        """Sets the description of this ImportDataset.
-
-        Detailed description of the dataset.
-
-        :param description: The description of this ImportDataset.
-        :type: str
-        """
-        self._attrs["description"] = description
-
-    @property
-    def kind(self) -> str:
-        return "import"
-
-
-    @property
-    def source_module(self) -> "str":
-        """ Gets the source_module of this ImportDataset.
-        The dataset module being imported.
-        """
-        return self._attrs.get("sourceModule")
-
-    @source_module.setter
-    def source_module(self, source_module: "str"):
-        """Sets the source_module of this ImportDataset.
-
-        The dataset module being imported.
-
-        :param source_module: The source_module of this ImportDataset.
-        :type: str
-        """
-        self._attrs["sourceModule"] = source_module
-
-    @property
-    def source_name(self) -> "str":
-        """ Gets the source_name of this ImportDataset.
-        The dataset name being imported.
-        """
-        return self._attrs.get("sourceName")
-
-    @source_name.setter
-    def source_name(self, source_name: "str"):
-        """Sets the source_name of this ImportDataset.
-
-        The dataset name being imported.
-
-        :param source_name: The source_name of this ImportDataset.
-        :type: str
-        """
-        self._attrs["sourceName"] = source_name
-
-    @property
-    def summary(self) -> "str":
-        """ Gets the summary of this ImportDataset.
-        Summary of the dataset's purpose.
-        """
-        return self._attrs.get("summary")
-
-    @summary.setter
-    def summary(self, summary: "str"):
-        """Sets the summary of this ImportDataset.
-
-        Summary of the dataset's purpose.
-
-        :param summary: The summary of this ImportDataset.
-        :type: str
-        """
-        self._attrs["summary"] = summary
-
-    @property
-    def title(self) -> "str":
-        """ Gets the title of this ImportDataset.
-        The title of the dataset.  Does not have to be unique.
-        """
-        return self._attrs.get("title")
-
-    @title.setter
-    def title(self, title: "str"):
-        """Sets the title of this ImportDataset.
-
-        The title of the dataset.  Does not have to be unique.
-
-        :param title: The title of this ImportDataset.
-        :type: str
-        """
-        self._attrs["title"] = title
-
-    @property
-    def version(self) -> "int":
-        """ Gets the version of this ImportDataset.
-        The catalog version.
-        """
-        return self._attrs.get("version")
-
-    @version.setter
-    def version(self, version: "int"):
-        """Sets the version of this ImportDataset.
-
-        The catalog version.
-
-        :param version: The version of this ImportDataset.
-        :type: int
-        """
-        self._attrs["version"] = version
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-Dataset.from_dict_handlers["import"] = ImportDataset._from_dict
-
-
-
 class ImportDatasetPOST(DatasetPOST):
 
     @staticmethod
@@ -5035,6 +5090,820 @@ ImportDatasetPOST.from_dict_handlers["import"] = ImportDatasetByNamePOST._from_d
 
 
 
+class ImportDatasetFromDataset(Dataset):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "ImportDatasetFromDataset":
+        instance = ImportDatasetFromDataset.__new__(ImportDatasetFromDataset)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, internalname: "str" = None, source_module: "str" = None, source_name: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+        """ImportDatasetFromDataset"""
+
+        self._attrs = dict()
+        if created is not None:
+            self._attrs["created"] = created
+        if createdby is not None:
+            self._attrs["createdby"] = createdby
+        if id is not None:
+            self._attrs["id"] = id
+        if modified is not None:
+            self._attrs["modified"] = modified
+        if modifiedby is not None:
+            self._attrs["modifiedby"] = modifiedby
+        if module is not None:
+            self._attrs["module"] = module
+        if name is not None:
+            self._attrs["name"] = name
+        if owner is not None:
+            self._attrs["owner"] = owner
+        if resourcename is not None:
+            self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+        if description is not None:
+            self._attrs["description"] = description
+        if internalname is not None:
+            self._attrs["internalname"] = internalname
+        self._attrs["kind"] = "import" 
+        if source_module is not None:
+            self._attrs["sourceModule"] = source_module
+        if source_name is not None:
+            self._attrs["sourceName"] = source_name
+        if summary is not None:
+            self._attrs["summary"] = summary
+        if title is not None:
+            self._attrs["title"] = title
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def created(self) -> "datetime":
+        """ Gets the created of this ImportDatasetFromDataset.
+        The date and time object was created.
+        """
+        return self._attrs.get("created")
+
+    @created.setter
+    def created(self, created: "datetime"):
+        """Sets the created of this ImportDatasetFromDataset.
+
+        The date and time object was created.
+
+        :param created: The created of this ImportDatasetFromDataset.
+        :type: datetime
+        """
+        if created is None:
+            raise ValueError("Invalid value for `created`, must not be `None`")
+        self._attrs["created"] = created
+
+    @property
+    def createdby(self) -> "str":
+        """ Gets the createdby of this ImportDatasetFromDataset.
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+        """
+        return self._attrs.get("createdby")
+
+    @createdby.setter
+    def createdby(self, createdby: "str"):
+        """Sets the createdby of this ImportDatasetFromDataset.
+
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+
+        :param createdby: The createdby of this ImportDatasetFromDataset.
+        :type: str
+        """
+        if createdby is None:
+            raise ValueError("Invalid value for `createdby`, must not be `None`")
+        self._attrs["createdby"] = createdby
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this ImportDatasetFromDataset.
+        A unique dataset ID.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this ImportDatasetFromDataset.
+
+        A unique dataset ID.
+
+        :param id: The id of this ImportDatasetFromDataset.
+        :type: str
+        """
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")
+        self._attrs["id"] = id
+
+    @property
+    def modified(self) -> "datetime":
+        """ Gets the modified of this ImportDatasetFromDataset.
+        The date and time object was modified.
+        """
+        return self._attrs.get("modified")
+
+    @modified.setter
+    def modified(self, modified: "datetime"):
+        """Sets the modified of this ImportDatasetFromDataset.
+
+        The date and time object was modified.
+
+        :param modified: The modified of this ImportDatasetFromDataset.
+        :type: datetime
+        """
+        if modified is None:
+            raise ValueError("Invalid value for `modified`, must not be `None`")
+        self._attrs["modified"] = modified
+
+    @property
+    def modifiedby(self) -> "str":
+        """ Gets the modifiedby of this ImportDatasetFromDataset.
+        The name of the user who most recently modified the object.
+        """
+        return self._attrs.get("modifiedby")
+
+    @modifiedby.setter
+    def modifiedby(self, modifiedby: "str"):
+        """Sets the modifiedby of this ImportDatasetFromDataset.
+
+        The name of the user who most recently modified the object.
+
+        :param modifiedby: The modifiedby of this ImportDatasetFromDataset.
+        :type: str
+        """
+        if modifiedby is None:
+            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
+        self._attrs["modifiedby"] = modifiedby
+
+    @property
+    def module(self) -> "str":
+        """ Gets the module of this ImportDatasetFromDataset.
+        The name of the module that contains the dataset.
+        """
+        return self._attrs.get("module")
+
+    @module.setter
+    def module(self, module: "str"):
+        """Sets the module of this ImportDatasetFromDataset.
+
+        The name of the module that contains the dataset.
+
+        :param module: The module of this ImportDatasetFromDataset.
+        :type: str
+        """
+        if module is None:
+            raise ValueError("Invalid value for `module`, must not be `None`")
+        self._attrs["module"] = module
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this ImportDatasetFromDataset.
+        The dataset name. Dataset names must be unique within each module.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this ImportDatasetFromDataset.
+
+        The dataset name. Dataset names must be unique within each module.
+
+        :param name: The name of this ImportDatasetFromDataset.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def owner(self) -> "str":
+        """ Gets the owner of this ImportDatasetFromDataset.
+        The name of the object's owner.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this ImportDatasetFromDataset.
+
+        The name of the object's owner.
+
+        :param owner: The owner of this ImportDatasetFromDataset.
+        :type: str
+        """
+        if owner is None:
+            raise ValueError("Invalid value for `owner`, must not be `None`")
+        self._attrs["owner"] = owner
+
+    @property
+    def resourcename(self) -> "str":
+        """ Gets the resourcename of this ImportDatasetFromDataset.
+        The dataset name qualified by the module name.
+        """
+        return self._attrs.get("resourcename")
+
+    @resourcename.setter
+    def resourcename(self, resourcename: "str"):
+        """Sets the resourcename of this ImportDatasetFromDataset.
+
+        The dataset name qualified by the module name.
+
+        :param resourcename: The resourcename of this ImportDatasetFromDataset.
+        :type: str
+        """
+        if resourcename is None:
+            raise ValueError("Invalid value for `resourcename`, must not be `None`")
+        self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this ImportDatasetFromDataset.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this ImportDatasetFromDataset.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this ImportDatasetFromDataset.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this ImportDatasetFromDataset.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this ImportDatasetFromDataset.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this ImportDatasetFromDataset.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this ImportDatasetFromDataset.
+        Detailed description of the dataset.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this ImportDatasetFromDataset.
+
+        Detailed description of the dataset.
+
+        :param description: The description of this ImportDatasetFromDataset.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def internalname(self) -> "str":
+        """ Gets the internalname of this ImportDatasetFromDataset.
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+        """
+        return self._attrs.get("internalname")
+
+    @internalname.setter
+    def internalname(self, internalname: "str"):
+        """Sets the internalname of this ImportDatasetFromDataset.
+
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+
+        :param internalname: The internalname of this ImportDatasetFromDataset.
+        :type: str
+        """
+        self._attrs["internalname"] = internalname
+
+    @property
+    def kind(self) -> str:
+        return "import"
+
+
+    @property
+    def source_module(self) -> "str":
+        """ Gets the source_module of this ImportDatasetFromDataset.
+        The dataset module being imported.
+        """
+        return self._attrs.get("sourceModule")
+
+    @source_module.setter
+    def source_module(self, source_module: "str"):
+        """Sets the source_module of this ImportDatasetFromDataset.
+
+        The dataset module being imported.
+
+        :param source_module: The source_module of this ImportDatasetFromDataset.
+        :type: str
+        """
+        self._attrs["sourceModule"] = source_module
+
+    @property
+    def source_name(self) -> "str":
+        """ Gets the source_name of this ImportDatasetFromDataset.
+        The dataset name being imported.
+        """
+        return self._attrs.get("sourceName")
+
+    @source_name.setter
+    def source_name(self, source_name: "str"):
+        """Sets the source_name of this ImportDatasetFromDataset.
+
+        The dataset name being imported.
+
+        :param source_name: The source_name of this ImportDatasetFromDataset.
+        :type: str
+        """
+        self._attrs["sourceName"] = source_name
+
+    @property
+    def summary(self) -> "str":
+        """ Gets the summary of this ImportDatasetFromDataset.
+        Summary of the dataset's purpose.
+        """
+        return self._attrs.get("summary")
+
+    @summary.setter
+    def summary(self, summary: "str"):
+        """Sets the summary of this ImportDatasetFromDataset.
+
+        Summary of the dataset's purpose.
+
+        :param summary: The summary of this ImportDatasetFromDataset.
+        :type: str
+        """
+        self._attrs["summary"] = summary
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this ImportDatasetFromDataset.
+        The title of the dataset.  Does not have to be unique.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this ImportDatasetFromDataset.
+
+        The title of the dataset.  Does not have to be unique.
+
+        :param title: The title of this ImportDatasetFromDataset.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this ImportDatasetFromDataset.
+        The catalog version.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this ImportDatasetFromDataset.
+
+        The catalog version.
+
+        :param version: The version of this ImportDatasetFromDataset.
+        :type: int
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+Dataset.from_dict_handlers["import"] = ImportDatasetFromDataset._from_dict
+
+
+
+class ImportDatasetFromDatasetGet(DatasetGet):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "ImportDatasetFromDatasetGet":
+        instance = ImportDatasetFromDatasetGet.__new__(ImportDatasetFromDatasetGet)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, internalname: "str" = None, source_module: "str" = None, source_name: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+        """ImportDatasetFromDatasetGet"""
+
+        self._attrs = dict()
+        if created is not None:
+            self._attrs["created"] = created
+        if createdby is not None:
+            self._attrs["createdby"] = createdby
+        if id is not None:
+            self._attrs["id"] = id
+        if modified is not None:
+            self._attrs["modified"] = modified
+        if modifiedby is not None:
+            self._attrs["modifiedby"] = modifiedby
+        if module is not None:
+            self._attrs["module"] = module
+        if name is not None:
+            self._attrs["name"] = name
+        if owner is not None:
+            self._attrs["owner"] = owner
+        if resourcename is not None:
+            self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+        if description is not None:
+            self._attrs["description"] = description
+        if internalname is not None:
+            self._attrs["internalname"] = internalname
+        self._attrs["kind"] = "import" 
+        if source_module is not None:
+            self._attrs["sourceModule"] = source_module
+        if source_name is not None:
+            self._attrs["sourceName"] = source_name
+        if summary is not None:
+            self._attrs["summary"] = summary
+        if title is not None:
+            self._attrs["title"] = title
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def created(self) -> "datetime":
+        """ Gets the created of this ImportDatasetFromDatasetGet.
+        The date and time object was created.
+        """
+        return self._attrs.get("created")
+
+    @created.setter
+    def created(self, created: "datetime"):
+        """Sets the created of this ImportDatasetFromDatasetGet.
+
+        The date and time object was created.
+
+        :param created: The created of this ImportDatasetFromDatasetGet.
+        :type: datetime
+        """
+        if created is None:
+            raise ValueError("Invalid value for `created`, must not be `None`")
+        self._attrs["created"] = created
+
+    @property
+    def createdby(self) -> "str":
+        """ Gets the createdby of this ImportDatasetFromDatasetGet.
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+        """
+        return self._attrs.get("createdby")
+
+    @createdby.setter
+    def createdby(self, createdby: "str"):
+        """Sets the createdby of this ImportDatasetFromDatasetGet.
+
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+
+        :param createdby: The createdby of this ImportDatasetFromDatasetGet.
+        :type: str
+        """
+        if createdby is None:
+            raise ValueError("Invalid value for `createdby`, must not be `None`")
+        self._attrs["createdby"] = createdby
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this ImportDatasetFromDatasetGet.
+        A unique dataset ID.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this ImportDatasetFromDatasetGet.
+
+        A unique dataset ID.
+
+        :param id: The id of this ImportDatasetFromDatasetGet.
+        :type: str
+        """
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")
+        self._attrs["id"] = id
+
+    @property
+    def modified(self) -> "datetime":
+        """ Gets the modified of this ImportDatasetFromDatasetGet.
+        The date and time object was modified.
+        """
+        return self._attrs.get("modified")
+
+    @modified.setter
+    def modified(self, modified: "datetime"):
+        """Sets the modified of this ImportDatasetFromDatasetGet.
+
+        The date and time object was modified.
+
+        :param modified: The modified of this ImportDatasetFromDatasetGet.
+        :type: datetime
+        """
+        if modified is None:
+            raise ValueError("Invalid value for `modified`, must not be `None`")
+        self._attrs["modified"] = modified
+
+    @property
+    def modifiedby(self) -> "str":
+        """ Gets the modifiedby of this ImportDatasetFromDatasetGet.
+        The name of the user who most recently modified the object.
+        """
+        return self._attrs.get("modifiedby")
+
+    @modifiedby.setter
+    def modifiedby(self, modifiedby: "str"):
+        """Sets the modifiedby of this ImportDatasetFromDatasetGet.
+
+        The name of the user who most recently modified the object.
+
+        :param modifiedby: The modifiedby of this ImportDatasetFromDatasetGet.
+        :type: str
+        """
+        if modifiedby is None:
+            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
+        self._attrs["modifiedby"] = modifiedby
+
+    @property
+    def module(self) -> "str":
+        """ Gets the module of this ImportDatasetFromDatasetGet.
+        The name of the module that contains the dataset.
+        """
+        return self._attrs.get("module")
+
+    @module.setter
+    def module(self, module: "str"):
+        """Sets the module of this ImportDatasetFromDatasetGet.
+
+        The name of the module that contains the dataset.
+
+        :param module: The module of this ImportDatasetFromDatasetGet.
+        :type: str
+        """
+        if module is None:
+            raise ValueError("Invalid value for `module`, must not be `None`")
+        self._attrs["module"] = module
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this ImportDatasetFromDatasetGet.
+        The dataset name. Dataset names must be unique within each module.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this ImportDatasetFromDatasetGet.
+
+        The dataset name. Dataset names must be unique within each module.
+
+        :param name: The name of this ImportDatasetFromDatasetGet.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def owner(self) -> "str":
+        """ Gets the owner of this ImportDatasetFromDatasetGet.
+        The name of the object's owner.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this ImportDatasetFromDatasetGet.
+
+        The name of the object's owner.
+
+        :param owner: The owner of this ImportDatasetFromDatasetGet.
+        :type: str
+        """
+        if owner is None:
+            raise ValueError("Invalid value for `owner`, must not be `None`")
+        self._attrs["owner"] = owner
+
+    @property
+    def resourcename(self) -> "str":
+        """ Gets the resourcename of this ImportDatasetFromDatasetGet.
+        The dataset name qualified by the module name.
+        """
+        return self._attrs.get("resourcename")
+
+    @resourcename.setter
+    def resourcename(self, resourcename: "str"):
+        """Sets the resourcename of this ImportDatasetFromDatasetGet.
+
+        The dataset name qualified by the module name.
+
+        :param resourcename: The resourcename of this ImportDatasetFromDatasetGet.
+        :type: str
+        """
+        if resourcename is None:
+            raise ValueError("Invalid value for `resourcename`, must not be `None`")
+        self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this ImportDatasetFromDatasetGet.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this ImportDatasetFromDatasetGet.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this ImportDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this ImportDatasetFromDatasetGet.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this ImportDatasetFromDatasetGet.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this ImportDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this ImportDatasetFromDatasetGet.
+        Detailed description of the dataset.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this ImportDatasetFromDatasetGet.
+
+        Detailed description of the dataset.
+
+        :param description: The description of this ImportDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def internalname(self) -> "str":
+        """ Gets the internalname of this ImportDatasetFromDatasetGet.
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+        """
+        return self._attrs.get("internalname")
+
+    @internalname.setter
+    def internalname(self, internalname: "str"):
+        """Sets the internalname of this ImportDatasetFromDatasetGet.
+
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+
+        :param internalname: The internalname of this ImportDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["internalname"] = internalname
+
+    @property
+    def kind(self) -> str:
+        return "import"
+
+
+    @property
+    def source_module(self) -> "str":
+        """ Gets the source_module of this ImportDatasetFromDatasetGet.
+        The dataset module being imported.
+        """
+        return self._attrs.get("sourceModule")
+
+    @source_module.setter
+    def source_module(self, source_module: "str"):
+        """Sets the source_module of this ImportDatasetFromDatasetGet.
+
+        The dataset module being imported.
+
+        :param source_module: The source_module of this ImportDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["sourceModule"] = source_module
+
+    @property
+    def source_name(self) -> "str":
+        """ Gets the source_name of this ImportDatasetFromDatasetGet.
+        The dataset name being imported.
+        """
+        return self._attrs.get("sourceName")
+
+    @source_name.setter
+    def source_name(self, source_name: "str"):
+        """Sets the source_name of this ImportDatasetFromDatasetGet.
+
+        The dataset name being imported.
+
+        :param source_name: The source_name of this ImportDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["sourceName"] = source_name
+
+    @property
+    def summary(self) -> "str":
+        """ Gets the summary of this ImportDatasetFromDatasetGet.
+        Summary of the dataset's purpose.
+        """
+        return self._attrs.get("summary")
+
+    @summary.setter
+    def summary(self, summary: "str"):
+        """Sets the summary of this ImportDatasetFromDatasetGet.
+
+        Summary of the dataset's purpose.
+
+        :param summary: The summary of this ImportDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["summary"] = summary
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this ImportDatasetFromDatasetGet.
+        The title of the dataset.  Does not have to be unique.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this ImportDatasetFromDatasetGet.
+
+        The title of the dataset.  Does not have to be unique.
+
+        :param title: The title of this ImportDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this ImportDatasetFromDatasetGet.
+        The catalog version.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this ImportDatasetFromDatasetGet.
+
+        The catalog version.
+
+        :param version: The version of this ImportDatasetFromDatasetGet.
+        :type: int
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+DatasetGet.from_dict_handlers["import"] = ImportDatasetFromDatasetGet._from_dict
+
+
+
 class ImportDatasetPATCH(DatasetPATCH):
 
     @staticmethod
@@ -5114,16 +5983,16 @@ class ImportDatasetPATCH(DatasetPATCH):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-class IndexDataset(Dataset):
+class IndexDatasetFromDataset(Dataset):
 
     @staticmethod
-    def _from_dict(model: dict) -> "IndexDataset":
-        instance = IndexDataset.__new__(IndexDataset)
+    def _from_dict(model: dict) -> "IndexDatasetFromDataset":
+        instance = IndexDatasetFromDataset.__new__(IndexDatasetFromDataset)
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, disabled: "bool" = None, earliest_event_time: "str" = None, earliest_ingest_time: "str" = None, frozen_time_period_in_secs: "int" = None, latest_event_time: "str" = None, latest_ingest_time: "str" = None, latest_metadata_update_time: "str" = None, summary: "str" = None, title: "str" = None, total_event_count: "int" = None, total_size: "int" = None, version: "int" = None, **extra):
-        """IndexDataset"""
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, disabled: "bool" = None, earliest_event_time: "str" = None, earliest_ingest_time: "str" = None, frozen_time_period_in_secs: "int" = None, internalname: "str" = None, latest_event_time: "str" = None, latest_ingest_time: "str" = None, latest_metadata_update_time: "str" = None, summary: "str" = None, title: "str" = None, total_event_count: "int" = None, total_size: "int" = None, version: "int" = None, **extra):
+        """IndexDatasetFromDataset"""
 
         self._attrs = dict()
         if created is not None:
@@ -5158,6 +6027,8 @@ class IndexDataset(Dataset):
             self._attrs["earliestIngestTime"] = earliest_ingest_time
         if frozen_time_period_in_secs is not None:
             self._attrs["frozenTimePeriodInSecs"] = frozen_time_period_in_secs
+        if internalname is not None:
+            self._attrs["internalname"] = internalname
         self._attrs["kind"] = "index" 
         if latest_event_time is not None:
             self._attrs["latestEventTime"] = latest_event_time
@@ -5180,18 +6051,18 @@ class IndexDataset(Dataset):
 
     @property
     def created(self) -> "datetime":
-        """ Gets the created of this IndexDataset.
+        """ Gets the created of this IndexDatasetFromDataset.
         The date and time object was created.
         """
         return self._attrs.get("created")
 
     @created.setter
     def created(self, created: "datetime"):
-        """Sets the created of this IndexDataset.
+        """Sets the created of this IndexDatasetFromDataset.
 
         The date and time object was created.
 
-        :param created: The created of this IndexDataset.
+        :param created: The created of this IndexDatasetFromDataset.
         :type: datetime
         """
         if created is None:
@@ -5200,18 +6071,18 @@ class IndexDataset(Dataset):
 
     @property
     def createdby(self) -> "str":
-        """ Gets the createdby of this IndexDataset.
+        """ Gets the createdby of this IndexDatasetFromDataset.
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
         """
         return self._attrs.get("createdby")
 
     @createdby.setter
     def createdby(self, createdby: "str"):
-        """Sets the createdby of this IndexDataset.
+        """Sets the createdby of this IndexDatasetFromDataset.
 
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
 
-        :param createdby: The createdby of this IndexDataset.
+        :param createdby: The createdby of this IndexDatasetFromDataset.
         :type: str
         """
         if createdby is None:
@@ -5220,18 +6091,18 @@ class IndexDataset(Dataset):
 
     @property
     def id(self) -> "str":
-        """ Gets the id of this IndexDataset.
+        """ Gets the id of this IndexDatasetFromDataset.
         A unique dataset ID.
         """
         return self._attrs.get("id")
 
     @id.setter
     def id(self, id: "str"):
-        """Sets the id of this IndexDataset.
+        """Sets the id of this IndexDatasetFromDataset.
 
         A unique dataset ID.
 
-        :param id: The id of this IndexDataset.
+        :param id: The id of this IndexDatasetFromDataset.
         :type: str
         """
         if id is None:
@@ -5240,18 +6111,18 @@ class IndexDataset(Dataset):
 
     @property
     def modified(self) -> "datetime":
-        """ Gets the modified of this IndexDataset.
+        """ Gets the modified of this IndexDatasetFromDataset.
         The date and time object was modified.
         """
         return self._attrs.get("modified")
 
     @modified.setter
     def modified(self, modified: "datetime"):
-        """Sets the modified of this IndexDataset.
+        """Sets the modified of this IndexDatasetFromDataset.
 
         The date and time object was modified.
 
-        :param modified: The modified of this IndexDataset.
+        :param modified: The modified of this IndexDatasetFromDataset.
         :type: datetime
         """
         if modified is None:
@@ -5260,18 +6131,18 @@ class IndexDataset(Dataset):
 
     @property
     def modifiedby(self) -> "str":
-        """ Gets the modifiedby of this IndexDataset.
+        """ Gets the modifiedby of this IndexDatasetFromDataset.
         The name of the user who most recently modified the object.
         """
         return self._attrs.get("modifiedby")
 
     @modifiedby.setter
     def modifiedby(self, modifiedby: "str"):
-        """Sets the modifiedby of this IndexDataset.
+        """Sets the modifiedby of this IndexDatasetFromDataset.
 
         The name of the user who most recently modified the object.
 
-        :param modifiedby: The modifiedby of this IndexDataset.
+        :param modifiedby: The modifiedby of this IndexDatasetFromDataset.
         :type: str
         """
         if modifiedby is None:
@@ -5280,18 +6151,18 @@ class IndexDataset(Dataset):
 
     @property
     def module(self) -> "str":
-        """ Gets the module of this IndexDataset.
+        """ Gets the module of this IndexDatasetFromDataset.
         The name of the module that contains the dataset.
         """
         return self._attrs.get("module")
 
     @module.setter
     def module(self, module: "str"):
-        """Sets the module of this IndexDataset.
+        """Sets the module of this IndexDatasetFromDataset.
 
         The name of the module that contains the dataset.
 
-        :param module: The module of this IndexDataset.
+        :param module: The module of this IndexDatasetFromDataset.
         :type: str
         """
         if module is None:
@@ -5300,18 +6171,18 @@ class IndexDataset(Dataset):
 
     @property
     def name(self) -> "str":
-        """ Gets the name of this IndexDataset.
+        """ Gets the name of this IndexDatasetFromDataset.
         The dataset name. Dataset names must be unique within each module.
         """
         return self._attrs.get("name")
 
     @name.setter
     def name(self, name: "str"):
-        """Sets the name of this IndexDataset.
+        """Sets the name of this IndexDatasetFromDataset.
 
         The dataset name. Dataset names must be unique within each module.
 
-        :param name: The name of this IndexDataset.
+        :param name: The name of this IndexDatasetFromDataset.
         :type: str
         """
         if name is None:
@@ -5320,18 +6191,18 @@ class IndexDataset(Dataset):
 
     @property
     def owner(self) -> "str":
-        """ Gets the owner of this IndexDataset.
+        """ Gets the owner of this IndexDatasetFromDataset.
         The name of the object's owner.
         """
         return self._attrs.get("owner")
 
     @owner.setter
     def owner(self, owner: "str"):
-        """Sets the owner of this IndexDataset.
+        """Sets the owner of this IndexDatasetFromDataset.
 
         The name of the object's owner.
 
-        :param owner: The owner of this IndexDataset.
+        :param owner: The owner of this IndexDatasetFromDataset.
         :type: str
         """
         if owner is None:
@@ -5340,18 +6211,18 @@ class IndexDataset(Dataset):
 
     @property
     def resourcename(self) -> "str":
-        """ Gets the resourcename of this IndexDataset.
+        """ Gets the resourcename of this IndexDatasetFromDataset.
         The dataset name qualified by the module name.
         """
         return self._attrs.get("resourcename")
 
     @resourcename.setter
     def resourcename(self, resourcename: "str"):
-        """Sets the resourcename of this IndexDataset.
+        """Sets the resourcename of this IndexDatasetFromDataset.
 
         The dataset name qualified by the module name.
 
-        :param resourcename: The resourcename of this IndexDataset.
+        :param resourcename: The resourcename of this IndexDatasetFromDataset.
         :type: str
         """
         if resourcename is None:
@@ -5360,129 +6231,147 @@ class IndexDataset(Dataset):
 
     @property
     def appclientidcreatedby(self) -> "str":
-        """ Gets the appclientidcreatedby of this IndexDataset.
+        """ Gets the appclientidcreatedby of this IndexDatasetFromDataset.
         AppClinetId of the creator app of the dataset.
         """
         return self._attrs.get("appclientidcreatedby")
 
     @appclientidcreatedby.setter
     def appclientidcreatedby(self, appclientidcreatedby: "str"):
-        """Sets the appclientidcreatedby of this IndexDataset.
+        """Sets the appclientidcreatedby of this IndexDatasetFromDataset.
 
         AppClinetId of the creator app of the dataset.
 
-        :param appclientidcreatedby: The appclientidcreatedby of this IndexDataset.
+        :param appclientidcreatedby: The appclientidcreatedby of this IndexDatasetFromDataset.
         :type: str
         """
         self._attrs["appclientidcreatedby"] = appclientidcreatedby
 
     @property
     def appclientidmodifiedby(self) -> "str":
-        """ Gets the appclientidmodifiedby of this IndexDataset.
+        """ Gets the appclientidmodifiedby of this IndexDatasetFromDataset.
         AppClinetId of the modifier app of the dataset.
         """
         return self._attrs.get("appclientidmodifiedby")
 
     @appclientidmodifiedby.setter
     def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
-        """Sets the appclientidmodifiedby of this IndexDataset.
+        """Sets the appclientidmodifiedby of this IndexDatasetFromDataset.
 
         AppClinetId of the modifier app of the dataset.
 
-        :param appclientidmodifiedby: The appclientidmodifiedby of this IndexDataset.
+        :param appclientidmodifiedby: The appclientidmodifiedby of this IndexDatasetFromDataset.
         :type: str
         """
         self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def description(self) -> "str":
-        """ Gets the description of this IndexDataset.
+        """ Gets the description of this IndexDatasetFromDataset.
         Detailed description of the dataset.
         """
         return self._attrs.get("description")
 
     @description.setter
     def description(self, description: "str"):
-        """Sets the description of this IndexDataset.
+        """Sets the description of this IndexDatasetFromDataset.
 
         Detailed description of the dataset.
 
-        :param description: The description of this IndexDataset.
+        :param description: The description of this IndexDatasetFromDataset.
         :type: str
         """
         self._attrs["description"] = description
 
     @property
     def disabled(self) -> "bool":
-        """ Gets the disabled of this IndexDataset.
+        """ Gets the disabled of this IndexDatasetFromDataset.
         Specifies whether or not the Splunk index is disabled.
         """
         return self._attrs.get("disabled")
 
     @disabled.setter
     def disabled(self, disabled: "bool"):
-        """Sets the disabled of this IndexDataset.
+        """Sets the disabled of this IndexDatasetFromDataset.
 
         Specifies whether or not the Splunk index is disabled.
 
-        :param disabled: The disabled of this IndexDataset.
+        :param disabled: The disabled of this IndexDatasetFromDataset.
         :type: bool
         """
         self._attrs["disabled"] = disabled
 
     @property
     def earliest_event_time(self) -> "str":
-        """ Gets the earliest_event_time of this IndexDataset.
+        """ Gets the earliest_event_time of this IndexDatasetFromDataset.
         The timestamp, in seconds, of the earliest event. The timestamp is in UNIX time.
         """
         return self._attrs.get("earliestEventTime")
 
     @earliest_event_time.setter
     def earliest_event_time(self, earliest_event_time: "str"):
-        """Sets the earliest_event_time of this IndexDataset.
+        """Sets the earliest_event_time of this IndexDatasetFromDataset.
 
         The timestamp, in seconds, of the earliest event. The timestamp is in UNIX time.
 
-        :param earliest_event_time: The earliest_event_time of this IndexDataset.
+        :param earliest_event_time: The earliest_event_time of this IndexDatasetFromDataset.
         :type: str
         """
         self._attrs["earliestEventTime"] = earliest_event_time
 
     @property
     def earliest_ingest_time(self) -> "str":
-        """ Gets the earliest_ingest_time of this IndexDataset.
+        """ Gets the earliest_ingest_time of this IndexDatasetFromDataset.
         The earliest index time for any of the events in this index.
         """
         return self._attrs.get("earliestIngestTime")
 
     @earliest_ingest_time.setter
     def earliest_ingest_time(self, earliest_ingest_time: "str"):
-        """Sets the earliest_ingest_time of this IndexDataset.
+        """Sets the earliest_ingest_time of this IndexDatasetFromDataset.
 
         The earliest index time for any of the events in this index.
 
-        :param earliest_ingest_time: The earliest_ingest_time of this IndexDataset.
+        :param earliest_ingest_time: The earliest_ingest_time of this IndexDatasetFromDataset.
         :type: str
         """
         self._attrs["earliestIngestTime"] = earliest_ingest_time
 
     @property
     def frozen_time_period_in_secs(self) -> "int":
-        """ Gets the frozen_time_period_in_secs of this IndexDataset.
+        """ Gets the frozen_time_period_in_secs of this IndexDatasetFromDataset.
         The frozenTimePeriodInSecs to use for the index
         """
         return self._attrs.get("frozenTimePeriodInSecs")
 
     @frozen_time_period_in_secs.setter
     def frozen_time_period_in_secs(self, frozen_time_period_in_secs: "int"):
-        """Sets the frozen_time_period_in_secs of this IndexDataset.
+        """Sets the frozen_time_period_in_secs of this IndexDatasetFromDataset.
 
         The frozenTimePeriodInSecs to use for the index
 
-        :param frozen_time_period_in_secs: The frozen_time_period_in_secs of this IndexDataset.
+        :param frozen_time_period_in_secs: The frozen_time_period_in_secs of this IndexDatasetFromDataset.
         :type: int
         """
         self._attrs["frozenTimePeriodInSecs"] = frozen_time_period_in_secs
+
+    @property
+    def internalname(self) -> "str":
+        """ Gets the internalname of this IndexDatasetFromDataset.
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+        """
+        return self._attrs.get("internalname")
+
+    @internalname.setter
+    def internalname(self, internalname: "str"):
+        """Sets the internalname of this IndexDatasetFromDataset.
+
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+
+        :param internalname: The internalname of this IndexDatasetFromDataset.
+        :type: str
+        """
+        self._attrs["internalname"] = internalname
 
     @property
     def kind(self) -> str:
@@ -5491,144 +6380,144 @@ class IndexDataset(Dataset):
 
     @property
     def latest_event_time(self) -> "str":
-        """ Gets the latest_event_time of this IndexDataset.
+        """ Gets the latest_event_time of this IndexDatasetFromDataset.
         The timestamp, in seconds, of the latest event. The timestamp is in UNIX time.
         """
         return self._attrs.get("latestEventTime")
 
     @latest_event_time.setter
     def latest_event_time(self, latest_event_time: "str"):
-        """Sets the latest_event_time of this IndexDataset.
+        """Sets the latest_event_time of this IndexDatasetFromDataset.
 
         The timestamp, in seconds, of the latest event. The timestamp is in UNIX time.
 
-        :param latest_event_time: The latest_event_time of this IndexDataset.
+        :param latest_event_time: The latest_event_time of this IndexDatasetFromDataset.
         :type: str
         """
         self._attrs["latestEventTime"] = latest_event_time
 
     @property
     def latest_ingest_time(self) -> "str":
-        """ Gets the latest_ingest_time of this IndexDataset.
+        """ Gets the latest_ingest_time of this IndexDatasetFromDataset.
         The latest index time for any of the events in this index.
         """
         return self._attrs.get("latestIngestTime")
 
     @latest_ingest_time.setter
     def latest_ingest_time(self, latest_ingest_time: "str"):
-        """Sets the latest_ingest_time of this IndexDataset.
+        """Sets the latest_ingest_time of this IndexDatasetFromDataset.
 
         The latest index time for any of the events in this index.
 
-        :param latest_ingest_time: The latest_ingest_time of this IndexDataset.
+        :param latest_ingest_time: The latest_ingest_time of this IndexDatasetFromDataset.
         :type: str
         """
         self._attrs["latestIngestTime"] = latest_ingest_time
 
     @property
     def latest_metadata_update_time(self) -> "str":
-        """ Gets the latest_metadata_update_time of this IndexDataset.
+        """ Gets the latest_metadata_update_time of this IndexDatasetFromDataset.
         The latest time that the index metadata was refreshed.
         """
         return self._attrs.get("latestMetadataUpdateTime")
 
     @latest_metadata_update_time.setter
     def latest_metadata_update_time(self, latest_metadata_update_time: "str"):
-        """Sets the latest_metadata_update_time of this IndexDataset.
+        """Sets the latest_metadata_update_time of this IndexDatasetFromDataset.
 
         The latest time that the index metadata was refreshed.
 
-        :param latest_metadata_update_time: The latest_metadata_update_time of this IndexDataset.
+        :param latest_metadata_update_time: The latest_metadata_update_time of this IndexDatasetFromDataset.
         :type: str
         """
         self._attrs["latestMetadataUpdateTime"] = latest_metadata_update_time
 
     @property
     def summary(self) -> "str":
-        """ Gets the summary of this IndexDataset.
+        """ Gets the summary of this IndexDatasetFromDataset.
         Summary of the dataset's purpose.
         """
         return self._attrs.get("summary")
 
     @summary.setter
     def summary(self, summary: "str"):
-        """Sets the summary of this IndexDataset.
+        """Sets the summary of this IndexDatasetFromDataset.
 
         Summary of the dataset's purpose.
 
-        :param summary: The summary of this IndexDataset.
+        :param summary: The summary of this IndexDatasetFromDataset.
         :type: str
         """
         self._attrs["summary"] = summary
 
     @property
     def title(self) -> "str":
-        """ Gets the title of this IndexDataset.
+        """ Gets the title of this IndexDatasetFromDataset.
         The title of the dataset.  Does not have to be unique.
         """
         return self._attrs.get("title")
 
     @title.setter
     def title(self, title: "str"):
-        """Sets the title of this IndexDataset.
+        """Sets the title of this IndexDatasetFromDataset.
 
         The title of the dataset.  Does not have to be unique.
 
-        :param title: The title of this IndexDataset.
+        :param title: The title of this IndexDatasetFromDataset.
         :type: str
         """
         self._attrs["title"] = title
 
     @property
     def total_event_count(self) -> "int":
-        """ Gets the total_event_count of this IndexDataset.
+        """ Gets the total_event_count of this IndexDatasetFromDataset.
         The number of events in the index.
         """
         return self._attrs.get("totalEventCount")
 
     @total_event_count.setter
     def total_event_count(self, total_event_count: "int"):
-        """Sets the total_event_count of this IndexDataset.
+        """Sets the total_event_count of this IndexDatasetFromDataset.
 
         The number of events in the index.
 
-        :param total_event_count: The total_event_count of this IndexDataset.
+        :param total_event_count: The total_event_count of this IndexDatasetFromDataset.
         :type: int
         """
         self._attrs["totalEventCount"] = total_event_count
 
     @property
     def total_size(self) -> "int":
-        """ Gets the total_size of this IndexDataset.
+        """ Gets the total_size of this IndexDatasetFromDataset.
         The raw size, in bytes, of the uncompressed data in the indexers.
         """
         return self._attrs.get("totalSize")
 
     @total_size.setter
     def total_size(self, total_size: "int"):
-        """Sets the total_size of this IndexDataset.
+        """Sets the total_size of this IndexDatasetFromDataset.
 
         The raw size, in bytes, of the uncompressed data in the indexers.
 
-        :param total_size: The total_size of this IndexDataset.
+        :param total_size: The total_size of this IndexDatasetFromDataset.
         :type: int
         """
         self._attrs["totalSize"] = total_size
 
     @property
     def version(self) -> "int":
-        """ Gets the version of this IndexDataset.
+        """ Gets the version of this IndexDatasetFromDataset.
         The catalog version.
         """
         return self._attrs.get("version")
 
     @version.setter
     def version(self, version: "int"):
-        """Sets the version of this IndexDataset.
+        """Sets the version of this IndexDatasetFromDataset.
 
         The catalog version.
 
-        :param version: The version of this IndexDataset.
+        :param version: The version of this IndexDatasetFromDataset.
         :type: int
         """
         self._attrs["version"] = version
@@ -5637,7 +6526,554 @@ class IndexDataset(Dataset):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-Dataset.from_dict_handlers["index"] = IndexDataset._from_dict
+Dataset.from_dict_handlers["index"] = IndexDatasetFromDataset._from_dict
+
+
+
+class IndexDatasetFromDatasetGet(DatasetGet):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "IndexDatasetFromDatasetGet":
+        instance = IndexDatasetFromDatasetGet.__new__(IndexDatasetFromDatasetGet)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, disabled: "bool" = None, earliest_event_time: "str" = None, earliest_ingest_time: "str" = None, frozen_time_period_in_secs: "int" = None, internalname: "str" = None, latest_event_time: "str" = None, latest_ingest_time: "str" = None, latest_metadata_update_time: "str" = None, summary: "str" = None, title: "str" = None, total_event_count: "int" = None, total_size: "int" = None, version: "int" = None, **extra):
+        """IndexDatasetFromDatasetGet"""
+
+        self._attrs = dict()
+        if created is not None:
+            self._attrs["created"] = created
+        if createdby is not None:
+            self._attrs["createdby"] = createdby
+        if id is not None:
+            self._attrs["id"] = id
+        if modified is not None:
+            self._attrs["modified"] = modified
+        if modifiedby is not None:
+            self._attrs["modifiedby"] = modifiedby
+        if module is not None:
+            self._attrs["module"] = module
+        if name is not None:
+            self._attrs["name"] = name
+        if owner is not None:
+            self._attrs["owner"] = owner
+        if resourcename is not None:
+            self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+        if description is not None:
+            self._attrs["description"] = description
+        if disabled is not None:
+            self._attrs["disabled"] = disabled
+        if earliest_event_time is not None:
+            self._attrs["earliestEventTime"] = earliest_event_time
+        if earliest_ingest_time is not None:
+            self._attrs["earliestIngestTime"] = earliest_ingest_time
+        if frozen_time_period_in_secs is not None:
+            self._attrs["frozenTimePeriodInSecs"] = frozen_time_period_in_secs
+        if internalname is not None:
+            self._attrs["internalname"] = internalname
+        self._attrs["kind"] = "index" 
+        if latest_event_time is not None:
+            self._attrs["latestEventTime"] = latest_event_time
+        if latest_ingest_time is not None:
+            self._attrs["latestIngestTime"] = latest_ingest_time
+        if latest_metadata_update_time is not None:
+            self._attrs["latestMetadataUpdateTime"] = latest_metadata_update_time
+        if summary is not None:
+            self._attrs["summary"] = summary
+        if title is not None:
+            self._attrs["title"] = title
+        if total_event_count is not None:
+            self._attrs["totalEventCount"] = total_event_count
+        if total_size is not None:
+            self._attrs["totalSize"] = total_size
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def created(self) -> "datetime":
+        """ Gets the created of this IndexDatasetFromDatasetGet.
+        The date and time object was created.
+        """
+        return self._attrs.get("created")
+
+    @created.setter
+    def created(self, created: "datetime"):
+        """Sets the created of this IndexDatasetFromDatasetGet.
+
+        The date and time object was created.
+
+        :param created: The created of this IndexDatasetFromDatasetGet.
+        :type: datetime
+        """
+        if created is None:
+            raise ValueError("Invalid value for `created`, must not be `None`")
+        self._attrs["created"] = created
+
+    @property
+    def createdby(self) -> "str":
+        """ Gets the createdby of this IndexDatasetFromDatasetGet.
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+        """
+        return self._attrs.get("createdby")
+
+    @createdby.setter
+    def createdby(self, createdby: "str"):
+        """Sets the createdby of this IndexDatasetFromDatasetGet.
+
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+
+        :param createdby: The createdby of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        if createdby is None:
+            raise ValueError("Invalid value for `createdby`, must not be `None`")
+        self._attrs["createdby"] = createdby
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this IndexDatasetFromDatasetGet.
+        A unique dataset ID.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this IndexDatasetFromDatasetGet.
+
+        A unique dataset ID.
+
+        :param id: The id of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")
+        self._attrs["id"] = id
+
+    @property
+    def modified(self) -> "datetime":
+        """ Gets the modified of this IndexDatasetFromDatasetGet.
+        The date and time object was modified.
+        """
+        return self._attrs.get("modified")
+
+    @modified.setter
+    def modified(self, modified: "datetime"):
+        """Sets the modified of this IndexDatasetFromDatasetGet.
+
+        The date and time object was modified.
+
+        :param modified: The modified of this IndexDatasetFromDatasetGet.
+        :type: datetime
+        """
+        if modified is None:
+            raise ValueError("Invalid value for `modified`, must not be `None`")
+        self._attrs["modified"] = modified
+
+    @property
+    def modifiedby(self) -> "str":
+        """ Gets the modifiedby of this IndexDatasetFromDatasetGet.
+        The name of the user who most recently modified the object.
+        """
+        return self._attrs.get("modifiedby")
+
+    @modifiedby.setter
+    def modifiedby(self, modifiedby: "str"):
+        """Sets the modifiedby of this IndexDatasetFromDatasetGet.
+
+        The name of the user who most recently modified the object.
+
+        :param modifiedby: The modifiedby of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        if modifiedby is None:
+            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
+        self._attrs["modifiedby"] = modifiedby
+
+    @property
+    def module(self) -> "str":
+        """ Gets the module of this IndexDatasetFromDatasetGet.
+        The name of the module that contains the dataset.
+        """
+        return self._attrs.get("module")
+
+    @module.setter
+    def module(self, module: "str"):
+        """Sets the module of this IndexDatasetFromDatasetGet.
+
+        The name of the module that contains the dataset.
+
+        :param module: The module of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        if module is None:
+            raise ValueError("Invalid value for `module`, must not be `None`")
+        self._attrs["module"] = module
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this IndexDatasetFromDatasetGet.
+        The dataset name. Dataset names must be unique within each module.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this IndexDatasetFromDatasetGet.
+
+        The dataset name. Dataset names must be unique within each module.
+
+        :param name: The name of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def owner(self) -> "str":
+        """ Gets the owner of this IndexDatasetFromDatasetGet.
+        The name of the object's owner.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this IndexDatasetFromDatasetGet.
+
+        The name of the object's owner.
+
+        :param owner: The owner of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        if owner is None:
+            raise ValueError("Invalid value for `owner`, must not be `None`")
+        self._attrs["owner"] = owner
+
+    @property
+    def resourcename(self) -> "str":
+        """ Gets the resourcename of this IndexDatasetFromDatasetGet.
+        The dataset name qualified by the module name.
+        """
+        return self._attrs.get("resourcename")
+
+    @resourcename.setter
+    def resourcename(self, resourcename: "str"):
+        """Sets the resourcename of this IndexDatasetFromDatasetGet.
+
+        The dataset name qualified by the module name.
+
+        :param resourcename: The resourcename of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        if resourcename is None:
+            raise ValueError("Invalid value for `resourcename`, must not be `None`")
+        self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this IndexDatasetFromDatasetGet.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this IndexDatasetFromDatasetGet.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this IndexDatasetFromDatasetGet.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this IndexDatasetFromDatasetGet.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this IndexDatasetFromDatasetGet.
+        Detailed description of the dataset.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this IndexDatasetFromDatasetGet.
+
+        Detailed description of the dataset.
+
+        :param description: The description of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def disabled(self) -> "bool":
+        """ Gets the disabled of this IndexDatasetFromDatasetGet.
+        Specifies whether or not the Splunk index is disabled.
+        """
+        return self._attrs.get("disabled")
+
+    @disabled.setter
+    def disabled(self, disabled: "bool"):
+        """Sets the disabled of this IndexDatasetFromDatasetGet.
+
+        Specifies whether or not the Splunk index is disabled.
+
+        :param disabled: The disabled of this IndexDatasetFromDatasetGet.
+        :type: bool
+        """
+        self._attrs["disabled"] = disabled
+
+    @property
+    def earliest_event_time(self) -> "str":
+        """ Gets the earliest_event_time of this IndexDatasetFromDatasetGet.
+        The timestamp, in seconds, of the earliest event. The timestamp is in UNIX time.
+        """
+        return self._attrs.get("earliestEventTime")
+
+    @earliest_event_time.setter
+    def earliest_event_time(self, earliest_event_time: "str"):
+        """Sets the earliest_event_time of this IndexDatasetFromDatasetGet.
+
+        The timestamp, in seconds, of the earliest event. The timestamp is in UNIX time.
+
+        :param earliest_event_time: The earliest_event_time of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["earliestEventTime"] = earliest_event_time
+
+    @property
+    def earliest_ingest_time(self) -> "str":
+        """ Gets the earliest_ingest_time of this IndexDatasetFromDatasetGet.
+        The earliest index time for any of the events in this index.
+        """
+        return self._attrs.get("earliestIngestTime")
+
+    @earliest_ingest_time.setter
+    def earliest_ingest_time(self, earliest_ingest_time: "str"):
+        """Sets the earliest_ingest_time of this IndexDatasetFromDatasetGet.
+
+        The earliest index time for any of the events in this index.
+
+        :param earliest_ingest_time: The earliest_ingest_time of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["earliestIngestTime"] = earliest_ingest_time
+
+    @property
+    def frozen_time_period_in_secs(self) -> "int":
+        """ Gets the frozen_time_period_in_secs of this IndexDatasetFromDatasetGet.
+        The frozenTimePeriodInSecs to use for the index
+        """
+        return self._attrs.get("frozenTimePeriodInSecs")
+
+    @frozen_time_period_in_secs.setter
+    def frozen_time_period_in_secs(self, frozen_time_period_in_secs: "int"):
+        """Sets the frozen_time_period_in_secs of this IndexDatasetFromDatasetGet.
+
+        The frozenTimePeriodInSecs to use for the index
+
+        :param frozen_time_period_in_secs: The frozen_time_period_in_secs of this IndexDatasetFromDatasetGet.
+        :type: int
+        """
+        self._attrs["frozenTimePeriodInSecs"] = frozen_time_period_in_secs
+
+    @property
+    def internalname(self) -> "str":
+        """ Gets the internalname of this IndexDatasetFromDatasetGet.
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+        """
+        return self._attrs.get("internalname")
+
+    @internalname.setter
+    def internalname(self, internalname: "str"):
+        """Sets the internalname of this IndexDatasetFromDatasetGet.
+
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+
+        :param internalname: The internalname of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["internalname"] = internalname
+
+    @property
+    def kind(self) -> str:
+        return "index"
+
+
+    @property
+    def latest_event_time(self) -> "str":
+        """ Gets the latest_event_time of this IndexDatasetFromDatasetGet.
+        The timestamp, in seconds, of the latest event. The timestamp is in UNIX time.
+        """
+        return self._attrs.get("latestEventTime")
+
+    @latest_event_time.setter
+    def latest_event_time(self, latest_event_time: "str"):
+        """Sets the latest_event_time of this IndexDatasetFromDatasetGet.
+
+        The timestamp, in seconds, of the latest event. The timestamp is in UNIX time.
+
+        :param latest_event_time: The latest_event_time of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["latestEventTime"] = latest_event_time
+
+    @property
+    def latest_ingest_time(self) -> "str":
+        """ Gets the latest_ingest_time of this IndexDatasetFromDatasetGet.
+        The latest index time for any of the events in this index.
+        """
+        return self._attrs.get("latestIngestTime")
+
+    @latest_ingest_time.setter
+    def latest_ingest_time(self, latest_ingest_time: "str"):
+        """Sets the latest_ingest_time of this IndexDatasetFromDatasetGet.
+
+        The latest index time for any of the events in this index.
+
+        :param latest_ingest_time: The latest_ingest_time of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["latestIngestTime"] = latest_ingest_time
+
+    @property
+    def latest_metadata_update_time(self) -> "str":
+        """ Gets the latest_metadata_update_time of this IndexDatasetFromDatasetGet.
+        The latest time that the index metadata was refreshed.
+        """
+        return self._attrs.get("latestMetadataUpdateTime")
+
+    @latest_metadata_update_time.setter
+    def latest_metadata_update_time(self, latest_metadata_update_time: "str"):
+        """Sets the latest_metadata_update_time of this IndexDatasetFromDatasetGet.
+
+        The latest time that the index metadata was refreshed.
+
+        :param latest_metadata_update_time: The latest_metadata_update_time of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["latestMetadataUpdateTime"] = latest_metadata_update_time
+
+    @property
+    def summary(self) -> "str":
+        """ Gets the summary of this IndexDatasetFromDatasetGet.
+        Summary of the dataset's purpose.
+        """
+        return self._attrs.get("summary")
+
+    @summary.setter
+    def summary(self, summary: "str"):
+        """Sets the summary of this IndexDatasetFromDatasetGet.
+
+        Summary of the dataset's purpose.
+
+        :param summary: The summary of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["summary"] = summary
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this IndexDatasetFromDatasetGet.
+        The title of the dataset.  Does not have to be unique.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this IndexDatasetFromDatasetGet.
+
+        The title of the dataset.  Does not have to be unique.
+
+        :param title: The title of this IndexDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
+    def total_event_count(self) -> "int":
+        """ Gets the total_event_count of this IndexDatasetFromDatasetGet.
+        The number of events in the index.
+        """
+        return self._attrs.get("totalEventCount")
+
+    @total_event_count.setter
+    def total_event_count(self, total_event_count: "int"):
+        """Sets the total_event_count of this IndexDatasetFromDatasetGet.
+
+        The number of events in the index.
+
+        :param total_event_count: The total_event_count of this IndexDatasetFromDatasetGet.
+        :type: int
+        """
+        self._attrs["totalEventCount"] = total_event_count
+
+    @property
+    def total_size(self) -> "int":
+        """ Gets the total_size of this IndexDatasetFromDatasetGet.
+        The raw size, in bytes, of the uncompressed data in the indexers.
+        """
+        return self._attrs.get("totalSize")
+
+    @total_size.setter
+    def total_size(self, total_size: "int"):
+        """Sets the total_size of this IndexDatasetFromDatasetGet.
+
+        The raw size, in bytes, of the uncompressed data in the indexers.
+
+        :param total_size: The total_size of this IndexDatasetFromDatasetGet.
+        :type: int
+        """
+        self._attrs["totalSize"] = total_size
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this IndexDatasetFromDatasetGet.
+        The catalog version.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this IndexDatasetFromDatasetGet.
+
+        The catalog version.
+
+        :param version: The version of this IndexDatasetFromDatasetGet.
+        :type: int
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+DatasetGet.from_dict_handlers["index"] = IndexDatasetFromDatasetGet._from_dict
 
 
 
@@ -5941,6 +7377,36 @@ DatasetPOST.from_dict_handlers["index"] = IndexDatasetPOST._from_dict
 
 
 
+class JobDatasetEventSummaryAvailableStatus(str, Enum):
+    TRUE = "true"
+    FALSE = "false"
+    UNKNOWN = "UNKNOWN"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "true":
+            return JobDatasetEventSummaryAvailableStatus.TRUE
+        if value == "false":
+            return JobDatasetEventSummaryAvailableStatus.FALSE
+        if value == "UNKNOWN":
+            return JobDatasetEventSummaryAvailableStatus.UNKNOWN
+
+
+class JobDatasetFieldSummaryAvailableStatus(str, Enum):
+    TRUE = "true"
+    FALSE = "false"
+    UNKNOWN = "UNKNOWN"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "true":
+            return JobDatasetFieldSummaryAvailableStatus.TRUE
+        if value == "false":
+            return JobDatasetFieldSummaryAvailableStatus.FALSE
+        if value == "UNKNOWN":
+            return JobDatasetFieldSummaryAvailableStatus.UNKNOWN
+
+
 class JobDatasetPropertiesTimelineMetadata(SSCModel):
 
     @staticmethod
@@ -6060,36 +7526,6 @@ class JobDatasetPropertiesTimelineMetadataAuto(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-class JobDatasetEventSummaryAvailableStatus(str, Enum):
-    TRUE = "true"
-    FALSE = "false"
-    UNKNOWN = "UNKNOWN"
-
-    @staticmethod
-    def from_value(value: str):
-        if value == "true":
-            return JobDatasetEventSummaryAvailableStatus.TRUE
-        if value == "false":
-            return JobDatasetEventSummaryAvailableStatus.FALSE
-        if value == "UNKNOWN":
-            return JobDatasetEventSummaryAvailableStatus.UNKNOWN
-
-
-class JobDatasetFieldSummaryAvailableStatus(str, Enum):
-    TRUE = "true"
-    FALSE = "false"
-    UNKNOWN = "UNKNOWN"
-
-    @staticmethod
-    def from_value(value: str):
-        if value == "true":
-            return JobDatasetFieldSummaryAvailableStatus.TRUE
-        if value == "false":
-            return JobDatasetFieldSummaryAvailableStatus.FALSE
-        if value == "UNKNOWN":
-            return JobDatasetFieldSummaryAvailableStatus.UNKNOWN
-
-
 class JobDatasetTimeBucketsAvailableStatus(str, Enum):
     TRUE = "true"
     FALSE = "false"
@@ -6105,40 +7541,20 @@ class JobDatasetTimeBucketsAvailableStatus(str, Enum):
             return JobDatasetTimeBucketsAvailableStatus.UNKNOWN
 
 
-class JobDataset(Dataset):
+class JobDatasetGET(DatasetGet):
 
     @staticmethod
-    def _from_dict(model: dict) -> "JobDataset":
-        instance = JobDataset.__new__(JobDataset)
+    def _from_dict(model: dict) -> "JobDatasetGET":
+        instance = JobDatasetGET.__new__(JobDatasetGET)
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, collect_event_summary: "bool" = None, collect_field_summary: "bool" = None, collect_time_buckets: "bool" = None, completion_time: "str" = None, delete_time: "str" = None, description: "str" = None, dispatch_time: "str" = None, execution_time: "float" = None, extract_all_fields: "bool" = None, has_side_effects: "bool" = None, max_time: "int" = None, parameters: "object" = None, parent: "str" = None, percent_complete: "int" = None, query: "str" = None, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = None, search_head: "str" = None, sid: "str" = None, spl: "str" = None, status: "str" = None, summary: "str" = None, timeline_metadata: "JobDatasetPropertiesTimelineMetadata" = None, title: "str" = None, version: "int" = None, **extra):
-        """JobDataset"""
+    def __init__(self, name: "str", collect_event_summary: "bool" = None, collect_field_summary: "bool" = None, collect_time_buckets: "bool" = None, completion_time: "str" = None, delete_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = None, execution_time: "float" = None, extract_all_fields: "bool" = None, fields: "List[FieldPOST]" = None, has_side_effects: "bool" = None, id: "str" = None, max_time: "int" = None, module: "str" = None, parameters: "object" = None, parent: "str" = None, percent_complete: "int" = None, query: "str" = None, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = None, search_head: "str" = None, sid: "str" = None, spl: "str" = None, status: "str" = None, timeline_metadata: "JobDatasetPropertiesTimelineMetadata" = None, **extra):
+        """JobDatasetGET"""
 
         self._attrs = dict()
-        if created is not None:
-            self._attrs["created"] = created
-        if createdby is not None:
-            self._attrs["createdby"] = createdby
-        if id is not None:
-            self._attrs["id"] = id
-        if modified is not None:
-            self._attrs["modified"] = modified
-        if modifiedby is not None:
-            self._attrs["modifiedby"] = modifiedby
-        if module is not None:
-            self._attrs["module"] = module
         if name is not None:
             self._attrs["name"] = name
-        if owner is not None:
-            self._attrs["owner"] = owner
-        if resourcename is not None:
-            self._attrs["resourcename"] = resourcename
-        if appclientidcreatedby is not None:
-            self._attrs["appclientidcreatedby"] = appclientidcreatedby
-        if appclientidmodifiedby is not None:
-            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if collect_event_summary is not None:
             self._attrs["collectEventSummary"] = collect_event_summary
         if collect_field_summary is not None:
@@ -6149,19 +7565,25 @@ class JobDataset(Dataset):
             self._attrs["completionTime"] = completion_time
         if delete_time is not None:
             self._attrs["deleteTime"] = delete_time
-        if description is not None:
-            self._attrs["description"] = description
         if dispatch_time is not None:
             self._attrs["dispatchTime"] = dispatch_time
+        if enable_preview is not None:
+            self._attrs["enablePreview"] = enable_preview
         if execution_time is not None:
             self._attrs["executionTime"] = execution_time
         if extract_all_fields is not None:
             self._attrs["extractAllFields"] = extract_all_fields
+        if fields is not None:
+            self._attrs["fields"] = fields
         if has_side_effects is not None:
             self._attrs["hasSideEffects"] = has_side_effects
+        if id is not None:
+            self._attrs["id"] = id
         self._attrs["kind"] = "job" 
         if max_time is not None:
             self._attrs["maxTime"] = max_time
+        if module is not None:
+            self._attrs["module"] = module
         if parameters is not None:
             self._attrs["parameters"] = parameters
         if parent is not None:
@@ -6184,151 +7606,25 @@ class JobDataset(Dataset):
             self._attrs["spl"] = spl
         if status is not None:
             self._attrs["status"] = status
-        if summary is not None:
-            self._attrs["summary"] = summary
         if timeline_metadata is not None:
             self._attrs["timelineMetadata"] = timeline_metadata.to_dict()
-        if title is not None:
-            self._attrs["title"] = title
-        if version is not None:
-            self._attrs["version"] = version
         for k, v in extra.items():
             self._attrs[k] = v
 
     @property
-    def created(self) -> "datetime":
-        """ Gets the created of this JobDataset.
-        The date and time object was created.
-        """
-        return self._attrs.get("created")
-
-    @created.setter
-    def created(self, created: "datetime"):
-        """Sets the created of this JobDataset.
-
-        The date and time object was created.
-
-        :param created: The created of this JobDataset.
-        :type: datetime
-        """
-        if created is None:
-            raise ValueError("Invalid value for `created`, must not be `None`")
-        self._attrs["created"] = created
-
-    @property
-    def createdby(self) -> "str":
-        """ Gets the createdby of this JobDataset.
-        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
-        """
-        return self._attrs.get("createdby")
-
-    @createdby.setter
-    def createdby(self, createdby: "str"):
-        """Sets the createdby of this JobDataset.
-
-        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
-
-        :param createdby: The createdby of this JobDataset.
-        :type: str
-        """
-        if createdby is None:
-            raise ValueError("Invalid value for `createdby`, must not be `None`")
-        self._attrs["createdby"] = createdby
-
-    @property
-    def id(self) -> "str":
-        """ Gets the id of this JobDataset.
-        A unique dataset ID.
-        """
-        return self._attrs.get("id")
-
-    @id.setter
-    def id(self, id: "str"):
-        """Sets the id of this JobDataset.
-
-        A unique dataset ID.
-
-        :param id: The id of this JobDataset.
-        :type: str
-        """
-        if id is None:
-            raise ValueError("Invalid value for `id`, must not be `None`")
-        self._attrs["id"] = id
-
-    @property
-    def modified(self) -> "datetime":
-        """ Gets the modified of this JobDataset.
-        The date and time object was modified.
-        """
-        return self._attrs.get("modified")
-
-    @modified.setter
-    def modified(self, modified: "datetime"):
-        """Sets the modified of this JobDataset.
-
-        The date and time object was modified.
-
-        :param modified: The modified of this JobDataset.
-        :type: datetime
-        """
-        if modified is None:
-            raise ValueError("Invalid value for `modified`, must not be `None`")
-        self._attrs["modified"] = modified
-
-    @property
-    def modifiedby(self) -> "str":
-        """ Gets the modifiedby of this JobDataset.
-        The name of the user who most recently modified the object.
-        """
-        return self._attrs.get("modifiedby")
-
-    @modifiedby.setter
-    def modifiedby(self, modifiedby: "str"):
-        """Sets the modifiedby of this JobDataset.
-
-        The name of the user who most recently modified the object.
-
-        :param modifiedby: The modifiedby of this JobDataset.
-        :type: str
-        """
-        if modifiedby is None:
-            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
-        self._attrs["modifiedby"] = modifiedby
-
-    @property
-    def module(self) -> "str":
-        """ Gets the module of this JobDataset.
-        The name of the module that contains the dataset.
-        """
-        return self._attrs.get("module")
-
-    @module.setter
-    def module(self, module: "str"):
-        """Sets the module of this JobDataset.
-
-        The name of the module that contains the dataset.
-
-        :param module: The module of this JobDataset.
-        :type: str
-        """
-        if module is None:
-            raise ValueError("Invalid value for `module`, must not be `None`")
-        self._attrs["module"] = module
-
-    @property
     def name(self) -> "str":
-        """ Gets the name of this JobDataset.
+        """ Gets the name of this JobDatasetGET.
         The dataset name. Dataset names must be unique within each module.
         """
         return self._attrs.get("name")
 
     @name.setter
     def name(self, name: "str"):
-        """Sets the name of this JobDataset.
+        """Sets the name of this JobDatasetGET.
 
         The dataset name. Dataset names must be unique within each module.
 
-        :param name: The name of this JobDataset.
+        :param name: The name of this JobDatasetGET.
         :type: str
         """
         if name is None:
@@ -6336,260 +7632,220 @@ class JobDataset(Dataset):
         self._attrs["name"] = name
 
     @property
-    def owner(self) -> "str":
-        """ Gets the owner of this JobDataset.
-        The name of the object's owner.
-        """
-        return self._attrs.get("owner")
-
-    @owner.setter
-    def owner(self, owner: "str"):
-        """Sets the owner of this JobDataset.
-
-        The name of the object's owner.
-
-        :param owner: The owner of this JobDataset.
-        :type: str
-        """
-        if owner is None:
-            raise ValueError("Invalid value for `owner`, must not be `None`")
-        self._attrs["owner"] = owner
-
-    @property
-    def resourcename(self) -> "str":
-        """ Gets the resourcename of this JobDataset.
-        The dataset name qualified by the module name.
-        """
-        return self._attrs.get("resourcename")
-
-    @resourcename.setter
-    def resourcename(self, resourcename: "str"):
-        """Sets the resourcename of this JobDataset.
-
-        The dataset name qualified by the module name.
-
-        :param resourcename: The resourcename of this JobDataset.
-        :type: str
-        """
-        if resourcename is None:
-            raise ValueError("Invalid value for `resourcename`, must not be `None`")
-        self._attrs["resourcename"] = resourcename
-
-    @property
-    def appclientidcreatedby(self) -> "str":
-        """ Gets the appclientidcreatedby of this JobDataset.
-        AppClinetId of the creator app of the dataset.
-        """
-        return self._attrs.get("appclientidcreatedby")
-
-    @appclientidcreatedby.setter
-    def appclientidcreatedby(self, appclientidcreatedby: "str"):
-        """Sets the appclientidcreatedby of this JobDataset.
-
-        AppClinetId of the creator app of the dataset.
-
-        :param appclientidcreatedby: The appclientidcreatedby of this JobDataset.
-        :type: str
-        """
-        self._attrs["appclientidcreatedby"] = appclientidcreatedby
-
-    @property
-    def appclientidmodifiedby(self) -> "str":
-        """ Gets the appclientidmodifiedby of this JobDataset.
-        AppClinetId of the modifier app of the dataset.
-        """
-        return self._attrs.get("appclientidmodifiedby")
-
-    @appclientidmodifiedby.setter
-    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
-        """Sets the appclientidmodifiedby of this JobDataset.
-
-        AppClinetId of the modifier app of the dataset.
-
-        :param appclientidmodifiedby: The appclientidmodifiedby of this JobDataset.
-        :type: str
-        """
-        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
-
-    @property
     def collect_event_summary(self) -> "bool":
-        """ Gets the collect_event_summary of this JobDataset.
+        """ Gets the collect_event_summary of this JobDatasetGET.
         Was the event summary requested for this searhc job?
         """
         return self._attrs.get("collectEventSummary")
 
     @collect_event_summary.setter
     def collect_event_summary(self, collect_event_summary: "bool"):
-        """Sets the collect_event_summary of this JobDataset.
+        """Sets the collect_event_summary of this JobDatasetGET.
 
         Was the event summary requested for this searhc job?
 
-        :param collect_event_summary: The collect_event_summary of this JobDataset.
+        :param collect_event_summary: The collect_event_summary of this JobDatasetGET.
         :type: bool
         """
         self._attrs["collectEventSummary"] = collect_event_summary
 
     @property
     def collect_field_summary(self) -> "bool":
-        """ Gets the collect_field_summary of this JobDataset.
+        """ Gets the collect_field_summary of this JobDatasetGET.
         Was the field summary requested for this searhc job?
         """
         return self._attrs.get("collectFieldSummary")
 
     @collect_field_summary.setter
     def collect_field_summary(self, collect_field_summary: "bool"):
-        """Sets the collect_field_summary of this JobDataset.
+        """Sets the collect_field_summary of this JobDatasetGET.
 
         Was the field summary requested for this searhc job?
 
-        :param collect_field_summary: The collect_field_summary of this JobDataset.
+        :param collect_field_summary: The collect_field_summary of this JobDatasetGET.
         :type: bool
         """
         self._attrs["collectFieldSummary"] = collect_field_summary
 
     @property
     def collect_time_buckets(self) -> "bool":
-        """ Gets the collect_time_buckets of this JobDataset.
+        """ Gets the collect_time_buckets of this JobDatasetGET.
         Were the time bucketes requested for this searhc job?
         """
         return self._attrs.get("collectTimeBuckets")
 
     @collect_time_buckets.setter
     def collect_time_buckets(self, collect_time_buckets: "bool"):
-        """Sets the collect_time_buckets of this JobDataset.
+        """Sets the collect_time_buckets of this JobDatasetGET.
 
         Were the time bucketes requested for this searhc job?
 
-        :param collect_time_buckets: The collect_time_buckets of this JobDataset.
+        :param collect_time_buckets: The collect_time_buckets of this JobDatasetGET.
         :type: bool
         """
         self._attrs["collectTimeBuckets"] = collect_time_buckets
 
     @property
     def completion_time(self) -> "str":
-        """ Gets the completion_time of this JobDataset.
+        """ Gets the completion_time of this JobDatasetGET.
         Time that the job was completed
         """
         return self._attrs.get("completionTime")
 
     @completion_time.setter
     def completion_time(self, completion_time: "str"):
-        """Sets the completion_time of this JobDataset.
+        """Sets the completion_time of this JobDatasetGET.
 
         Time that the job was completed
 
-        :param completion_time: The completion_time of this JobDataset.
+        :param completion_time: The completion_time of this JobDatasetGET.
         :type: str
         """
         self._attrs["completionTime"] = completion_time
 
     @property
     def delete_time(self) -> "str":
-        """ Gets the delete_time of this JobDataset.
+        """ Gets the delete_time of this JobDatasetGET.
         The time the dataset will be available in S3.
         """
         return self._attrs.get("deleteTime")
 
     @delete_time.setter
     def delete_time(self, delete_time: "str"):
-        """Sets the delete_time of this JobDataset.
+        """Sets the delete_time of this JobDatasetGET.
 
         The time the dataset will be available in S3.
 
-        :param delete_time: The delete_time of this JobDataset.
+        :param delete_time: The delete_time of this JobDatasetGET.
         :type: str
         """
         self._attrs["deleteTime"] = delete_time
 
     @property
-    def description(self) -> "str":
-        """ Gets the description of this JobDataset.
-        Detailed description of the dataset.
-        """
-        return self._attrs.get("description")
-
-    @description.setter
-    def description(self, description: "str"):
-        """Sets the description of this JobDataset.
-
-        Detailed description of the dataset.
-
-        :param description: The description of this JobDataset.
-        :type: str
-        """
-        self._attrs["description"] = description
-
-    @property
     def dispatch_time(self) -> "str":
-        """ Gets the dispatch_time of this JobDataset.
+        """ Gets the dispatch_time of this JobDatasetGET.
         Time that the job was dispatched
         """
         return self._attrs.get("dispatchTime")
 
     @dispatch_time.setter
     def dispatch_time(self, dispatch_time: "str"):
-        """Sets the dispatch_time of this JobDataset.
+        """Sets the dispatch_time of this JobDatasetGET.
 
         Time that the job was dispatched
 
-        :param dispatch_time: The dispatch_time of this JobDataset.
+        :param dispatch_time: The dispatch_time of this JobDatasetGET.
         :type: str
         """
         self._attrs["dispatchTime"] = dispatch_time
 
     @property
+    def enable_preview(self) -> "bool":
+        """ Gets the enable_preview of this JobDatasetGET.
+        Specifies whether a search is allowed to collect preview results during the runtime, internal search service use only.
+        """
+        return self._attrs.get("enablePreview")
+
+    @enable_preview.setter
+    def enable_preview(self, enable_preview: "bool"):
+        """Sets the enable_preview of this JobDatasetGET.
+
+        Specifies whether a search is allowed to collect preview results during the runtime, internal search service use only.
+
+        :param enable_preview: The enable_preview of this JobDatasetGET.
+        :type: bool
+        """
+        self._attrs["enablePreview"] = enable_preview
+
+    @property
     def execution_time(self) -> "float":
-        """ Gets the execution_time of this JobDataset.
+        """ Gets the execution_time of this JobDatasetGET.
         The runtime of the search in seconds.
         """
         return self._attrs.get("executionTime")
 
     @execution_time.setter
     def execution_time(self, execution_time: "float"):
-        """Sets the execution_time of this JobDataset.
+        """Sets the execution_time of this JobDatasetGET.
 
         The runtime of the search in seconds.
 
-        :param execution_time: The execution_time of this JobDataset.
+        :param execution_time: The execution_time of this JobDatasetGET.
         :type: float
         """
         self._attrs["executionTime"] = execution_time
 
     @property
     def extract_all_fields(self) -> "bool":
-        """ Gets the extract_all_fields of this JobDataset.
+        """ Gets the extract_all_fields of this JobDatasetGET.
         Should the search produce all fields (including those not explicity mentioned in the SPL)?
         """
         return self._attrs.get("extractAllFields")
 
     @extract_all_fields.setter
     def extract_all_fields(self, extract_all_fields: "bool"):
-        """Sets the extract_all_fields of this JobDataset.
+        """Sets the extract_all_fields of this JobDatasetGET.
 
         Should the search produce all fields (including those not explicity mentioned in the SPL)?
 
-        :param extract_all_fields: The extract_all_fields of this JobDataset.
+        :param extract_all_fields: The extract_all_fields of this JobDatasetGET.
         :type: bool
         """
         self._attrs["extractAllFields"] = extract_all_fields
 
     @property
+    def fields(self) -> "List[FieldPOST]":
+        """ Gets the fields of this JobDatasetGET.
+        The fields to be associated with this dataset.
+        """
+        return [FieldPOST._from_dict(i) for i in self._attrs.get("fields")]
+
+    @fields.setter
+    def fields(self, fields: "List[FieldPOST]"):
+        """Sets the fields of this JobDatasetGET.
+
+        The fields to be associated with this dataset.
+
+        :param fields: The fields of this JobDatasetGET.
+        :type: List[FieldPOST]
+        """
+        self._attrs["fields"] = fields
+
+    @property
     def has_side_effects(self) -> "bool":
-        """ Gets the has_side_effects of this JobDataset.
+        """ Gets the has_side_effects of this JobDatasetGET.
         Did the SPL query cause any side effects on a dataset?
         """
         return self._attrs.get("hasSideEffects")
 
     @has_side_effects.setter
     def has_side_effects(self, has_side_effects: "bool"):
-        """Sets the has_side_effects of this JobDataset.
+        """Sets the has_side_effects of this JobDatasetGET.
 
         Did the SPL query cause any side effects on a dataset?
 
-        :param has_side_effects: The has_side_effects of this JobDataset.
+        :param has_side_effects: The has_side_effects of this JobDatasetGET.
         :type: bool
         """
         self._attrs["hasSideEffects"] = has_side_effects
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this JobDatasetGET.
+        A unique dataset ID. Random ID used if not provided.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this JobDatasetGET.
+
+        A unique dataset ID. Random ID used if not provided.
+
+        :param id: The id of this JobDatasetGET.
+        :type: str
+        """
+        self._attrs["id"] = id
 
     @property
     def kind(self) -> str:
@@ -6598,295 +7854,259 @@ class JobDataset(Dataset):
 
     @property
     def max_time(self) -> "int":
-        """ Gets the max_time of this JobDataset.
+        """ Gets the max_time of this JobDatasetGET.
         The maximum number of seconds to run this search before finishing.
         """
         return self._attrs.get("maxTime")
 
     @max_time.setter
     def max_time(self, max_time: "int"):
-        """Sets the max_time of this JobDataset.
+        """Sets the max_time of this JobDatasetGET.
 
         The maximum number of seconds to run this search before finishing.
 
-        :param max_time: The max_time of this JobDataset.
+        :param max_time: The max_time of this JobDatasetGET.
         :type: int
         """
         self._attrs["maxTime"] = max_time
 
     @property
+    def module(self) -> "str":
+        """ Gets the module of this JobDatasetGET.
+        The name of the module to create the new dataset in.
+        """
+        return self._attrs.get("module")
+
+    @module.setter
+    def module(self, module: "str"):
+        """Sets the module of this JobDatasetGET.
+
+        The name of the module to create the new dataset in.
+
+        :param module: The module of this JobDatasetGET.
+        :type: str
+        """
+        self._attrs["module"] = module
+
+    @property
     def parameters(self) -> "dict":
-        """ Gets the parameters of this JobDataset.
+        """ Gets the parameters of this JobDatasetGET.
         Parameters for the search job, mainly earliest, latest, timezone, and relativeTimeAnchor.
         """
         return self._attrs.get("parameters")
 
     @parameters.setter
     def parameters(self, parameters: "dict"):
-        """Sets the parameters of this JobDataset.
+        """Sets the parameters of this JobDatasetGET.
 
         Parameters for the search job, mainly earliest, latest, timezone, and relativeTimeAnchor.
 
-        :param parameters: The parameters of this JobDataset.
+        :param parameters: The parameters of this JobDatasetGET.
         :type: object
         """
         self._attrs["parameters"] = parameters
 
     @property
     def parent(self) -> "str":
-        """ Gets the parent of this JobDataset.
+        """ Gets the parent of this JobDatasetGET.
         The parent's ID of the search job.
         """
         return self._attrs.get("parent")
 
     @parent.setter
     def parent(self, parent: "str"):
-        """Sets the parent of this JobDataset.
+        """Sets the parent of this JobDatasetGET.
 
         The parent's ID of the search job.
 
-        :param parent: The parent of this JobDataset.
+        :param parent: The parent of this JobDatasetGET.
         :type: str
         """
         self._attrs["parent"] = parent
 
     @property
     def percent_complete(self) -> "int":
-        """ Gets the percent_complete of this JobDataset.
+        """ Gets the percent_complete of this JobDatasetGET.
         An estimate of how complete the search job is.
         """
         return self._attrs.get("percentComplete")
 
     @percent_complete.setter
     def percent_complete(self, percent_complete: "int"):
-        """Sets the percent_complete of this JobDataset.
+        """Sets the percent_complete of this JobDatasetGET.
 
         An estimate of how complete the search job is.
 
-        :param percent_complete: The percent_complete of this JobDataset.
+        :param percent_complete: The percent_complete of this JobDatasetGET.
         :type: int
         """
         self._attrs["percentComplete"] = percent_complete
 
     @property
     def query(self) -> "str":
-        """ Gets the query of this JobDataset.
+        """ Gets the query of this JobDatasetGET.
         The SPL query string for the search job.
         """
         return self._attrs.get("query")
 
     @query.setter
     def query(self, query: "str"):
-        """Sets the query of this JobDataset.
+        """Sets the query of this JobDatasetGET.
 
         The SPL query string for the search job.
 
-        :param query: The query of this JobDataset.
+        :param query: The query of this JobDatasetGET.
         :type: str
         """
         self._attrs["query"] = query
 
     @property
     def resolved_earliest(self) -> "str":
-        """ Gets the resolved_earliest of this JobDataset.
+        """ Gets the resolved_earliest of this JobDatasetGET.
         Resolved earliest time for the job
         """
         return self._attrs.get("resolvedEarliest")
 
     @resolved_earliest.setter
     def resolved_earliest(self, resolved_earliest: "str"):
-        """Sets the resolved_earliest of this JobDataset.
+        """Sets the resolved_earliest of this JobDatasetGET.
 
         Resolved earliest time for the job
 
-        :param resolved_earliest: The resolved_earliest of this JobDataset.
+        :param resolved_earliest: The resolved_earliest of this JobDatasetGET.
         :type: str
         """
         self._attrs["resolvedEarliest"] = resolved_earliest
 
     @property
     def resolved_latest(self) -> "str":
-        """ Gets the resolved_latest of this JobDataset.
+        """ Gets the resolved_latest of this JobDatasetGET.
         Resolved latest time for the job
         """
         return self._attrs.get("resolvedLatest")
 
     @resolved_latest.setter
     def resolved_latest(self, resolved_latest: "str"):
-        """Sets the resolved_latest of this JobDataset.
+        """Sets the resolved_latest of this JobDatasetGET.
 
         Resolved latest time for the job
 
-        :param resolved_latest: The resolved_latest of this JobDataset.
+        :param resolved_latest: The resolved_latest of this JobDatasetGET.
         :type: str
         """
         self._attrs["resolvedLatest"] = resolved_latest
 
     @property
     def results_available(self) -> "int":
-        """ Gets the results_available of this JobDataset.
+        """ Gets the results_available of this JobDatasetGET.
         The instantaneous number of results produced by the search job.
         """
         return self._attrs.get("resultsAvailable")
 
     @results_available.setter
     def results_available(self, results_available: "int"):
-        """Sets the results_available of this JobDataset.
+        """Sets the results_available of this JobDatasetGET.
 
         The instantaneous number of results produced by the search job.
 
-        :param results_available: The results_available of this JobDataset.
+        :param results_available: The results_available of this JobDatasetGET.
         :type: int
         """
         self._attrs["resultsAvailable"] = results_available
 
     @property
     def search_head(self) -> "str":
-        """ Gets the search_head of this JobDataset.
+        """ Gets the search_head of this JobDatasetGET.
         The search head that started this search job.
         """
         return self._attrs.get("searchHead")
 
     @search_head.setter
     def search_head(self, search_head: "str"):
-        """Sets the search_head of this JobDataset.
+        """Sets the search_head of this JobDatasetGET.
 
         The search head that started this search job.
 
-        :param search_head: The search_head of this JobDataset.
+        :param search_head: The search_head of this JobDatasetGET.
         :type: str
         """
         self._attrs["searchHead"] = search_head
 
     @property
     def sid(self) -> "str":
-        """ Gets the sid of this JobDataset.
+        """ Gets the sid of this JobDatasetGET.
         The ID assigned to the search job.
         """
         return self._attrs.get("sid")
 
     @sid.setter
     def sid(self, sid: "str"):
-        """Sets the sid of this JobDataset.
+        """Sets the sid of this JobDatasetGET.
 
         The ID assigned to the search job.
 
-        :param sid: The sid of this JobDataset.
+        :param sid: The sid of this JobDatasetGET.
         :type: str
         """
         self._attrs["sid"] = sid
 
     @property
     def spl(self) -> "str":
-        """ Gets the spl of this JobDataset.
+        """ Gets the spl of this JobDatasetGET.
         The SPLv2 version of the search job query string.
         """
         return self._attrs.get("spl")
 
     @spl.setter
     def spl(self, spl: "str"):
-        """Sets the spl of this JobDataset.
+        """Sets the spl of this JobDatasetGET.
 
         The SPLv2 version of the search job query string.
 
-        :param spl: The spl of this JobDataset.
+        :param spl: The spl of this JobDatasetGET.
         :type: str
         """
         self._attrs["spl"] = spl
 
     @property
     def status(self) -> "str":
-        """ Gets the status of this JobDataset.
+        """ Gets the status of this JobDatasetGET.
         The current status of the search job.
         """
         return self._attrs.get("status")
 
     @status.setter
     def status(self, status: "str"):
-        """Sets the status of this JobDataset.
+        """Sets the status of this JobDatasetGET.
 
         The current status of the search job.
 
-        :param status: The status of this JobDataset.
+        :param status: The status of this JobDatasetGET.
         :type: str
         """
         self._attrs["status"] = status
 
     @property
-    def summary(self) -> "str":
-        """ Gets the summary of this JobDataset.
-        Summary of the dataset's purpose.
-        """
-        return self._attrs.get("summary")
-
-    @summary.setter
-    def summary(self, summary: "str"):
-        """Sets the summary of this JobDataset.
-
-        Summary of the dataset's purpose.
-
-        :param summary: The summary of this JobDataset.
-        :type: str
-        """
-        self._attrs["summary"] = summary
-
-    @property
     def timeline_metadata(self) -> "JobDatasetPropertiesTimelineMetadata":
-        """ Gets the timeline_metadata of this JobDataset.
+        """ Gets the timeline_metadata of this JobDatasetGET.
         """
         return JobDatasetPropertiesTimelineMetadata._from_dict(self._attrs["timelineMetadata"])
 
     @timeline_metadata.setter
     def timeline_metadata(self, timeline_metadata: "JobDatasetPropertiesTimelineMetadata"):
-        """Sets the timeline_metadata of this JobDataset.
+        """Sets the timeline_metadata of this JobDatasetGET.
 
 
-        :param timeline_metadata: The timeline_metadata of this JobDataset.
+        :param timeline_metadata: The timeline_metadata of this JobDatasetGET.
         :type: JobDatasetPropertiesTimelineMetadata
         """
         self._attrs["timelineMetadata"] = timeline_metadata.to_dict()
-
-    @property
-    def title(self) -> "str":
-        """ Gets the title of this JobDataset.
-        The title of the dataset.  Does not have to be unique.
-        """
-        return self._attrs.get("title")
-
-    @title.setter
-    def title(self, title: "str"):
-        """Sets the title of this JobDataset.
-
-        The title of the dataset.  Does not have to be unique.
-
-        :param title: The title of this JobDataset.
-        :type: str
-        """
-        self._attrs["title"] = title
-
-    @property
-    def version(self) -> "int":
-        """ Gets the version of this JobDataset.
-        The catalog version.
-        """
-        return self._attrs.get("version")
-
-    @version.setter
-    def version(self, version: "int"):
-        """Sets the version of this JobDataset.
-
-        The catalog version.
-
-        :param version: The version of this JobDataset.
-        :type: int
-        """
-        self._attrs["version"] = version
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-Dataset.from_dict_handlers["job"] = JobDataset._from_dict
+DatasetGet.from_dict_handlers["job"] = JobDatasetGET._from_dict
 
 
 
@@ -6899,16 +8119,16 @@ class JobDatasetKind(str, Enum):
             return JobDatasetKind.JOB
 
 
-class KVCollectionDataset(Dataset):
+class KVCollectionDatasetFromDataset(Dataset):
 
     @staticmethod
-    def _from_dict(model: dict) -> "KVCollectionDataset":
-        instance = KVCollectionDataset.__new__(KVCollectionDataset)
+    def _from_dict(model: dict) -> "KVCollectionDatasetFromDataset":
+        instance = KVCollectionDatasetFromDataset.__new__(KVCollectionDatasetFromDataset)
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
-        """KVCollectionDataset"""
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, internalname: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+        """KVCollectionDatasetFromDataset"""
 
         self._attrs = dict()
         if created is not None:
@@ -6935,6 +8155,8 @@ class KVCollectionDataset(Dataset):
             self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if description is not None:
             self._attrs["description"] = description
+        if internalname is not None:
+            self._attrs["internalname"] = internalname
         self._attrs["kind"] = "kvcollection" 
         if summary is not None:
             self._attrs["summary"] = summary
@@ -6947,18 +8169,18 @@ class KVCollectionDataset(Dataset):
 
     @property
     def created(self) -> "datetime":
-        """ Gets the created of this KVCollectionDataset.
+        """ Gets the created of this KVCollectionDatasetFromDataset.
         The date and time object was created.
         """
         return self._attrs.get("created")
 
     @created.setter
     def created(self, created: "datetime"):
-        """Sets the created of this KVCollectionDataset.
+        """Sets the created of this KVCollectionDatasetFromDataset.
 
         The date and time object was created.
 
-        :param created: The created of this KVCollectionDataset.
+        :param created: The created of this KVCollectionDatasetFromDataset.
         :type: datetime
         """
         if created is None:
@@ -6967,18 +8189,18 @@ class KVCollectionDataset(Dataset):
 
     @property
     def createdby(self) -> "str":
-        """ Gets the createdby of this KVCollectionDataset.
+        """ Gets the createdby of this KVCollectionDatasetFromDataset.
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
         """
         return self._attrs.get("createdby")
 
     @createdby.setter
     def createdby(self, createdby: "str"):
-        """Sets the createdby of this KVCollectionDataset.
+        """Sets the createdby of this KVCollectionDatasetFromDataset.
 
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
 
-        :param createdby: The createdby of this KVCollectionDataset.
+        :param createdby: The createdby of this KVCollectionDatasetFromDataset.
         :type: str
         """
         if createdby is None:
@@ -6987,18 +8209,18 @@ class KVCollectionDataset(Dataset):
 
     @property
     def id(self) -> "str":
-        """ Gets the id of this KVCollectionDataset.
+        """ Gets the id of this KVCollectionDatasetFromDataset.
         A unique dataset ID.
         """
         return self._attrs.get("id")
 
     @id.setter
     def id(self, id: "str"):
-        """Sets the id of this KVCollectionDataset.
+        """Sets the id of this KVCollectionDatasetFromDataset.
 
         A unique dataset ID.
 
-        :param id: The id of this KVCollectionDataset.
+        :param id: The id of this KVCollectionDatasetFromDataset.
         :type: str
         """
         if id is None:
@@ -7007,18 +8229,18 @@ class KVCollectionDataset(Dataset):
 
     @property
     def modified(self) -> "datetime":
-        """ Gets the modified of this KVCollectionDataset.
+        """ Gets the modified of this KVCollectionDatasetFromDataset.
         The date and time object was modified.
         """
         return self._attrs.get("modified")
 
     @modified.setter
     def modified(self, modified: "datetime"):
-        """Sets the modified of this KVCollectionDataset.
+        """Sets the modified of this KVCollectionDatasetFromDataset.
 
         The date and time object was modified.
 
-        :param modified: The modified of this KVCollectionDataset.
+        :param modified: The modified of this KVCollectionDatasetFromDataset.
         :type: datetime
         """
         if modified is None:
@@ -7027,18 +8249,18 @@ class KVCollectionDataset(Dataset):
 
     @property
     def modifiedby(self) -> "str":
-        """ Gets the modifiedby of this KVCollectionDataset.
+        """ Gets the modifiedby of this KVCollectionDatasetFromDataset.
         The name of the user who most recently modified the object.
         """
         return self._attrs.get("modifiedby")
 
     @modifiedby.setter
     def modifiedby(self, modifiedby: "str"):
-        """Sets the modifiedby of this KVCollectionDataset.
+        """Sets the modifiedby of this KVCollectionDatasetFromDataset.
 
         The name of the user who most recently modified the object.
 
-        :param modifiedby: The modifiedby of this KVCollectionDataset.
+        :param modifiedby: The modifiedby of this KVCollectionDatasetFromDataset.
         :type: str
         """
         if modifiedby is None:
@@ -7047,18 +8269,18 @@ class KVCollectionDataset(Dataset):
 
     @property
     def module(self) -> "str":
-        """ Gets the module of this KVCollectionDataset.
+        """ Gets the module of this KVCollectionDatasetFromDataset.
         The name of the module that contains the dataset.
         """
         return self._attrs.get("module")
 
     @module.setter
     def module(self, module: "str"):
-        """Sets the module of this KVCollectionDataset.
+        """Sets the module of this KVCollectionDatasetFromDataset.
 
         The name of the module that contains the dataset.
 
-        :param module: The module of this KVCollectionDataset.
+        :param module: The module of this KVCollectionDatasetFromDataset.
         :type: str
         """
         if module is None:
@@ -7067,18 +8289,18 @@ class KVCollectionDataset(Dataset):
 
     @property
     def name(self) -> "str":
-        """ Gets the name of this KVCollectionDataset.
+        """ Gets the name of this KVCollectionDatasetFromDataset.
         The dataset name. Dataset names must be unique within each module.
         """
         return self._attrs.get("name")
 
     @name.setter
     def name(self, name: "str"):
-        """Sets the name of this KVCollectionDataset.
+        """Sets the name of this KVCollectionDatasetFromDataset.
 
         The dataset name. Dataset names must be unique within each module.
 
-        :param name: The name of this KVCollectionDataset.
+        :param name: The name of this KVCollectionDatasetFromDataset.
         :type: str
         """
         if name is None:
@@ -7087,18 +8309,18 @@ class KVCollectionDataset(Dataset):
 
     @property
     def owner(self) -> "str":
-        """ Gets the owner of this KVCollectionDataset.
+        """ Gets the owner of this KVCollectionDatasetFromDataset.
         The name of the object's owner.
         """
         return self._attrs.get("owner")
 
     @owner.setter
     def owner(self, owner: "str"):
-        """Sets the owner of this KVCollectionDataset.
+        """Sets the owner of this KVCollectionDatasetFromDataset.
 
         The name of the object's owner.
 
-        :param owner: The owner of this KVCollectionDataset.
+        :param owner: The owner of this KVCollectionDatasetFromDataset.
         :type: str
         """
         if owner is None:
@@ -7107,18 +8329,18 @@ class KVCollectionDataset(Dataset):
 
     @property
     def resourcename(self) -> "str":
-        """ Gets the resourcename of this KVCollectionDataset.
+        """ Gets the resourcename of this KVCollectionDatasetFromDataset.
         The dataset name qualified by the module name.
         """
         return self._attrs.get("resourcename")
 
     @resourcename.setter
     def resourcename(self, resourcename: "str"):
-        """Sets the resourcename of this KVCollectionDataset.
+        """Sets the resourcename of this KVCollectionDatasetFromDataset.
 
         The dataset name qualified by the module name.
 
-        :param resourcename: The resourcename of this KVCollectionDataset.
+        :param resourcename: The resourcename of this KVCollectionDatasetFromDataset.
         :type: str
         """
         if resourcename is None:
@@ -7127,57 +8349,75 @@ class KVCollectionDataset(Dataset):
 
     @property
     def appclientidcreatedby(self) -> "str":
-        """ Gets the appclientidcreatedby of this KVCollectionDataset.
+        """ Gets the appclientidcreatedby of this KVCollectionDatasetFromDataset.
         AppClinetId of the creator app of the dataset.
         """
         return self._attrs.get("appclientidcreatedby")
 
     @appclientidcreatedby.setter
     def appclientidcreatedby(self, appclientidcreatedby: "str"):
-        """Sets the appclientidcreatedby of this KVCollectionDataset.
+        """Sets the appclientidcreatedby of this KVCollectionDatasetFromDataset.
 
         AppClinetId of the creator app of the dataset.
 
-        :param appclientidcreatedby: The appclientidcreatedby of this KVCollectionDataset.
+        :param appclientidcreatedby: The appclientidcreatedby of this KVCollectionDatasetFromDataset.
         :type: str
         """
         self._attrs["appclientidcreatedby"] = appclientidcreatedby
 
     @property
     def appclientidmodifiedby(self) -> "str":
-        """ Gets the appclientidmodifiedby of this KVCollectionDataset.
+        """ Gets the appclientidmodifiedby of this KVCollectionDatasetFromDataset.
         AppClinetId of the modifier app of the dataset.
         """
         return self._attrs.get("appclientidmodifiedby")
 
     @appclientidmodifiedby.setter
     def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
-        """Sets the appclientidmodifiedby of this KVCollectionDataset.
+        """Sets the appclientidmodifiedby of this KVCollectionDatasetFromDataset.
 
         AppClinetId of the modifier app of the dataset.
 
-        :param appclientidmodifiedby: The appclientidmodifiedby of this KVCollectionDataset.
+        :param appclientidmodifiedby: The appclientidmodifiedby of this KVCollectionDatasetFromDataset.
         :type: str
         """
         self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def description(self) -> "str":
-        """ Gets the description of this KVCollectionDataset.
+        """ Gets the description of this KVCollectionDatasetFromDataset.
         Detailed description of the dataset.
         """
         return self._attrs.get("description")
 
     @description.setter
     def description(self, description: "str"):
-        """Sets the description of this KVCollectionDataset.
+        """Sets the description of this KVCollectionDatasetFromDataset.
 
         Detailed description of the dataset.
 
-        :param description: The description of this KVCollectionDataset.
+        :param description: The description of this KVCollectionDatasetFromDataset.
         :type: str
         """
         self._attrs["description"] = description
+
+    @property
+    def internalname(self) -> "str":
+        """ Gets the internalname of this KVCollectionDatasetFromDataset.
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+        """
+        return self._attrs.get("internalname")
+
+    @internalname.setter
+    def internalname(self, internalname: "str"):
+        """Sets the internalname of this KVCollectionDatasetFromDataset.
+
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+
+        :param internalname: The internalname of this KVCollectionDatasetFromDataset.
+        :type: str
+        """
+        self._attrs["internalname"] = internalname
 
     @property
     def kind(self) -> str:
@@ -7186,54 +8426,54 @@ class KVCollectionDataset(Dataset):
 
     @property
     def summary(self) -> "str":
-        """ Gets the summary of this KVCollectionDataset.
+        """ Gets the summary of this KVCollectionDatasetFromDataset.
         Summary of the dataset's purpose.
         """
         return self._attrs.get("summary")
 
     @summary.setter
     def summary(self, summary: "str"):
-        """Sets the summary of this KVCollectionDataset.
+        """Sets the summary of this KVCollectionDatasetFromDataset.
 
         Summary of the dataset's purpose.
 
-        :param summary: The summary of this KVCollectionDataset.
+        :param summary: The summary of this KVCollectionDatasetFromDataset.
         :type: str
         """
         self._attrs["summary"] = summary
 
     @property
     def title(self) -> "str":
-        """ Gets the title of this KVCollectionDataset.
+        """ Gets the title of this KVCollectionDatasetFromDataset.
         The title of the dataset.  Does not have to be unique.
         """
         return self._attrs.get("title")
 
     @title.setter
     def title(self, title: "str"):
-        """Sets the title of this KVCollectionDataset.
+        """Sets the title of this KVCollectionDatasetFromDataset.
 
         The title of the dataset.  Does not have to be unique.
 
-        :param title: The title of this KVCollectionDataset.
+        :param title: The title of this KVCollectionDatasetFromDataset.
         :type: str
         """
         self._attrs["title"] = title
 
     @property
     def version(self) -> "int":
-        """ Gets the version of this KVCollectionDataset.
+        """ Gets the version of this KVCollectionDatasetFromDataset.
         The catalog version.
         """
         return self._attrs.get("version")
 
     @version.setter
     def version(self, version: "int"):
-        """Sets the version of this KVCollectionDataset.
+        """Sets the version of this KVCollectionDatasetFromDataset.
 
         The catalog version.
 
-        :param version: The version of this KVCollectionDataset.
+        :param version: The version of this KVCollectionDatasetFromDataset.
         :type: int
         """
         self._attrs["version"] = version
@@ -7242,7 +8482,374 @@ class KVCollectionDataset(Dataset):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-Dataset.from_dict_handlers["kvcollection"] = KVCollectionDataset._from_dict
+Dataset.from_dict_handlers["kvcollection"] = KVCollectionDatasetFromDataset._from_dict
+
+
+
+class KVCollectionDatasetFromDatasetGet(DatasetGet):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "KVCollectionDatasetFromDatasetGet":
+        instance = KVCollectionDatasetFromDatasetGet.__new__(KVCollectionDatasetFromDatasetGet)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, internalname: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+        """KVCollectionDatasetFromDatasetGet"""
+
+        self._attrs = dict()
+        if created is not None:
+            self._attrs["created"] = created
+        if createdby is not None:
+            self._attrs["createdby"] = createdby
+        if id is not None:
+            self._attrs["id"] = id
+        if modified is not None:
+            self._attrs["modified"] = modified
+        if modifiedby is not None:
+            self._attrs["modifiedby"] = modifiedby
+        if module is not None:
+            self._attrs["module"] = module
+        if name is not None:
+            self._attrs["name"] = name
+        if owner is not None:
+            self._attrs["owner"] = owner
+        if resourcename is not None:
+            self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+        if description is not None:
+            self._attrs["description"] = description
+        if internalname is not None:
+            self._attrs["internalname"] = internalname
+        self._attrs["kind"] = "kvcollection" 
+        if summary is not None:
+            self._attrs["summary"] = summary
+        if title is not None:
+            self._attrs["title"] = title
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def created(self) -> "datetime":
+        """ Gets the created of this KVCollectionDatasetFromDatasetGet.
+        The date and time object was created.
+        """
+        return self._attrs.get("created")
+
+    @created.setter
+    def created(self, created: "datetime"):
+        """Sets the created of this KVCollectionDatasetFromDatasetGet.
+
+        The date and time object was created.
+
+        :param created: The created of this KVCollectionDatasetFromDatasetGet.
+        :type: datetime
+        """
+        if created is None:
+            raise ValueError("Invalid value for `created`, must not be `None`")
+        self._attrs["created"] = created
+
+    @property
+    def createdby(self) -> "str":
+        """ Gets the createdby of this KVCollectionDatasetFromDatasetGet.
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+        """
+        return self._attrs.get("createdby")
+
+    @createdby.setter
+    def createdby(self, createdby: "str"):
+        """Sets the createdby of this KVCollectionDatasetFromDatasetGet.
+
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+
+        :param createdby: The createdby of this KVCollectionDatasetFromDatasetGet.
+        :type: str
+        """
+        if createdby is None:
+            raise ValueError("Invalid value for `createdby`, must not be `None`")
+        self._attrs["createdby"] = createdby
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this KVCollectionDatasetFromDatasetGet.
+        A unique dataset ID.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this KVCollectionDatasetFromDatasetGet.
+
+        A unique dataset ID.
+
+        :param id: The id of this KVCollectionDatasetFromDatasetGet.
+        :type: str
+        """
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")
+        self._attrs["id"] = id
+
+    @property
+    def modified(self) -> "datetime":
+        """ Gets the modified of this KVCollectionDatasetFromDatasetGet.
+        The date and time object was modified.
+        """
+        return self._attrs.get("modified")
+
+    @modified.setter
+    def modified(self, modified: "datetime"):
+        """Sets the modified of this KVCollectionDatasetFromDatasetGet.
+
+        The date and time object was modified.
+
+        :param modified: The modified of this KVCollectionDatasetFromDatasetGet.
+        :type: datetime
+        """
+        if modified is None:
+            raise ValueError("Invalid value for `modified`, must not be `None`")
+        self._attrs["modified"] = modified
+
+    @property
+    def modifiedby(self) -> "str":
+        """ Gets the modifiedby of this KVCollectionDatasetFromDatasetGet.
+        The name of the user who most recently modified the object.
+        """
+        return self._attrs.get("modifiedby")
+
+    @modifiedby.setter
+    def modifiedby(self, modifiedby: "str"):
+        """Sets the modifiedby of this KVCollectionDatasetFromDatasetGet.
+
+        The name of the user who most recently modified the object.
+
+        :param modifiedby: The modifiedby of this KVCollectionDatasetFromDatasetGet.
+        :type: str
+        """
+        if modifiedby is None:
+            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
+        self._attrs["modifiedby"] = modifiedby
+
+    @property
+    def module(self) -> "str":
+        """ Gets the module of this KVCollectionDatasetFromDatasetGet.
+        The name of the module that contains the dataset.
+        """
+        return self._attrs.get("module")
+
+    @module.setter
+    def module(self, module: "str"):
+        """Sets the module of this KVCollectionDatasetFromDatasetGet.
+
+        The name of the module that contains the dataset.
+
+        :param module: The module of this KVCollectionDatasetFromDatasetGet.
+        :type: str
+        """
+        if module is None:
+            raise ValueError("Invalid value for `module`, must not be `None`")
+        self._attrs["module"] = module
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this KVCollectionDatasetFromDatasetGet.
+        The dataset name. Dataset names must be unique within each module.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this KVCollectionDatasetFromDatasetGet.
+
+        The dataset name. Dataset names must be unique within each module.
+
+        :param name: The name of this KVCollectionDatasetFromDatasetGet.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def owner(self) -> "str":
+        """ Gets the owner of this KVCollectionDatasetFromDatasetGet.
+        The name of the object's owner.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this KVCollectionDatasetFromDatasetGet.
+
+        The name of the object's owner.
+
+        :param owner: The owner of this KVCollectionDatasetFromDatasetGet.
+        :type: str
+        """
+        if owner is None:
+            raise ValueError("Invalid value for `owner`, must not be `None`")
+        self._attrs["owner"] = owner
+
+    @property
+    def resourcename(self) -> "str":
+        """ Gets the resourcename of this KVCollectionDatasetFromDatasetGet.
+        The dataset name qualified by the module name.
+        """
+        return self._attrs.get("resourcename")
+
+    @resourcename.setter
+    def resourcename(self, resourcename: "str"):
+        """Sets the resourcename of this KVCollectionDatasetFromDatasetGet.
+
+        The dataset name qualified by the module name.
+
+        :param resourcename: The resourcename of this KVCollectionDatasetFromDatasetGet.
+        :type: str
+        """
+        if resourcename is None:
+            raise ValueError("Invalid value for `resourcename`, must not be `None`")
+        self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this KVCollectionDatasetFromDatasetGet.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this KVCollectionDatasetFromDatasetGet.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this KVCollectionDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this KVCollectionDatasetFromDatasetGet.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this KVCollectionDatasetFromDatasetGet.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this KVCollectionDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this KVCollectionDatasetFromDatasetGet.
+        Detailed description of the dataset.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this KVCollectionDatasetFromDatasetGet.
+
+        Detailed description of the dataset.
+
+        :param description: The description of this KVCollectionDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def internalname(self) -> "str":
+        """ Gets the internalname of this KVCollectionDatasetFromDatasetGet.
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+        """
+        return self._attrs.get("internalname")
+
+    @internalname.setter
+    def internalname(self, internalname: "str"):
+        """Sets the internalname of this KVCollectionDatasetFromDatasetGet.
+
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+
+        :param internalname: The internalname of this KVCollectionDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["internalname"] = internalname
+
+    @property
+    def kind(self) -> str:
+        return "kvcollection"
+
+
+    @property
+    def summary(self) -> "str":
+        """ Gets the summary of this KVCollectionDatasetFromDatasetGet.
+        Summary of the dataset's purpose.
+        """
+        return self._attrs.get("summary")
+
+    @summary.setter
+    def summary(self, summary: "str"):
+        """Sets the summary of this KVCollectionDatasetFromDatasetGet.
+
+        Summary of the dataset's purpose.
+
+        :param summary: The summary of this KVCollectionDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["summary"] = summary
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this KVCollectionDatasetFromDatasetGet.
+        The title of the dataset.  Does not have to be unique.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this KVCollectionDatasetFromDatasetGet.
+
+        The title of the dataset.  Does not have to be unique.
+
+        :param title: The title of this KVCollectionDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this KVCollectionDatasetFromDatasetGet.
+        The catalog version.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this KVCollectionDatasetFromDatasetGet.
+
+        The catalog version.
+
+        :param version: The version of this KVCollectionDatasetFromDatasetGet.
+        :type: int
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+DatasetGet.from_dict_handlers["kvcollection"] = KVCollectionDatasetFromDatasetGet._from_dict
 
 
 
@@ -7952,16 +9559,16 @@ class LookupDatasetExternalKind(str, Enum):
             return LookupDatasetExternalKind.KVCOLLECTION
 
 
-class LookupDataset(Dataset):
+class LookupDatasetFromDataset(Dataset):
 
     @staticmethod
-    def _from_dict(model: dict) -> "LookupDataset":
-        instance = LookupDataset.__new__(LookupDataset)
+    def _from_dict(model: dict) -> "LookupDatasetFromDataset":
+        instance = LookupDatasetFromDataset.__new__(LookupDatasetFromDataset)
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, case_sensitive_match: "bool" = True, description: "str" = None, external_kind: "LookupDatasetExternalKind" = None, external_name: "str" = None, filter: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
-        """LookupDataset"""
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, case_sensitive_match: "bool" = True, description: "str" = None, external_kind: "LookupDatasetExternalKind" = None, external_name: "str" = None, filter: "str" = None, internalname: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+        """LookupDatasetFromDataset"""
 
         self._attrs = dict()
         if created is not None:
@@ -7996,6 +9603,8 @@ class LookupDataset(Dataset):
             self._attrs["externalName"] = external_name
         if filter is not None:
             self._attrs["filter"] = filter
+        if internalname is not None:
+            self._attrs["internalname"] = internalname
         self._attrs["kind"] = "lookup" 
         if summary is not None:
             self._attrs["summary"] = summary
@@ -8008,18 +9617,18 @@ class LookupDataset(Dataset):
 
     @property
     def created(self) -> "datetime":
-        """ Gets the created of this LookupDataset.
+        """ Gets the created of this LookupDatasetFromDataset.
         The date and time object was created.
         """
         return self._attrs.get("created")
 
     @created.setter
     def created(self, created: "datetime"):
-        """Sets the created of this LookupDataset.
+        """Sets the created of this LookupDatasetFromDataset.
 
         The date and time object was created.
 
-        :param created: The created of this LookupDataset.
+        :param created: The created of this LookupDatasetFromDataset.
         :type: datetime
         """
         if created is None:
@@ -8028,18 +9637,18 @@ class LookupDataset(Dataset):
 
     @property
     def createdby(self) -> "str":
-        """ Gets the createdby of this LookupDataset.
+        """ Gets the createdby of this LookupDatasetFromDataset.
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
         """
         return self._attrs.get("createdby")
 
     @createdby.setter
     def createdby(self, createdby: "str"):
-        """Sets the createdby of this LookupDataset.
+        """Sets the createdby of this LookupDatasetFromDataset.
 
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
 
-        :param createdby: The createdby of this LookupDataset.
+        :param createdby: The createdby of this LookupDatasetFromDataset.
         :type: str
         """
         if createdby is None:
@@ -8048,18 +9657,18 @@ class LookupDataset(Dataset):
 
     @property
     def id(self) -> "str":
-        """ Gets the id of this LookupDataset.
+        """ Gets the id of this LookupDatasetFromDataset.
         A unique dataset ID.
         """
         return self._attrs.get("id")
 
     @id.setter
     def id(self, id: "str"):
-        """Sets the id of this LookupDataset.
+        """Sets the id of this LookupDatasetFromDataset.
 
         A unique dataset ID.
 
-        :param id: The id of this LookupDataset.
+        :param id: The id of this LookupDatasetFromDataset.
         :type: str
         """
         if id is None:
@@ -8068,18 +9677,18 @@ class LookupDataset(Dataset):
 
     @property
     def modified(self) -> "datetime":
-        """ Gets the modified of this LookupDataset.
+        """ Gets the modified of this LookupDatasetFromDataset.
         The date and time object was modified.
         """
         return self._attrs.get("modified")
 
     @modified.setter
     def modified(self, modified: "datetime"):
-        """Sets the modified of this LookupDataset.
+        """Sets the modified of this LookupDatasetFromDataset.
 
         The date and time object was modified.
 
-        :param modified: The modified of this LookupDataset.
+        :param modified: The modified of this LookupDatasetFromDataset.
         :type: datetime
         """
         if modified is None:
@@ -8088,18 +9697,18 @@ class LookupDataset(Dataset):
 
     @property
     def modifiedby(self) -> "str":
-        """ Gets the modifiedby of this LookupDataset.
+        """ Gets the modifiedby of this LookupDatasetFromDataset.
         The name of the user who most recently modified the object.
         """
         return self._attrs.get("modifiedby")
 
     @modifiedby.setter
     def modifiedby(self, modifiedby: "str"):
-        """Sets the modifiedby of this LookupDataset.
+        """Sets the modifiedby of this LookupDatasetFromDataset.
 
         The name of the user who most recently modified the object.
 
-        :param modifiedby: The modifiedby of this LookupDataset.
+        :param modifiedby: The modifiedby of this LookupDatasetFromDataset.
         :type: str
         """
         if modifiedby is None:
@@ -8108,18 +9717,18 @@ class LookupDataset(Dataset):
 
     @property
     def module(self) -> "str":
-        """ Gets the module of this LookupDataset.
+        """ Gets the module of this LookupDatasetFromDataset.
         The name of the module that contains the dataset.
         """
         return self._attrs.get("module")
 
     @module.setter
     def module(self, module: "str"):
-        """Sets the module of this LookupDataset.
+        """Sets the module of this LookupDatasetFromDataset.
 
         The name of the module that contains the dataset.
 
-        :param module: The module of this LookupDataset.
+        :param module: The module of this LookupDatasetFromDataset.
         :type: str
         """
         if module is None:
@@ -8128,18 +9737,18 @@ class LookupDataset(Dataset):
 
     @property
     def name(self) -> "str":
-        """ Gets the name of this LookupDataset.
+        """ Gets the name of this LookupDatasetFromDataset.
         The dataset name. Dataset names must be unique within each module.
         """
         return self._attrs.get("name")
 
     @name.setter
     def name(self, name: "str"):
-        """Sets the name of this LookupDataset.
+        """Sets the name of this LookupDatasetFromDataset.
 
         The dataset name. Dataset names must be unique within each module.
 
-        :param name: The name of this LookupDataset.
+        :param name: The name of this LookupDatasetFromDataset.
         :type: str
         """
         if name is None:
@@ -8148,18 +9757,18 @@ class LookupDataset(Dataset):
 
     @property
     def owner(self) -> "str":
-        """ Gets the owner of this LookupDataset.
+        """ Gets the owner of this LookupDatasetFromDataset.
         The name of the object's owner.
         """
         return self._attrs.get("owner")
 
     @owner.setter
     def owner(self, owner: "str"):
-        """Sets the owner of this LookupDataset.
+        """Sets the owner of this LookupDatasetFromDataset.
 
         The name of the object's owner.
 
-        :param owner: The owner of this LookupDataset.
+        :param owner: The owner of this LookupDatasetFromDataset.
         :type: str
         """
         if owner is None:
@@ -8168,18 +9777,18 @@ class LookupDataset(Dataset):
 
     @property
     def resourcename(self) -> "str":
-        """ Gets the resourcename of this LookupDataset.
+        """ Gets the resourcename of this LookupDatasetFromDataset.
         The dataset name qualified by the module name.
         """
         return self._attrs.get("resourcename")
 
     @resourcename.setter
     def resourcename(self, resourcename: "str"):
-        """Sets the resourcename of this LookupDataset.
+        """Sets the resourcename of this LookupDatasetFromDataset.
 
         The dataset name qualified by the module name.
 
-        :param resourcename: The resourcename of this LookupDataset.
+        :param resourcename: The resourcename of this LookupDatasetFromDataset.
         :type: str
         """
         if resourcename is None:
@@ -8188,88 +9797,88 @@ class LookupDataset(Dataset):
 
     @property
     def appclientidcreatedby(self) -> "str":
-        """ Gets the appclientidcreatedby of this LookupDataset.
+        """ Gets the appclientidcreatedby of this LookupDatasetFromDataset.
         AppClinetId of the creator app of the dataset.
         """
         return self._attrs.get("appclientidcreatedby")
 
     @appclientidcreatedby.setter
     def appclientidcreatedby(self, appclientidcreatedby: "str"):
-        """Sets the appclientidcreatedby of this LookupDataset.
+        """Sets the appclientidcreatedby of this LookupDatasetFromDataset.
 
         AppClinetId of the creator app of the dataset.
 
-        :param appclientidcreatedby: The appclientidcreatedby of this LookupDataset.
+        :param appclientidcreatedby: The appclientidcreatedby of this LookupDatasetFromDataset.
         :type: str
         """
         self._attrs["appclientidcreatedby"] = appclientidcreatedby
 
     @property
     def appclientidmodifiedby(self) -> "str":
-        """ Gets the appclientidmodifiedby of this LookupDataset.
+        """ Gets the appclientidmodifiedby of this LookupDatasetFromDataset.
         AppClinetId of the modifier app of the dataset.
         """
         return self._attrs.get("appclientidmodifiedby")
 
     @appclientidmodifiedby.setter
     def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
-        """Sets the appclientidmodifiedby of this LookupDataset.
+        """Sets the appclientidmodifiedby of this LookupDatasetFromDataset.
 
         AppClinetId of the modifier app of the dataset.
 
-        :param appclientidmodifiedby: The appclientidmodifiedby of this LookupDataset.
+        :param appclientidmodifiedby: The appclientidmodifiedby of this LookupDatasetFromDataset.
         :type: str
         """
         self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def case_sensitive_match(self) -> "bool":
-        """ Gets the case_sensitive_match of this LookupDataset.
+        """ Gets the case_sensitive_match of this LookupDatasetFromDataset.
         Match case-sensitively against the lookup.
         """
         return self._attrs.get("caseSensitiveMatch")
 
     @case_sensitive_match.setter
     def case_sensitive_match(self, case_sensitive_match: "bool"):
-        """Sets the case_sensitive_match of this LookupDataset.
+        """Sets the case_sensitive_match of this LookupDatasetFromDataset.
 
         Match case-sensitively against the lookup.
 
-        :param case_sensitive_match: The case_sensitive_match of this LookupDataset.
+        :param case_sensitive_match: The case_sensitive_match of this LookupDatasetFromDataset.
         :type: bool
         """
         self._attrs["caseSensitiveMatch"] = case_sensitive_match
 
     @property
     def description(self) -> "str":
-        """ Gets the description of this LookupDataset.
+        """ Gets the description of this LookupDatasetFromDataset.
         Detailed description of the dataset.
         """
         return self._attrs.get("description")
 
     @description.setter
     def description(self, description: "str"):
-        """Sets the description of this LookupDataset.
+        """Sets the description of this LookupDatasetFromDataset.
 
         Detailed description of the dataset.
 
-        :param description: The description of this LookupDataset.
+        :param description: The description of this LookupDatasetFromDataset.
         :type: str
         """
         self._attrs["description"] = description
 
     @property
     def external_kind(self) -> "LookupDatasetExternalKind":
-        """ Gets the external_kind of this LookupDataset.
+        """ Gets the external_kind of this LookupDatasetFromDataset.
         """
         return LookupDatasetExternalKind.from_value(self._attrs.get("externalKind"))
 
     @external_kind.setter
     def external_kind(self, external_kind: "LookupDatasetExternalKind"):
-        """Sets the external_kind of this LookupDataset.
+        """Sets the external_kind of this LookupDatasetFromDataset.
 
 
-        :param external_kind: The external_kind of this LookupDataset.
+        :param external_kind: The external_kind of this LookupDatasetFromDataset.
         :type: LookupDatasetExternalKind
         """
         if isinstance(external_kind, Enum):
@@ -8279,39 +9888,57 @@ class LookupDataset(Dataset):
 
     @property
     def external_name(self) -> "str":
-        """ Gets the external_name of this LookupDataset.
+        """ Gets the external_name of this LookupDatasetFromDataset.
         The name of the external lookup.
         """
         return self._attrs.get("externalName")
 
     @external_name.setter
     def external_name(self, external_name: "str"):
-        """Sets the external_name of this LookupDataset.
+        """Sets the external_name of this LookupDatasetFromDataset.
 
         The name of the external lookup.
 
-        :param external_name: The external_name of this LookupDataset.
+        :param external_name: The external_name of this LookupDatasetFromDataset.
         :type: str
         """
         self._attrs["externalName"] = external_name
 
     @property
     def filter(self) -> "str":
-        """ Gets the filter of this LookupDataset.
+        """ Gets the filter of this LookupDatasetFromDataset.
         A query that filters results out of the lookup before those results are returned.
         """
         return self._attrs.get("filter")
 
     @filter.setter
     def filter(self, filter: "str"):
-        """Sets the filter of this LookupDataset.
+        """Sets the filter of this LookupDatasetFromDataset.
 
         A query that filters results out of the lookup before those results are returned.
 
-        :param filter: The filter of this LookupDataset.
+        :param filter: The filter of this LookupDatasetFromDataset.
         :type: str
         """
         self._attrs["filter"] = filter
+
+    @property
+    def internalname(self) -> "str":
+        """ Gets the internalname of this LookupDatasetFromDataset.
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+        """
+        return self._attrs.get("internalname")
+
+    @internalname.setter
+    def internalname(self, internalname: "str"):
+        """Sets the internalname of this LookupDatasetFromDataset.
+
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+
+        :param internalname: The internalname of this LookupDatasetFromDataset.
+        :type: str
+        """
+        self._attrs["internalname"] = internalname
 
     @property
     def kind(self) -> str:
@@ -8320,54 +9947,54 @@ class LookupDataset(Dataset):
 
     @property
     def summary(self) -> "str":
-        """ Gets the summary of this LookupDataset.
+        """ Gets the summary of this LookupDatasetFromDataset.
         Summary of the dataset's purpose.
         """
         return self._attrs.get("summary")
 
     @summary.setter
     def summary(self, summary: "str"):
-        """Sets the summary of this LookupDataset.
+        """Sets the summary of this LookupDatasetFromDataset.
 
         Summary of the dataset's purpose.
 
-        :param summary: The summary of this LookupDataset.
+        :param summary: The summary of this LookupDatasetFromDataset.
         :type: str
         """
         self._attrs["summary"] = summary
 
     @property
     def title(self) -> "str":
-        """ Gets the title of this LookupDataset.
+        """ Gets the title of this LookupDatasetFromDataset.
         The title of the dataset.  Does not have to be unique.
         """
         return self._attrs.get("title")
 
     @title.setter
     def title(self, title: "str"):
-        """Sets the title of this LookupDataset.
+        """Sets the title of this LookupDatasetFromDataset.
 
         The title of the dataset.  Does not have to be unique.
 
-        :param title: The title of this LookupDataset.
+        :param title: The title of this LookupDatasetFromDataset.
         :type: str
         """
         self._attrs["title"] = title
 
     @property
     def version(self) -> "int":
-        """ Gets the version of this LookupDataset.
+        """ Gets the version of this LookupDatasetFromDataset.
         The catalog version.
         """
         return self._attrs.get("version")
 
     @version.setter
     def version(self, version: "int"):
-        """Sets the version of this LookupDataset.
+        """Sets the version of this LookupDatasetFromDataset.
 
         The catalog version.
 
-        :param version: The version of this LookupDataset.
+        :param version: The version of this LookupDatasetFromDataset.
         :type: int
         """
         self._attrs["version"] = version
@@ -8376,7 +10003,455 @@ class LookupDataset(Dataset):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-Dataset.from_dict_handlers["lookup"] = LookupDataset._from_dict
+Dataset.from_dict_handlers["lookup"] = LookupDatasetFromDataset._from_dict
+
+
+
+class LookupDatasetFromDatasetGet(DatasetGet):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "LookupDatasetFromDatasetGet":
+        instance = LookupDatasetFromDatasetGet.__new__(LookupDatasetFromDatasetGet)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, case_sensitive_match: "bool" = True, description: "str" = None, external_kind: "LookupDatasetExternalKind" = None, external_name: "str" = None, filter: "str" = None, internalname: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+        """LookupDatasetFromDatasetGet"""
+
+        self._attrs = dict()
+        if created is not None:
+            self._attrs["created"] = created
+        if createdby is not None:
+            self._attrs["createdby"] = createdby
+        if id is not None:
+            self._attrs["id"] = id
+        if modified is not None:
+            self._attrs["modified"] = modified
+        if modifiedby is not None:
+            self._attrs["modifiedby"] = modifiedby
+        if module is not None:
+            self._attrs["module"] = module
+        if name is not None:
+            self._attrs["name"] = name
+        if owner is not None:
+            self._attrs["owner"] = owner
+        if resourcename is not None:
+            self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+        if case_sensitive_match is not None:
+            self._attrs["caseSensitiveMatch"] = case_sensitive_match
+        if description is not None:
+            self._attrs["description"] = description
+        if external_kind is not None:
+            self._attrs["externalKind"] = external_kind
+        if external_name is not None:
+            self._attrs["externalName"] = external_name
+        if filter is not None:
+            self._attrs["filter"] = filter
+        if internalname is not None:
+            self._attrs["internalname"] = internalname
+        self._attrs["kind"] = "lookup" 
+        if summary is not None:
+            self._attrs["summary"] = summary
+        if title is not None:
+            self._attrs["title"] = title
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def created(self) -> "datetime":
+        """ Gets the created of this LookupDatasetFromDatasetGet.
+        The date and time object was created.
+        """
+        return self._attrs.get("created")
+
+    @created.setter
+    def created(self, created: "datetime"):
+        """Sets the created of this LookupDatasetFromDatasetGet.
+
+        The date and time object was created.
+
+        :param created: The created of this LookupDatasetFromDatasetGet.
+        :type: datetime
+        """
+        if created is None:
+            raise ValueError("Invalid value for `created`, must not be `None`")
+        self._attrs["created"] = created
+
+    @property
+    def createdby(self) -> "str":
+        """ Gets the createdby of this LookupDatasetFromDatasetGet.
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+        """
+        return self._attrs.get("createdby")
+
+    @createdby.setter
+    def createdby(self, createdby: "str"):
+        """Sets the createdby of this LookupDatasetFromDatasetGet.
+
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+
+        :param createdby: The createdby of this LookupDatasetFromDatasetGet.
+        :type: str
+        """
+        if createdby is None:
+            raise ValueError("Invalid value for `createdby`, must not be `None`")
+        self._attrs["createdby"] = createdby
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this LookupDatasetFromDatasetGet.
+        A unique dataset ID.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this LookupDatasetFromDatasetGet.
+
+        A unique dataset ID.
+
+        :param id: The id of this LookupDatasetFromDatasetGet.
+        :type: str
+        """
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")
+        self._attrs["id"] = id
+
+    @property
+    def modified(self) -> "datetime":
+        """ Gets the modified of this LookupDatasetFromDatasetGet.
+        The date and time object was modified.
+        """
+        return self._attrs.get("modified")
+
+    @modified.setter
+    def modified(self, modified: "datetime"):
+        """Sets the modified of this LookupDatasetFromDatasetGet.
+
+        The date and time object was modified.
+
+        :param modified: The modified of this LookupDatasetFromDatasetGet.
+        :type: datetime
+        """
+        if modified is None:
+            raise ValueError("Invalid value for `modified`, must not be `None`")
+        self._attrs["modified"] = modified
+
+    @property
+    def modifiedby(self) -> "str":
+        """ Gets the modifiedby of this LookupDatasetFromDatasetGet.
+        The name of the user who most recently modified the object.
+        """
+        return self._attrs.get("modifiedby")
+
+    @modifiedby.setter
+    def modifiedby(self, modifiedby: "str"):
+        """Sets the modifiedby of this LookupDatasetFromDatasetGet.
+
+        The name of the user who most recently modified the object.
+
+        :param modifiedby: The modifiedby of this LookupDatasetFromDatasetGet.
+        :type: str
+        """
+        if modifiedby is None:
+            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
+        self._attrs["modifiedby"] = modifiedby
+
+    @property
+    def module(self) -> "str":
+        """ Gets the module of this LookupDatasetFromDatasetGet.
+        The name of the module that contains the dataset.
+        """
+        return self._attrs.get("module")
+
+    @module.setter
+    def module(self, module: "str"):
+        """Sets the module of this LookupDatasetFromDatasetGet.
+
+        The name of the module that contains the dataset.
+
+        :param module: The module of this LookupDatasetFromDatasetGet.
+        :type: str
+        """
+        if module is None:
+            raise ValueError("Invalid value for `module`, must not be `None`")
+        self._attrs["module"] = module
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this LookupDatasetFromDatasetGet.
+        The dataset name. Dataset names must be unique within each module.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this LookupDatasetFromDatasetGet.
+
+        The dataset name. Dataset names must be unique within each module.
+
+        :param name: The name of this LookupDatasetFromDatasetGet.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def owner(self) -> "str":
+        """ Gets the owner of this LookupDatasetFromDatasetGet.
+        The name of the object's owner.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this LookupDatasetFromDatasetGet.
+
+        The name of the object's owner.
+
+        :param owner: The owner of this LookupDatasetFromDatasetGet.
+        :type: str
+        """
+        if owner is None:
+            raise ValueError("Invalid value for `owner`, must not be `None`")
+        self._attrs["owner"] = owner
+
+    @property
+    def resourcename(self) -> "str":
+        """ Gets the resourcename of this LookupDatasetFromDatasetGet.
+        The dataset name qualified by the module name.
+        """
+        return self._attrs.get("resourcename")
+
+    @resourcename.setter
+    def resourcename(self, resourcename: "str"):
+        """Sets the resourcename of this LookupDatasetFromDatasetGet.
+
+        The dataset name qualified by the module name.
+
+        :param resourcename: The resourcename of this LookupDatasetFromDatasetGet.
+        :type: str
+        """
+        if resourcename is None:
+            raise ValueError("Invalid value for `resourcename`, must not be `None`")
+        self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this LookupDatasetFromDatasetGet.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this LookupDatasetFromDatasetGet.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this LookupDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this LookupDatasetFromDatasetGet.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this LookupDatasetFromDatasetGet.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this LookupDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
+    def case_sensitive_match(self) -> "bool":
+        """ Gets the case_sensitive_match of this LookupDatasetFromDatasetGet.
+        Match case-sensitively against the lookup.
+        """
+        return self._attrs.get("caseSensitiveMatch")
+
+    @case_sensitive_match.setter
+    def case_sensitive_match(self, case_sensitive_match: "bool"):
+        """Sets the case_sensitive_match of this LookupDatasetFromDatasetGet.
+
+        Match case-sensitively against the lookup.
+
+        :param case_sensitive_match: The case_sensitive_match of this LookupDatasetFromDatasetGet.
+        :type: bool
+        """
+        self._attrs["caseSensitiveMatch"] = case_sensitive_match
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this LookupDatasetFromDatasetGet.
+        Detailed description of the dataset.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this LookupDatasetFromDatasetGet.
+
+        Detailed description of the dataset.
+
+        :param description: The description of this LookupDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def external_kind(self) -> "LookupDatasetExternalKind":
+        """ Gets the external_kind of this LookupDatasetFromDatasetGet.
+        """
+        return LookupDatasetExternalKind.from_value(self._attrs.get("externalKind"))
+
+    @external_kind.setter
+    def external_kind(self, external_kind: "LookupDatasetExternalKind"):
+        """Sets the external_kind of this LookupDatasetFromDatasetGet.
+
+
+        :param external_kind: The external_kind of this LookupDatasetFromDatasetGet.
+        :type: LookupDatasetExternalKind
+        """
+        if isinstance(external_kind, Enum):
+            self._attrs["externalKind"] = external_kind.value
+        else:
+            self._attrs["externalKind"] = external_kind  # If you supply a string, we presume you know the service will take it.
+
+    @property
+    def external_name(self) -> "str":
+        """ Gets the external_name of this LookupDatasetFromDatasetGet.
+        The name of the external lookup.
+        """
+        return self._attrs.get("externalName")
+
+    @external_name.setter
+    def external_name(self, external_name: "str"):
+        """Sets the external_name of this LookupDatasetFromDatasetGet.
+
+        The name of the external lookup.
+
+        :param external_name: The external_name of this LookupDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["externalName"] = external_name
+
+    @property
+    def filter(self) -> "str":
+        """ Gets the filter of this LookupDatasetFromDatasetGet.
+        A query that filters results out of the lookup before those results are returned.
+        """
+        return self._attrs.get("filter")
+
+    @filter.setter
+    def filter(self, filter: "str"):
+        """Sets the filter of this LookupDatasetFromDatasetGet.
+
+        A query that filters results out of the lookup before those results are returned.
+
+        :param filter: The filter of this LookupDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["filter"] = filter
+
+    @property
+    def internalname(self) -> "str":
+        """ Gets the internalname of this LookupDatasetFromDatasetGet.
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+        """
+        return self._attrs.get("internalname")
+
+    @internalname.setter
+    def internalname(self, internalname: "str"):
+        """Sets the internalname of this LookupDatasetFromDatasetGet.
+
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+
+        :param internalname: The internalname of this LookupDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["internalname"] = internalname
+
+    @property
+    def kind(self) -> str:
+        return "lookup"
+
+
+    @property
+    def summary(self) -> "str":
+        """ Gets the summary of this LookupDatasetFromDatasetGet.
+        Summary of the dataset's purpose.
+        """
+        return self._attrs.get("summary")
+
+    @summary.setter
+    def summary(self, summary: "str"):
+        """Sets the summary of this LookupDatasetFromDatasetGet.
+
+        Summary of the dataset's purpose.
+
+        :param summary: The summary of this LookupDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["summary"] = summary
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this LookupDatasetFromDatasetGet.
+        The title of the dataset.  Does not have to be unique.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this LookupDatasetFromDatasetGet.
+
+        The title of the dataset.  Does not have to be unique.
+
+        :param title: The title of this LookupDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this LookupDatasetFromDatasetGet.
+        The catalog version.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this LookupDatasetFromDatasetGet.
+
+        The catalog version.
+
+        :param version: The version of this LookupDatasetFromDatasetGet.
+        :type: int
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+DatasetGet.from_dict_handlers["lookup"] = LookupDatasetFromDatasetGet._from_dict
 
 
 
@@ -8762,16 +10837,16 @@ DatasetPOST.from_dict_handlers["lookup"] = LookupDatasetPOST._from_dict
 
 
 
-class MetricDataset(Dataset):
+class MetricDatasetFromDataset(Dataset):
 
     @staticmethod
-    def _from_dict(model: dict) -> "MetricDataset":
-        instance = MetricDataset.__new__(MetricDataset)
+    def _from_dict(model: dict) -> "MetricDatasetFromDataset":
+        instance = MetricDatasetFromDataset.__new__(MetricDatasetFromDataset)
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, disabled: "bool" = None, earliest_event_time: "str" = None, earliest_ingest_time: "str" = None, frozen_time_period_in_secs: "int" = None, latest_event_time: "str" = None, latest_ingest_time: "str" = None, latest_metadata_update_time: "str" = None, summary: "str" = None, title: "str" = None, total_event_count: "int" = None, total_size: "int" = None, version: "int" = None, **extra):
-        """MetricDataset"""
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, disabled: "bool" = None, earliest_event_time: "str" = None, earliest_ingest_time: "str" = None, frozen_time_period_in_secs: "int" = None, internalname: "str" = None, latest_event_time: "str" = None, latest_ingest_time: "str" = None, latest_metadata_update_time: "str" = None, summary: "str" = None, title: "str" = None, total_event_count: "int" = None, total_size: "int" = None, version: "int" = None, **extra):
+        """MetricDatasetFromDataset"""
 
         self._attrs = dict()
         if created is not None:
@@ -8806,6 +10881,8 @@ class MetricDataset(Dataset):
             self._attrs["earliestIngestTime"] = earliest_ingest_time
         if frozen_time_period_in_secs is not None:
             self._attrs["frozenTimePeriodInSecs"] = frozen_time_period_in_secs
+        if internalname is not None:
+            self._attrs["internalname"] = internalname
         self._attrs["kind"] = "metric" 
         if latest_event_time is not None:
             self._attrs["latestEventTime"] = latest_event_time
@@ -8828,18 +10905,18 @@ class MetricDataset(Dataset):
 
     @property
     def created(self) -> "datetime":
-        """ Gets the created of this MetricDataset.
+        """ Gets the created of this MetricDatasetFromDataset.
         The date and time object was created.
         """
         return self._attrs.get("created")
 
     @created.setter
     def created(self, created: "datetime"):
-        """Sets the created of this MetricDataset.
+        """Sets the created of this MetricDatasetFromDataset.
 
         The date and time object was created.
 
-        :param created: The created of this MetricDataset.
+        :param created: The created of this MetricDatasetFromDataset.
         :type: datetime
         """
         if created is None:
@@ -8848,18 +10925,18 @@ class MetricDataset(Dataset):
 
     @property
     def createdby(self) -> "str":
-        """ Gets the createdby of this MetricDataset.
+        """ Gets the createdby of this MetricDatasetFromDataset.
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
         """
         return self._attrs.get("createdby")
 
     @createdby.setter
     def createdby(self, createdby: "str"):
-        """Sets the createdby of this MetricDataset.
+        """Sets the createdby of this MetricDatasetFromDataset.
 
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
 
-        :param createdby: The createdby of this MetricDataset.
+        :param createdby: The createdby of this MetricDatasetFromDataset.
         :type: str
         """
         if createdby is None:
@@ -8868,18 +10945,18 @@ class MetricDataset(Dataset):
 
     @property
     def id(self) -> "str":
-        """ Gets the id of this MetricDataset.
+        """ Gets the id of this MetricDatasetFromDataset.
         A unique dataset ID.
         """
         return self._attrs.get("id")
 
     @id.setter
     def id(self, id: "str"):
-        """Sets the id of this MetricDataset.
+        """Sets the id of this MetricDatasetFromDataset.
 
         A unique dataset ID.
 
-        :param id: The id of this MetricDataset.
+        :param id: The id of this MetricDatasetFromDataset.
         :type: str
         """
         if id is None:
@@ -8888,18 +10965,18 @@ class MetricDataset(Dataset):
 
     @property
     def modified(self) -> "datetime":
-        """ Gets the modified of this MetricDataset.
+        """ Gets the modified of this MetricDatasetFromDataset.
         The date and time object was modified.
         """
         return self._attrs.get("modified")
 
     @modified.setter
     def modified(self, modified: "datetime"):
-        """Sets the modified of this MetricDataset.
+        """Sets the modified of this MetricDatasetFromDataset.
 
         The date and time object was modified.
 
-        :param modified: The modified of this MetricDataset.
+        :param modified: The modified of this MetricDatasetFromDataset.
         :type: datetime
         """
         if modified is None:
@@ -8908,18 +10985,18 @@ class MetricDataset(Dataset):
 
     @property
     def modifiedby(self) -> "str":
-        """ Gets the modifiedby of this MetricDataset.
+        """ Gets the modifiedby of this MetricDatasetFromDataset.
         The name of the user who most recently modified the object.
         """
         return self._attrs.get("modifiedby")
 
     @modifiedby.setter
     def modifiedby(self, modifiedby: "str"):
-        """Sets the modifiedby of this MetricDataset.
+        """Sets the modifiedby of this MetricDatasetFromDataset.
 
         The name of the user who most recently modified the object.
 
-        :param modifiedby: The modifiedby of this MetricDataset.
+        :param modifiedby: The modifiedby of this MetricDatasetFromDataset.
         :type: str
         """
         if modifiedby is None:
@@ -8928,18 +11005,18 @@ class MetricDataset(Dataset):
 
     @property
     def module(self) -> "str":
-        """ Gets the module of this MetricDataset.
+        """ Gets the module of this MetricDatasetFromDataset.
         The name of the module that contains the dataset.
         """
         return self._attrs.get("module")
 
     @module.setter
     def module(self, module: "str"):
-        """Sets the module of this MetricDataset.
+        """Sets the module of this MetricDatasetFromDataset.
 
         The name of the module that contains the dataset.
 
-        :param module: The module of this MetricDataset.
+        :param module: The module of this MetricDatasetFromDataset.
         :type: str
         """
         if module is None:
@@ -8948,18 +11025,18 @@ class MetricDataset(Dataset):
 
     @property
     def name(self) -> "str":
-        """ Gets the name of this MetricDataset.
+        """ Gets the name of this MetricDatasetFromDataset.
         The dataset name. Dataset names must be unique within each module.
         """
         return self._attrs.get("name")
 
     @name.setter
     def name(self, name: "str"):
-        """Sets the name of this MetricDataset.
+        """Sets the name of this MetricDatasetFromDataset.
 
         The dataset name. Dataset names must be unique within each module.
 
-        :param name: The name of this MetricDataset.
+        :param name: The name of this MetricDatasetFromDataset.
         :type: str
         """
         if name is None:
@@ -8968,18 +11045,18 @@ class MetricDataset(Dataset):
 
     @property
     def owner(self) -> "str":
-        """ Gets the owner of this MetricDataset.
+        """ Gets the owner of this MetricDatasetFromDataset.
         The name of the object's owner.
         """
         return self._attrs.get("owner")
 
     @owner.setter
     def owner(self, owner: "str"):
-        """Sets the owner of this MetricDataset.
+        """Sets the owner of this MetricDatasetFromDataset.
 
         The name of the object's owner.
 
-        :param owner: The owner of this MetricDataset.
+        :param owner: The owner of this MetricDatasetFromDataset.
         :type: str
         """
         if owner is None:
@@ -8988,18 +11065,18 @@ class MetricDataset(Dataset):
 
     @property
     def resourcename(self) -> "str":
-        """ Gets the resourcename of this MetricDataset.
+        """ Gets the resourcename of this MetricDatasetFromDataset.
         The dataset name qualified by the module name.
         """
         return self._attrs.get("resourcename")
 
     @resourcename.setter
     def resourcename(self, resourcename: "str"):
-        """Sets the resourcename of this MetricDataset.
+        """Sets the resourcename of this MetricDatasetFromDataset.
 
         The dataset name qualified by the module name.
 
-        :param resourcename: The resourcename of this MetricDataset.
+        :param resourcename: The resourcename of this MetricDatasetFromDataset.
         :type: str
         """
         if resourcename is None:
@@ -9008,129 +11085,147 @@ class MetricDataset(Dataset):
 
     @property
     def appclientidcreatedby(self) -> "str":
-        """ Gets the appclientidcreatedby of this MetricDataset.
+        """ Gets the appclientidcreatedby of this MetricDatasetFromDataset.
         AppClinetId of the creator app of the dataset.
         """
         return self._attrs.get("appclientidcreatedby")
 
     @appclientidcreatedby.setter
     def appclientidcreatedby(self, appclientidcreatedby: "str"):
-        """Sets the appclientidcreatedby of this MetricDataset.
+        """Sets the appclientidcreatedby of this MetricDatasetFromDataset.
 
         AppClinetId of the creator app of the dataset.
 
-        :param appclientidcreatedby: The appclientidcreatedby of this MetricDataset.
+        :param appclientidcreatedby: The appclientidcreatedby of this MetricDatasetFromDataset.
         :type: str
         """
         self._attrs["appclientidcreatedby"] = appclientidcreatedby
 
     @property
     def appclientidmodifiedby(self) -> "str":
-        """ Gets the appclientidmodifiedby of this MetricDataset.
+        """ Gets the appclientidmodifiedby of this MetricDatasetFromDataset.
         AppClinetId of the modifier app of the dataset.
         """
         return self._attrs.get("appclientidmodifiedby")
 
     @appclientidmodifiedby.setter
     def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
-        """Sets the appclientidmodifiedby of this MetricDataset.
+        """Sets the appclientidmodifiedby of this MetricDatasetFromDataset.
 
         AppClinetId of the modifier app of the dataset.
 
-        :param appclientidmodifiedby: The appclientidmodifiedby of this MetricDataset.
+        :param appclientidmodifiedby: The appclientidmodifiedby of this MetricDatasetFromDataset.
         :type: str
         """
         self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def description(self) -> "str":
-        """ Gets the description of this MetricDataset.
+        """ Gets the description of this MetricDatasetFromDataset.
         Detailed description of the dataset.
         """
         return self._attrs.get("description")
 
     @description.setter
     def description(self, description: "str"):
-        """Sets the description of this MetricDataset.
+        """Sets the description of this MetricDatasetFromDataset.
 
         Detailed description of the dataset.
 
-        :param description: The description of this MetricDataset.
+        :param description: The description of this MetricDatasetFromDataset.
         :type: str
         """
         self._attrs["description"] = description
 
     @property
     def disabled(self) -> "bool":
-        """ Gets the disabled of this MetricDataset.
+        """ Gets the disabled of this MetricDatasetFromDataset.
         Specifies whether or not the Splunk index is disabled.
         """
         return self._attrs.get("disabled")
 
     @disabled.setter
     def disabled(self, disabled: "bool"):
-        """Sets the disabled of this MetricDataset.
+        """Sets the disabled of this MetricDatasetFromDataset.
 
         Specifies whether or not the Splunk index is disabled.
 
-        :param disabled: The disabled of this MetricDataset.
+        :param disabled: The disabled of this MetricDatasetFromDataset.
         :type: bool
         """
         self._attrs["disabled"] = disabled
 
     @property
     def earliest_event_time(self) -> "str":
-        """ Gets the earliest_event_time of this MetricDataset.
+        """ Gets the earliest_event_time of this MetricDatasetFromDataset.
         The timestamp, in seconds, of the earliest measure. The timestamp is in UNIX time.
         """
         return self._attrs.get("earliestEventTime")
 
     @earliest_event_time.setter
     def earliest_event_time(self, earliest_event_time: "str"):
-        """Sets the earliest_event_time of this MetricDataset.
+        """Sets the earliest_event_time of this MetricDatasetFromDataset.
 
         The timestamp, in seconds, of the earliest measure. The timestamp is in UNIX time.
 
-        :param earliest_event_time: The earliest_event_time of this MetricDataset.
+        :param earliest_event_time: The earliest_event_time of this MetricDatasetFromDataset.
         :type: str
         """
         self._attrs["earliestEventTime"] = earliest_event_time
 
     @property
     def earliest_ingest_time(self) -> "str":
-        """ Gets the earliest_ingest_time of this MetricDataset.
+        """ Gets the earliest_ingest_time of this MetricDatasetFromDataset.
         The earliest index time for any of the measures in this index.
         """
         return self._attrs.get("earliestIngestTime")
 
     @earliest_ingest_time.setter
     def earliest_ingest_time(self, earliest_ingest_time: "str"):
-        """Sets the earliest_ingest_time of this MetricDataset.
+        """Sets the earliest_ingest_time of this MetricDatasetFromDataset.
 
         The earliest index time for any of the measures in this index.
 
-        :param earliest_ingest_time: The earliest_ingest_time of this MetricDataset.
+        :param earliest_ingest_time: The earliest_ingest_time of this MetricDatasetFromDataset.
         :type: str
         """
         self._attrs["earliestIngestTime"] = earliest_ingest_time
 
     @property
     def frozen_time_period_in_secs(self) -> "int":
-        """ Gets the frozen_time_period_in_secs of this MetricDataset.
+        """ Gets the frozen_time_period_in_secs of this MetricDatasetFromDataset.
         The frozenTimePeriodInSecs to use for the index
         """
         return self._attrs.get("frozenTimePeriodInSecs")
 
     @frozen_time_period_in_secs.setter
     def frozen_time_period_in_secs(self, frozen_time_period_in_secs: "int"):
-        """Sets the frozen_time_period_in_secs of this MetricDataset.
+        """Sets the frozen_time_period_in_secs of this MetricDatasetFromDataset.
 
         The frozenTimePeriodInSecs to use for the index
 
-        :param frozen_time_period_in_secs: The frozen_time_period_in_secs of this MetricDataset.
+        :param frozen_time_period_in_secs: The frozen_time_period_in_secs of this MetricDatasetFromDataset.
         :type: int
         """
         self._attrs["frozenTimePeriodInSecs"] = frozen_time_period_in_secs
+
+    @property
+    def internalname(self) -> "str":
+        """ Gets the internalname of this MetricDatasetFromDataset.
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+        """
+        return self._attrs.get("internalname")
+
+    @internalname.setter
+    def internalname(self, internalname: "str"):
+        """Sets the internalname of this MetricDatasetFromDataset.
+
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+
+        :param internalname: The internalname of this MetricDatasetFromDataset.
+        :type: str
+        """
+        self._attrs["internalname"] = internalname
 
     @property
     def kind(self) -> str:
@@ -9139,144 +11234,144 @@ class MetricDataset(Dataset):
 
     @property
     def latest_event_time(self) -> "str":
-        """ Gets the latest_event_time of this MetricDataset.
+        """ Gets the latest_event_time of this MetricDatasetFromDataset.
         The timestamp, in seconds, of the latest measure. The timestamp is in UNIX time.
         """
         return self._attrs.get("latestEventTime")
 
     @latest_event_time.setter
     def latest_event_time(self, latest_event_time: "str"):
-        """Sets the latest_event_time of this MetricDataset.
+        """Sets the latest_event_time of this MetricDatasetFromDataset.
 
         The timestamp, in seconds, of the latest measure. The timestamp is in UNIX time.
 
-        :param latest_event_time: The latest_event_time of this MetricDataset.
+        :param latest_event_time: The latest_event_time of this MetricDatasetFromDataset.
         :type: str
         """
         self._attrs["latestEventTime"] = latest_event_time
 
     @property
     def latest_ingest_time(self) -> "str":
-        """ Gets the latest_ingest_time of this MetricDataset.
+        """ Gets the latest_ingest_time of this MetricDatasetFromDataset.
         The earliest index time for any of the measures in this index.
         """
         return self._attrs.get("latestIngestTime")
 
     @latest_ingest_time.setter
     def latest_ingest_time(self, latest_ingest_time: "str"):
-        """Sets the latest_ingest_time of this MetricDataset.
+        """Sets the latest_ingest_time of this MetricDatasetFromDataset.
 
         The earliest index time for any of the measures in this index.
 
-        :param latest_ingest_time: The latest_ingest_time of this MetricDataset.
+        :param latest_ingest_time: The latest_ingest_time of this MetricDatasetFromDataset.
         :type: str
         """
         self._attrs["latestIngestTime"] = latest_ingest_time
 
     @property
     def latest_metadata_update_time(self) -> "str":
-        """ Gets the latest_metadata_update_time of this MetricDataset.
+        """ Gets the latest_metadata_update_time of this MetricDatasetFromDataset.
         The latest time that the metric index metadata was refreshed.
         """
         return self._attrs.get("latestMetadataUpdateTime")
 
     @latest_metadata_update_time.setter
     def latest_metadata_update_time(self, latest_metadata_update_time: "str"):
-        """Sets the latest_metadata_update_time of this MetricDataset.
+        """Sets the latest_metadata_update_time of this MetricDatasetFromDataset.
 
         The latest time that the metric index metadata was refreshed.
 
-        :param latest_metadata_update_time: The latest_metadata_update_time of this MetricDataset.
+        :param latest_metadata_update_time: The latest_metadata_update_time of this MetricDatasetFromDataset.
         :type: str
         """
         self._attrs["latestMetadataUpdateTime"] = latest_metadata_update_time
 
     @property
     def summary(self) -> "str":
-        """ Gets the summary of this MetricDataset.
+        """ Gets the summary of this MetricDatasetFromDataset.
         Summary of the dataset's purpose.
         """
         return self._attrs.get("summary")
 
     @summary.setter
     def summary(self, summary: "str"):
-        """Sets the summary of this MetricDataset.
+        """Sets the summary of this MetricDatasetFromDataset.
 
         Summary of the dataset's purpose.
 
-        :param summary: The summary of this MetricDataset.
+        :param summary: The summary of this MetricDatasetFromDataset.
         :type: str
         """
         self._attrs["summary"] = summary
 
     @property
     def title(self) -> "str":
-        """ Gets the title of this MetricDataset.
+        """ Gets the title of this MetricDatasetFromDataset.
         The title of the dataset.  Does not have to be unique.
         """
         return self._attrs.get("title")
 
     @title.setter
     def title(self, title: "str"):
-        """Sets the title of this MetricDataset.
+        """Sets the title of this MetricDatasetFromDataset.
 
         The title of the dataset.  Does not have to be unique.
 
-        :param title: The title of this MetricDataset.
+        :param title: The title of this MetricDatasetFromDataset.
         :type: str
         """
         self._attrs["title"] = title
 
     @property
     def total_event_count(self) -> "int":
-        """ Gets the total_event_count of this MetricDataset.
+        """ Gets the total_event_count of this MetricDatasetFromDataset.
         THe number of measures in the metric index.
         """
         return self._attrs.get("totalEventCount")
 
     @total_event_count.setter
     def total_event_count(self, total_event_count: "int"):
-        """Sets the total_event_count of this MetricDataset.
+        """Sets the total_event_count of this MetricDatasetFromDataset.
 
         THe number of measures in the metric index.
 
-        :param total_event_count: The total_event_count of this MetricDataset.
+        :param total_event_count: The total_event_count of this MetricDatasetFromDataset.
         :type: int
         """
         self._attrs["totalEventCount"] = total_event_count
 
     @property
     def total_size(self) -> "int":
-        """ Gets the total_size of this MetricDataset.
+        """ Gets the total_size of this MetricDatasetFromDataset.
         For metrics indexes, the totalSize is set to 0.
         """
         return self._attrs.get("totalSize")
 
     @total_size.setter
     def total_size(self, total_size: "int"):
-        """Sets the total_size of this MetricDataset.
+        """Sets the total_size of this MetricDatasetFromDataset.
 
         For metrics indexes, the totalSize is set to 0.
 
-        :param total_size: The total_size of this MetricDataset.
+        :param total_size: The total_size of this MetricDatasetFromDataset.
         :type: int
         """
         self._attrs["totalSize"] = total_size
 
     @property
     def version(self) -> "int":
-        """ Gets the version of this MetricDataset.
+        """ Gets the version of this MetricDatasetFromDataset.
         The catalog version.
         """
         return self._attrs.get("version")
 
     @version.setter
     def version(self, version: "int"):
-        """Sets the version of this MetricDataset.
+        """Sets the version of this MetricDatasetFromDataset.
 
         The catalog version.
 
-        :param version: The version of this MetricDataset.
+        :param version: The version of this MetricDatasetFromDataset.
         :type: int
         """
         self._attrs["version"] = version
@@ -9285,7 +11380,554 @@ class MetricDataset(Dataset):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-Dataset.from_dict_handlers["metric"] = MetricDataset._from_dict
+Dataset.from_dict_handlers["metric"] = MetricDatasetFromDataset._from_dict
+
+
+
+class MetricDatasetFromDatasetGet(DatasetGet):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "MetricDatasetFromDatasetGet":
+        instance = MetricDatasetFromDatasetGet.__new__(MetricDatasetFromDatasetGet)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, disabled: "bool" = None, earliest_event_time: "str" = None, earliest_ingest_time: "str" = None, frozen_time_period_in_secs: "int" = None, internalname: "str" = None, latest_event_time: "str" = None, latest_ingest_time: "str" = None, latest_metadata_update_time: "str" = None, summary: "str" = None, title: "str" = None, total_event_count: "int" = None, total_size: "int" = None, version: "int" = None, **extra):
+        """MetricDatasetFromDatasetGet"""
+
+        self._attrs = dict()
+        if created is not None:
+            self._attrs["created"] = created
+        if createdby is not None:
+            self._attrs["createdby"] = createdby
+        if id is not None:
+            self._attrs["id"] = id
+        if modified is not None:
+            self._attrs["modified"] = modified
+        if modifiedby is not None:
+            self._attrs["modifiedby"] = modifiedby
+        if module is not None:
+            self._attrs["module"] = module
+        if name is not None:
+            self._attrs["name"] = name
+        if owner is not None:
+            self._attrs["owner"] = owner
+        if resourcename is not None:
+            self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+        if description is not None:
+            self._attrs["description"] = description
+        if disabled is not None:
+            self._attrs["disabled"] = disabled
+        if earliest_event_time is not None:
+            self._attrs["earliestEventTime"] = earliest_event_time
+        if earliest_ingest_time is not None:
+            self._attrs["earliestIngestTime"] = earliest_ingest_time
+        if frozen_time_period_in_secs is not None:
+            self._attrs["frozenTimePeriodInSecs"] = frozen_time_period_in_secs
+        if internalname is not None:
+            self._attrs["internalname"] = internalname
+        self._attrs["kind"] = "metric" 
+        if latest_event_time is not None:
+            self._attrs["latestEventTime"] = latest_event_time
+        if latest_ingest_time is not None:
+            self._attrs["latestIngestTime"] = latest_ingest_time
+        if latest_metadata_update_time is not None:
+            self._attrs["latestMetadataUpdateTime"] = latest_metadata_update_time
+        if summary is not None:
+            self._attrs["summary"] = summary
+        if title is not None:
+            self._attrs["title"] = title
+        if total_event_count is not None:
+            self._attrs["totalEventCount"] = total_event_count
+        if total_size is not None:
+            self._attrs["totalSize"] = total_size
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def created(self) -> "datetime":
+        """ Gets the created of this MetricDatasetFromDatasetGet.
+        The date and time object was created.
+        """
+        return self._attrs.get("created")
+
+    @created.setter
+    def created(self, created: "datetime"):
+        """Sets the created of this MetricDatasetFromDatasetGet.
+
+        The date and time object was created.
+
+        :param created: The created of this MetricDatasetFromDatasetGet.
+        :type: datetime
+        """
+        if created is None:
+            raise ValueError("Invalid value for `created`, must not be `None`")
+        self._attrs["created"] = created
+
+    @property
+    def createdby(self) -> "str":
+        """ Gets the createdby of this MetricDatasetFromDatasetGet.
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+        """
+        return self._attrs.get("createdby")
+
+    @createdby.setter
+    def createdby(self, createdby: "str"):
+        """Sets the createdby of this MetricDatasetFromDatasetGet.
+
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+
+        :param createdby: The createdby of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        if createdby is None:
+            raise ValueError("Invalid value for `createdby`, must not be `None`")
+        self._attrs["createdby"] = createdby
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this MetricDatasetFromDatasetGet.
+        A unique dataset ID.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this MetricDatasetFromDatasetGet.
+
+        A unique dataset ID.
+
+        :param id: The id of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")
+        self._attrs["id"] = id
+
+    @property
+    def modified(self) -> "datetime":
+        """ Gets the modified of this MetricDatasetFromDatasetGet.
+        The date and time object was modified.
+        """
+        return self._attrs.get("modified")
+
+    @modified.setter
+    def modified(self, modified: "datetime"):
+        """Sets the modified of this MetricDatasetFromDatasetGet.
+
+        The date and time object was modified.
+
+        :param modified: The modified of this MetricDatasetFromDatasetGet.
+        :type: datetime
+        """
+        if modified is None:
+            raise ValueError("Invalid value for `modified`, must not be `None`")
+        self._attrs["modified"] = modified
+
+    @property
+    def modifiedby(self) -> "str":
+        """ Gets the modifiedby of this MetricDatasetFromDatasetGet.
+        The name of the user who most recently modified the object.
+        """
+        return self._attrs.get("modifiedby")
+
+    @modifiedby.setter
+    def modifiedby(self, modifiedby: "str"):
+        """Sets the modifiedby of this MetricDatasetFromDatasetGet.
+
+        The name of the user who most recently modified the object.
+
+        :param modifiedby: The modifiedby of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        if modifiedby is None:
+            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
+        self._attrs["modifiedby"] = modifiedby
+
+    @property
+    def module(self) -> "str":
+        """ Gets the module of this MetricDatasetFromDatasetGet.
+        The name of the module that contains the dataset.
+        """
+        return self._attrs.get("module")
+
+    @module.setter
+    def module(self, module: "str"):
+        """Sets the module of this MetricDatasetFromDatasetGet.
+
+        The name of the module that contains the dataset.
+
+        :param module: The module of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        if module is None:
+            raise ValueError("Invalid value for `module`, must not be `None`")
+        self._attrs["module"] = module
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this MetricDatasetFromDatasetGet.
+        The dataset name. Dataset names must be unique within each module.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this MetricDatasetFromDatasetGet.
+
+        The dataset name. Dataset names must be unique within each module.
+
+        :param name: The name of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def owner(self) -> "str":
+        """ Gets the owner of this MetricDatasetFromDatasetGet.
+        The name of the object's owner.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this MetricDatasetFromDatasetGet.
+
+        The name of the object's owner.
+
+        :param owner: The owner of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        if owner is None:
+            raise ValueError("Invalid value for `owner`, must not be `None`")
+        self._attrs["owner"] = owner
+
+    @property
+    def resourcename(self) -> "str":
+        """ Gets the resourcename of this MetricDatasetFromDatasetGet.
+        The dataset name qualified by the module name.
+        """
+        return self._attrs.get("resourcename")
+
+    @resourcename.setter
+    def resourcename(self, resourcename: "str"):
+        """Sets the resourcename of this MetricDatasetFromDatasetGet.
+
+        The dataset name qualified by the module name.
+
+        :param resourcename: The resourcename of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        if resourcename is None:
+            raise ValueError("Invalid value for `resourcename`, must not be `None`")
+        self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this MetricDatasetFromDatasetGet.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this MetricDatasetFromDatasetGet.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this MetricDatasetFromDatasetGet.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this MetricDatasetFromDatasetGet.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this MetricDatasetFromDatasetGet.
+        Detailed description of the dataset.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this MetricDatasetFromDatasetGet.
+
+        Detailed description of the dataset.
+
+        :param description: The description of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def disabled(self) -> "bool":
+        """ Gets the disabled of this MetricDatasetFromDatasetGet.
+        Specifies whether or not the Splunk index is disabled.
+        """
+        return self._attrs.get("disabled")
+
+    @disabled.setter
+    def disabled(self, disabled: "bool"):
+        """Sets the disabled of this MetricDatasetFromDatasetGet.
+
+        Specifies whether or not the Splunk index is disabled.
+
+        :param disabled: The disabled of this MetricDatasetFromDatasetGet.
+        :type: bool
+        """
+        self._attrs["disabled"] = disabled
+
+    @property
+    def earliest_event_time(self) -> "str":
+        """ Gets the earliest_event_time of this MetricDatasetFromDatasetGet.
+        The timestamp, in seconds, of the earliest measure. The timestamp is in UNIX time.
+        """
+        return self._attrs.get("earliestEventTime")
+
+    @earliest_event_time.setter
+    def earliest_event_time(self, earliest_event_time: "str"):
+        """Sets the earliest_event_time of this MetricDatasetFromDatasetGet.
+
+        The timestamp, in seconds, of the earliest measure. The timestamp is in UNIX time.
+
+        :param earliest_event_time: The earliest_event_time of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["earliestEventTime"] = earliest_event_time
+
+    @property
+    def earliest_ingest_time(self) -> "str":
+        """ Gets the earliest_ingest_time of this MetricDatasetFromDatasetGet.
+        The earliest index time for any of the measures in this index.
+        """
+        return self._attrs.get("earliestIngestTime")
+
+    @earliest_ingest_time.setter
+    def earliest_ingest_time(self, earliest_ingest_time: "str"):
+        """Sets the earliest_ingest_time of this MetricDatasetFromDatasetGet.
+
+        The earliest index time for any of the measures in this index.
+
+        :param earliest_ingest_time: The earliest_ingest_time of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["earliestIngestTime"] = earliest_ingest_time
+
+    @property
+    def frozen_time_period_in_secs(self) -> "int":
+        """ Gets the frozen_time_period_in_secs of this MetricDatasetFromDatasetGet.
+        The frozenTimePeriodInSecs to use for the index
+        """
+        return self._attrs.get("frozenTimePeriodInSecs")
+
+    @frozen_time_period_in_secs.setter
+    def frozen_time_period_in_secs(self, frozen_time_period_in_secs: "int"):
+        """Sets the frozen_time_period_in_secs of this MetricDatasetFromDatasetGet.
+
+        The frozenTimePeriodInSecs to use for the index
+
+        :param frozen_time_period_in_secs: The frozen_time_period_in_secs of this MetricDatasetFromDatasetGet.
+        :type: int
+        """
+        self._attrs["frozenTimePeriodInSecs"] = frozen_time_period_in_secs
+
+    @property
+    def internalname(self) -> "str":
+        """ Gets the internalname of this MetricDatasetFromDatasetGet.
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+        """
+        return self._attrs.get("internalname")
+
+    @internalname.setter
+    def internalname(self, internalname: "str"):
+        """Sets the internalname of this MetricDatasetFromDatasetGet.
+
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+
+        :param internalname: The internalname of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["internalname"] = internalname
+
+    @property
+    def kind(self) -> str:
+        return "metric"
+
+
+    @property
+    def latest_event_time(self) -> "str":
+        """ Gets the latest_event_time of this MetricDatasetFromDatasetGet.
+        The timestamp, in seconds, of the latest measure. The timestamp is in UNIX time.
+        """
+        return self._attrs.get("latestEventTime")
+
+    @latest_event_time.setter
+    def latest_event_time(self, latest_event_time: "str"):
+        """Sets the latest_event_time of this MetricDatasetFromDatasetGet.
+
+        The timestamp, in seconds, of the latest measure. The timestamp is in UNIX time.
+
+        :param latest_event_time: The latest_event_time of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["latestEventTime"] = latest_event_time
+
+    @property
+    def latest_ingest_time(self) -> "str":
+        """ Gets the latest_ingest_time of this MetricDatasetFromDatasetGet.
+        The earliest index time for any of the measures in this index.
+        """
+        return self._attrs.get("latestIngestTime")
+
+    @latest_ingest_time.setter
+    def latest_ingest_time(self, latest_ingest_time: "str"):
+        """Sets the latest_ingest_time of this MetricDatasetFromDatasetGet.
+
+        The earliest index time for any of the measures in this index.
+
+        :param latest_ingest_time: The latest_ingest_time of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["latestIngestTime"] = latest_ingest_time
+
+    @property
+    def latest_metadata_update_time(self) -> "str":
+        """ Gets the latest_metadata_update_time of this MetricDatasetFromDatasetGet.
+        The latest time that the metric index metadata was refreshed.
+        """
+        return self._attrs.get("latestMetadataUpdateTime")
+
+    @latest_metadata_update_time.setter
+    def latest_metadata_update_time(self, latest_metadata_update_time: "str"):
+        """Sets the latest_metadata_update_time of this MetricDatasetFromDatasetGet.
+
+        The latest time that the metric index metadata was refreshed.
+
+        :param latest_metadata_update_time: The latest_metadata_update_time of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["latestMetadataUpdateTime"] = latest_metadata_update_time
+
+    @property
+    def summary(self) -> "str":
+        """ Gets the summary of this MetricDatasetFromDatasetGet.
+        Summary of the dataset's purpose.
+        """
+        return self._attrs.get("summary")
+
+    @summary.setter
+    def summary(self, summary: "str"):
+        """Sets the summary of this MetricDatasetFromDatasetGet.
+
+        Summary of the dataset's purpose.
+
+        :param summary: The summary of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["summary"] = summary
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this MetricDatasetFromDatasetGet.
+        The title of the dataset.  Does not have to be unique.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this MetricDatasetFromDatasetGet.
+
+        The title of the dataset.  Does not have to be unique.
+
+        :param title: The title of this MetricDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
+    def total_event_count(self) -> "int":
+        """ Gets the total_event_count of this MetricDatasetFromDatasetGet.
+        THe number of measures in the metric index.
+        """
+        return self._attrs.get("totalEventCount")
+
+    @total_event_count.setter
+    def total_event_count(self, total_event_count: "int"):
+        """Sets the total_event_count of this MetricDatasetFromDatasetGet.
+
+        THe number of measures in the metric index.
+
+        :param total_event_count: The total_event_count of this MetricDatasetFromDatasetGet.
+        :type: int
+        """
+        self._attrs["totalEventCount"] = total_event_count
+
+    @property
+    def total_size(self) -> "int":
+        """ Gets the total_size of this MetricDatasetFromDatasetGet.
+        For metrics indexes, the totalSize is set to 0.
+        """
+        return self._attrs.get("totalSize")
+
+    @total_size.setter
+    def total_size(self, total_size: "int"):
+        """Sets the total_size of this MetricDatasetFromDatasetGet.
+
+        For metrics indexes, the totalSize is set to 0.
+
+        :param total_size: The total_size of this MetricDatasetFromDatasetGet.
+        :type: int
+        """
+        self._attrs["totalSize"] = total_size
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this MetricDatasetFromDatasetGet.
+        The catalog version.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this MetricDatasetFromDatasetGet.
+
+        The catalog version.
+
+        :param version: The version of this MetricDatasetFromDatasetGet.
+        :type: int
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+DatasetGet.from_dict_handlers["metric"] = MetricDatasetFromDatasetGet._from_dict
 
 
 
@@ -11710,6 +14352,402 @@ class RulePOST(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
+class Splv1sinkDataset(DatasetGet):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "Splv1sinkDataset":
+        instance = Splv1sinkDataset.__new__(Splv1sinkDataset)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, internalname: "str" = None, splv1: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+        """Splv1sinkDataset"""
+
+        self._attrs = dict()
+        if created is not None:
+            self._attrs["created"] = created
+        if createdby is not None:
+            self._attrs["createdby"] = createdby
+        if id is not None:
+            self._attrs["id"] = id
+        if modified is not None:
+            self._attrs["modified"] = modified
+        if modifiedby is not None:
+            self._attrs["modifiedby"] = modifiedby
+        if module is not None:
+            self._attrs["module"] = module
+        if name is not None:
+            self._attrs["name"] = name
+        if owner is not None:
+            self._attrs["owner"] = owner
+        if resourcename is not None:
+            self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+        if description is not None:
+            self._attrs["description"] = description
+        if internalname is not None:
+            self._attrs["internalname"] = internalname
+        self._attrs["kind"] = "splv1sink" 
+        if splv1 is not None:
+            self._attrs["splv1"] = splv1
+        if summary is not None:
+            self._attrs["summary"] = summary
+        if title is not None:
+            self._attrs["title"] = title
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def created(self) -> "datetime":
+        """ Gets the created of this Splv1sinkDataset.
+        The date and time object was created.
+        """
+        return self._attrs.get("created")
+
+    @created.setter
+    def created(self, created: "datetime"):
+        """Sets the created of this Splv1sinkDataset.
+
+        The date and time object was created.
+
+        :param created: The created of this Splv1sinkDataset.
+        :type: datetime
+        """
+        if created is None:
+            raise ValueError("Invalid value for `created`, must not be `None`")
+        self._attrs["created"] = created
+
+    @property
+    def createdby(self) -> "str":
+        """ Gets the createdby of this Splv1sinkDataset.
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+        """
+        return self._attrs.get("createdby")
+
+    @createdby.setter
+    def createdby(self, createdby: "str"):
+        """Sets the createdby of this Splv1sinkDataset.
+
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+
+        :param createdby: The createdby of this Splv1sinkDataset.
+        :type: str
+        """
+        if createdby is None:
+            raise ValueError("Invalid value for `createdby`, must not be `None`")
+        self._attrs["createdby"] = createdby
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this Splv1sinkDataset.
+        A unique dataset ID.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this Splv1sinkDataset.
+
+        A unique dataset ID.
+
+        :param id: The id of this Splv1sinkDataset.
+        :type: str
+        """
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")
+        self._attrs["id"] = id
+
+    @property
+    def modified(self) -> "datetime":
+        """ Gets the modified of this Splv1sinkDataset.
+        The date and time object was modified.
+        """
+        return self._attrs.get("modified")
+
+    @modified.setter
+    def modified(self, modified: "datetime"):
+        """Sets the modified of this Splv1sinkDataset.
+
+        The date and time object was modified.
+
+        :param modified: The modified of this Splv1sinkDataset.
+        :type: datetime
+        """
+        if modified is None:
+            raise ValueError("Invalid value for `modified`, must not be `None`")
+        self._attrs["modified"] = modified
+
+    @property
+    def modifiedby(self) -> "str":
+        """ Gets the modifiedby of this Splv1sinkDataset.
+        The name of the user who most recently modified the object.
+        """
+        return self._attrs.get("modifiedby")
+
+    @modifiedby.setter
+    def modifiedby(self, modifiedby: "str"):
+        """Sets the modifiedby of this Splv1sinkDataset.
+
+        The name of the user who most recently modified the object.
+
+        :param modifiedby: The modifiedby of this Splv1sinkDataset.
+        :type: str
+        """
+        if modifiedby is None:
+            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
+        self._attrs["modifiedby"] = modifiedby
+
+    @property
+    def module(self) -> "str":
+        """ Gets the module of this Splv1sinkDataset.
+        The name of the module that contains the dataset.
+        """
+        return self._attrs.get("module")
+
+    @module.setter
+    def module(self, module: "str"):
+        """Sets the module of this Splv1sinkDataset.
+
+        The name of the module that contains the dataset.
+
+        :param module: The module of this Splv1sinkDataset.
+        :type: str
+        """
+        if module is None:
+            raise ValueError("Invalid value for `module`, must not be `None`")
+        self._attrs["module"] = module
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this Splv1sinkDataset.
+        The dataset name. Dataset names must be unique within each module.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this Splv1sinkDataset.
+
+        The dataset name. Dataset names must be unique within each module.
+
+        :param name: The name of this Splv1sinkDataset.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def owner(self) -> "str":
+        """ Gets the owner of this Splv1sinkDataset.
+        The name of the object's owner.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this Splv1sinkDataset.
+
+        The name of the object's owner.
+
+        :param owner: The owner of this Splv1sinkDataset.
+        :type: str
+        """
+        if owner is None:
+            raise ValueError("Invalid value for `owner`, must not be `None`")
+        self._attrs["owner"] = owner
+
+    @property
+    def resourcename(self) -> "str":
+        """ Gets the resourcename of this Splv1sinkDataset.
+        The dataset name qualified by the module name.
+        """
+        return self._attrs.get("resourcename")
+
+    @resourcename.setter
+    def resourcename(self, resourcename: "str"):
+        """Sets the resourcename of this Splv1sinkDataset.
+
+        The dataset name qualified by the module name.
+
+        :param resourcename: The resourcename of this Splv1sinkDataset.
+        :type: str
+        """
+        if resourcename is None:
+            raise ValueError("Invalid value for `resourcename`, must not be `None`")
+        self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this Splv1sinkDataset.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this Splv1sinkDataset.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this Splv1sinkDataset.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this Splv1sinkDataset.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this Splv1sinkDataset.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this Splv1sinkDataset.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this Splv1sinkDataset.
+        Detailed description of the dataset.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this Splv1sinkDataset.
+
+        Detailed description of the dataset.
+
+        :param description: The description of this Splv1sinkDataset.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def internalname(self) -> "str":
+        """ Gets the internalname of this Splv1sinkDataset.
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+        """
+        return self._attrs.get("internalname")
+
+    @internalname.setter
+    def internalname(self, internalname: "str"):
+        """Sets the internalname of this Splv1sinkDataset.
+
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+
+        :param internalname: The internalname of this Splv1sinkDataset.
+        :type: str
+        """
+        self._attrs["internalname"] = internalname
+
+    @property
+    def kind(self) -> str:
+        return "splv1sink"
+
+
+    @property
+    def splv1(self) -> "str":
+        """ Gets the splv1 of this Splv1sinkDataset.
+        Internal use by common-ast, contains the converted SPL for a SPL2 search query.
+        """
+        return self._attrs.get("splv1")
+
+    @splv1.setter
+    def splv1(self, splv1: "str"):
+        """Sets the splv1 of this Splv1sinkDataset.
+
+        Internal use by common-ast, contains the converted SPL for a SPL2 search query.
+
+        :param splv1: The splv1 of this Splv1sinkDataset.
+        :type: str
+        """
+        self._attrs["splv1"] = splv1
+
+    @property
+    def summary(self) -> "str":
+        """ Gets the summary of this Splv1sinkDataset.
+        Summary of the dataset's purpose.
+        """
+        return self._attrs.get("summary")
+
+    @summary.setter
+    def summary(self, summary: "str"):
+        """Sets the summary of this Splv1sinkDataset.
+
+        Summary of the dataset's purpose.
+
+        :param summary: The summary of this Splv1sinkDataset.
+        :type: str
+        """
+        self._attrs["summary"] = summary
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this Splv1sinkDataset.
+        The title of the dataset.  Does not have to be unique.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this Splv1sinkDataset.
+
+        The title of the dataset.  Does not have to be unique.
+
+        :param title: The title of this Splv1sinkDataset.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this Splv1sinkDataset.
+        The catalog version.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this Splv1sinkDataset.
+
+        The catalog version.
+
+        :param version: The version of this Splv1sinkDataset.
+        :type: int
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+DatasetGet.from_dict_handlers["splv1sink"] = Splv1sinkDataset._from_dict
+
+
+
+class Splv1sinkDatasetKind(str, Enum):
+    SPLV1SINK = "splv1sink"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "splv1sink":
+            return Splv1sinkDatasetKind.SPLV1SINK
+
+
 class Task(SSCModel):
 
     @staticmethod
@@ -12528,16 +15566,16 @@ class TaskPOST(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-class ViewDataset(Dataset):
+class ViewDatasetFromDataset(Dataset):
 
     @staticmethod
-    def _from_dict(model: dict) -> "ViewDataset":
-        instance = ViewDataset.__new__(ViewDataset)
+    def _from_dict(model: dict) -> "ViewDatasetFromDataset":
+        instance = ViewDatasetFromDataset.__new__(ViewDatasetFromDataset)
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, search: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
-        """ViewDataset"""
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, internalname: "str" = None, search: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+        """ViewDatasetFromDataset"""
 
         self._attrs = dict()
         if created is not None:
@@ -12564,6 +15602,8 @@ class ViewDataset(Dataset):
             self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
         if description is not None:
             self._attrs["description"] = description
+        if internalname is not None:
+            self._attrs["internalname"] = internalname
         self._attrs["kind"] = "view" 
         if search is not None:
             self._attrs["search"] = search
@@ -12578,18 +15618,18 @@ class ViewDataset(Dataset):
 
     @property
     def created(self) -> "datetime":
-        """ Gets the created of this ViewDataset.
+        """ Gets the created of this ViewDatasetFromDataset.
         The date and time object was created.
         """
         return self._attrs.get("created")
 
     @created.setter
     def created(self, created: "datetime"):
-        """Sets the created of this ViewDataset.
+        """Sets the created of this ViewDatasetFromDataset.
 
         The date and time object was created.
 
-        :param created: The created of this ViewDataset.
+        :param created: The created of this ViewDatasetFromDataset.
         :type: datetime
         """
         if created is None:
@@ -12598,18 +15638,18 @@ class ViewDataset(Dataset):
 
     @property
     def createdby(self) -> "str":
-        """ Gets the createdby of this ViewDataset.
+        """ Gets the createdby of this ViewDatasetFromDataset.
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
         """
         return self._attrs.get("createdby")
 
     @createdby.setter
     def createdby(self, createdby: "str"):
-        """Sets the createdby of this ViewDataset.
+        """Sets the createdby of this ViewDatasetFromDataset.
 
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
 
-        :param createdby: The createdby of this ViewDataset.
+        :param createdby: The createdby of this ViewDatasetFromDataset.
         :type: str
         """
         if createdby is None:
@@ -12618,18 +15658,18 @@ class ViewDataset(Dataset):
 
     @property
     def id(self) -> "str":
-        """ Gets the id of this ViewDataset.
+        """ Gets the id of this ViewDatasetFromDataset.
         A unique dataset ID.
         """
         return self._attrs.get("id")
 
     @id.setter
     def id(self, id: "str"):
-        """Sets the id of this ViewDataset.
+        """Sets the id of this ViewDatasetFromDataset.
 
         A unique dataset ID.
 
-        :param id: The id of this ViewDataset.
+        :param id: The id of this ViewDatasetFromDataset.
         :type: str
         """
         if id is None:
@@ -12638,18 +15678,18 @@ class ViewDataset(Dataset):
 
     @property
     def modified(self) -> "datetime":
-        """ Gets the modified of this ViewDataset.
+        """ Gets the modified of this ViewDatasetFromDataset.
         The date and time object was modified.
         """
         return self._attrs.get("modified")
 
     @modified.setter
     def modified(self, modified: "datetime"):
-        """Sets the modified of this ViewDataset.
+        """Sets the modified of this ViewDatasetFromDataset.
 
         The date and time object was modified.
 
-        :param modified: The modified of this ViewDataset.
+        :param modified: The modified of this ViewDatasetFromDataset.
         :type: datetime
         """
         if modified is None:
@@ -12658,18 +15698,18 @@ class ViewDataset(Dataset):
 
     @property
     def modifiedby(self) -> "str":
-        """ Gets the modifiedby of this ViewDataset.
+        """ Gets the modifiedby of this ViewDatasetFromDataset.
         The name of the user who most recently modified the object.
         """
         return self._attrs.get("modifiedby")
 
     @modifiedby.setter
     def modifiedby(self, modifiedby: "str"):
-        """Sets the modifiedby of this ViewDataset.
+        """Sets the modifiedby of this ViewDatasetFromDataset.
 
         The name of the user who most recently modified the object.
 
-        :param modifiedby: The modifiedby of this ViewDataset.
+        :param modifiedby: The modifiedby of this ViewDatasetFromDataset.
         :type: str
         """
         if modifiedby is None:
@@ -12678,18 +15718,18 @@ class ViewDataset(Dataset):
 
     @property
     def module(self) -> "str":
-        """ Gets the module of this ViewDataset.
+        """ Gets the module of this ViewDatasetFromDataset.
         The name of the module that contains the dataset.
         """
         return self._attrs.get("module")
 
     @module.setter
     def module(self, module: "str"):
-        """Sets the module of this ViewDataset.
+        """Sets the module of this ViewDatasetFromDataset.
 
         The name of the module that contains the dataset.
 
-        :param module: The module of this ViewDataset.
+        :param module: The module of this ViewDatasetFromDataset.
         :type: str
         """
         if module is None:
@@ -12698,18 +15738,18 @@ class ViewDataset(Dataset):
 
     @property
     def name(self) -> "str":
-        """ Gets the name of this ViewDataset.
+        """ Gets the name of this ViewDatasetFromDataset.
         The dataset name. Dataset names must be unique within each module.
         """
         return self._attrs.get("name")
 
     @name.setter
     def name(self, name: "str"):
-        """Sets the name of this ViewDataset.
+        """Sets the name of this ViewDatasetFromDataset.
 
         The dataset name. Dataset names must be unique within each module.
 
-        :param name: The name of this ViewDataset.
+        :param name: The name of this ViewDatasetFromDataset.
         :type: str
         """
         if name is None:
@@ -12718,18 +15758,18 @@ class ViewDataset(Dataset):
 
     @property
     def owner(self) -> "str":
-        """ Gets the owner of this ViewDataset.
+        """ Gets the owner of this ViewDatasetFromDataset.
         The name of the object's owner.
         """
         return self._attrs.get("owner")
 
     @owner.setter
     def owner(self, owner: "str"):
-        """Sets the owner of this ViewDataset.
+        """Sets the owner of this ViewDatasetFromDataset.
 
         The name of the object's owner.
 
-        :param owner: The owner of this ViewDataset.
+        :param owner: The owner of this ViewDatasetFromDataset.
         :type: str
         """
         if owner is None:
@@ -12738,18 +15778,18 @@ class ViewDataset(Dataset):
 
     @property
     def resourcename(self) -> "str":
-        """ Gets the resourcename of this ViewDataset.
+        """ Gets the resourcename of this ViewDatasetFromDataset.
         The dataset name qualified by the module name.
         """
         return self._attrs.get("resourcename")
 
     @resourcename.setter
     def resourcename(self, resourcename: "str"):
-        """Sets the resourcename of this ViewDataset.
+        """Sets the resourcename of this ViewDatasetFromDataset.
 
         The dataset name qualified by the module name.
 
-        :param resourcename: The resourcename of this ViewDataset.
+        :param resourcename: The resourcename of this ViewDatasetFromDataset.
         :type: str
         """
         if resourcename is None:
@@ -12758,57 +15798,75 @@ class ViewDataset(Dataset):
 
     @property
     def appclientidcreatedby(self) -> "str":
-        """ Gets the appclientidcreatedby of this ViewDataset.
+        """ Gets the appclientidcreatedby of this ViewDatasetFromDataset.
         AppClinetId of the creator app of the dataset.
         """
         return self._attrs.get("appclientidcreatedby")
 
     @appclientidcreatedby.setter
     def appclientidcreatedby(self, appclientidcreatedby: "str"):
-        """Sets the appclientidcreatedby of this ViewDataset.
+        """Sets the appclientidcreatedby of this ViewDatasetFromDataset.
 
         AppClinetId of the creator app of the dataset.
 
-        :param appclientidcreatedby: The appclientidcreatedby of this ViewDataset.
+        :param appclientidcreatedby: The appclientidcreatedby of this ViewDatasetFromDataset.
         :type: str
         """
         self._attrs["appclientidcreatedby"] = appclientidcreatedby
 
     @property
     def appclientidmodifiedby(self) -> "str":
-        """ Gets the appclientidmodifiedby of this ViewDataset.
+        """ Gets the appclientidmodifiedby of this ViewDatasetFromDataset.
         AppClinetId of the modifier app of the dataset.
         """
         return self._attrs.get("appclientidmodifiedby")
 
     @appclientidmodifiedby.setter
     def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
-        """Sets the appclientidmodifiedby of this ViewDataset.
+        """Sets the appclientidmodifiedby of this ViewDatasetFromDataset.
 
         AppClinetId of the modifier app of the dataset.
 
-        :param appclientidmodifiedby: The appclientidmodifiedby of this ViewDataset.
+        :param appclientidmodifiedby: The appclientidmodifiedby of this ViewDatasetFromDataset.
         :type: str
         """
         self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def description(self) -> "str":
-        """ Gets the description of this ViewDataset.
+        """ Gets the description of this ViewDatasetFromDataset.
         Detailed description of the dataset.
         """
         return self._attrs.get("description")
 
     @description.setter
     def description(self, description: "str"):
-        """Sets the description of this ViewDataset.
+        """Sets the description of this ViewDatasetFromDataset.
 
         Detailed description of the dataset.
 
-        :param description: The description of this ViewDataset.
+        :param description: The description of this ViewDatasetFromDataset.
         :type: str
         """
         self._attrs["description"] = description
+
+    @property
+    def internalname(self) -> "str":
+        """ Gets the internalname of this ViewDatasetFromDataset.
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+        """
+        return self._attrs.get("internalname")
+
+    @internalname.setter
+    def internalname(self, internalname: "str"):
+        """Sets the internalname of this ViewDatasetFromDataset.
+
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+
+        :param internalname: The internalname of this ViewDatasetFromDataset.
+        :type: str
+        """
+        self._attrs["internalname"] = internalname
 
     @property
     def kind(self) -> str:
@@ -12817,72 +15875,72 @@ class ViewDataset(Dataset):
 
     @property
     def search(self) -> "str":
-        """ Gets the search of this ViewDataset.
+        """ Gets the search of this ViewDatasetFromDataset.
         A valid SPL-defined search.
         """
         return self._attrs.get("search")
 
     @search.setter
     def search(self, search: "str"):
-        """Sets the search of this ViewDataset.
+        """Sets the search of this ViewDatasetFromDataset.
 
         A valid SPL-defined search.
 
-        :param search: The search of this ViewDataset.
+        :param search: The search of this ViewDatasetFromDataset.
         :type: str
         """
         self._attrs["search"] = search
 
     @property
     def summary(self) -> "str":
-        """ Gets the summary of this ViewDataset.
+        """ Gets the summary of this ViewDatasetFromDataset.
         Summary of the dataset's purpose.
         """
         return self._attrs.get("summary")
 
     @summary.setter
     def summary(self, summary: "str"):
-        """Sets the summary of this ViewDataset.
+        """Sets the summary of this ViewDatasetFromDataset.
 
         Summary of the dataset's purpose.
 
-        :param summary: The summary of this ViewDataset.
+        :param summary: The summary of this ViewDatasetFromDataset.
         :type: str
         """
         self._attrs["summary"] = summary
 
     @property
     def title(self) -> "str":
-        """ Gets the title of this ViewDataset.
+        """ Gets the title of this ViewDatasetFromDataset.
         The title of the dataset.  Does not have to be unique.
         """
         return self._attrs.get("title")
 
     @title.setter
     def title(self, title: "str"):
-        """Sets the title of this ViewDataset.
+        """Sets the title of this ViewDatasetFromDataset.
 
         The title of the dataset.  Does not have to be unique.
 
-        :param title: The title of this ViewDataset.
+        :param title: The title of this ViewDatasetFromDataset.
         :type: str
         """
         self._attrs["title"] = title
 
     @property
     def version(self) -> "int":
-        """ Gets the version of this ViewDataset.
+        """ Gets the version of this ViewDatasetFromDataset.
         The catalog version.
         """
         return self._attrs.get("version")
 
     @version.setter
     def version(self, version: "int"):
-        """Sets the version of this ViewDataset.
+        """Sets the version of this ViewDatasetFromDataset.
 
         The catalog version.
 
-        :param version: The version of this ViewDataset.
+        :param version: The version of this ViewDatasetFromDataset.
         :type: int
         """
         self._attrs["version"] = version
@@ -12891,7 +15949,394 @@ class ViewDataset(Dataset):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-Dataset.from_dict_handlers["view"] = ViewDataset._from_dict
+Dataset.from_dict_handlers["view"] = ViewDatasetFromDataset._from_dict
+
+
+
+class ViewDatasetFromDatasetGet(DatasetGet):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "ViewDatasetFromDatasetGet":
+        instance = ViewDatasetFromDatasetGet.__new__(ViewDatasetFromDatasetGet)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, internalname: "str" = None, search: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+        """ViewDatasetFromDatasetGet"""
+
+        self._attrs = dict()
+        if created is not None:
+            self._attrs["created"] = created
+        if createdby is not None:
+            self._attrs["createdby"] = createdby
+        if id is not None:
+            self._attrs["id"] = id
+        if modified is not None:
+            self._attrs["modified"] = modified
+        if modifiedby is not None:
+            self._attrs["modifiedby"] = modifiedby
+        if module is not None:
+            self._attrs["module"] = module
+        if name is not None:
+            self._attrs["name"] = name
+        if owner is not None:
+            self._attrs["owner"] = owner
+        if resourcename is not None:
+            self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+        if description is not None:
+            self._attrs["description"] = description
+        if internalname is not None:
+            self._attrs["internalname"] = internalname
+        self._attrs["kind"] = "view" 
+        if search is not None:
+            self._attrs["search"] = search
+        if summary is not None:
+            self._attrs["summary"] = summary
+        if title is not None:
+            self._attrs["title"] = title
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def created(self) -> "datetime":
+        """ Gets the created of this ViewDatasetFromDatasetGet.
+        The date and time object was created.
+        """
+        return self._attrs.get("created")
+
+    @created.setter
+    def created(self, created: "datetime"):
+        """Sets the created of this ViewDatasetFromDatasetGet.
+
+        The date and time object was created.
+
+        :param created: The created of this ViewDatasetFromDatasetGet.
+        :type: datetime
+        """
+        if created is None:
+            raise ValueError("Invalid value for `created`, must not be `None`")
+        self._attrs["created"] = created
+
+    @property
+    def createdby(self) -> "str":
+        """ Gets the createdby of this ViewDatasetFromDatasetGet.
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+        """
+        return self._attrs.get("createdby")
+
+    @createdby.setter
+    def createdby(self, createdby: "str"):
+        """Sets the createdby of this ViewDatasetFromDatasetGet.
+
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+
+        :param createdby: The createdby of this ViewDatasetFromDatasetGet.
+        :type: str
+        """
+        if createdby is None:
+            raise ValueError("Invalid value for `createdby`, must not be `None`")
+        self._attrs["createdby"] = createdby
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this ViewDatasetFromDatasetGet.
+        A unique dataset ID.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this ViewDatasetFromDatasetGet.
+
+        A unique dataset ID.
+
+        :param id: The id of this ViewDatasetFromDatasetGet.
+        :type: str
+        """
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")
+        self._attrs["id"] = id
+
+    @property
+    def modified(self) -> "datetime":
+        """ Gets the modified of this ViewDatasetFromDatasetGet.
+        The date and time object was modified.
+        """
+        return self._attrs.get("modified")
+
+    @modified.setter
+    def modified(self, modified: "datetime"):
+        """Sets the modified of this ViewDatasetFromDatasetGet.
+
+        The date and time object was modified.
+
+        :param modified: The modified of this ViewDatasetFromDatasetGet.
+        :type: datetime
+        """
+        if modified is None:
+            raise ValueError("Invalid value for `modified`, must not be `None`")
+        self._attrs["modified"] = modified
+
+    @property
+    def modifiedby(self) -> "str":
+        """ Gets the modifiedby of this ViewDatasetFromDatasetGet.
+        The name of the user who most recently modified the object.
+        """
+        return self._attrs.get("modifiedby")
+
+    @modifiedby.setter
+    def modifiedby(self, modifiedby: "str"):
+        """Sets the modifiedby of this ViewDatasetFromDatasetGet.
+
+        The name of the user who most recently modified the object.
+
+        :param modifiedby: The modifiedby of this ViewDatasetFromDatasetGet.
+        :type: str
+        """
+        if modifiedby is None:
+            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
+        self._attrs["modifiedby"] = modifiedby
+
+    @property
+    def module(self) -> "str":
+        """ Gets the module of this ViewDatasetFromDatasetGet.
+        The name of the module that contains the dataset.
+        """
+        return self._attrs.get("module")
+
+    @module.setter
+    def module(self, module: "str"):
+        """Sets the module of this ViewDatasetFromDatasetGet.
+
+        The name of the module that contains the dataset.
+
+        :param module: The module of this ViewDatasetFromDatasetGet.
+        :type: str
+        """
+        if module is None:
+            raise ValueError("Invalid value for `module`, must not be `None`")
+        self._attrs["module"] = module
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this ViewDatasetFromDatasetGet.
+        The dataset name. Dataset names must be unique within each module.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this ViewDatasetFromDatasetGet.
+
+        The dataset name. Dataset names must be unique within each module.
+
+        :param name: The name of this ViewDatasetFromDatasetGet.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def owner(self) -> "str":
+        """ Gets the owner of this ViewDatasetFromDatasetGet.
+        The name of the object's owner.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this ViewDatasetFromDatasetGet.
+
+        The name of the object's owner.
+
+        :param owner: The owner of this ViewDatasetFromDatasetGet.
+        :type: str
+        """
+        if owner is None:
+            raise ValueError("Invalid value for `owner`, must not be `None`")
+        self._attrs["owner"] = owner
+
+    @property
+    def resourcename(self) -> "str":
+        """ Gets the resourcename of this ViewDatasetFromDatasetGet.
+        The dataset name qualified by the module name.
+        """
+        return self._attrs.get("resourcename")
+
+    @resourcename.setter
+    def resourcename(self, resourcename: "str"):
+        """Sets the resourcename of this ViewDatasetFromDatasetGet.
+
+        The dataset name qualified by the module name.
+
+        :param resourcename: The resourcename of this ViewDatasetFromDatasetGet.
+        :type: str
+        """
+        if resourcename is None:
+            raise ValueError("Invalid value for `resourcename`, must not be `None`")
+        self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this ViewDatasetFromDatasetGet.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this ViewDatasetFromDatasetGet.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this ViewDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this ViewDatasetFromDatasetGet.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this ViewDatasetFromDatasetGet.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this ViewDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this ViewDatasetFromDatasetGet.
+        Detailed description of the dataset.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this ViewDatasetFromDatasetGet.
+
+        Detailed description of the dataset.
+
+        :param description: The description of this ViewDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def internalname(self) -> "str":
+        """ Gets the internalname of this ViewDatasetFromDatasetGet.
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+        """
+        return self._attrs.get("internalname")
+
+    @internalname.setter
+    def internalname(self, internalname: "str"):
+        """Sets the internalname of this ViewDatasetFromDatasetGet.
+
+        The dataset name qualified by the module name, primarily used to distinguish between index/metric versus other datasets. Index/metric datasets have a distinct underscore separator (_____) between name and module. Internal use only.
+
+        :param internalname: The internalname of this ViewDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["internalname"] = internalname
+
+    @property
+    def kind(self) -> str:
+        return "view"
+
+
+    @property
+    def search(self) -> "str":
+        """ Gets the search of this ViewDatasetFromDatasetGet.
+        A valid SPL-defined search.
+        """
+        return self._attrs.get("search")
+
+    @search.setter
+    def search(self, search: "str"):
+        """Sets the search of this ViewDatasetFromDatasetGet.
+
+        A valid SPL-defined search.
+
+        :param search: The search of this ViewDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["search"] = search
+
+    @property
+    def summary(self) -> "str":
+        """ Gets the summary of this ViewDatasetFromDatasetGet.
+        Summary of the dataset's purpose.
+        """
+        return self._attrs.get("summary")
+
+    @summary.setter
+    def summary(self, summary: "str"):
+        """Sets the summary of this ViewDatasetFromDatasetGet.
+
+        Summary of the dataset's purpose.
+
+        :param summary: The summary of this ViewDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["summary"] = summary
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this ViewDatasetFromDatasetGet.
+        The title of the dataset.  Does not have to be unique.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this ViewDatasetFromDatasetGet.
+
+        The title of the dataset.  Does not have to be unique.
+
+        :param title: The title of this ViewDatasetFromDatasetGet.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this ViewDatasetFromDatasetGet.
+        The catalog version.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this ViewDatasetFromDatasetGet.
+
+        The catalog version.
+
+        :param version: The version of this ViewDatasetFromDatasetGet.
+        :type: int
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+DatasetGet.from_dict_handlers["view"] = ViewDatasetFromDatasetGet._from_dict
 
 
 
@@ -15225,3 +18670,388 @@ class WorkflowRunPOST(SSCModel):
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+class ImportDataset(Dataset):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "ImportDataset":
+        instance = ImportDataset.__new__(ImportDataset)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, source_module: "str" = None, source_name: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
+        """ImportDataset"""
+
+        self._attrs = dict()
+        if created is not None:
+            self._attrs["created"] = created
+        if createdby is not None:
+            self._attrs["createdby"] = createdby
+        if id is not None:
+            self._attrs["id"] = id
+        if modified is not None:
+            self._attrs["modified"] = modified
+        if modifiedby is not None:
+            self._attrs["modifiedby"] = modifiedby
+        if module is not None:
+            self._attrs["module"] = module
+        if name is not None:
+            self._attrs["name"] = name
+        if owner is not None:
+            self._attrs["owner"] = owner
+        if resourcename is not None:
+            self._attrs["resourcename"] = resourcename
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+        if description is not None:
+            self._attrs["description"] = description
+        self._attrs["kind"] = "import"
+        if source_module is not None:
+            self._attrs["sourceModule"] = source_module
+        if source_name is not None:
+            self._attrs["sourceName"] = source_name
+        if summary is not None:
+            self._attrs["summary"] = summary
+        if title is not None:
+            self._attrs["title"] = title
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def created(self) -> "datetime":
+        """ Gets the created of this ImportDataset.
+        The date and time object was created.
+        """
+        return self._attrs.get("created")
+
+    @created.setter
+    def created(self, created: "datetime"):
+        """Sets the created of this ImportDataset.
+
+        The date and time object was created.
+
+        :param created: The created of this ImportDataset.
+        :type: datetime
+        """
+        if created is None:
+            raise ValueError("Invalid value for `created`, must not be `None`")
+        self._attrs["created"] = created
+
+    @property
+    def createdby(self) -> "str":
+        """ Gets the createdby of this ImportDataset.
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+        """
+        return self._attrs.get("createdby")
+
+    @createdby.setter
+    def createdby(self, createdby: "str"):
+        """Sets the createdby of this ImportDataset.
+
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+
+        :param createdby: The createdby of this ImportDataset.
+        :type: str
+        """
+        if createdby is None:
+            raise ValueError("Invalid value for `createdby`, must not be `None`")
+        self._attrs["createdby"] = createdby
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this ImportDataset.
+        A unique dataset ID.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this ImportDataset.
+
+        A unique dataset ID.
+
+        :param id: The id of this ImportDataset.
+        :type: str
+        """
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")
+        self._attrs["id"] = id
+
+    @property
+    def modified(self) -> "datetime":
+        """ Gets the modified of this ImportDataset.
+        The date and time object was modified.
+        """
+        return self._attrs.get("modified")
+
+    @modified.setter
+    def modified(self, modified: "datetime"):
+        """Sets the modified of this ImportDataset.
+
+        The date and time object was modified.
+
+        :param modified: The modified of this ImportDataset.
+        :type: datetime
+        """
+        if modified is None:
+            raise ValueError("Invalid value for `modified`, must not be `None`")
+        self._attrs["modified"] = modified
+
+    @property
+    def modifiedby(self) -> "str":
+        """ Gets the modifiedby of this ImportDataset.
+        The name of the user who most recently modified the object.
+        """
+        return self._attrs.get("modifiedby")
+
+    @modifiedby.setter
+    def modifiedby(self, modifiedby: "str"):
+        """Sets the modifiedby of this ImportDataset.
+
+        The name of the user who most recently modified the object.
+
+        :param modifiedby: The modifiedby of this ImportDataset.
+        :type: str
+        """
+        if modifiedby is None:
+            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
+        self._attrs["modifiedby"] = modifiedby
+
+    @property
+    def module(self) -> "str":
+        """ Gets the module of this ImportDataset.
+        The name of the module that contains the dataset.
+        """
+        return self._attrs.get("module")
+
+    @module.setter
+    def module(self, module: "str"):
+        """Sets the module of this ImportDataset.
+
+        The name of the module that contains the dataset.
+
+        :param module: The module of this ImportDataset.
+        :type: str
+        """
+        if module is None:
+            raise ValueError("Invalid value for `module`, must not be `None`")
+        self._attrs["module"] = module
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this ImportDataset.
+        The dataset name. Dataset names must be unique within each module.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this ImportDataset.
+
+        The dataset name. Dataset names must be unique within each module.
+
+        :param name: The name of this ImportDataset.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def owner(self) -> "str":
+        """ Gets the owner of this ImportDataset.
+        The name of the object's owner.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this ImportDataset.
+
+        The name of the object's owner.
+
+        :param owner: The owner of this ImportDataset.
+        :type: str
+        """
+        if owner is None:
+            raise ValueError("Invalid value for `owner`, must not be `None`")
+        self._attrs["owner"] = owner
+
+    @property
+    def resourcename(self) -> "str":
+        """ Gets the resourcename of this ImportDataset.
+        The dataset name qualified by the module name.
+        """
+        return self._attrs.get("resourcename")
+
+    @resourcename.setter
+    def resourcename(self, resourcename: "str"):
+        """Sets the resourcename of this ImportDataset.
+
+        The dataset name qualified by the module name.
+
+        :param resourcename: The resourcename of this ImportDataset.
+        :type: str
+        """
+        if resourcename is None:
+            raise ValueError("Invalid value for `resourcename`, must not be `None`")
+        self._attrs["resourcename"] = resourcename
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this ImportDataset.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this ImportDataset.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this ImportDataset.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this ImportDataset.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this ImportDataset.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this ImportDataset.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this ImportDataset.
+        Detailed description of the dataset.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this ImportDataset.
+
+        Detailed description of the dataset.
+
+        :param description: The description of this ImportDataset.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def kind(self) -> str:
+        return "import"
+
+
+    @property
+    def source_module(self) -> "str":
+        """ Gets the source_module of this ImportDataset.
+        The dataset module being imported.
+        """
+        return self._attrs.get("sourceModule")
+
+    @source_module.setter
+    def source_module(self, source_module: "str"):
+        """Sets the source_module of this ImportDataset.
+
+        The dataset module being imported.
+
+        :param source_module: The source_module of this ImportDataset.
+        :type: str
+        """
+        self._attrs["sourceModule"] = source_module
+
+    @property
+    def source_name(self) -> "str":
+        """ Gets the source_name of this ImportDataset.
+        The dataset name being imported.
+        """
+        return self._attrs.get("sourceName")
+
+    @source_name.setter
+    def source_name(self, source_name: "str"):
+        """Sets the source_name of this ImportDataset.
+
+        The dataset name being imported.
+
+        :param source_name: The source_name of this ImportDataset.
+        :type: str
+        """
+        self._attrs["sourceName"] = source_name
+
+    @property
+    def summary(self) -> "str":
+        """ Gets the summary of this ImportDataset.
+        Summary of the dataset's purpose.
+        """
+        return self._attrs.get("summary")
+
+    @summary.setter
+    def summary(self, summary: "str"):
+        """Sets the summary of this ImportDataset.
+
+        Summary of the dataset's purpose.
+
+        :param summary: The summary of this ImportDataset.
+        :type: str
+        """
+        self._attrs["summary"] = summary
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this ImportDataset.
+        The title of the dataset.  Does not have to be unique.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this ImportDataset.
+
+        The title of the dataset.  Does not have to be unique.
+
+        :param title: The title of this ImportDataset.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this ImportDataset.
+        The catalog version.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this ImportDataset.
+
+        The catalog version.
+
+        :param version: The version of this ImportDataset.
+        :type: int
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+Dataset.from_dict_handlers["import"] = ImportDataset._from_dict

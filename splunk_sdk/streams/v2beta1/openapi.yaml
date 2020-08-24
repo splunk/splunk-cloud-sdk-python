@@ -559,59 +559,6 @@ components:
       type: object
     ObjectNode:
       description: ""
-      properties:
-        array:
-          type: boolean
-        bigDecimal:
-          type: boolean
-        bigInteger:
-          type: boolean
-        binary:
-          type: boolean
-        boolean:
-          type: boolean
-        containerNode:
-          type: boolean
-        double:
-          type: boolean
-        float:
-          type: boolean
-        floatingPointNumber:
-          type: boolean
-        int:
-          type: boolean
-        integralNumber:
-          type: boolean
-        long:
-          type: boolean
-        missingNode:
-          type: boolean
-        nodeType:
-          enum:
-          - ARRAY
-          - BINARY
-          - BOOLEAN
-          - MISSING
-          - "NULL"
-          - NUMBER
-          - OBJECT
-          - POJO
-          - STRING
-          type: string
-        "null":
-          type: boolean
-        number:
-          type: boolean
-        object:
-          type: boolean
-        pojo:
-          type: boolean
-        short:
-          type: boolean
-        textual:
-          type: boolean
-        valueNode:
-          type: boolean
       type: object
     PaginatedResponseOfConnectionResponse:
       description: ""
@@ -996,6 +943,21 @@ components:
         recordsPerPipeline:
           format: int32
           type: integer
+      type: object
+    ReactivatePipelineRequest:
+      description: ""
+      properties:
+        allowNonRestoredState:
+          description: Set to true to allow the pipeline to ignore any unused progress
+            states. In some cases, when a data pipeline is changed, the progress state
+            will be stored for functions that no longer exist, so this must be set
+            to reactivate a pipeline in this state. Defaults to false.
+          type: boolean
+        skipRestoreState:
+          description: Set to true to start reading from the latest input rather than
+            from where the pipeline's previous run left off, which can cause data
+            loss. Defaults to false.
+          type: boolean
       type: object
     Response:
       description: ""
@@ -2215,6 +2177,13 @@ paths:
         required: true
         schema:
           type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReactivatePipelineRequest'
+        description: Request JSON
+        required: false
       responses:
         "200":
           content:
@@ -3098,4 +3067,4 @@ tags:
 - description: V2Beta1 Preview API Endpoints
   name: apiv-2-beta-1-preview-controller
 
-# Retrieved from scp-openapi commit 2552e9a85ce32779e55e91977eddb123f9082103 path: streams/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit 1899bf005088f76091287fccf1b37a5268609818 path: streams/v2beta1/openapi.yaml

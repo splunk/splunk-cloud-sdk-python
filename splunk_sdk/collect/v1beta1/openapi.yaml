@@ -1016,4 +1016,4 @@ paths:
       x-authz-scope: collect.jobs.executions.update
       x-internal: false
 
-# Retrieved from scp-openapi commit 2552e9a85ce32779e55e91977eddb123f9082103 path: collect/v1beta1/openapi.yaml
+# Retrieved from scp-openapi commit 1899bf005088f76091287fccf1b37a5268609818 path: collect/v1beta1/openapi.yaml

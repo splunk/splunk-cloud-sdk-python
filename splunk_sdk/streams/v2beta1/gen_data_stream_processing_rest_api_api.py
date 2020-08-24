@@ -64,6 +64,7 @@ from splunk_sdk.streams.v2beta1.gen_models import PreviewData
 from splunk_sdk.streams.v2beta1.gen_models import PreviewSessionStartRequest
 from splunk_sdk.streams.v2beta1.gen_models import PreviewStartResponse
 from splunk_sdk.streams.v2beta1.gen_models import PreviewState
+from splunk_sdk.streams.v2beta1.gen_models import ReactivatePipelineRequest
 from splunk_sdk.streams.v2beta1.gen_models import Response
 from splunk_sdk.streams.v2beta1.gen_models import SplCompileRequest
 from splunk_sdk.streams.v2beta1.gen_models import TemplatePatchRequest
@@ -677,7 +678,7 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.put(url, json=data, params=query_params)
         return handle_response(response, TemplateResponse)
 
-    def reactivate_pipeline(self, id: str, query_params: Dict[str, object] = None) -> PipelineReactivateResponse:
+    def reactivate_pipeline(self, id: str, reactivate_pipeline_request: ReactivatePipelineRequest = None, query_params: Dict[str, object] = None) -> PipelineReactivateResponse:
         """
         Reactivate a pipeline
         """
@@ -690,7 +691,8 @@ class DataStreamProcessingRESTAPI(BaseService):
 
         path = Template("/streams/v2beta1/pipelines/${id}/reactivate").substitute(path_params)
         url = self.base_client.build_url(path)
-        response = self.base_client.post(url, params=query_params)
+        data = reactivate_pipeline_request.to_dict()
+        response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, PipelineReactivateResponse)
 
     def start_preview(self, preview_session_start_request: PreviewSessionStartRequest, query_params: Dict[str, object] = None) -> PreviewStartResponse:

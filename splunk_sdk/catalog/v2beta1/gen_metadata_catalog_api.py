@@ -43,6 +43,7 @@ from splunk_sdk.catalog.v2beta1.gen_models import Dashboard
 from splunk_sdk.catalog.v2beta1.gen_models import DashboardPATCH
 from splunk_sdk.catalog.v2beta1.gen_models import DashboardPOST
 from splunk_sdk.catalog.v2beta1.gen_models import Dataset
+from splunk_sdk.catalog.v2beta1.gen_models import DatasetGet
 from splunk_sdk.catalog.v2beta1.gen_models import DatasetImportedBy
 from splunk_sdk.catalog.v2beta1.gen_models import DatasetPATCH
 from splunk_sdk.catalog.v2beta1.gen_models import DatasetPOST
@@ -762,7 +763,7 @@ class MetadataCatalog(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, Dashboard)
 
-    def get_dataset(self, datasetresourcename: str, maxstale: int = None, query_params: Dict[str, object] = None) -> Dataset:
+    def get_dataset(self, datasetresourcename: str, maxstale: int = None, query_params: Dict[str, object] = None) -> DatasetGet:
         """
         Returns the dataset with the specified resource name. For the default module, the resource name format is datasetName. Otherwise, the resource name format is module.datasetName.
         """
@@ -778,9 +779,9 @@ class MetadataCatalog(BaseService):
         path = Template("/catalog/v2beta1/datasets/${datasetresourcename}").substitute(path_params)
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
-        return handle_response(response, Dataset)
+        return handle_response(response, DatasetGet)
 
-    def get_dataset_by_id(self, datasetid: str, maxstale: int = None, query_params: Dict[str, object] = None) -> Dataset:
+    def get_dataset_by_id(self, datasetid: str, maxstale: int = None, query_params: Dict[str, object] = None) -> DatasetGet:
         """
         Returns information about the dataset with the specified ID.
         """
@@ -796,7 +797,7 @@ class MetadataCatalog(BaseService):
         path = Template("/catalog/v2beta1/datasets/${datasetid}").substitute(path_params)
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
-        return handle_response(response, Dataset)
+        return handle_response(response, DatasetGet)
 
     def get_field_by_id(self, fieldid: str, query_params: Dict[str, object] = None) -> Field:
         """
@@ -1125,7 +1126,7 @@ class MetadataCatalog(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, Dashboard)
 
-    def list_datasets(self, count: int = None, filter: str = None, maxstale: int = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Dataset]:
+    def list_datasets(self, count: int = None, filter: str = None, maxstale: int = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[DatasetGet]:
         """
         Returns a list of all datasets. Use a filter to return a specific list of datasets.
         """
@@ -1148,7 +1149,7 @@ class MetadataCatalog(BaseService):
         path = Template("/catalog/v2beta1/datasets").substitute(path_params)
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
-        return handle_response(response, Dataset)
+        return handle_response(response, DatasetGet)
 
     def list_fields(self, count: int = None, filter: str = None, offset: int = None, orderby: List[str] = None, query_params: Dict[str, object] = None) -> List[Field]:
         """
