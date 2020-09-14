@@ -1,5 +1,38 @@
 # Splunk Cloud SDK for Python Changelog
 
+## Version 9.0.0
+
+### Library
+
+#### Breaking Changes
+- App Registry
+	- `WebAppFromAppResponseGetList` has been removed
+	- `WebAppPOST`  has been removed
+
+##### Features
+- Catalog
+	- `extract_fields` has been added
+- Search
+    - `extract_fields` has been added
+- Streams
+    - `PaginatedResponseOfCollectJobResponse` has been added
+    - `RulesResponse` has been added
+    - `RulesSourcetypesResponse` has been added
+    - `RulesActionsResponse` has been added
+    - `PaginatedResponseOfRulesResponse` has been added
+    - `PaginatedResponseOfRulesResponse` has been added
+    - `RulesRequest` has been added
+    
+### Services
+
+#### Breaking Changes
+- AppRegistry
+	- Removed support for creating app of type `WebApp`,  
+	
+##### Features
+- Streams
+    - New endpoints for `CreateRulesPackage`, `GetRulesPackage`, `ListRulesPackage`, `ListCollectJobs` have been added
+ 
 ## Version 7.0.0
 
 ### Library
