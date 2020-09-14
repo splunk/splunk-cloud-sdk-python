@@ -1197,6 +1197,9 @@ components:
           description: Should the search produce all fields (including those not explicity
             mentioned in the SPL)?
           type: boolean
+        extractFields:
+          description: The fields to extract. Valid values are all, none, or indexed.
+          type: string
         hasSideEffects:
           description: Did the SPL query cause any side effects on a dataset?
           type: boolean
@@ -5023,4 +5026,4 @@ paths:
         "404":
           description: The workflow run was not found.
 
-# Retrieved from scp-openapi commit 1899bf005088f76091287fccf1b37a5268609818 path: catalog/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit 0946f4bc226a17b28c46e9494b83fff7a8f8720c path: catalog/v2beta1/openapi.yaml

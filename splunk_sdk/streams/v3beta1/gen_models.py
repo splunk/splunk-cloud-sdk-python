@@ -2722,6 +2722,61 @@ class MetricsResponse(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
+class PaginatedResponseOfCollectJobResponse(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "PaginatedResponseOfCollectJobResponse":
+        instance = PaginatedResponseOfCollectJobResponse.__new__(PaginatedResponseOfCollectJobResponse)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, items: "List[CollectJobResponse]" = None, total: "int" = None, **extra):
+        """PaginatedResponseOfCollectJobResponse"""
+
+        self._attrs = dict()
+        if items is not None:
+            self._attrs["items"] = items
+        if total is not None:
+            self._attrs["total"] = total
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def items(self) -> "List[CollectJobResponse]":
+        """ Gets the items of this PaginatedResponseOfCollectJobResponse.
+        """
+        return [CollectJobResponse._from_dict(i) for i in self._attrs.get("items")]
+
+    @items.setter
+    def items(self, items: "List[CollectJobResponse]"):
+        """Sets the items of this PaginatedResponseOfCollectJobResponse.
+
+
+        :param items: The items of this PaginatedResponseOfCollectJobResponse.
+        :type: List[CollectJobResponse]
+        """
+        self._attrs["items"] = items
+
+    @property
+    def total(self) -> "int":
+        """ Gets the total of this PaginatedResponseOfCollectJobResponse.
+        """
+        return self._attrs.get("total")
+
+    @total.setter
+    def total(self, total: "int"):
+        """Sets the total of this PaginatedResponseOfCollectJobResponse.
+
+
+        :param total: The total of this PaginatedResponseOfCollectJobResponse.
+        :type: int
+        """
+        self._attrs["total"] = total
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
 class PaginatedResponseOfConnectionResponse(SSCModel):
 
     @staticmethod
@@ -3574,6 +3629,388 @@ class PaginatedResponseOfPlugin(SSCModel):
 
 
         :param total: The total of this PaginatedResponseOfPlugin.
+        :type: int
+        """
+        self._attrs["total"] = total
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class RulesResponse(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "RulesResponse":
+        instance = RulesResponse.__new__(RulesResponse)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, create_date: "int" = None, create_user_id: "str" = None, description: "str" = None, external_id: "str" = None, last_update_date: "int" = None, last_update_user_id: "str" = None, name: "str" = None, sourcetypes: "Dict[str, RulesSourcetypesResponse]" = None, tenant_id: "str" = None, version: "str" = None, **extra):
+        """RulesResponse"""
+
+        self._attrs = dict()
+        if create_date is not None:
+            self._attrs["createDate"] = create_date
+        if create_user_id is not None:
+            self._attrs["createUserId"] = create_user_id
+        if description is not None:
+            self._attrs["description"] = description
+        if external_id is not None:
+            self._attrs["externalId"] = external_id
+        if last_update_date is not None:
+            self._attrs["lastUpdateDate"] = last_update_date
+        if last_update_user_id is not None:
+            self._attrs["lastUpdateUserId"] = last_update_user_id
+        if name is not None:
+            self._attrs["name"] = name
+        if sourcetypes is not None:
+            self._attrs["sourcetypes"] = sourcetypes
+        if tenant_id is not None:
+            self._attrs["tenantId"] = tenant_id
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def create_date(self) -> "int":
+        """ Gets the create_date of this RulesResponse.
+        """
+        return self._attrs.get("createDate")
+
+    @create_date.setter
+    def create_date(self, create_date: "int"):
+        """Sets the create_date of this RulesResponse.
+
+
+        :param create_date: The create_date of this RulesResponse.
+        :type: int
+        """
+        self._attrs["createDate"] = create_date
+
+    @property
+    def create_user_id(self) -> "str":
+        """ Gets the create_user_id of this RulesResponse.
+        """
+        return self._attrs.get("createUserId")
+
+    @create_user_id.setter
+    def create_user_id(self, create_user_id: "str"):
+        """Sets the create_user_id of this RulesResponse.
+
+
+        :param create_user_id: The create_user_id of this RulesResponse.
+        :type: str
+        """
+        self._attrs["createUserId"] = create_user_id
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this RulesResponse.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this RulesResponse.
+
+
+        :param description: The description of this RulesResponse.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def external_id(self) -> "str":
+        """ Gets the external_id of this RulesResponse.
+        """
+        return self._attrs.get("externalId")
+
+    @external_id.setter
+    def external_id(self, external_id: "str"):
+        """Sets the external_id of this RulesResponse.
+
+
+        :param external_id: The external_id of this RulesResponse.
+        :type: str
+        """
+        self._attrs["externalId"] = external_id
+
+    @property
+    def last_update_date(self) -> "int":
+        """ Gets the last_update_date of this RulesResponse.
+        """
+        return self._attrs.get("lastUpdateDate")
+
+    @last_update_date.setter
+    def last_update_date(self, last_update_date: "int"):
+        """Sets the last_update_date of this RulesResponse.
+
+
+        :param last_update_date: The last_update_date of this RulesResponse.
+        :type: int
+        """
+        self._attrs["lastUpdateDate"] = last_update_date
+
+    @property
+    def last_update_user_id(self) -> "str":
+        """ Gets the last_update_user_id of this RulesResponse.
+        """
+        return self._attrs.get("lastUpdateUserId")
+
+    @last_update_user_id.setter
+    def last_update_user_id(self, last_update_user_id: "str"):
+        """Sets the last_update_user_id of this RulesResponse.
+
+
+        :param last_update_user_id: The last_update_user_id of this RulesResponse.
+        :type: str
+        """
+        self._attrs["lastUpdateUserId"] = last_update_user_id
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this RulesResponse.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this RulesResponse.
+
+
+        :param name: The name of this RulesResponse.
+        :type: str
+        """
+        self._attrs["name"] = name
+
+    @property
+    def sourcetypes(self) -> "Dict[str, RulesSourcetypesResponse]":
+        """ Gets the sourcetypes of this RulesResponse.
+        """
+        return self._attrs.get("sourcetypes")
+
+    @sourcetypes.setter
+    def sourcetypes(self, sourcetypes: "Dict[str, RulesSourcetypesResponse]"):
+        """Sets the sourcetypes of this RulesResponse.
+
+
+        :param sourcetypes: The sourcetypes of this RulesResponse.
+        :type: Dict[str, RulesSourcetypesResponse]
+        """
+        self._attrs["sourcetypes"] = sourcetypes
+
+    @property
+    def tenant_id(self) -> "str":
+        """ Gets the tenant_id of this RulesResponse.
+        """
+        return self._attrs.get("tenantId")
+
+    @tenant_id.setter
+    def tenant_id(self, tenant_id: "str"):
+        """Sets the tenant_id of this RulesResponse.
+
+
+        :param tenant_id: The tenant_id of this RulesResponse.
+        :type: str
+        """
+        self._attrs["tenantId"] = tenant_id
+
+    @property
+    def version(self) -> "str":
+        """ Gets the version of this RulesResponse.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "str"):
+        """Sets the version of this RulesResponse.
+
+
+        :param version: The version of this RulesResponse.
+        :type: str
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class RulesSourcetypesResponse(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "RulesSourcetypesResponse":
+        instance = RulesSourcetypesResponse.__new__(RulesSourcetypesResponse)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, actions: "List[RulesActionsResponse]" = None, definition: "str" = None, description: "str" = None, **extra):
+        """RulesSourcetypesResponse"""
+
+        self._attrs = dict()
+        if actions is not None:
+            self._attrs["actions"] = actions
+        if definition is not None:
+            self._attrs["definition"] = definition
+        if description is not None:
+            self._attrs["description"] = description
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def actions(self) -> "List[RulesActionsResponse]":
+        """ Gets the actions of this RulesSourcetypesResponse.
+        """
+        return [RulesActionsResponse._from_dict(i) for i in self._attrs.get("actions")]
+
+    @actions.setter
+    def actions(self, actions: "List[RulesActionsResponse]"):
+        """Sets the actions of this RulesSourcetypesResponse.
+
+
+        :param actions: The actions of this RulesSourcetypesResponse.
+        :type: List[RulesActionsResponse]
+        """
+        self._attrs["actions"] = actions
+
+    @property
+    def definition(self) -> "str":
+        """ Gets the definition of this RulesSourcetypesResponse.
+        """
+        return self._attrs.get("definition")
+
+    @definition.setter
+    def definition(self, definition: "str"):
+        """Sets the definition of this RulesSourcetypesResponse.
+
+
+        :param definition: The definition of this RulesSourcetypesResponse.
+        :type: str
+        """
+        self._attrs["definition"] = definition
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this RulesSourcetypesResponse.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this RulesSourcetypesResponse.
+
+
+        :param description: The description of this RulesSourcetypesResponse.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class RulesActionsResponse(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "RulesActionsResponse":
+        instance = RulesActionsResponse.__new__(RulesActionsResponse)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, arguments: "object" = None, kind: "str" = None, **extra):
+        """RulesActionsResponse"""
+
+        self._attrs = dict()
+        if arguments is not None:
+            self._attrs["arguments"] = arguments
+        if kind is not None:
+            self._attrs["kind"] = kind
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def arguments(self) -> "dict":
+        """ Gets the arguments of this RulesActionsResponse.
+        """
+        return self._attrs.get("arguments")
+
+    @arguments.setter
+    def arguments(self, arguments: "dict"):
+        """Sets the arguments of this RulesActionsResponse.
+
+
+        :param arguments: The arguments of this RulesActionsResponse.
+        :type: object
+        """
+        self._attrs["arguments"] = arguments
+
+    @property
+    def kind(self) -> "str":
+        """ Gets the kind of this RulesActionsResponse.
+        """
+        return self._attrs.get("kind")
+
+    @kind.setter
+    def kind(self, kind: "str"):
+        """Sets the kind of this RulesActionsResponse.
+
+
+        :param kind: The kind of this RulesActionsResponse.
+        :type: str
+        """
+        self._attrs["kind"] = kind
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class PaginatedResponseOfRulesResponse(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "PaginatedResponseOfRulesResponse":
+        instance = PaginatedResponseOfRulesResponse.__new__(PaginatedResponseOfRulesResponse)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, items: "List[RulesResponse]" = None, total: "int" = None, **extra):
+        """PaginatedResponseOfRulesResponse"""
+
+        self._attrs = dict()
+        if items is not None:
+            self._attrs["items"] = items
+        if total is not None:
+            self._attrs["total"] = total
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def items(self) -> "List[RulesResponse]":
+        """ Gets the items of this PaginatedResponseOfRulesResponse.
+        """
+        return [RulesResponse._from_dict(i) for i in self._attrs.get("items")]
+
+    @items.setter
+    def items(self, items: "List[RulesResponse]"):
+        """Sets the items of this PaginatedResponseOfRulesResponse.
+
+
+        :param items: The items of this PaginatedResponseOfRulesResponse.
+        :type: List[RulesResponse]
+        """
+        self._attrs["items"] = items
+
+    @property
+    def total(self) -> "int":
+        """ Gets the total of this PaginatedResponseOfRulesResponse.
+        """
+        return self._attrs.get("total")
+
+    @total.setter
+    def total(self, total: "int"):
+        """Sets the total of this PaginatedResponseOfRulesResponse.
+
+
+        :param total: The total of this PaginatedResponseOfRulesResponse.
         :type: int
         """
         self._attrs["total"] = total
@@ -4926,6 +5363,237 @@ class Response(SSCModel):
         :type: str
         """
         self._attrs["deactivated"] = deactivated
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class RulesRequest(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "RulesRequest":
+        instance = RulesRequest.__new__(RulesRequest)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, arguments: "object", external_id: "str", kind: "str", name: "str", sourcetype: "str", sourcetype_definition: "str", version: "str", description: "str" = None, rules_description: "str" = None, sourcetype_description: "str" = None, **extra):
+        """RulesRequest"""
+
+        self._attrs = dict()
+        if arguments is not None:
+            self._attrs["arguments"] = arguments
+        if external_id is not None:
+            self._attrs["externalId"] = external_id
+        if kind is not None:
+            self._attrs["kind"] = kind
+        if name is not None:
+            self._attrs["name"] = name
+        if sourcetype is not None:
+            self._attrs["sourcetype"] = sourcetype
+        if sourcetype_definition is not None:
+            self._attrs["sourcetypeDefinition"] = sourcetype_definition
+        if version is not None:
+            self._attrs["version"] = version
+        if description is not None:
+            self._attrs["description"] = description
+        if rules_description is not None:
+            self._attrs["rulesDescription"] = rules_description
+        if sourcetype_description is not None:
+            self._attrs["sourcetypeDescription"] = sourcetype_description
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def arguments(self) -> "dict":
+        """ Gets the arguments of this RulesRequest.
+        The arguments for the rules
+        """
+        return self._attrs.get("arguments")
+
+    @arguments.setter
+    def arguments(self, arguments: "dict"):
+        """Sets the arguments of this RulesRequest.
+
+        The arguments for the rules
+
+        :param arguments: The arguments of this RulesRequest.
+        :type: object
+        """
+        if arguments is None:
+            raise ValueError("Invalid value for `arguments`, must not be `None`")
+        self._attrs["arguments"] = arguments
+
+    @property
+    def external_id(self) -> "str":
+        """ Gets the external_id of this RulesRequest.
+        Unique id of the rules package
+        """
+        return self._attrs.get("externalId")
+
+    @external_id.setter
+    def external_id(self, external_id: "str"):
+        """Sets the external_id of this RulesRequest.
+
+        Unique id of the rules package
+
+        :param external_id: The external_id of this RulesRequest.
+        :type: str
+        """
+        if external_id is None:
+            raise ValueError("Invalid value for `external_id`, must not be `None`")
+        self._attrs["externalId"] = external_id
+
+    @property
+    def kind(self) -> "str":
+        """ Gets the kind of this RulesRequest.
+        Rules kind
+        """
+        return self._attrs.get("kind")
+
+    @kind.setter
+    def kind(self, kind: "str"):
+        """Sets the kind of this RulesRequest.
+
+        Rules kind
+
+        :param kind: The kind of this RulesRequest.
+        :type: str
+        """
+        if kind is None:
+            raise ValueError("Invalid value for `kind`, must not be `None`")
+        self._attrs["kind"] = kind
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this RulesRequest.
+        The name of the rules
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this RulesRequest.
+
+        The name of the rules
+
+        :param name: The name of this RulesRequest.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    @property
+    def sourcetype(self) -> "str":
+        """ Gets the sourcetype of this RulesRequest.
+        The sourcetype that the rules has to be applied
+        """
+        return self._attrs.get("sourcetype")
+
+    @sourcetype.setter
+    def sourcetype(self, sourcetype: "str"):
+        """Sets the sourcetype of this RulesRequest.
+
+        The sourcetype that the rules has to be applied
+
+        :param sourcetype: The sourcetype of this RulesRequest.
+        :type: str
+        """
+        if sourcetype is None:
+            raise ValueError("Invalid value for `sourcetype`, must not be `None`")
+        self._attrs["sourcetype"] = sourcetype
+
+    @property
+    def sourcetype_definition(self) -> "str":
+        """ Gets the sourcetype_definition of this RulesRequest.
+        Sourcetype definition
+        """
+        return self._attrs.get("sourcetypeDefinition")
+
+    @sourcetype_definition.setter
+    def sourcetype_definition(self, sourcetype_definition: "str"):
+        """Sets the sourcetype_definition of this RulesRequest.
+
+        Sourcetype definition
+
+        :param sourcetype_definition: The sourcetype_definition of this RulesRequest.
+        :type: str
+        """
+        if sourcetype_definition is None:
+            raise ValueError("Invalid value for `sourcetype_definition`, must not be `None`")
+        self._attrs["sourcetypeDefinition"] = sourcetype_definition
+
+    @property
+    def version(self) -> "str":
+        """ Gets the version of this RulesRequest.
+        The version of the rules
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "str"):
+        """Sets the version of this RulesRequest.
+
+        The version of the rules
+
+        :param version: The version of this RulesRequest.
+        :type: str
+        """
+        if version is None:
+            raise ValueError("Invalid value for `version`, must not be `None`")
+        self._attrs["version"] = version
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this RulesRequest.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this RulesRequest.
+
+
+        :param description: The description of this RulesRequest.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def rules_description(self) -> "str":
+        """ Gets the rules_description of this RulesRequest.
+        The description of the rules. Defaults to null.
+        """
+        return self._attrs.get("rulesDescription")
+
+    @rules_description.setter
+    def rules_description(self, rules_description: "str"):
+        """Sets the rules_description of this RulesRequest.
+
+        The description of the rules. Defaults to null.
+
+        :param rules_description: The rules_description of this RulesRequest.
+        :type: str
+        """
+        self._attrs["rulesDescription"] = rules_description
+
+    @property
+    def sourcetype_description(self) -> "str":
+        """ Gets the sourcetype_description of this RulesRequest.
+        Sourcetype description
+        """
+        return self._attrs.get("sourcetypeDescription")
+
+    @sourcetype_description.setter
+    def sourcetype_description(self, sourcetype_description: "str"):
+        """Sets the sourcetype_description of this RulesRequest.
+
+        Sourcetype description
+
+        :param sourcetype_description: The sourcetype_description of this RulesRequest.
+        :type: str
+        """
+        self._attrs["sourcetypeDescription"] = sourcetype_description
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}

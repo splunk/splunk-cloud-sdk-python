@@ -7549,7 +7549,7 @@ class JobDatasetGET(DatasetGet):
         instance._attrs = model
         return instance
 
-    def __init__(self, name: "str", collect_event_summary: "bool" = None, collect_field_summary: "bool" = None, collect_time_buckets: "bool" = None, completion_time: "str" = None, delete_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = None, execution_time: "float" = None, extract_all_fields: "bool" = None, fields: "List[FieldPOST]" = None, has_side_effects: "bool" = None, id: "str" = None, max_time: "int" = None, module: "str" = None, parameters: "object" = None, parent: "str" = None, percent_complete: "int" = None, query: "str" = None, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = None, search_head: "str" = None, sid: "str" = None, spl: "str" = None, status: "str" = None, timeline_metadata: "JobDatasetPropertiesTimelineMetadata" = None, **extra):
+    def __init__(self, name: "str", collect_event_summary: "bool" = None, collect_field_summary: "bool" = None, collect_time_buckets: "bool" = None, completion_time: "str" = None, delete_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = None, execution_time: "float" = None, extract_all_fields: "bool" = None, extract_fields: "str" = None, fields: "List[FieldPOST]" = None, has_side_effects: "bool" = None, id: "str" = None, max_time: "int" = None, module: "str" = None, parameters: "object" = None, parent: "str" = None, percent_complete: "int" = None, query: "str" = None, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = None, search_head: "str" = None, sid: "str" = None, spl: "str" = None, status: "str" = None, timeline_metadata: "JobDatasetPropertiesTimelineMetadata" = None, **extra):
         """JobDatasetGET"""
 
         self._attrs = dict()
@@ -7573,6 +7573,8 @@ class JobDatasetGET(DatasetGet):
             self._attrs["executionTime"] = execution_time
         if extract_all_fields is not None:
             self._attrs["extractAllFields"] = extract_all_fields
+        if extract_fields is not None:
+            self._attrs["extractFields"] = extract_fields
         if fields is not None:
             self._attrs["fields"] = fields
         if has_side_effects is not None:
@@ -7792,6 +7794,24 @@ class JobDatasetGET(DatasetGet):
         :type: bool
         """
         self._attrs["extractAllFields"] = extract_all_fields
+
+    @property
+    def extract_fields(self) -> "str":
+        """ Gets the extract_fields of this JobDatasetGET.
+        The fields to extract. Valid values are all, none, or indexed.
+        """
+        return self._attrs.get("extractFields")
+
+    @extract_fields.setter
+    def extract_fields(self, extract_fields: "str"):
+        """Sets the extract_fields of this JobDatasetGET.
+
+        The fields to extract. Valid values are all, none, or indexed.
+
+        :param extract_fields: The extract_fields of this JobDatasetGET.
+        :type: str
+        """
+        self._attrs["extractFields"] = extract_fields
 
     @property
     def fields(self) -> "List[FieldPOST]":

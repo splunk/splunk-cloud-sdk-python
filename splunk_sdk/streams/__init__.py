@@ -62,6 +62,7 @@ from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     LookupTableResponse, \
     NodeMetrics, \
     MetricsResponse, \
+    PaginatedResponseOfCollectJobResponse, \
     PaginatedResponseOfConnectionResponse, \
     PaginatedResponseOfConnectorResponse, \
     PipelineJobStatus, \
@@ -70,6 +71,10 @@ from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     PaginatedResponseOfPipelineResponse, \
     Plugin, \
     PaginatedResponseOfPlugin, \
+    RulesResponse, \
+    RulesSourcetypesResponse, \
+    RulesActionsResponse, \
+    PaginatedResponseOfRulesResponse, \
     TemplateResponse, \
     PaginatedResponseOfTemplateResponse, \
     PipelinePatchRequest, \
@@ -86,6 +91,7 @@ from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     ReactivatePipelineRequest, \
     RegistryModel, \
     Response, \
+    RulesRequest, \
     SplCompileRequest, \
     TemplatePatchRequest, \
     TemplatePutRequest, \

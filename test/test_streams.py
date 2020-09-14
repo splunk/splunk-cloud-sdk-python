@@ -21,7 +21,7 @@ from splunk_sdk.streams import DataStreamProcessingRESTAPI as Streams
 from splunk_sdk.streams import SplCompileRequest, Pipeline, RegistryModel, \
     PipelineRequest, PipelineResponse, \
     PaginatedResponseOfPipelineResponse, ActivatePipelineRequest, \
-    DeactivatePipelineRequest, PipelineReactivateResponse, ValidateRequest, \
+    DeactivatePipelineRequest, ReactivatePipelineRequest, PipelineReactivateResponse, ValidateRequest, \
     PaginatedResponseOfPipelineJobStatus, GetInputSchemaRequest, GetOutputSchemaRequest, FunctionModel, \
     PreviewState, PreviewSessionStartRequest, UplType, TemplateRequest, \
     MetricsResponse, TemplatePatchRequest, \
@@ -182,7 +182,7 @@ def test_pipeline_operations(test_client):
             assert (deactivate_data is not None)
 
         # reactivate pipelines
-        prr = streams.reactivate_pipeline(pipe_resp.id)
+        prr = streams.reactivate_pipeline(pipe_resp.id, reactivate_pipeline_request=ReactivatePipelineRequest())
         assert (prr is not None)
         assert (isinstance(prr, PipelineReactivateResponse))
         assert (prr.pipeline_reactivation_status in

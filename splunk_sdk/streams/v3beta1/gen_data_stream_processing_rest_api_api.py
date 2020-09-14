@@ -51,11 +51,13 @@ from splunk_sdk.streams.v3beta1.gen_models import GetInputSchemaRequest
 from splunk_sdk.streams.v3beta1.gen_models import GetOutputSchemaRequest
 from splunk_sdk.streams.v3beta1.gen_models import LookupTableResponse
 from splunk_sdk.streams.v3beta1.gen_models import MetricsResponse
+from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfCollectJobResponse
 from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfConnectionResponse
 from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfConnectorResponse
 from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfPipelineJobStatus
 from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfPipelineResponse
 from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfPlugin
+from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfRulesResponse
 from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfTemplateResponse
 from splunk_sdk.streams.v3beta1.gen_models import Pipeline
 from splunk_sdk.streams.v3beta1.gen_models import PipelinePatchRequest
@@ -72,6 +74,8 @@ from splunk_sdk.streams.v3beta1.gen_models import PreviewState
 from splunk_sdk.streams.v3beta1.gen_models import ReactivatePipelineRequest
 from splunk_sdk.streams.v3beta1.gen_models import RegistryModel
 from splunk_sdk.streams.v3beta1.gen_models import Response
+from splunk_sdk.streams.v3beta1.gen_models import RulesRequest
+from splunk_sdk.streams.v3beta1.gen_models import RulesResponse
 from splunk_sdk.streams.v3beta1.gen_models import SplCompileRequest
 from splunk_sdk.streams.v3beta1.gen_models import TemplatePatchRequest
 from splunk_sdk.streams.v3beta1.gen_models import TemplatePutRequest
@@ -173,6 +177,22 @@ class DataStreamProcessingRESTAPI(BaseService):
         data = pipeline_request.to_dict()
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, PipelineResponse)
+
+    def create_rules_package(self, rules_request: RulesRequest, query_params: Dict[str, object] = None) -> RulesResponse:
+        """
+        Creates a new RulesPackage
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/streams/v3beta1/rules").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = rules_request.to_dict()
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, RulesResponse)
 
     def create_template(self, template_request: TemplateRequest, query_params: Dict[str, object] = None) -> TemplateResponse:
         """
@@ -571,6 +591,22 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, RegistryModel)
 
+    def get_rules_package(self, external_id: str, query_params: Dict[str, object] = None) -> RulesResponse:
+        """
+        Returns the rules package with specific id
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "externalId": external_id,
+        }
+
+        path = Template("/streams/v3beta1/rules/${externalId}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, RulesResponse)
+
     def get_template(self, template_id: str, version: int = None, query_params: Dict[str, object] = None) -> TemplateResponse:
         """
         Returns an individual template by version.
@@ -588,6 +624,21 @@ class DataStreamProcessingRESTAPI(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, TemplateResponse)
+
+    def list_collect_jobs(self, query_params: Dict[str, object] = None) -> PaginatedResponseOfCollectJobResponse:
+        """
+        Get all collect jobs.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/streams/v3beta1/collect-jobs").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, PaginatedResponseOfCollectJobResponse)
 
     def list_connections(self, connector_id: List[str] = None, create_user_id: str = None, function_id: str = None, name: str = None, offset: int = None, page_size: int = None, show_secret_names: str = None, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> PaginatedResponseOfConnectionResponse:
         """
@@ -667,6 +718,25 @@ class DataStreamProcessingRESTAPI(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, PaginatedResponseOfPipelineResponse)
+
+    def list_rules_packages(self, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> PaginatedResponseOfRulesResponse:
+        """
+        Returns all rules packages.
+        """
+        if query_params is None:
+            query_params = {}
+        if sort_dir is not None:
+            query_params['sortDir'] = sort_dir
+        if sort_field is not None:
+            query_params['sortField'] = sort_field
+
+        path_params = {
+        }
+
+        path = Template("/streams/v3beta1/rules").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, PaginatedResponseOfRulesResponse)
 
     def list_templates(self, offset: int = None, page_size: int = None, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> PaginatedResponseOfTemplateResponse:
         """

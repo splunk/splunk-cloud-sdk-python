@@ -12,7 +12,7 @@ import pytest
 
 from time import time
 
-from splunk_sdk.app_registry import CreateAppRequest, UpdateAppRequest, AppRegistry, AppName, WebAppPOST
+from splunk_sdk.app_registry import CreateAppRequest, UpdateAppRequest, AppRegistry, AppName, NativeAppPOST
 from splunk_sdk.base_client import BaseClient
 from test.fixtures import get_test_client as test_client  # NOQA
 
@@ -28,8 +28,8 @@ def test_crud_app(test_client: BaseClient):
         app_title = "psdk-" + app_name + "-" + secs
         redirect_urls = ["https://localhost"]
 
-        app = appregistry.create_app(WebAppPOST(
-            kind="web",
+        app = appregistry.create_app(NativeAppPOST(
+            kind="native",
             name=app_name,
             title=app_title,
             redirect_urls=redirect_urls,
@@ -42,7 +42,7 @@ def test_crud_app(test_client: BaseClient):
 
         app_ret = appregistry.get_app(app_name)
         assert(app_ret.name == app_name)
-        assert(app_ret.kind == "web")
+        assert(app_ret.kind == "native")
 
         description = "A New Description"
         redirect_urls = ["https://somewhereelse"]
@@ -55,7 +55,7 @@ def test_crud_app(test_client: BaseClient):
 
         app_ret = appregistry.get_app(app_name)
         assert(app_ret.name == app_name)
-        assert(app_ret.kind == "web")
+        assert(app_ret.kind == "native")
         assert(app_ret.title == app_title)
         assert(app_ret.description == description)
 
@@ -73,8 +73,8 @@ def test_app_rotate_secret(test_client: BaseClient):
         app_title = "psdk-" + app_name + "-" + secs
         redirect_urls = ["https://localhost"]
 
-        app = appregistry.create_app(WebAppPOST(
-            kind="web",
+        app = appregistry.create_app(NativeAppPOST(
+            kind="native",
             name=app_name,
             title=app_title,
             redirect_urls=redirect_urls,
@@ -99,7 +99,7 @@ def test_subscriptions(test_client: BaseClient):
         app_title = "psdk-" + app_name + "-" + secs
         redirect_urls = ["https://localhost"]
 
-        app = appregistry.create_app(WebAppPOST(
+        app = appregistry.create_app(NativeAppPOST(
             name=app_name,
             title=app_title,
             redirect_urls=redirect_urls,

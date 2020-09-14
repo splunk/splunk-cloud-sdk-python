@@ -233,7 +233,7 @@ class DeleteSearchJob(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, index: "str", module: "str", predicate: "str", allow_side_effects: "bool" = True, collect_event_summary: "bool" = False, collect_field_summary: "bool" = False, collect_time_buckets: "bool" = False, completion_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = False, extract_all_fields: "bool" = False, max_time: "int" = 3600, messages: "List[Message]" = None, name: "str" = None, percent_complete: "int" = 0, preview_available: "str" = 'false', query: "str" = None, query_parameters: "QueryParameters" = None, required_freshness: "int" = 0, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = 0, results_preview_available: "int" = 0, sid: "str" = None, status: "SearchStatus" = None, **extra):
+    def __init__(self, index: "str", module: "str", predicate: "str", allow_side_effects: "bool" = True, collect_event_summary: "bool" = False, collect_field_summary: "bool" = False, collect_time_buckets: "bool" = False, completion_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = False, extract_all_fields: "bool" = False, extract_fields: "str" = '', max_time: "int" = 3600, messages: "List[Message]" = None, name: "str" = None, percent_complete: "int" = 0, preview_available: "str" = 'false', query: "str" = None, query_parameters: "QueryParameters" = None, required_freshness: "int" = 0, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = 0, results_preview_available: "int" = 0, sid: "str" = None, status: "SearchStatus" = None, **extra):
         """DeleteSearchJob"""
 
         self._attrs = dict()
@@ -259,6 +259,8 @@ class DeleteSearchJob(SSCModel):
             self._attrs["enablePreview"] = enable_preview
         if extract_all_fields is not None:
             self._attrs["extractAllFields"] = extract_all_fields
+        if extract_fields is not None:
+            self._attrs["extractFields"] = extract_fields
         if max_time is not None:
             self._attrs["maxTime"] = max_time
         if messages is not None:
@@ -479,7 +481,7 @@ class DeleteSearchJob(SSCModel):
     @property
     def extract_all_fields(self) -> "bool":
         """ Gets the extract_all_fields of this DeleteSearchJob.
-        Specifies whether the Search service should extract all of the available fields in the data, including fields not mentioned in the SPL for the search job. Set to 'false' for better search peformance. 
+        Specifies whether the Search service should extract all of the available fields in the data, including fields not mentioned in the SPL for the search job. Set to 'false' for better search performance. The 'extractAllFields' parameter is deprecated as of version v3alpha1. Although this parameter continues to function, it might be removed in a future version. Use the 'extractFields' parameter instead. 
         """
         return self._attrs.get("extractAllFields")
 
@@ -487,12 +489,30 @@ class DeleteSearchJob(SSCModel):
     def extract_all_fields(self, extract_all_fields: "bool"):
         """Sets the extract_all_fields of this DeleteSearchJob.
 
-        Specifies whether the Search service should extract all of the available fields in the data, including fields not mentioned in the SPL for the search job. Set to 'false' for better search peformance. 
+        Specifies whether the Search service should extract all of the available fields in the data, including fields not mentioned in the SPL for the search job. Set to 'false' for better search performance. The 'extractAllFields' parameter is deprecated as of version v3alpha1. Although this parameter continues to function, it might be removed in a future version. Use the 'extractFields' parameter instead. 
 
         :param extract_all_fields: The extract_all_fields of this DeleteSearchJob.
         :type: bool
         """
         self._attrs["extractAllFields"] = extract_all_fields
+
+    @property
+    def extract_fields(self) -> "str":
+        """ Gets the extract_fields of this DeleteSearchJob.
+        Specifies how the Search service should extract fields. Valid values include 'all', 'none', or 'indexed'. 'all' will extract all fields, 'indexed' will extract only indexed fields, and 'none' will extract only the default fields. This parameter overwrites the value of the 'extractAllFields' parameter. Set to 'none' for better search performance. 
+        """
+        return self._attrs.get("extractFields")
+
+    @extract_fields.setter
+    def extract_fields(self, extract_fields: "str"):
+        """Sets the extract_fields of this DeleteSearchJob.
+
+        Specifies how the Search service should extract fields. Valid values include 'all', 'none', or 'indexed'. 'all' will extract all fields, 'indexed' will extract only indexed fields, and 'none' will extract only the default fields. This parameter overwrites the value of the 'extractAllFields' parameter. Set to 'none' for better search performance. 
+
+        :param extract_fields: The extract_fields of this DeleteSearchJob.
+        :type: str
+        """
+        self._attrs["extractFields"] = extract_fields
 
     @property
     def max_time(self) -> "int":
@@ -1563,7 +1583,7 @@ class SearchJob(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, query: "str", allow_side_effects: "bool" = False, collect_event_summary: "bool" = False, collect_field_summary: "bool" = False, collect_time_buckets: "bool" = False, completion_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = False, extract_all_fields: "bool" = False, max_time: "int" = 3600, messages: "List[Message]" = None, module: "str" = '', name: "str" = None, percent_complete: "int" = 0, preview_available: "str" = 'false', query_parameters: "QueryParameters" = None, required_freshness: "int" = 0, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = 0, results_preview_available: "int" = 0, sid: "str" = None, status: "SearchStatus" = None, **extra):
+    def __init__(self, query: "str", allow_side_effects: "bool" = False, collect_event_summary: "bool" = False, collect_field_summary: "bool" = False, collect_time_buckets: "bool" = False, completion_time: "str" = None, dispatch_time: "str" = None, enable_preview: "bool" = False, extract_all_fields: "bool" = False, extract_fields: "str" = '', max_time: "int" = 3600, messages: "List[Message]" = None, module: "str" = '', name: "str" = None, percent_complete: "int" = 0, preview_available: "str" = 'false', query_parameters: "QueryParameters" = None, required_freshness: "int" = 0, resolved_earliest: "str" = None, resolved_latest: "str" = None, results_available: "int" = 0, results_preview_available: "int" = 0, sid: "str" = None, status: "SearchStatus" = None, **extra):
         """SearchJob"""
 
         self._attrs = dict()
@@ -1585,6 +1605,8 @@ class SearchJob(SSCModel):
             self._attrs["enablePreview"] = enable_preview
         if extract_all_fields is not None:
             self._attrs["extractAllFields"] = extract_all_fields
+        if extract_fields is not None:
+            self._attrs["extractFields"] = extract_fields
         if max_time is not None:
             self._attrs["maxTime"] = max_time
         if messages is not None:
@@ -1765,7 +1787,7 @@ class SearchJob(SSCModel):
     @property
     def extract_all_fields(self) -> "bool":
         """ Gets the extract_all_fields of this SearchJob.
-        Specifies whether the Search service should extract all of the available fields in the data,  including fields not mentioned in the SPL for the search job.  Set to 'false' for better search performance. 
+        Specifies whether the Search service should extract all of the available fields in the data,  including fields not mentioned in the SPL for the search job.  Set to 'false' for better search performance. The 'extractAllFields' parameter is deprecated as of version v3alpha1. Although this parameter continues to function, it might be removed in a future version. Use the 'extractFields' parameter instead. 
         """
         return self._attrs.get("extractAllFields")
 
@@ -1773,12 +1795,30 @@ class SearchJob(SSCModel):
     def extract_all_fields(self, extract_all_fields: "bool"):
         """Sets the extract_all_fields of this SearchJob.
 
-        Specifies whether the Search service should extract all of the available fields in the data,  including fields not mentioned in the SPL for the search job.  Set to 'false' for better search performance. 
+        Specifies whether the Search service should extract all of the available fields in the data,  including fields not mentioned in the SPL for the search job.  Set to 'false' for better search performance. The 'extractAllFields' parameter is deprecated as of version v3alpha1. Although this parameter continues to function, it might be removed in a future version. Use the 'extractFields' parameter instead. 
 
         :param extract_all_fields: The extract_all_fields of this SearchJob.
         :type: bool
         """
         self._attrs["extractAllFields"] = extract_all_fields
+
+    @property
+    def extract_fields(self) -> "str":
+        """ Gets the extract_fields of this SearchJob.
+        Specifies how the Search service should extract fields. Valid values include 'all', 'none', or 'indexed'. 'all' will extract all fields, 'indexed' will extract only indexed fields, and 'none' will extract only the default fields. This parameter overwrites the value of the 'extractAllFields' parameter. Set to 'none' for better search performance. 
+        """
+        return self._attrs.get("extractFields")
+
+    @extract_fields.setter
+    def extract_fields(self, extract_fields: "str"):
+        """Sets the extract_fields of this SearchJob.
+
+        Specifies how the Search service should extract fields. Valid values include 'all', 'none', or 'indexed'. 'all' will extract all fields, 'indexed' will extract only indexed fields, and 'none' will extract only the default fields. This parameter overwrites the value of the 'extractAllFields' parameter. Set to 'none' for better search performance. 
+
+        :param extract_fields: The extract_fields of this SearchJob.
+        :type: str
+        """
+        self._attrs["extractFields"] = extract_fields
 
     @property
     def max_time(self) -> "int":
