@@ -32,7 +32,27 @@
 ##### Features
 - Streams
     - New endpoints for `CreateRulesPackage`, `GetRulesPackage`, `ListRulesPackage`, `ListCollectJobs` have been added
- 
+
+## Version 8.0.0
+
+#### Breaking Changes
+- Catalog service v2beta1: get_dataset, get_dataset_by_id and list_datasets endpoints now return data type of DatasetGet instead of Dataset
+- Identify service v2beta1: remove endpoint of set_principal_public_keys
+
+- Kvstore service v1beta1: insert_records endpoint has a new parameter of allow_updates
+
+- Stream service v3beta1: 
+    - Remove endpoint: uploadPlugin
+    - reactivate_pipeline  has a new parameter of reactivate_pipeline_request
+
+
+#### Non-Breaking Changes
+- Identify service v2beta1: 
+    - new endpoints added: add_principal_public_key, get_principal_public_key, get_principal_public_keys, delete_principal_public_key, and update_principal_public_key 
+
+- Stream service v3beta1: 
+    - new endpoints added: startCollectJob,stopCollectJob
+
 ## Version 7.0.0
 
 ### Library
