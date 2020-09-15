@@ -33,6 +33,7 @@
 - Streams
     - New endpoints for `CreateRulesPackage`, `GetRulesPackage`, `ListRulesPackage`, `ListCollectJobs` have been added
 
+
 ## Version 8.0.0
 
 #### Breaking Changes
@@ -52,6 +53,7 @@
 
 - Stream service v3beta1: 
     - new endpoints added: startCollectJob,stopCollectJob
+
 
 ## Version 7.0.0
 
