@@ -12,9 +12,10 @@ import os
 import pytest
 
 from test.auth.test_auth_manager import \
-    _assert_client_credentials_auth_context, _assert_pkce_auth_context  # NOQA
+    _assert_client_credentials_auth_context, _assert_pkce_auth_context, _assert_sp_credentials_auth_context  # NOQA
 from test.fixtures import get_auth_manager as pkce_auth_manager  # NOQA
 from test.fixtures import get_client_auth_manager as client_auth_manager  # NOQA
+from test.fixtures import get_service_principal_auth_manager as service_principal_auth_manager  # NOQA
 from splunk_sdk.common.context import Context
 from splunk_sdk.base_client import BaseClient
 from splunk_sdk.identity import Identity as IdentityAndAccessControl
@@ -83,3 +84,14 @@ def test_base_client_instance_with_client_auth(client_auth_manager):
     assert (default_config is not None)
     assert (base_client is not None)
     _assert_client_credentials_auth_context(base_client.auth_manager.context)
+
+
+@pytest.mark.usefixtures("service_principal_auth_manager")  # NOQA
+def test_base_client_instance_with_sp_auth(service_principal_auth_manager):
+    """Get a base client with a context and a client auth manager."""
+    default_config = Context()
+    base_client = BaseClient(context=default_config,
+                             auth_manager=service_principal_auth_manager)
+    assert (default_config is not None)
+    assert (base_client is not None)
+    _assert_sp_credentials_auth_context(base_client.auth_manager.context)

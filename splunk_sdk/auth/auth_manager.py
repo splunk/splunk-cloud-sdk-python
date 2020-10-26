@@ -12,10 +12,12 @@
 import base64
 import hashlib
 import json
+import jwt
 import os
 import urllib
 import time
-from datetime import datetime
+import uuid
+from datetime import datetime, timezone, timedelta
 from abc import ABC, abstractmethod
 from typing import Optional
 
@@ -428,6 +430,7 @@ class TokenAuthManager(AuthManager):
     def authenticate(self) -> AuthContext:
         return self._context
 
+
 class RefreshTokenAuthManager(AuthManager):
     def __init__(self, client_id, refresh_token, host, scope="openid", requests_hooks=None):
         super().__init__(host, client_id, requests_hooks=requests_hooks)
@@ -447,4 +450,48 @@ class RefreshTokenAuthManager(AuthManager):
         }
 
         response = self._post_token(**data)
+        return AuthContext(**response.json())
+
+
+class ServicePrincipalAuthManager(AuthManager):
+    def __init__(self, host, principal_name, key, kid, algorithm="ES256", **kwargs):
+        """
+        Creates an AuthManager that uses Service Principals to authenticate.
+
+        principal_name is the principal_name of the authenticating service principal
+        key is the PEM formatted private key registered with the service principal
+        kid is the key_id of `key`
+        algorithm is the algorithm that generated `key`
+        """
+        super().__init__(host=host, client_id=None, **kwargs)
+        self._principal_name = principal_name
+        self._key = key
+        self._kid = kid
+        self._algorithm = algorithm
+
+    def authenticate(self):
+        """Authenticate using the "client assertion" flow."""
+        if not self._principal_name:
+            raise ValueError("missing principal_name")
+        if not self._key:
+            raise ValueError("missing key")
+        if not self._kid:
+            raise ValueError("missing kid")
+        if not self._algorithm:
+            raise ValueError("missing algorithm")
+
+        # Client assertion expires in 10 minutes
+        ten_minutes_from_now = datetime.now(timezone.utc) + timedelta(minutes=10)
+        jwt_payload = {"sub": self._principal_name, "iss": self._principal_name, "jti": str(uuid.uuid4()),
+                       "exp": int(ten_minutes_from_now.timestamp()), "aud": [self._url(PATH_TOKEN)]}
+
+        client_assertion = jwt.encode(payload=jwt_payload, key=self._key, algorithm=self._algorithm,
+                                      headers={"kid": self._kid})
+
+        data = {"grant_type": "client_credentials", "client_assertion": client_assertion.decode("utf-8"),
+                "client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"}
+
+        response = self._post_token(**data)
+        if response.status_code != 200:
+            raise AuthnError("Unable to authenticate. Check credentials.", response)
         return AuthContext(**response.json())

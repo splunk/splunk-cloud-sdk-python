@@ -13,7 +13,7 @@ import os
 import pytest
 import sys
 
-from splunk_sdk.auth import ClientAuthManager, PKCEAuthManager
+from splunk_sdk.auth import ClientAuthManager, PKCEAuthManager, ServicePrincipalAuthManager
 from splunk_sdk.common.context import Context
 from splunk_sdk.base_client import get_client
 
@@ -139,6 +139,13 @@ def get_client_auth_manager():
     return auth_manager
 
 
+@pytest.fixture(scope='session')
+def get_service_principal_auth_manager():
+    auth_manager = _get_principal_manager()
+    assert (auth_manager is not None)
+    return auth_manager
+
+
 def _get_pkce_manager():
     return PKCEAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST'),
                            client_id=os.environ.get('SPLUNK_APP_CLIENT_ID'),
@@ -154,3 +161,11 @@ def _get_client_manager():
                              client_secret=os.environ.get(
                                  'SPLUNK_APP_CLIENT_CRED_SECRET'),
                              scope=os.environ.get('SPLUNK_SCOPE'))
+
+
+def _get_principal_manager():
+    return ServicePrincipalAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST'),
+                                       principal_name=os.environ.get('SPLUNK_APP_PRINCIPAL_NAME'),
+                                       key=os.environ.get('SPLUNK_APP_PRINCIPAL_PRIVATE_KEY'),
+                                       kid=os.environ.get('SPLUNK_APP_PRINCIPAL_KEY_ID'),
+                                       algorithm=os.environ.get('SPLUNK_APP_PRINCIPAL_KEY_ALG'))
