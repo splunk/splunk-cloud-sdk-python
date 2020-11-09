@@ -273,4 +273,20 @@ class KVStoreAPI(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, object)
 
+    def truncate_records(self, collection: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
+        """
+        Deletes all the records in a collection.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "collection": collection,
+        }
+
+        path = Template("/kvstore/v1beta1/collections/${collection}/truncate").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.delete(url, params=query_params)
+        return handle_response(response, )
+
 

@@ -36,6 +36,8 @@ from splunk_sdk.streams.v3beta1.gen_data_stream_processing_rest_api_api import D
 # import models into sdk package
 from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     ArgumentModel, \
+    CollectJobSchedule, \
+    CollectJobPatchRequest, \
     CollectJobRequest, \
     CollectJobResponse, \
     CollectJobStartStopResponse, \
@@ -46,6 +48,10 @@ from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     ConnectionResponse, \
     ConnectionSaveResponse, \
     ConnectorResponse, \
+    DataStream, \
+    DataStreamProperties, \
+    DataStreamRequest, \
+    DataStreamResponse, \
     DeactivatePipelineRequest, \
     Pipeline, \
     PipelineEdge, \
@@ -53,6 +59,8 @@ from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     PipelineMigrationInfo, \
     DecompileRequest, \
     DecompileResponse, \
+    EntitlementRequest, \
+    EntitlementResponse, \
     ErrorResponse, \
     UploadFile, \
     FilesMetaDataResponse, \
@@ -71,9 +79,11 @@ from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     PaginatedResponseOfPipelineResponse, \
     Plugin, \
     PaginatedResponseOfPlugin, \
+    RulesKind, \
+    PaginatedResponseOfRulesKind, \
     RulesResponse, \
-    RulesSourcetypesResponse, \
-    RulesActionsResponse, \
+    RulesPackageSourcetypes, \
+    RulesPackageActions, \
     PaginatedResponseOfRulesResponse, \
     TemplateResponse, \
     PaginatedResponseOfTemplateResponse, \
@@ -82,6 +92,7 @@ from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     PipelineRequest, \
     PluginPatchRequest, \
     PluginRequest, \
+    PluginResponse, \
     PreviewNode, \
     RuleMetrics, \
     PreviewData, \

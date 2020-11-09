@@ -41,11 +41,13 @@ from splunk_sdk.search.v3alpha1.gen_models import Message, \
     SingleFieldSummary, \
     SingleValueMode, \
     FieldsSummary, \
-    ListSearchResultsResponseFields, \
+    ListPreviewResultsResponseFields, \
     ListPreviewResultsResponse, \
     ListSearchResultsResponse, \
     RecurringSearch, \
     SearchJob, \
+    SingleStatementQueryParameters, \
+    SearchModule, \
     SingleTimeBucket, \
     TimeBucketsSummary, \
     UpdateJob, \

@@ -157,8 +157,7 @@ components:
             $ref: '#/components/schemas/Message'
           type: array
         module:
-          description: The module to run the delete search job in. The default module
-            is used if module field is empty.
+          description: The module to run the delete search job in. The default module is used if module field is empty.
           type: string
         name:
           description: The name of the created search job.
@@ -167,31 +166,25 @@ components:
           type: string
         percentComplete:
           default: 0
-          description: An estimate of the percent of time remaining before the delete
-            search job completes.
+          description: An estimate of the percent of time remaining before the delete search job completes.
           readOnly: true
           type: integer
         predicate:
-          description: The predicate expression that identifies the events to delete
-            from the index. This expression must return true or false. To delete all
-            events from the index, specify "true" instead of an expression.
+          description: The predicate expression that identifies the events to delete from the index. This expression must return true or false. To delete all events from the index, specify "true" instead of an expression.
           type: string
         previewAvailable:
           default: false
-          description: This field does not apply to delete search jobs and is defaulted
-            to false.
+          description: This field does not apply to delete search jobs and is defaulted to false.
           readOnly: true
           type: string
         query:
-          description: The SPL search string that is generated based on index, module
-            and predicate that are specified.
+          description: The SPL search string that is generated based on index, module and predicate that are specified.
           readOnly: true
           type: string
         queryParameters:
           allOf:
           - $ref: '#/components/schemas/QueryParameters'
-          description: Represents parameters on the search job such as 'earliest'
-            and 'latest'.
+          description: Represents parameters on the search job such as 'earliest' and 'latest'.
         requiredFreshness:
           default: 0
           description: |
@@ -210,14 +203,12 @@ components:
           type: string
         resultsAvailable:
           default: 0
-          description: The number of results produced so far by the delete search
-            job that are going to be deleted.
+          description: The number of results produced so far by the delete search job that are going to be deleted.
           readOnly: true
           type: integer
         resultsPreviewAvailable:
           default: 0
-          description: This field does not apply to delete search jobs and is defaulted
-            to 0.
+          description: This field does not apply to delete search jobs and is defaulted to 0.
           readOnly: true
           type: integer
         sid:
@@ -268,6 +259,49 @@ components:
           description: |
             If specified, the latest timestamp in UTC format  of the events to process.
           type: string
+      type: object
+    ListPreviewResultsResponse:
+      description: |
+        The structure of the preview search results that is returned  for the job with the specified search ID (sid). When a search is running,  it might return incomplete or truncated search results. The 'isPreviewStable'  property indicates whether the returned preview results stucture is stable or not. Truncated preview results occur because the number of requested results  exceeds the page limit. Follow the 'nextLink' URL to retrieve the next page of results.
+      properties:
+        fields:
+          items:
+            properties:
+              dataSource:
+                type: string
+              groupbyRank:
+                type: string
+              name:
+                type: string
+              splitField:
+                type: string
+              splitValue:
+                type: string
+              splitbySpecial:
+                type: string
+              typeSpecial:
+                type: string
+            required:
+            - name
+            type: object
+          type: array
+        isPreviewStable:
+          type: boolean
+        messages:
+          items:
+            $ref: '#/components/schemas/Message'
+          type: array
+        nextLink:
+          type: string
+        results:
+          items:
+            type: object
+          type: array
+        wait:
+          type: string
+      required:
+      - results
+      - isPreviewStable
       type: object
     ListSearchResultsResponse:
       description: |
@@ -339,7 +373,7 @@ components:
         relativeTimeAnchor:
           default: The system time when the search job is created.
           description: |
-            Relative values for the 'earliest' and 'latest' parameters  snap to the unit that you specify.  For example, if 'earliest' is set to -d@d, the unit is day.  If the 'relativeTimeAnchor' is is set to '1994-11-05T13:15:30Z'  then 'resolvedEarliest' is snapped to '1994-11-05T00:00:00Z',  which is the day. Hours, minutes, and seconds are dropped.  If no 'relativeTimeAnchor' is specified, the default value  is set to the time the search job was created.
+            Relative values for the 'earliest' and 'latest' parameters  snap to the unit that you specify.  For example, if 'earliest' is set to -d@d, the unit is day.  If the 'relativeTimeAnchor' is is set to '2020-10-05T13:15:30Z'  then 'resolvedEarliest' is snapped to '2020-10-05T00:00:00Z',  which is the day. Hours, minutes, and seconds are dropped.  If no 'relativeTimeAnchor' is specified, the default value  is set to the time the search job was created.
           format: date-time
           type: string
         timezone:
@@ -554,6 +588,25 @@ components:
       required:
       - query
       type: object
+    SearchModule:
+      description: A fully-constructed multi-statement Module, including read-only fields.
+      properties:
+        module:
+          description: Multi-statement module with inter-dependencies between statements. Statements are separated by semicolons.
+          type: string
+        namespace:
+          default: ""
+          description: The namespace to run the search in. The default namespace is used if a namespace is not specified.
+          type: string
+        queryParameters:
+          additionalProperties:
+            $ref: '#/components/schemas/SingleStatementQueryParameters'
+          description: |
+            The parameters on the search statement, such as 'earliest' and 'latest. The request can specify a "defaults" set of statement queryParameters which override the system default queryParameters. Each export statement requires to have a statement queryParameters in the object, it can be empty if there is no override.
+          type: object
+      required:
+      - Module
+      type: object
     SearchStatus:
       description: |
         The current status of the search job. The valid status values are  'running', 'done', 'canceled', and 'failed'.
@@ -603,6 +656,67 @@ components:
           format: double
           type: number
       type: object
+    SingleStatementQueryParameters:
+      description: |
+        The parameters for single-statement search. If fields are omitted, those fields are filled in with system defaults or "defaults" parameters defined in the request.
+      properties:
+        allowSideEffects:
+          default: false
+          description: |
+            Specifies whether a search that contains commands with side effects (with possible security risks) is allowed to run. The search contains commands, thru or into, that have side effects.
+          type: boolean
+        collectFieldSummary:
+          default: false
+          description: |
+            Specifies whether a search is allowed to collect the Fields summary during the run time.
+          type: boolean
+        collectTimeBuckets:
+          default: false
+          description: |
+            Specifies whether a search is allowed to collect the Timeline Buckets summary during the run time.
+          type: boolean
+        earliest:
+          default: -24h@h
+          description: |
+            The earliest time, in absolute or relative format, to retrieve events. When specifying an absolute time specify either UNIX time, or UTC in seconds using the ISO-8601 (%FT%T.%Q) format. For example 2020-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC. Any offset specified is ignored.
+          type: string
+        enablePreview:
+          default: false
+          description: |
+            Specifies whether a search is allowed to collect the preview results during the run time.
+          type: boolean
+        extractFields:
+          default: indexed
+          description: |
+            Specifies how the Search service should extract fields. Valid values include 'all', 'none', or 'indexed'. 'all' extracts all fields, 'indexed' extracts only indexed fields, and 'none' extracts only the default fields.
+          type: string
+        latest:
+          default: now
+          description: |
+            The latest time, in absolute or relative format, to retrieve events. When specifying an absolute time specify either UNIX time, or UTC in seconds using the ISO-8601 (%FT%T.%Q) format. For example 2020-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC. Any offset specified is ignored.
+          type: string
+        maxTime:
+          default: 3600
+          description: |
+            The number of seconds to run the search before finalizing the search. The maximum value is 3600 seconds (1 hour).
+          maximum: 3600
+          minimum: 1
+          type: integer
+        relativeTimeAnchor:
+          default: The system time when the search job is created.
+          description: |
+            Relative values for the 'earliest' and 'latest' parameters snap to the unit that you specify. For example, if 'earliest' is set to -d@d, the unit is day. If the 'relativeTimeAnchor' is is set to '2020-10-05T13:15:30Z' then 'resolvedEarliest' is snapped to '2020-10-05T00:00:00Z', which is the day. Hours, minutes, and seconds are dropped. If no 'relativeTimeAnchor' is specified, the default value is set to the time the search job was created.
+          format: date-time
+          type: string
+        sid:
+          default: ""
+          description: |
+            Reuse the results from the previous search ID (sid) for the statement. For customized default queryParameters, the sid is ignored.
+          type: string
+        timezone:
+          description: |
+            The timezone that relative time specifiers are based off of. Timezone only applies to relative time literals for 'earliest' and 'latest'. If UNIX time or UTC format is used for 'earliest' and 'latest', this field is ignored. For the list of supported timezone formats, see https://docs.splunk.com/Documentation/Splunk/latest/Data/Applytimezoneoffsetstotimestamps#zoneinfo_.28TZ.29_database type: string default: "GMT"
+      type: object
     SingleTimeBucket:
       description: Events summary in a single time bucket.
       properties:
@@ -643,6 +757,23 @@ components:
           type: boolean
         value:
           description: The value in the field.
+          type: string
+      type: object
+    StatementDispatchStatus:
+      description: The dispatch status of a search single-statement.
+      properties:
+        query:
+          description: The single export statement search.
+          format: SPL2
+          readOnly: true
+          type: string
+        sid:
+          description: The search ID for the statement.
+          readOnly: true
+          type: string
+        status:
+          description: The status of the statement.
+          readOnly: true
           type: string
       type: object
     TimeBucketsSummary:
@@ -709,62 +840,47 @@ components:
           description: |
             Represents parameters on the search job such as 'earliest'.  By default, the 'earliest' parameter is set based on the  recurrence interval. For example, if the interval is set  to '1h', the default value for 'earliest' is set to '-1h'  by the platform. The 'latest' and 'relativeTimeAnchor'  parameters are reserved. The readonly fields for recurring  searches and their values are determined by the platform.
       type: object
-    listPreviewResultsResponse:
-      description: |
-        The structure of the preview search results that is returned  for the job with the specified search ID (sid). When a search is running,  it might return incomplete or truncated search results. The 'isPreviewStable'  property indicates whether the returned preview results stucture is stable or not. Truncated preview results occur because the number of requested results  exceeds the page limit. Follow the 'nextLink' URL to retrieve the next page of results.
-      properties:
-        fields:
-          items:
-            properties:
-              dataSource:
-                type: string
-              groupbyRank:
-                type: string
-              name:
-                type: string
-              splitField:
-                type: string
-              splitValue:
-                type: string
-              splitbySpecial:
-                type: string
-              typeSpecial:
-                type: string
-            required:
-            - name
-            type: object
-          type: array
-        isPreviewStable:
-          type: boolean
-        messages:
-          items:
-            $ref: '#/components/schemas/Message'
-          type: array
-        nextLink:
-          type: string
-        results:
-          items:
-            type: object
-          type: array
-        wait:
-          type: string
-      required:
-      - results
-      - isPreviewStable
-      type: object
   securitySchemes:
     BasicAuth:
       scheme: basic
       type: http
 info:
-  description: Use the Search service in Splunk Cloud Services to dispatch, review,
-    and manage searches and search jobs. You can finalize or cancel jobs, retrieve
-    search results, and request search-related configurations from the Metadata Catalog
-    service in Splunk Cloud Services.
+  description: Use the Search service in Splunk Cloud Services to dispatch, review, and manage searches and search jobs. You can finalize or cancel jobs, retrieve search results, and request search-related configurations from the Metadata Catalog service in Splunk Cloud Services.
   title: Splunk Search service
   version: v3alpha1
 openapi: 3.0.0
 paths:
+  /{tenant}/search/v3alpha1/dispatch:
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/AuthorizationHeader'
+    post:
+      description: Create a multi-statement module with inter-dependencies between statements.
+      operationId: createSearchStatements
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchModule'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchModule'
+          description: The search jobs were created successfully.
+        "400":
+          description: The request isn’t valid.
+        "401":
+          description: The user isn’t authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "412":
+          description: The precondition check failed. The search contains commands, thru or into, that have side effects. However, the 'allowSideEffects' query parameter is set to false.
+        "429":
+          description: Too many requests were sent. The limit for the maximum number of concurrent searches was reached.
+        "500":
+          description: An internal service error occurred.
   /{tenant}/search/v3alpha1/jobs:
     get:
       description: Returns a matching list of search jobs.
@@ -816,9 +932,7 @@ paths:
         "403":
           description: The operation isn't authorized.
         "412":
-          description: The precondition check failed. The search query contains commands,
-            thru or into, that have side effects. However, the 'allowSideEffects'
-            query parameter is set to false.
+          description: The precondition check failed. The search query contains commands, thru or into, that have side effects. However, the 'allowSideEffects' query parameter is set to false.
         "429":
           description: Too many requests were sent.
         "500":
@@ -889,9 +1003,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListSearchResultsResponse'
-          description: The list of search results was returned successfully. Any results
-            that are ready have been returned. If there are additional results, a
-            'nextLink' URL is provided.
+          description: The list of search results was returned successfully. Any results that are ready have been returned. If there are additional results, a 'nextLink' URL is provided.
         "400":
           description: The request isn't valid.
         "401":
@@ -904,8 +1016,7 @@ paths:
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/jobs/{sid}/results-preview:
     get:
-      description: Return the preview search results for the job with the specified
-        search ID (SID). Can be used when a job is running to return interim results.
+      description: Return the preview search results for the job with the specified search ID (SID). Can be used when a job is running to return interim results.
       operationId: listPreviewResults
       parameters:
       - $ref: '#/components/parameters/tenant'
@@ -917,12 +1028,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/listPreviewResultsResponse'
-          description: The results preview was returned successfully. If there are
-            additional results, a 'nextLink' URL is provided.
+                $ref: '#/components/schemas/ListPreviewResultsResponse'
+          description: The results preview was returned successfully. If there are additional results, a 'nextLink' URL is provided.
         "204":
-          description: The results preview was returned successfully, but there is
-            no response content.
+          description: The results preview was returned successfully, but there is no response content.
         "400":
           description: The request isn't valid.
         "401":
@@ -953,8 +1062,7 @@ paths:
                 $ref: '#/components/schemas/ListSearchResultsResponse'
           description: The events summary was returned successfully.
         "204":
-          description: The events summary was returned successfully, but there is
-            no response content.
+          description: The events summary was returned successfully, but there is no response content.
         "400":
           description: The request isn't valid.
         "401":
@@ -967,8 +1075,7 @@ paths:
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/jobs/{sid}/timeline-metadata/auto/fields-summary:
     get:
-      description: Return fields stats summary of the events to-date, for search ID
-        (SID) search.
+      description: Return fields stats summary of the events to-date, for search ID (SID) search.
       operationId: listFieldsSummary
       parameters:
       - $ref: '#/components/parameters/tenant'
@@ -983,8 +1090,7 @@ paths:
                 $ref: '#/components/schemas/FieldsSummary'
           description: The fields summary was returned successfully.
         "204":
-          description: The fields summary was returned successfully, but there is
-            no response content.
+          description: The fields summary was returned successfully, but there is no response content.
         "400":
           description: The request isn't valid.
         "401":
@@ -997,8 +1103,7 @@ paths:
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/jobs/{sid}/timeline-metadata/auto/time-buckets:
     get:
-      description: Returns an event distribution over time of the untransformed events
-        that are read to-date for a job with a specified search ID (sid).
+      description: Returns an event distribution over time of the untransformed events that are read to-date for a job with a specified search ID (sid).
       operationId: listTimeBuckets
       parameters:
       - $ref: '#/components/parameters/tenant'
@@ -1011,8 +1116,7 @@ paths:
                 $ref: '#/components/schemas/TimeBucketsSummary'
           description: The timeline buckets were returned successfully.
         "204":
-          description: The timeline buckets were returned successfully, but there
-            is no response content.
+          description: The timeline buckets were returned successfully, but there is no response content.
         "400":
           description: The request isn't valid.
         "401":
@@ -1051,6 +1155,37 @@ paths:
           description: The operation isn't authorized.
         "404":
           description: The resource wasn't found.
+        "500":
+          description: An internal service error occurred.
+  /{tenant}/search/v3alpha1/multisearch:
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/AuthorizationHeader'
+    post:
+      description: Create a multi-statement module with inter-dependencies between statements.
+      operationId: createMultiSearch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchModule'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchModule'
+          description: The search jobs were created successfully.
+        "400":
+          description: The request isn’t valid.
+        "401":
+          description: The user isn’t authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "412":
+          description: The precondition check failed. The search contains commands, thru or into, that have side effects. However, the 'allowSideEffects' query parameter is set to false.
+        "429":
+          description: Too many requests were sent. The limit for the maximum number of concurrent searches was reached.
         "500":
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/recurring-searches:
@@ -1101,9 +1236,7 @@ paths:
         "409":
           description: The recurring search name already exists.
         "412":
-          description: The precondition check failed. The search query contains commands,
-            thru or into, that have side effects. However, the 'allowSideEffects'
-            query parameter is set to false.
+          description: The precondition check failed. The search query contains commands, thru or into, that have side effects. However, the 'allowSideEffects' query parameter is set to false.
         "429":
           description: Too many requests were sent.
         "500":
@@ -1239,4 +1372,4 @@ paths:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/rsid'
 
-# Retrieved from scp-openapi commit 0946f4bc226a17b28c46e9494b83fff7a8f8720c path: search/v3alpha1/openapi.yaml
+# Retrieved from scp-openapi commit 2a83a71fc5f034d6a6308d40793cf42658bfbf9a path: search/v3alpha1/openapi.yaml

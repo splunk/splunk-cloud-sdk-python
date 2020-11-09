@@ -15,7 +15,7 @@
 ############# This file is auto-generated.  Do not edit! #############
 
 """
-    SDC Service: Metadata Catalog
+    SDC Service: Metadata Catalog service
 
     With the Metadata Catalog in Splunk Cloud Services you can create and manage knowledge objects such as datasets, fields, rules, actions, dashboards, and workflows.
 
@@ -413,16 +413,16 @@ class ActionPOST(SSCModel):
         raise NotImplementedError()
 
 
-class AliasAction(Action):
+class AliasActionFromAction(Action):
 
     @staticmethod
-    def _from_dict(model: dict) -> "AliasAction":
-        instance = AliasAction.__new__(AliasAction)
+    def _from_dict(model: dict) -> "AliasActionFromAction":
+        instance = AliasActionFromAction.__new__(AliasActionFromAction)
         instance._attrs = model
         return instance
 
     def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", alias: "str" = None, appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, field: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
-        """AliasAction"""
+        """AliasActionFromAction"""
 
         self._attrs = dict()
         if created is not None:
@@ -455,18 +455,18 @@ class AliasAction(Action):
 
     @property
     def created(self) -> "datetime":
-        """ Gets the created of this AliasAction.
+        """ Gets the created of this AliasActionFromAction.
         The date and time object was created.
         """
         return self._attrs.get("created")
 
     @created.setter
     def created(self, created: "datetime"):
-        """Sets the created of this AliasAction.
+        """Sets the created of this AliasActionFromAction.
 
         The date and time object was created.
 
-        :param created: The created of this AliasAction.
+        :param created: The created of this AliasActionFromAction.
         :type: datetime
         """
         if created is None:
@@ -475,18 +475,18 @@ class AliasAction(Action):
 
     @property
     def createdby(self) -> "str":
-        """ Gets the createdby of this AliasAction.
+        """ Gets the createdby of this AliasActionFromAction.
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
         """
         return self._attrs.get("createdby")
 
     @createdby.setter
     def createdby(self, createdby: "str"):
-        """Sets the createdby of this AliasAction.
+        """Sets the createdby of this AliasActionFromAction.
 
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
 
-        :param createdby: The createdby of this AliasAction.
+        :param createdby: The createdby of this AliasActionFromAction.
         :type: str
         """
         if createdby is None:
@@ -495,18 +495,18 @@ class AliasAction(Action):
 
     @property
     def modified(self) -> "datetime":
-        """ Gets the modified of this AliasAction.
+        """ Gets the modified of this AliasActionFromAction.
         The date and time object was modified.
         """
         return self._attrs.get("modified")
 
     @modified.setter
     def modified(self, modified: "datetime"):
-        """Sets the modified of this AliasAction.
+        """Sets the modified of this AliasActionFromAction.
 
         The date and time object was modified.
 
-        :param modified: The modified of this AliasAction.
+        :param modified: The modified of this AliasActionFromAction.
         :type: datetime
         """
         if modified is None:
@@ -515,18 +515,18 @@ class AliasAction(Action):
 
     @property
     def modifiedby(self) -> "str":
-        """ Gets the modifiedby of this AliasAction.
+        """ Gets the modifiedby of this AliasActionFromAction.
         The name of the user who most recently modified the object.
         """
         return self._attrs.get("modifiedby")
 
     @modifiedby.setter
     def modifiedby(self, modifiedby: "str"):
-        """Sets the modifiedby of this AliasAction.
+        """Sets the modifiedby of this AliasActionFromAction.
 
         The name of the user who most recently modified the object.
 
-        :param modifiedby: The modifiedby of this AliasAction.
+        :param modifiedby: The modifiedby of this AliasActionFromAction.
         :type: str
         """
         if modifiedby is None:
@@ -535,18 +535,18 @@ class AliasAction(Action):
 
     @property
     def owner(self) -> "str":
-        """ Gets the owner of this AliasAction.
+        """ Gets the owner of this AliasActionFromAction.
         The name of the object's owner.
         """
         return self._attrs.get("owner")
 
     @owner.setter
     def owner(self, owner: "str"):
-        """Sets the owner of this AliasAction.
+        """Sets the owner of this AliasActionFromAction.
 
         The name of the object's owner.
 
-        :param owner: The owner of this AliasAction.
+        :param owner: The owner of this AliasActionFromAction.
         :type: str
         """
         if owner is None:
@@ -555,90 +555,90 @@ class AliasAction(Action):
 
     @property
     def alias(self) -> "str":
-        """ Gets the alias of this AliasAction.
+        """ Gets the alias of this AliasActionFromAction.
         The alias name.
         """
         return self._attrs.get("alias")
 
     @alias.setter
     def alias(self, alias: "str"):
-        """Sets the alias of this AliasAction.
+        """Sets the alias of this AliasActionFromAction.
 
         The alias name.
 
-        :param alias: The alias of this AliasAction.
+        :param alias: The alias of this AliasActionFromAction.
         :type: str
         """
         self._attrs["alias"] = alias
 
     @property
     def appclientidcreatedby(self) -> "str":
-        """ Gets the appclientidcreatedby of this AliasAction.
+        """ Gets the appclientidcreatedby of this AliasActionFromAction.
         AppClinetId of the creator app of the dataset.
         """
         return self._attrs.get("appclientidcreatedby")
 
     @appclientidcreatedby.setter
     def appclientidcreatedby(self, appclientidcreatedby: "str"):
-        """Sets the appclientidcreatedby of this AliasAction.
+        """Sets the appclientidcreatedby of this AliasActionFromAction.
 
         AppClinetId of the creator app of the dataset.
 
-        :param appclientidcreatedby: The appclientidcreatedby of this AliasAction.
+        :param appclientidcreatedby: The appclientidcreatedby of this AliasActionFromAction.
         :type: str
         """
         self._attrs["appclientidcreatedby"] = appclientidcreatedby
 
     @property
     def appclientidmodifiedby(self) -> "str":
-        """ Gets the appclientidmodifiedby of this AliasAction.
+        """ Gets the appclientidmodifiedby of this AliasActionFromAction.
         AppClinetId of the modifier app of the dataset.
         """
         return self._attrs.get("appclientidmodifiedby")
 
     @appclientidmodifiedby.setter
     def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
-        """Sets the appclientidmodifiedby of this AliasAction.
+        """Sets the appclientidmodifiedby of this AliasActionFromAction.
 
         AppClinetId of the modifier app of the dataset.
 
-        :param appclientidmodifiedby: The appclientidmodifiedby of this AliasAction.
+        :param appclientidmodifiedby: The appclientidmodifiedby of this AliasActionFromAction.
         :type: str
         """
         self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def field(self) -> "str":
-        """ Gets the field of this AliasAction.
+        """ Gets the field of this AliasActionFromAction.
         The name of the field to be aliased.
         """
         return self._attrs.get("field")
 
     @field.setter
     def field(self, field: "str"):
-        """Sets the field of this AliasAction.
+        """Sets the field of this AliasActionFromAction.
 
         The name of the field to be aliased.
 
-        :param field: The field of this AliasAction.
+        :param field: The field of this AliasActionFromAction.
         :type: str
         """
         self._attrs["field"] = field
 
     @property
     def id(self) -> "str":
-        """ Gets the id of this AliasAction.
+        """ Gets the id of this AliasActionFromAction.
         A unique action ID.
         """
         return self._attrs.get("id")
 
     @id.setter
     def id(self, id: "str"):
-        """Sets the id of this AliasAction.
+        """Sets the id of this AliasActionFromAction.
 
         A unique action ID.
 
-        :param id: The id of this AliasAction.
+        :param id: The id of this AliasActionFromAction.
         :type: str
         """
         self._attrs["id"] = id
@@ -650,36 +650,36 @@ class AliasAction(Action):
 
     @property
     def ruleid(self) -> "str":
-        """ Gets the ruleid of this AliasAction.
+        """ Gets the ruleid of this AliasActionFromAction.
         The rule that this action is part of.
         """
         return self._attrs.get("ruleid")
 
     @ruleid.setter
     def ruleid(self, ruleid: "str"):
-        """Sets the ruleid of this AliasAction.
+        """Sets the ruleid of this AliasActionFromAction.
 
         The rule that this action is part of.
 
-        :param ruleid: The ruleid of this AliasAction.
+        :param ruleid: The ruleid of this AliasActionFromAction.
         :type: str
         """
         self._attrs["ruleid"] = ruleid
 
     @property
     def version(self) -> "int":
-        """ Gets the version of this AliasAction.
+        """ Gets the version of this AliasActionFromAction.
         The catalog version.
         """
         return self._attrs.get("version")
 
     @version.setter
     def version(self, version: "int"):
-        """Sets the version of this AliasAction.
+        """Sets the version of this AliasActionFromAction.
 
         The catalog version.
 
-        :param version: The version of this AliasAction.
+        :param version: The version of this AliasActionFromAction.
         :type: int
         """
         self._attrs["version"] = version
@@ -688,7 +688,286 @@ class AliasAction(Action):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-Action.from_dict_handlers["ALIAS"] = AliasAction._from_dict
+Action.from_dict_handlers["ALIAS"] = AliasActionFromAction._from_dict
+
+
+
+class AliasActionFromActionPOST(ActionPOST):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "AliasActionFromActionPOST":
+        instance = AliasActionFromActionPOST.__new__(AliasActionFromActionPOST)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", alias: "str" = None, appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, field: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+        """AliasActionFromActionPOST"""
+
+        self._attrs = dict()
+        if created is not None:
+            self._attrs["created"] = created
+        if createdby is not None:
+            self._attrs["createdby"] = createdby
+        if modified is not None:
+            self._attrs["modified"] = modified
+        if modifiedby is not None:
+            self._attrs["modifiedby"] = modifiedby
+        if owner is not None:
+            self._attrs["owner"] = owner
+        if alias is not None:
+            self._attrs["alias"] = alias
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+        if field is not None:
+            self._attrs["field"] = field
+        if id is not None:
+            self._attrs["id"] = id
+        self._attrs["kind"] = "ALIAS" 
+        if ruleid is not None:
+            self._attrs["ruleid"] = ruleid
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def created(self) -> "datetime":
+        """ Gets the created of this AliasActionFromActionPOST.
+        The date and time object was created.
+        """
+        return self._attrs.get("created")
+
+    @created.setter
+    def created(self, created: "datetime"):
+        """Sets the created of this AliasActionFromActionPOST.
+
+        The date and time object was created.
+
+        :param created: The created of this AliasActionFromActionPOST.
+        :type: datetime
+        """
+        if created is None:
+            raise ValueError("Invalid value for `created`, must not be `None`")
+        self._attrs["created"] = created
+
+    @property
+    def createdby(self) -> "str":
+        """ Gets the createdby of this AliasActionFromActionPOST.
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+        """
+        return self._attrs.get("createdby")
+
+    @createdby.setter
+    def createdby(self, createdby: "str"):
+        """Sets the createdby of this AliasActionFromActionPOST.
+
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+
+        :param createdby: The createdby of this AliasActionFromActionPOST.
+        :type: str
+        """
+        if createdby is None:
+            raise ValueError("Invalid value for `createdby`, must not be `None`")
+        self._attrs["createdby"] = createdby
+
+    @property
+    def modified(self) -> "datetime":
+        """ Gets the modified of this AliasActionFromActionPOST.
+        The date and time object was modified.
+        """
+        return self._attrs.get("modified")
+
+    @modified.setter
+    def modified(self, modified: "datetime"):
+        """Sets the modified of this AliasActionFromActionPOST.
+
+        The date and time object was modified.
+
+        :param modified: The modified of this AliasActionFromActionPOST.
+        :type: datetime
+        """
+        if modified is None:
+            raise ValueError("Invalid value for `modified`, must not be `None`")
+        self._attrs["modified"] = modified
+
+    @property
+    def modifiedby(self) -> "str":
+        """ Gets the modifiedby of this AliasActionFromActionPOST.
+        The name of the user who most recently modified the object.
+        """
+        return self._attrs.get("modifiedby")
+
+    @modifiedby.setter
+    def modifiedby(self, modifiedby: "str"):
+        """Sets the modifiedby of this AliasActionFromActionPOST.
+
+        The name of the user who most recently modified the object.
+
+        :param modifiedby: The modifiedby of this AliasActionFromActionPOST.
+        :type: str
+        """
+        if modifiedby is None:
+            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
+        self._attrs["modifiedby"] = modifiedby
+
+    @property
+    def owner(self) -> "str":
+        """ Gets the owner of this AliasActionFromActionPOST.
+        The name of the object's owner.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this AliasActionFromActionPOST.
+
+        The name of the object's owner.
+
+        :param owner: The owner of this AliasActionFromActionPOST.
+        :type: str
+        """
+        if owner is None:
+            raise ValueError("Invalid value for `owner`, must not be `None`")
+        self._attrs["owner"] = owner
+
+    @property
+    def alias(self) -> "str":
+        """ Gets the alias of this AliasActionFromActionPOST.
+        The alias name.
+        """
+        return self._attrs.get("alias")
+
+    @alias.setter
+    def alias(self, alias: "str"):
+        """Sets the alias of this AliasActionFromActionPOST.
+
+        The alias name.
+
+        :param alias: The alias of this AliasActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["alias"] = alias
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this AliasActionFromActionPOST.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this AliasActionFromActionPOST.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this AliasActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this AliasActionFromActionPOST.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this AliasActionFromActionPOST.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this AliasActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
+    def field(self) -> "str":
+        """ Gets the field of this AliasActionFromActionPOST.
+        The name of the field to be aliased.
+        """
+        return self._attrs.get("field")
+
+    @field.setter
+    def field(self, field: "str"):
+        """Sets the field of this AliasActionFromActionPOST.
+
+        The name of the field to be aliased.
+
+        :param field: The field of this AliasActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["field"] = field
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this AliasActionFromActionPOST.
+        A unique action ID.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this AliasActionFromActionPOST.
+
+        A unique action ID.
+
+        :param id: The id of this AliasActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["id"] = id
+
+    @property
+    def kind(self) -> str:
+        return "ALIAS"
+
+
+    @property
+    def ruleid(self) -> "str":
+        """ Gets the ruleid of this AliasActionFromActionPOST.
+        The rule that this action is part of.
+        """
+        return self._attrs.get("ruleid")
+
+    @ruleid.setter
+    def ruleid(self, ruleid: "str"):
+        """Sets the ruleid of this AliasActionFromActionPOST.
+
+        The rule that this action is part of.
+
+        :param ruleid: The ruleid of this AliasActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["ruleid"] = ruleid
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this AliasActionFromActionPOST.
+        The catalog version.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this AliasActionFromActionPOST.
+
+        The catalog version.
+
+        :param version: The version of this AliasActionFromActionPOST.
+        :type: int
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+ActionPOST.from_dict_handlers["ALIAS"] = AliasActionFromActionPOST._from_dict
 
 
 
@@ -829,7 +1108,7 @@ class AliasActionPOST(ActionPOST):
         instance._attrs = model
         return instance
 
-    def __init__(self, alias: "str" = None, field: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+    def __init__(self, alias: "str" = None, field: "str" = None, id: "str" = None, kind: "AliasActionKind" = None, ruleid: "str" = None, version: "int" = None, **extra):
         """AliasActionPOST"""
 
         self._attrs = dict()
@@ -839,7 +1118,8 @@ class AliasActionPOST(ActionPOST):
             self._attrs["field"] = field
         if id is not None:
             self._attrs["id"] = id
-        self._attrs["kind"] = "ALIAS" 
+        if kind is not None:
+            self._attrs["kind"] = kind
         if ruleid is not None:
             self._attrs["ruleid"] = ruleid
         if version is not None:
@@ -902,9 +1182,23 @@ class AliasActionPOST(ActionPOST):
         self._attrs["id"] = id
 
     @property
-    def kind(self) -> str:
-        return "ALIAS"
+    def kind(self) -> "AliasActionKind":
+        """ Gets the kind of this AliasActionPOST.
+        """
+        return AliasActionKind.from_value(self._attrs.get("kind"))
 
+    @kind.setter
+    def kind(self, kind: "AliasActionKind"):
+        """Sets the kind of this AliasActionPOST.
+
+
+        :param kind: The kind of this AliasActionPOST.
+        :type: AliasActionKind
+        """
+        if isinstance(kind, Enum):
+            self._attrs["kind"] = kind.value
+        else:
+            self._attrs["kind"] = kind  # If you supply a string, we presume you know the service will take it.
 
     @property
     def ruleid(self) -> "str":
@@ -944,10 +1238,6 @@ class AliasActionPOST(ActionPOST):
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-ActionPOST.from_dict_handlers["ALIAS"] = AliasActionPOST._from_dict
-
 
 
 class Annotation(SSCModel):
@@ -1398,16 +1688,16 @@ class AnnotationPOST(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-class AutoKVAction(Action):
+class AutoKVActionFromAction(Action):
 
     @staticmethod
-    def _from_dict(model: dict) -> "AutoKVAction":
-        instance = AutoKVAction.__new__(AutoKVAction)
+    def _from_dict(model: dict) -> "AutoKVActionFromAction":
+        instance = AutoKVActionFromAction.__new__(AutoKVActionFromAction)
         instance._attrs = model
         return instance
 
     def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, id: "str" = None, mode: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
-        """AutoKVAction"""
+        """AutoKVActionFromAction"""
 
         self._attrs = dict()
         if created is not None:
@@ -1438,18 +1728,18 @@ class AutoKVAction(Action):
 
     @property
     def created(self) -> "datetime":
-        """ Gets the created of this AutoKVAction.
+        """ Gets the created of this AutoKVActionFromAction.
         The date and time object was created.
         """
         return self._attrs.get("created")
 
     @created.setter
     def created(self, created: "datetime"):
-        """Sets the created of this AutoKVAction.
+        """Sets the created of this AutoKVActionFromAction.
 
         The date and time object was created.
 
-        :param created: The created of this AutoKVAction.
+        :param created: The created of this AutoKVActionFromAction.
         :type: datetime
         """
         if created is None:
@@ -1458,18 +1748,18 @@ class AutoKVAction(Action):
 
     @property
     def createdby(self) -> "str":
-        """ Gets the createdby of this AutoKVAction.
+        """ Gets the createdby of this AutoKVActionFromAction.
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
         """
         return self._attrs.get("createdby")
 
     @createdby.setter
     def createdby(self, createdby: "str"):
-        """Sets the createdby of this AutoKVAction.
+        """Sets the createdby of this AutoKVActionFromAction.
 
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
 
-        :param createdby: The createdby of this AutoKVAction.
+        :param createdby: The createdby of this AutoKVActionFromAction.
         :type: str
         """
         if createdby is None:
@@ -1478,18 +1768,18 @@ class AutoKVAction(Action):
 
     @property
     def modified(self) -> "datetime":
-        """ Gets the modified of this AutoKVAction.
+        """ Gets the modified of this AutoKVActionFromAction.
         The date and time object was modified.
         """
         return self._attrs.get("modified")
 
     @modified.setter
     def modified(self, modified: "datetime"):
-        """Sets the modified of this AutoKVAction.
+        """Sets the modified of this AutoKVActionFromAction.
 
         The date and time object was modified.
 
-        :param modified: The modified of this AutoKVAction.
+        :param modified: The modified of this AutoKVActionFromAction.
         :type: datetime
         """
         if modified is None:
@@ -1498,18 +1788,18 @@ class AutoKVAction(Action):
 
     @property
     def modifiedby(self) -> "str":
-        """ Gets the modifiedby of this AutoKVAction.
+        """ Gets the modifiedby of this AutoKVActionFromAction.
         The name of the user who most recently modified the object.
         """
         return self._attrs.get("modifiedby")
 
     @modifiedby.setter
     def modifiedby(self, modifiedby: "str"):
-        """Sets the modifiedby of this AutoKVAction.
+        """Sets the modifiedby of this AutoKVActionFromAction.
 
         The name of the user who most recently modified the object.
 
-        :param modifiedby: The modifiedby of this AutoKVAction.
+        :param modifiedby: The modifiedby of this AutoKVActionFromAction.
         :type: str
         """
         if modifiedby is None:
@@ -1518,18 +1808,18 @@ class AutoKVAction(Action):
 
     @property
     def owner(self) -> "str":
-        """ Gets the owner of this AutoKVAction.
+        """ Gets the owner of this AutoKVActionFromAction.
         The name of the object's owner.
         """
         return self._attrs.get("owner")
 
     @owner.setter
     def owner(self, owner: "str"):
-        """Sets the owner of this AutoKVAction.
+        """Sets the owner of this AutoKVActionFromAction.
 
         The name of the object's owner.
 
-        :param owner: The owner of this AutoKVAction.
+        :param owner: The owner of this AutoKVActionFromAction.
         :type: str
         """
         if owner is None:
@@ -1538,54 +1828,54 @@ class AutoKVAction(Action):
 
     @property
     def appclientidcreatedby(self) -> "str":
-        """ Gets the appclientidcreatedby of this AutoKVAction.
+        """ Gets the appclientidcreatedby of this AutoKVActionFromAction.
         AppClinetId of the creator app of the dataset.
         """
         return self._attrs.get("appclientidcreatedby")
 
     @appclientidcreatedby.setter
     def appclientidcreatedby(self, appclientidcreatedby: "str"):
-        """Sets the appclientidcreatedby of this AutoKVAction.
+        """Sets the appclientidcreatedby of this AutoKVActionFromAction.
 
         AppClinetId of the creator app of the dataset.
 
-        :param appclientidcreatedby: The appclientidcreatedby of this AutoKVAction.
+        :param appclientidcreatedby: The appclientidcreatedby of this AutoKVActionFromAction.
         :type: str
         """
         self._attrs["appclientidcreatedby"] = appclientidcreatedby
 
     @property
     def appclientidmodifiedby(self) -> "str":
-        """ Gets the appclientidmodifiedby of this AutoKVAction.
+        """ Gets the appclientidmodifiedby of this AutoKVActionFromAction.
         AppClinetId of the modifier app of the dataset.
         """
         return self._attrs.get("appclientidmodifiedby")
 
     @appclientidmodifiedby.setter
     def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
-        """Sets the appclientidmodifiedby of this AutoKVAction.
+        """Sets the appclientidmodifiedby of this AutoKVActionFromAction.
 
         AppClinetId of the modifier app of the dataset.
 
-        :param appclientidmodifiedby: The appclientidmodifiedby of this AutoKVAction.
+        :param appclientidmodifiedby: The appclientidmodifiedby of this AutoKVActionFromAction.
         :type: str
         """
         self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def id(self) -> "str":
-        """ Gets the id of this AutoKVAction.
+        """ Gets the id of this AutoKVActionFromAction.
         A unique action ID.
         """
         return self._attrs.get("id")
 
     @id.setter
     def id(self, id: "str"):
-        """Sets the id of this AutoKVAction.
+        """Sets the id of this AutoKVActionFromAction.
 
         A unique action ID.
 
-        :param id: The id of this AutoKVAction.
+        :param id: The id of this AutoKVActionFromAction.
         :type: str
         """
         self._attrs["id"] = id
@@ -1597,54 +1887,54 @@ class AutoKVAction(Action):
 
     @property
     def mode(self) -> "str":
-        """ Gets the mode of this AutoKVAction.
+        """ Gets the mode of this AutoKVActionFromAction.
         The autokv action mode.
         """
         return self._attrs.get("mode")
 
     @mode.setter
     def mode(self, mode: "str"):
-        """Sets the mode of this AutoKVAction.
+        """Sets the mode of this AutoKVActionFromAction.
 
         The autokv action mode.
 
-        :param mode: The mode of this AutoKVAction.
+        :param mode: The mode of this AutoKVActionFromAction.
         :type: str
         """
         self._attrs["mode"] = mode
 
     @property
     def ruleid(self) -> "str":
-        """ Gets the ruleid of this AutoKVAction.
+        """ Gets the ruleid of this AutoKVActionFromAction.
         The rule that this action is part of.
         """
         return self._attrs.get("ruleid")
 
     @ruleid.setter
     def ruleid(self, ruleid: "str"):
-        """Sets the ruleid of this AutoKVAction.
+        """Sets the ruleid of this AutoKVActionFromAction.
 
         The rule that this action is part of.
 
-        :param ruleid: The ruleid of this AutoKVAction.
+        :param ruleid: The ruleid of this AutoKVActionFromAction.
         :type: str
         """
         self._attrs["ruleid"] = ruleid
 
     @property
     def version(self) -> "int":
-        """ Gets the version of this AutoKVAction.
+        """ Gets the version of this AutoKVActionFromAction.
         The catalog version.
         """
         return self._attrs.get("version")
 
     @version.setter
     def version(self, version: "int"):
-        """Sets the version of this AutoKVAction.
+        """Sets the version of this AutoKVActionFromAction.
 
         The catalog version.
 
-        :param version: The version of this AutoKVAction.
+        :param version: The version of this AutoKVActionFromAction.
         :type: int
         """
         self._attrs["version"] = version
@@ -1653,7 +1943,266 @@ class AutoKVAction(Action):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-Action.from_dict_handlers["AUTOKV"] = AutoKVAction._from_dict
+Action.from_dict_handlers["AUTOKV"] = AutoKVActionFromAction._from_dict
+
+
+
+class AutoKVActionFromActionPOST(ActionPOST):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "AutoKVActionFromActionPOST":
+        instance = AutoKVActionFromActionPOST.__new__(AutoKVActionFromActionPOST)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, id: "str" = None, mode: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+        """AutoKVActionFromActionPOST"""
+
+        self._attrs = dict()
+        if created is not None:
+            self._attrs["created"] = created
+        if createdby is not None:
+            self._attrs["createdby"] = createdby
+        if modified is not None:
+            self._attrs["modified"] = modified
+        if modifiedby is not None:
+            self._attrs["modifiedby"] = modifiedby
+        if owner is not None:
+            self._attrs["owner"] = owner
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+        if id is not None:
+            self._attrs["id"] = id
+        self._attrs["kind"] = "AUTOKV" 
+        if mode is not None:
+            self._attrs["mode"] = mode
+        if ruleid is not None:
+            self._attrs["ruleid"] = ruleid
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def created(self) -> "datetime":
+        """ Gets the created of this AutoKVActionFromActionPOST.
+        The date and time object was created.
+        """
+        return self._attrs.get("created")
+
+    @created.setter
+    def created(self, created: "datetime"):
+        """Sets the created of this AutoKVActionFromActionPOST.
+
+        The date and time object was created.
+
+        :param created: The created of this AutoKVActionFromActionPOST.
+        :type: datetime
+        """
+        if created is None:
+            raise ValueError("Invalid value for `created`, must not be `None`")
+        self._attrs["created"] = created
+
+    @property
+    def createdby(self) -> "str":
+        """ Gets the createdby of this AutoKVActionFromActionPOST.
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+        """
+        return self._attrs.get("createdby")
+
+    @createdby.setter
+    def createdby(self, createdby: "str"):
+        """Sets the createdby of this AutoKVActionFromActionPOST.
+
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+
+        :param createdby: The createdby of this AutoKVActionFromActionPOST.
+        :type: str
+        """
+        if createdby is None:
+            raise ValueError("Invalid value for `createdby`, must not be `None`")
+        self._attrs["createdby"] = createdby
+
+    @property
+    def modified(self) -> "datetime":
+        """ Gets the modified of this AutoKVActionFromActionPOST.
+        The date and time object was modified.
+        """
+        return self._attrs.get("modified")
+
+    @modified.setter
+    def modified(self, modified: "datetime"):
+        """Sets the modified of this AutoKVActionFromActionPOST.
+
+        The date and time object was modified.
+
+        :param modified: The modified of this AutoKVActionFromActionPOST.
+        :type: datetime
+        """
+        if modified is None:
+            raise ValueError("Invalid value for `modified`, must not be `None`")
+        self._attrs["modified"] = modified
+
+    @property
+    def modifiedby(self) -> "str":
+        """ Gets the modifiedby of this AutoKVActionFromActionPOST.
+        The name of the user who most recently modified the object.
+        """
+        return self._attrs.get("modifiedby")
+
+    @modifiedby.setter
+    def modifiedby(self, modifiedby: "str"):
+        """Sets the modifiedby of this AutoKVActionFromActionPOST.
+
+        The name of the user who most recently modified the object.
+
+        :param modifiedby: The modifiedby of this AutoKVActionFromActionPOST.
+        :type: str
+        """
+        if modifiedby is None:
+            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
+        self._attrs["modifiedby"] = modifiedby
+
+    @property
+    def owner(self) -> "str":
+        """ Gets the owner of this AutoKVActionFromActionPOST.
+        The name of the object's owner.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this AutoKVActionFromActionPOST.
+
+        The name of the object's owner.
+
+        :param owner: The owner of this AutoKVActionFromActionPOST.
+        :type: str
+        """
+        if owner is None:
+            raise ValueError("Invalid value for `owner`, must not be `None`")
+        self._attrs["owner"] = owner
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this AutoKVActionFromActionPOST.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this AutoKVActionFromActionPOST.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this AutoKVActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this AutoKVActionFromActionPOST.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this AutoKVActionFromActionPOST.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this AutoKVActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this AutoKVActionFromActionPOST.
+        A unique action ID.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this AutoKVActionFromActionPOST.
+
+        A unique action ID.
+
+        :param id: The id of this AutoKVActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["id"] = id
+
+    @property
+    def kind(self) -> str:
+        return "AUTOKV"
+
+
+    @property
+    def mode(self) -> "str":
+        """ Gets the mode of this AutoKVActionFromActionPOST.
+        The autokv action mode.
+        """
+        return self._attrs.get("mode")
+
+    @mode.setter
+    def mode(self, mode: "str"):
+        """Sets the mode of this AutoKVActionFromActionPOST.
+
+        The autokv action mode.
+
+        :param mode: The mode of this AutoKVActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["mode"] = mode
+
+    @property
+    def ruleid(self) -> "str":
+        """ Gets the ruleid of this AutoKVActionFromActionPOST.
+        The rule that this action is part of.
+        """
+        return self._attrs.get("ruleid")
+
+    @ruleid.setter
+    def ruleid(self, ruleid: "str"):
+        """Sets the ruleid of this AutoKVActionFromActionPOST.
+
+        The rule that this action is part of.
+
+        :param ruleid: The ruleid of this AutoKVActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["ruleid"] = ruleid
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this AutoKVActionFromActionPOST.
+        The catalog version.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this AutoKVActionFromActionPOST.
+
+        The catalog version.
+
+        :param version: The version of this AutoKVActionFromActionPOST.
+        :type: int
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+ActionPOST.from_dict_handlers["AUTOKV"] = AutoKVActionFromActionPOST._from_dict
 
 
 
@@ -1774,13 +2323,14 @@ class AutoKVActionPOST(ActionPOST):
         instance._attrs = model
         return instance
 
-    def __init__(self, id: "str" = None, mode: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+    def __init__(self, id: "str" = None, kind: "AutoKVActionKind" = None, mode: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
         """AutoKVActionPOST"""
 
         self._attrs = dict()
         if id is not None:
             self._attrs["id"] = id
-        self._attrs["kind"] = "AUTOKV" 
+        if kind is not None:
+            self._attrs["kind"] = kind
         if mode is not None:
             self._attrs["mode"] = mode
         if ruleid is not None:
@@ -1809,9 +2359,23 @@ class AutoKVActionPOST(ActionPOST):
         self._attrs["id"] = id
 
     @property
-    def kind(self) -> str:
-        return "AUTOKV"
+    def kind(self) -> "AutoKVActionKind":
+        """ Gets the kind of this AutoKVActionPOST.
+        """
+        return AutoKVActionKind.from_value(self._attrs.get("kind"))
 
+    @kind.setter
+    def kind(self, kind: "AutoKVActionKind"):
+        """Sets the kind of this AutoKVActionPOST.
+
+
+        :param kind: The kind of this AutoKVActionPOST.
+        :type: AutoKVActionKind
+        """
+        if isinstance(kind, Enum):
+            self._attrs["kind"] = kind.value
+        else:
+            self._attrs["kind"] = kind  # If you supply a string, we presume you know the service will take it.
 
     @property
     def mode(self) -> "str":
@@ -1869,10 +2433,6 @@ class AutoKVActionPOST(ActionPOST):
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-ActionPOST.from_dict_handlers["AUTOKV"] = AutoKVActionPOST._from_dict
-
 
 
 class DatasetGet(SSCModel):
@@ -3216,12 +3776,14 @@ class DatasetImportedBy(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, module: "str", name: "str", **extra):
+    def __init__(self, module: "str", owner: "str", name: "str" = None, **extra):
         """DatasetImportedBy"""
 
         self._attrs = dict()
         if module is not None:
             self._attrs["module"] = module
+        if owner is not None:
+            self._attrs["owner"] = owner
         if name is not None:
             self._attrs["name"] = name
         for k, v in extra.items():
@@ -3248,6 +3810,26 @@ class DatasetImportedBy(SSCModel):
         self._attrs["module"] = module
 
     @property
+    def owner(self) -> "str":
+        """ Gets the owner of this DatasetImportedBy.
+        The dataset owner.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this DatasetImportedBy.
+
+        The dataset owner.
+
+        :param owner: The owner of this DatasetImportedBy.
+        :type: str
+        """
+        if owner is None:
+            raise ValueError("Invalid value for `owner`, must not be `None`")
+        self._attrs["owner"] = owner
+
+    @property
     def name(self) -> "str":
         """ Gets the name of this DatasetImportedBy.
         The dataset name.
@@ -3263,8 +3845,6 @@ class DatasetImportedBy(SSCModel):
         :param name: The name of this DatasetImportedBy.
         :type: str
         """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
         self._attrs["name"] = name
 
     def to_dict(self):
@@ -3669,16 +4249,16 @@ class DatasetPOST(SSCModel):
         raise NotImplementedError()
 
 
-class EvalAction(Action):
+class EvalActionFromAction(Action):
 
     @staticmethod
-    def _from_dict(model: dict) -> "EvalAction":
-        instance = EvalAction.__new__(EvalAction)
+    def _from_dict(model: dict) -> "EvalActionFromAction":
+        instance = EvalActionFromAction.__new__(EvalActionFromAction)
         instance._attrs = model
         return instance
 
     def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, expression: "str" = None, field: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
-        """EvalAction"""
+        """EvalActionFromAction"""
 
         self._attrs = dict()
         if created is not None:
@@ -3711,18 +4291,18 @@ class EvalAction(Action):
 
     @property
     def created(self) -> "datetime":
-        """ Gets the created of this EvalAction.
+        """ Gets the created of this EvalActionFromAction.
         The date and time object was created.
         """
         return self._attrs.get("created")
 
     @created.setter
     def created(self, created: "datetime"):
-        """Sets the created of this EvalAction.
+        """Sets the created of this EvalActionFromAction.
 
         The date and time object was created.
 
-        :param created: The created of this EvalAction.
+        :param created: The created of this EvalActionFromAction.
         :type: datetime
         """
         if created is None:
@@ -3731,18 +4311,18 @@ class EvalAction(Action):
 
     @property
     def createdby(self) -> "str":
-        """ Gets the createdby of this EvalAction.
+        """ Gets the createdby of this EvalActionFromAction.
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
         """
         return self._attrs.get("createdby")
 
     @createdby.setter
     def createdby(self, createdby: "str"):
-        """Sets the createdby of this EvalAction.
+        """Sets the createdby of this EvalActionFromAction.
 
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
 
-        :param createdby: The createdby of this EvalAction.
+        :param createdby: The createdby of this EvalActionFromAction.
         :type: str
         """
         if createdby is None:
@@ -3751,18 +4331,18 @@ class EvalAction(Action):
 
     @property
     def modified(self) -> "datetime":
-        """ Gets the modified of this EvalAction.
+        """ Gets the modified of this EvalActionFromAction.
         The date and time object was modified.
         """
         return self._attrs.get("modified")
 
     @modified.setter
     def modified(self, modified: "datetime"):
-        """Sets the modified of this EvalAction.
+        """Sets the modified of this EvalActionFromAction.
 
         The date and time object was modified.
 
-        :param modified: The modified of this EvalAction.
+        :param modified: The modified of this EvalActionFromAction.
         :type: datetime
         """
         if modified is None:
@@ -3771,18 +4351,18 @@ class EvalAction(Action):
 
     @property
     def modifiedby(self) -> "str":
-        """ Gets the modifiedby of this EvalAction.
+        """ Gets the modifiedby of this EvalActionFromAction.
         The name of the user who most recently modified the object.
         """
         return self._attrs.get("modifiedby")
 
     @modifiedby.setter
     def modifiedby(self, modifiedby: "str"):
-        """Sets the modifiedby of this EvalAction.
+        """Sets the modifiedby of this EvalActionFromAction.
 
         The name of the user who most recently modified the object.
 
-        :param modifiedby: The modifiedby of this EvalAction.
+        :param modifiedby: The modifiedby of this EvalActionFromAction.
         :type: str
         """
         if modifiedby is None:
@@ -3791,18 +4371,18 @@ class EvalAction(Action):
 
     @property
     def owner(self) -> "str":
-        """ Gets the owner of this EvalAction.
+        """ Gets the owner of this EvalActionFromAction.
         The name of the object's owner.
         """
         return self._attrs.get("owner")
 
     @owner.setter
     def owner(self, owner: "str"):
-        """Sets the owner of this EvalAction.
+        """Sets the owner of this EvalActionFromAction.
 
         The name of the object's owner.
 
-        :param owner: The owner of this EvalAction.
+        :param owner: The owner of this EvalActionFromAction.
         :type: str
         """
         if owner is None:
@@ -3811,90 +4391,90 @@ class EvalAction(Action):
 
     @property
     def appclientidcreatedby(self) -> "str":
-        """ Gets the appclientidcreatedby of this EvalAction.
+        """ Gets the appclientidcreatedby of this EvalActionFromAction.
         AppClinetId of the creator app of the dataset.
         """
         return self._attrs.get("appclientidcreatedby")
 
     @appclientidcreatedby.setter
     def appclientidcreatedby(self, appclientidcreatedby: "str"):
-        """Sets the appclientidcreatedby of this EvalAction.
+        """Sets the appclientidcreatedby of this EvalActionFromAction.
 
         AppClinetId of the creator app of the dataset.
 
-        :param appclientidcreatedby: The appclientidcreatedby of this EvalAction.
+        :param appclientidcreatedby: The appclientidcreatedby of this EvalActionFromAction.
         :type: str
         """
         self._attrs["appclientidcreatedby"] = appclientidcreatedby
 
     @property
     def appclientidmodifiedby(self) -> "str":
-        """ Gets the appclientidmodifiedby of this EvalAction.
+        """ Gets the appclientidmodifiedby of this EvalActionFromAction.
         AppClinetId of the modifier app of the dataset.
         """
         return self._attrs.get("appclientidmodifiedby")
 
     @appclientidmodifiedby.setter
     def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
-        """Sets the appclientidmodifiedby of this EvalAction.
+        """Sets the appclientidmodifiedby of this EvalActionFromAction.
 
         AppClinetId of the modifier app of the dataset.
 
-        :param appclientidmodifiedby: The appclientidmodifiedby of this EvalAction.
+        :param appclientidmodifiedby: The appclientidmodifiedby of this EvalActionFromAction.
         :type: str
         """
         self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def expression(self) -> "str":
-        """ Gets the expression of this EvalAction.
+        """ Gets the expression of this EvalActionFromAction.
         The EVAL expression that calculates the field.
         """
         return self._attrs.get("expression")
 
     @expression.setter
     def expression(self, expression: "str"):
-        """Sets the expression of this EvalAction.
+        """Sets the expression of this EvalActionFromAction.
 
         The EVAL expression that calculates the field.
 
-        :param expression: The expression of this EvalAction.
+        :param expression: The expression of this EvalActionFromAction.
         :type: str
         """
         self._attrs["expression"] = expression
 
     @property
     def field(self) -> "str":
-        """ Gets the field of this EvalAction.
+        """ Gets the field of this EvalActionFromAction.
         The name of the field that is added or modified by the EVAL expression.
         """
         return self._attrs.get("field")
 
     @field.setter
     def field(self, field: "str"):
-        """Sets the field of this EvalAction.
+        """Sets the field of this EvalActionFromAction.
 
         The name of the field that is added or modified by the EVAL expression.
 
-        :param field: The field of this EvalAction.
+        :param field: The field of this EvalActionFromAction.
         :type: str
         """
         self._attrs["field"] = field
 
     @property
     def id(self) -> "str":
-        """ Gets the id of this EvalAction.
+        """ Gets the id of this EvalActionFromAction.
         A unique action ID.
         """
         return self._attrs.get("id")
 
     @id.setter
     def id(self, id: "str"):
-        """Sets the id of this EvalAction.
+        """Sets the id of this EvalActionFromAction.
 
         A unique action ID.
 
-        :param id: The id of this EvalAction.
+        :param id: The id of this EvalActionFromAction.
         :type: str
         """
         self._attrs["id"] = id
@@ -3906,36 +4486,36 @@ class EvalAction(Action):
 
     @property
     def ruleid(self) -> "str":
-        """ Gets the ruleid of this EvalAction.
+        """ Gets the ruleid of this EvalActionFromAction.
         The rule that this action is part of.
         """
         return self._attrs.get("ruleid")
 
     @ruleid.setter
     def ruleid(self, ruleid: "str"):
-        """Sets the ruleid of this EvalAction.
+        """Sets the ruleid of this EvalActionFromAction.
 
         The rule that this action is part of.
 
-        :param ruleid: The ruleid of this EvalAction.
+        :param ruleid: The ruleid of this EvalActionFromAction.
         :type: str
         """
         self._attrs["ruleid"] = ruleid
 
     @property
     def version(self) -> "int":
-        """ Gets the version of this EvalAction.
+        """ Gets the version of this EvalActionFromAction.
         The catalog version.
         """
         return self._attrs.get("version")
 
     @version.setter
     def version(self, version: "int"):
-        """Sets the version of this EvalAction.
+        """Sets the version of this EvalActionFromAction.
 
         The catalog version.
 
-        :param version: The version of this EvalAction.
+        :param version: The version of this EvalActionFromAction.
         :type: int
         """
         self._attrs["version"] = version
@@ -3944,7 +4524,286 @@ class EvalAction(Action):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-Action.from_dict_handlers["EVAL"] = EvalAction._from_dict
+Action.from_dict_handlers["EVAL"] = EvalActionFromAction._from_dict
+
+
+
+class EvalActionFromActionPOST(ActionPOST):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "EvalActionFromActionPOST":
+        instance = EvalActionFromActionPOST.__new__(EvalActionFromActionPOST)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, expression: "str" = None, field: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+        """EvalActionFromActionPOST"""
+
+        self._attrs = dict()
+        if created is not None:
+            self._attrs["created"] = created
+        if createdby is not None:
+            self._attrs["createdby"] = createdby
+        if modified is not None:
+            self._attrs["modified"] = modified
+        if modifiedby is not None:
+            self._attrs["modifiedby"] = modifiedby
+        if owner is not None:
+            self._attrs["owner"] = owner
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+        if expression is not None:
+            self._attrs["expression"] = expression
+        if field is not None:
+            self._attrs["field"] = field
+        if id is not None:
+            self._attrs["id"] = id
+        self._attrs["kind"] = "EVAL" 
+        if ruleid is not None:
+            self._attrs["ruleid"] = ruleid
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def created(self) -> "datetime":
+        """ Gets the created of this EvalActionFromActionPOST.
+        The date and time object was created.
+        """
+        return self._attrs.get("created")
+
+    @created.setter
+    def created(self, created: "datetime"):
+        """Sets the created of this EvalActionFromActionPOST.
+
+        The date and time object was created.
+
+        :param created: The created of this EvalActionFromActionPOST.
+        :type: datetime
+        """
+        if created is None:
+            raise ValueError("Invalid value for `created`, must not be `None`")
+        self._attrs["created"] = created
+
+    @property
+    def createdby(self) -> "str":
+        """ Gets the createdby of this EvalActionFromActionPOST.
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+        """
+        return self._attrs.get("createdby")
+
+    @createdby.setter
+    def createdby(self, createdby: "str"):
+        """Sets the createdby of this EvalActionFromActionPOST.
+
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+
+        :param createdby: The createdby of this EvalActionFromActionPOST.
+        :type: str
+        """
+        if createdby is None:
+            raise ValueError("Invalid value for `createdby`, must not be `None`")
+        self._attrs["createdby"] = createdby
+
+    @property
+    def modified(self) -> "datetime":
+        """ Gets the modified of this EvalActionFromActionPOST.
+        The date and time object was modified.
+        """
+        return self._attrs.get("modified")
+
+    @modified.setter
+    def modified(self, modified: "datetime"):
+        """Sets the modified of this EvalActionFromActionPOST.
+
+        The date and time object was modified.
+
+        :param modified: The modified of this EvalActionFromActionPOST.
+        :type: datetime
+        """
+        if modified is None:
+            raise ValueError("Invalid value for `modified`, must not be `None`")
+        self._attrs["modified"] = modified
+
+    @property
+    def modifiedby(self) -> "str":
+        """ Gets the modifiedby of this EvalActionFromActionPOST.
+        The name of the user who most recently modified the object.
+        """
+        return self._attrs.get("modifiedby")
+
+    @modifiedby.setter
+    def modifiedby(self, modifiedby: "str"):
+        """Sets the modifiedby of this EvalActionFromActionPOST.
+
+        The name of the user who most recently modified the object.
+
+        :param modifiedby: The modifiedby of this EvalActionFromActionPOST.
+        :type: str
+        """
+        if modifiedby is None:
+            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
+        self._attrs["modifiedby"] = modifiedby
+
+    @property
+    def owner(self) -> "str":
+        """ Gets the owner of this EvalActionFromActionPOST.
+        The name of the object's owner.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this EvalActionFromActionPOST.
+
+        The name of the object's owner.
+
+        :param owner: The owner of this EvalActionFromActionPOST.
+        :type: str
+        """
+        if owner is None:
+            raise ValueError("Invalid value for `owner`, must not be `None`")
+        self._attrs["owner"] = owner
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this EvalActionFromActionPOST.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this EvalActionFromActionPOST.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this EvalActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this EvalActionFromActionPOST.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this EvalActionFromActionPOST.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this EvalActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
+    def expression(self) -> "str":
+        """ Gets the expression of this EvalActionFromActionPOST.
+        The EVAL expression that calculates the field.
+        """
+        return self._attrs.get("expression")
+
+    @expression.setter
+    def expression(self, expression: "str"):
+        """Sets the expression of this EvalActionFromActionPOST.
+
+        The EVAL expression that calculates the field.
+
+        :param expression: The expression of this EvalActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["expression"] = expression
+
+    @property
+    def field(self) -> "str":
+        """ Gets the field of this EvalActionFromActionPOST.
+        The name of the field that is added or modified by the EVAL expression.
+        """
+        return self._attrs.get("field")
+
+    @field.setter
+    def field(self, field: "str"):
+        """Sets the field of this EvalActionFromActionPOST.
+
+        The name of the field that is added or modified by the EVAL expression.
+
+        :param field: The field of this EvalActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["field"] = field
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this EvalActionFromActionPOST.
+        A unique action ID.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this EvalActionFromActionPOST.
+
+        A unique action ID.
+
+        :param id: The id of this EvalActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["id"] = id
+
+    @property
+    def kind(self) -> str:
+        return "EVAL"
+
+
+    @property
+    def ruleid(self) -> "str":
+        """ Gets the ruleid of this EvalActionFromActionPOST.
+        The rule that this action is part of.
+        """
+        return self._attrs.get("ruleid")
+
+    @ruleid.setter
+    def ruleid(self, ruleid: "str"):
+        """Sets the ruleid of this EvalActionFromActionPOST.
+
+        The rule that this action is part of.
+
+        :param ruleid: The ruleid of this EvalActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["ruleid"] = ruleid
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this EvalActionFromActionPOST.
+        The catalog version.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this EvalActionFromActionPOST.
+
+        The catalog version.
+
+        :param version: The version of this EvalActionFromActionPOST.
+        :type: int
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+ActionPOST.from_dict_handlers["EVAL"] = EvalActionFromActionPOST._from_dict
 
 
 
@@ -4085,7 +4944,7 @@ class EvalActionPOST(ActionPOST):
         instance._attrs = model
         return instance
 
-    def __init__(self, expression: "str" = None, field: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+    def __init__(self, expression: "str" = None, field: "str" = None, id: "str" = None, kind: "EvalActionKind" = None, ruleid: "str" = None, version: "int" = None, **extra):
         """EvalActionPOST"""
 
         self._attrs = dict()
@@ -4095,7 +4954,8 @@ class EvalActionPOST(ActionPOST):
             self._attrs["field"] = field
         if id is not None:
             self._attrs["id"] = id
-        self._attrs["kind"] = "EVAL" 
+        if kind is not None:
+            self._attrs["kind"] = kind
         if ruleid is not None:
             self._attrs["ruleid"] = ruleid
         if version is not None:
@@ -4158,9 +5018,23 @@ class EvalActionPOST(ActionPOST):
         self._attrs["id"] = id
 
     @property
-    def kind(self) -> str:
-        return "EVAL"
+    def kind(self) -> "EvalActionKind":
+        """ Gets the kind of this EvalActionPOST.
+        """
+        return EvalActionKind.from_value(self._attrs.get("kind"))
 
+    @kind.setter
+    def kind(self, kind: "EvalActionKind"):
+        """Sets the kind of this EvalActionPOST.
+
+
+        :param kind: The kind of this EvalActionPOST.
+        :type: EvalActionKind
+        """
+        if isinstance(kind, Enum):
+            self._attrs["kind"] = kind.value
+        else:
+            self._attrs["kind"] = kind  # If you supply a string, we presume you know the service will take it.
 
     @property
     def ruleid(self) -> "str":
@@ -4200,10 +5074,6 @@ class EvalActionPOST(ActionPOST):
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-ActionPOST.from_dict_handlers["EVAL"] = EvalActionPOST._from_dict
-
 
 
 class Field(SSCModel):
@@ -9093,16 +9963,16 @@ DatasetPOST.from_dict_handlers["kvcollection"] = KVCollectionDatasetPOST._from_d
 
 
 
-class LookupAction(Action):
+class LookupActionFromAction(Action):
 
     @staticmethod
-    def _from_dict(model: dict) -> "LookupAction":
-        instance = LookupAction.__new__(LookupAction)
+    def _from_dict(model: dict) -> "LookupActionFromAction":
+        instance = LookupActionFromAction.__new__(LookupActionFromAction)
         instance._attrs = model
         return instance
 
     def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, expression: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
-        """LookupAction"""
+        """LookupActionFromAction"""
 
         self._attrs = dict()
         if created is not None:
@@ -9133,18 +10003,18 @@ class LookupAction(Action):
 
     @property
     def created(self) -> "datetime":
-        """ Gets the created of this LookupAction.
+        """ Gets the created of this LookupActionFromAction.
         The date and time object was created.
         """
         return self._attrs.get("created")
 
     @created.setter
     def created(self, created: "datetime"):
-        """Sets the created of this LookupAction.
+        """Sets the created of this LookupActionFromAction.
 
         The date and time object was created.
 
-        :param created: The created of this LookupAction.
+        :param created: The created of this LookupActionFromAction.
         :type: datetime
         """
         if created is None:
@@ -9153,18 +10023,18 @@ class LookupAction(Action):
 
     @property
     def createdby(self) -> "str":
-        """ Gets the createdby of this LookupAction.
+        """ Gets the createdby of this LookupActionFromAction.
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
         """
         return self._attrs.get("createdby")
 
     @createdby.setter
     def createdby(self, createdby: "str"):
-        """Sets the createdby of this LookupAction.
+        """Sets the createdby of this LookupActionFromAction.
 
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
 
-        :param createdby: The createdby of this LookupAction.
+        :param createdby: The createdby of this LookupActionFromAction.
         :type: str
         """
         if createdby is None:
@@ -9173,18 +10043,18 @@ class LookupAction(Action):
 
     @property
     def modified(self) -> "datetime":
-        """ Gets the modified of this LookupAction.
+        """ Gets the modified of this LookupActionFromAction.
         The date and time object was modified.
         """
         return self._attrs.get("modified")
 
     @modified.setter
     def modified(self, modified: "datetime"):
-        """Sets the modified of this LookupAction.
+        """Sets the modified of this LookupActionFromAction.
 
         The date and time object was modified.
 
-        :param modified: The modified of this LookupAction.
+        :param modified: The modified of this LookupActionFromAction.
         :type: datetime
         """
         if modified is None:
@@ -9193,18 +10063,18 @@ class LookupAction(Action):
 
     @property
     def modifiedby(self) -> "str":
-        """ Gets the modifiedby of this LookupAction.
+        """ Gets the modifiedby of this LookupActionFromAction.
         The name of the user who most recently modified the object.
         """
         return self._attrs.get("modifiedby")
 
     @modifiedby.setter
     def modifiedby(self, modifiedby: "str"):
-        """Sets the modifiedby of this LookupAction.
+        """Sets the modifiedby of this LookupActionFromAction.
 
         The name of the user who most recently modified the object.
 
-        :param modifiedby: The modifiedby of this LookupAction.
+        :param modifiedby: The modifiedby of this LookupActionFromAction.
         :type: str
         """
         if modifiedby is None:
@@ -9213,18 +10083,18 @@ class LookupAction(Action):
 
     @property
     def owner(self) -> "str":
-        """ Gets the owner of this LookupAction.
+        """ Gets the owner of this LookupActionFromAction.
         The name of the object's owner.
         """
         return self._attrs.get("owner")
 
     @owner.setter
     def owner(self, owner: "str"):
-        """Sets the owner of this LookupAction.
+        """Sets the owner of this LookupActionFromAction.
 
         The name of the object's owner.
 
-        :param owner: The owner of this LookupAction.
+        :param owner: The owner of this LookupActionFromAction.
         :type: str
         """
         if owner is None:
@@ -9233,72 +10103,72 @@ class LookupAction(Action):
 
     @property
     def appclientidcreatedby(self) -> "str":
-        """ Gets the appclientidcreatedby of this LookupAction.
+        """ Gets the appclientidcreatedby of this LookupActionFromAction.
         AppClinetId of the creator app of the dataset.
         """
         return self._attrs.get("appclientidcreatedby")
 
     @appclientidcreatedby.setter
     def appclientidcreatedby(self, appclientidcreatedby: "str"):
-        """Sets the appclientidcreatedby of this LookupAction.
+        """Sets the appclientidcreatedby of this LookupActionFromAction.
 
         AppClinetId of the creator app of the dataset.
 
-        :param appclientidcreatedby: The appclientidcreatedby of this LookupAction.
+        :param appclientidcreatedby: The appclientidcreatedby of this LookupActionFromAction.
         :type: str
         """
         self._attrs["appclientidcreatedby"] = appclientidcreatedby
 
     @property
     def appclientidmodifiedby(self) -> "str":
-        """ Gets the appclientidmodifiedby of this LookupAction.
+        """ Gets the appclientidmodifiedby of this LookupActionFromAction.
         AppClinetId of the modifier app of the dataset.
         """
         return self._attrs.get("appclientidmodifiedby")
 
     @appclientidmodifiedby.setter
     def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
-        """Sets the appclientidmodifiedby of this LookupAction.
+        """Sets the appclientidmodifiedby of this LookupActionFromAction.
 
         AppClinetId of the modifier app of the dataset.
 
-        :param appclientidmodifiedby: The appclientidmodifiedby of this LookupAction.
+        :param appclientidmodifiedby: The appclientidmodifiedby of this LookupActionFromAction.
         :type: str
         """
         self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def expression(self) -> "str":
-        """ Gets the expression of this LookupAction.
+        """ Gets the expression of this LookupActionFromAction.
         The lookup body.
         """
         return self._attrs.get("expression")
 
     @expression.setter
     def expression(self, expression: "str"):
-        """Sets the expression of this LookupAction.
+        """Sets the expression of this LookupActionFromAction.
 
         The lookup body.
 
-        :param expression: The expression of this LookupAction.
+        :param expression: The expression of this LookupActionFromAction.
         :type: str
         """
         self._attrs["expression"] = expression
 
     @property
     def id(self) -> "str":
-        """ Gets the id of this LookupAction.
+        """ Gets the id of this LookupActionFromAction.
         A unique action ID.
         """
         return self._attrs.get("id")
 
     @id.setter
     def id(self, id: "str"):
-        """Sets the id of this LookupAction.
+        """Sets the id of this LookupActionFromAction.
 
         A unique action ID.
 
-        :param id: The id of this LookupAction.
+        :param id: The id of this LookupActionFromAction.
         :type: str
         """
         self._attrs["id"] = id
@@ -9310,36 +10180,36 @@ class LookupAction(Action):
 
     @property
     def ruleid(self) -> "str":
-        """ Gets the ruleid of this LookupAction.
+        """ Gets the ruleid of this LookupActionFromAction.
         The rule that this action is part of.
         """
         return self._attrs.get("ruleid")
 
     @ruleid.setter
     def ruleid(self, ruleid: "str"):
-        """Sets the ruleid of this LookupAction.
+        """Sets the ruleid of this LookupActionFromAction.
 
         The rule that this action is part of.
 
-        :param ruleid: The ruleid of this LookupAction.
+        :param ruleid: The ruleid of this LookupActionFromAction.
         :type: str
         """
         self._attrs["ruleid"] = ruleid
 
     @property
     def version(self) -> "int":
-        """ Gets the version of this LookupAction.
+        """ Gets the version of this LookupActionFromAction.
         The catalog version.
         """
         return self._attrs.get("version")
 
     @version.setter
     def version(self, version: "int"):
-        """Sets the version of this LookupAction.
+        """Sets the version of this LookupActionFromAction.
 
         The catalog version.
 
-        :param version: The version of this LookupAction.
+        :param version: The version of this LookupActionFromAction.
         :type: int
         """
         self._attrs["version"] = version
@@ -9348,7 +10218,266 @@ class LookupAction(Action):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-Action.from_dict_handlers["LOOKUP"] = LookupAction._from_dict
+Action.from_dict_handlers["LOOKUP"] = LookupActionFromAction._from_dict
+
+
+
+class LookupActionFromActionPOST(ActionPOST):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "LookupActionFromActionPOST":
+        instance = LookupActionFromActionPOST.__new__(LookupActionFromActionPOST)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, expression: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+        """LookupActionFromActionPOST"""
+
+        self._attrs = dict()
+        if created is not None:
+            self._attrs["created"] = created
+        if createdby is not None:
+            self._attrs["createdby"] = createdby
+        if modified is not None:
+            self._attrs["modified"] = modified
+        if modifiedby is not None:
+            self._attrs["modifiedby"] = modifiedby
+        if owner is not None:
+            self._attrs["owner"] = owner
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+        if expression is not None:
+            self._attrs["expression"] = expression
+        if id is not None:
+            self._attrs["id"] = id
+        self._attrs["kind"] = "LOOKUP" 
+        if ruleid is not None:
+            self._attrs["ruleid"] = ruleid
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def created(self) -> "datetime":
+        """ Gets the created of this LookupActionFromActionPOST.
+        The date and time object was created.
+        """
+        return self._attrs.get("created")
+
+    @created.setter
+    def created(self, created: "datetime"):
+        """Sets the created of this LookupActionFromActionPOST.
+
+        The date and time object was created.
+
+        :param created: The created of this LookupActionFromActionPOST.
+        :type: datetime
+        """
+        if created is None:
+            raise ValueError("Invalid value for `created`, must not be `None`")
+        self._attrs["created"] = created
+
+    @property
+    def createdby(self) -> "str":
+        """ Gets the createdby of this LookupActionFromActionPOST.
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+        """
+        return self._attrs.get("createdby")
+
+    @createdby.setter
+    def createdby(self, createdby: "str"):
+        """Sets the createdby of this LookupActionFromActionPOST.
+
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+
+        :param createdby: The createdby of this LookupActionFromActionPOST.
+        :type: str
+        """
+        if createdby is None:
+            raise ValueError("Invalid value for `createdby`, must not be `None`")
+        self._attrs["createdby"] = createdby
+
+    @property
+    def modified(self) -> "datetime":
+        """ Gets the modified of this LookupActionFromActionPOST.
+        The date and time object was modified.
+        """
+        return self._attrs.get("modified")
+
+    @modified.setter
+    def modified(self, modified: "datetime"):
+        """Sets the modified of this LookupActionFromActionPOST.
+
+        The date and time object was modified.
+
+        :param modified: The modified of this LookupActionFromActionPOST.
+        :type: datetime
+        """
+        if modified is None:
+            raise ValueError("Invalid value for `modified`, must not be `None`")
+        self._attrs["modified"] = modified
+
+    @property
+    def modifiedby(self) -> "str":
+        """ Gets the modifiedby of this LookupActionFromActionPOST.
+        The name of the user who most recently modified the object.
+        """
+        return self._attrs.get("modifiedby")
+
+    @modifiedby.setter
+    def modifiedby(self, modifiedby: "str"):
+        """Sets the modifiedby of this LookupActionFromActionPOST.
+
+        The name of the user who most recently modified the object.
+
+        :param modifiedby: The modifiedby of this LookupActionFromActionPOST.
+        :type: str
+        """
+        if modifiedby is None:
+            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
+        self._attrs["modifiedby"] = modifiedby
+
+    @property
+    def owner(self) -> "str":
+        """ Gets the owner of this LookupActionFromActionPOST.
+        The name of the object's owner.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this LookupActionFromActionPOST.
+
+        The name of the object's owner.
+
+        :param owner: The owner of this LookupActionFromActionPOST.
+        :type: str
+        """
+        if owner is None:
+            raise ValueError("Invalid value for `owner`, must not be `None`")
+        self._attrs["owner"] = owner
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this LookupActionFromActionPOST.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this LookupActionFromActionPOST.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this LookupActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this LookupActionFromActionPOST.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this LookupActionFromActionPOST.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this LookupActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
+    def expression(self) -> "str":
+        """ Gets the expression of this LookupActionFromActionPOST.
+        The lookup body.
+        """
+        return self._attrs.get("expression")
+
+    @expression.setter
+    def expression(self, expression: "str"):
+        """Sets the expression of this LookupActionFromActionPOST.
+
+        The lookup body.
+
+        :param expression: The expression of this LookupActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["expression"] = expression
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this LookupActionFromActionPOST.
+        A unique action ID.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this LookupActionFromActionPOST.
+
+        A unique action ID.
+
+        :param id: The id of this LookupActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["id"] = id
+
+    @property
+    def kind(self) -> str:
+        return "LOOKUP"
+
+
+    @property
+    def ruleid(self) -> "str":
+        """ Gets the ruleid of this LookupActionFromActionPOST.
+        The rule that this action is part of.
+        """
+        return self._attrs.get("ruleid")
+
+    @ruleid.setter
+    def ruleid(self, ruleid: "str"):
+        """Sets the ruleid of this LookupActionFromActionPOST.
+
+        The rule that this action is part of.
+
+        :param ruleid: The ruleid of this LookupActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["ruleid"] = ruleid
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this LookupActionFromActionPOST.
+        The catalog version.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this LookupActionFromActionPOST.
+
+        The catalog version.
+
+        :param version: The version of this LookupActionFromActionPOST.
+        :type: int
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+ActionPOST.from_dict_handlers["LOOKUP"] = LookupActionFromActionPOST._from_dict
 
 
 
@@ -9469,7 +10598,7 @@ class LookupActionPOST(ActionPOST):
         instance._attrs = model
         return instance
 
-    def __init__(self, expression: "str" = None, id: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+    def __init__(self, expression: "str" = None, id: "str" = None, kind: "LookupActionKind" = None, ruleid: "str" = None, version: "int" = None, **extra):
         """LookupActionPOST"""
 
         self._attrs = dict()
@@ -9477,7 +10606,8 @@ class LookupActionPOST(ActionPOST):
             self._attrs["expression"] = expression
         if id is not None:
             self._attrs["id"] = id
-        self._attrs["kind"] = "LOOKUP" 
+        if kind is not None:
+            self._attrs["kind"] = kind
         if ruleid is not None:
             self._attrs["ruleid"] = ruleid
         if version is not None:
@@ -9522,9 +10652,23 @@ class LookupActionPOST(ActionPOST):
         self._attrs["id"] = id
 
     @property
-    def kind(self) -> str:
-        return "LOOKUP"
+    def kind(self) -> "LookupActionKind":
+        """ Gets the kind of this LookupActionPOST.
+        """
+        return LookupActionKind.from_value(self._attrs.get("kind"))
 
+    @kind.setter
+    def kind(self, kind: "LookupActionKind"):
+        """Sets the kind of this LookupActionPOST.
+
+
+        :param kind: The kind of this LookupActionPOST.
+        :type: LookupActionKind
+        """
+        if isinstance(kind, Enum):
+            self._attrs["kind"] = kind.value
+        else:
+            self._attrs["kind"] = kind  # If you supply a string, we presume you know the service will take it.
 
     @property
     def ruleid(self) -> "str":
@@ -9564,10 +10708,6 @@ class LookupActionPOST(ActionPOST):
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-ActionPOST.from_dict_handlers["LOOKUP"] = LookupActionPOST._from_dict
-
 
 
 class LookupDatasetExternalKind(str, Enum):
@@ -12288,16 +13428,16 @@ class Module(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-class RegexAction(Action):
+class RegexActionFromAction(Action):
 
     @staticmethod
-    def _from_dict(model: dict) -> "RegexAction":
-        instance = RegexAction.__new__(RegexAction)
+    def _from_dict(model: dict) -> "RegexActionFromAction":
+        instance = RegexActionFromAction.__new__(RegexActionFromAction)
         instance._attrs = model
         return instance
 
     def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, field: "str" = None, id: "str" = None, limit: "int" = None, pattern: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
-        """RegexAction"""
+        """RegexActionFromAction"""
 
         self._attrs = dict()
         if created is not None:
@@ -12332,18 +13472,18 @@ class RegexAction(Action):
 
     @property
     def created(self) -> "datetime":
-        """ Gets the created of this RegexAction.
+        """ Gets the created of this RegexActionFromAction.
         The date and time object was created.
         """
         return self._attrs.get("created")
 
     @created.setter
     def created(self, created: "datetime"):
-        """Sets the created of this RegexAction.
+        """Sets the created of this RegexActionFromAction.
 
         The date and time object was created.
 
-        :param created: The created of this RegexAction.
+        :param created: The created of this RegexActionFromAction.
         :type: datetime
         """
         if created is None:
@@ -12352,18 +13492,18 @@ class RegexAction(Action):
 
     @property
     def createdby(self) -> "str":
-        """ Gets the createdby of this RegexAction.
+        """ Gets the createdby of this RegexActionFromAction.
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
         """
         return self._attrs.get("createdby")
 
     @createdby.setter
     def createdby(self, createdby: "str"):
-        """Sets the createdby of this RegexAction.
+        """Sets the createdby of this RegexActionFromAction.
 
         The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
 
-        :param createdby: The createdby of this RegexAction.
+        :param createdby: The createdby of this RegexActionFromAction.
         :type: str
         """
         if createdby is None:
@@ -12372,18 +13512,18 @@ class RegexAction(Action):
 
     @property
     def modified(self) -> "datetime":
-        """ Gets the modified of this RegexAction.
+        """ Gets the modified of this RegexActionFromAction.
         The date and time object was modified.
         """
         return self._attrs.get("modified")
 
     @modified.setter
     def modified(self, modified: "datetime"):
-        """Sets the modified of this RegexAction.
+        """Sets the modified of this RegexActionFromAction.
 
         The date and time object was modified.
 
-        :param modified: The modified of this RegexAction.
+        :param modified: The modified of this RegexActionFromAction.
         :type: datetime
         """
         if modified is None:
@@ -12392,18 +13532,18 @@ class RegexAction(Action):
 
     @property
     def modifiedby(self) -> "str":
-        """ Gets the modifiedby of this RegexAction.
+        """ Gets the modifiedby of this RegexActionFromAction.
         The name of the user who most recently modified the object.
         """
         return self._attrs.get("modifiedby")
 
     @modifiedby.setter
     def modifiedby(self, modifiedby: "str"):
-        """Sets the modifiedby of this RegexAction.
+        """Sets the modifiedby of this RegexActionFromAction.
 
         The name of the user who most recently modified the object.
 
-        :param modifiedby: The modifiedby of this RegexAction.
+        :param modifiedby: The modifiedby of this RegexActionFromAction.
         :type: str
         """
         if modifiedby is None:
@@ -12412,18 +13552,18 @@ class RegexAction(Action):
 
     @property
     def owner(self) -> "str":
-        """ Gets the owner of this RegexAction.
+        """ Gets the owner of this RegexActionFromAction.
         The name of the object's owner.
         """
         return self._attrs.get("owner")
 
     @owner.setter
     def owner(self, owner: "str"):
-        """Sets the owner of this RegexAction.
+        """Sets the owner of this RegexActionFromAction.
 
         The name of the object's owner.
 
-        :param owner: The owner of this RegexAction.
+        :param owner: The owner of this RegexActionFromAction.
         :type: str
         """
         if owner is None:
@@ -12432,72 +13572,72 @@ class RegexAction(Action):
 
     @property
     def appclientidcreatedby(self) -> "str":
-        """ Gets the appclientidcreatedby of this RegexAction.
+        """ Gets the appclientidcreatedby of this RegexActionFromAction.
         AppClinetId of the creator app of the dataset.
         """
         return self._attrs.get("appclientidcreatedby")
 
     @appclientidcreatedby.setter
     def appclientidcreatedby(self, appclientidcreatedby: "str"):
-        """Sets the appclientidcreatedby of this RegexAction.
+        """Sets the appclientidcreatedby of this RegexActionFromAction.
 
         AppClinetId of the creator app of the dataset.
 
-        :param appclientidcreatedby: The appclientidcreatedby of this RegexAction.
+        :param appclientidcreatedby: The appclientidcreatedby of this RegexActionFromAction.
         :type: str
         """
         self._attrs["appclientidcreatedby"] = appclientidcreatedby
 
     @property
     def appclientidmodifiedby(self) -> "str":
-        """ Gets the appclientidmodifiedby of this RegexAction.
+        """ Gets the appclientidmodifiedby of this RegexActionFromAction.
         AppClinetId of the modifier app of the dataset.
         """
         return self._attrs.get("appclientidmodifiedby")
 
     @appclientidmodifiedby.setter
     def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
-        """Sets the appclientidmodifiedby of this RegexAction.
+        """Sets the appclientidmodifiedby of this RegexActionFromAction.
 
         AppClinetId of the modifier app of the dataset.
 
-        :param appclientidmodifiedby: The appclientidmodifiedby of this RegexAction.
+        :param appclientidmodifiedby: The appclientidmodifiedby of this RegexActionFromAction.
         :type: str
         """
         self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
 
     @property
     def field(self) -> "str":
-        """ Gets the field of this RegexAction.
+        """ Gets the field of this RegexActionFromAction.
         Name of the field that is matched against the regular expression.
         """
         return self._attrs.get("field")
 
     @field.setter
     def field(self, field: "str"):
-        """Sets the field of this RegexAction.
+        """Sets the field of this RegexActionFromAction.
 
         Name of the field that is matched against the regular expression.
 
-        :param field: The field of this RegexAction.
+        :param field: The field of this RegexActionFromAction.
         :type: str
         """
         self._attrs["field"] = field
 
     @property
     def id(self) -> "str":
-        """ Gets the id of this RegexAction.
+        """ Gets the id of this RegexActionFromAction.
         A unique action ID.
         """
         return self._attrs.get("id")
 
     @id.setter
     def id(self, id: "str"):
-        """Sets the id of this RegexAction.
+        """Sets the id of this RegexActionFromAction.
 
         A unique action ID.
 
-        :param id: The id of this RegexAction.
+        :param id: The id of this RegexActionFromAction.
         :type: str
         """
         self._attrs["id"] = id
@@ -12509,72 +13649,72 @@ class RegexAction(Action):
 
     @property
     def limit(self) -> "int":
-        """ Gets the limit of this RegexAction.
+        """ Gets the limit of this RegexActionFromAction.
         The maximum number of times per event to attempt to match fields with the regular expression.
         """
         return self._attrs.get("limit")
 
     @limit.setter
     def limit(self, limit: "int"):
-        """Sets the limit of this RegexAction.
+        """Sets the limit of this RegexActionFromAction.
 
         The maximum number of times per event to attempt to match fields with the regular expression.
 
-        :param limit: The limit of this RegexAction.
+        :param limit: The limit of this RegexActionFromAction.
         :type: int
         """
         self._attrs["limit"] = limit
 
     @property
     def pattern(self) -> "str":
-        """ Gets the pattern of this RegexAction.
+        """ Gets the pattern of this RegexActionFromAction.
         A regular expression that includes named capture groups for the purpose of field extraction.
         """
         return self._attrs.get("pattern")
 
     @pattern.setter
     def pattern(self, pattern: "str"):
-        """Sets the pattern of this RegexAction.
+        """Sets the pattern of this RegexActionFromAction.
 
         A regular expression that includes named capture groups for the purpose of field extraction.
 
-        :param pattern: The pattern of this RegexAction.
+        :param pattern: The pattern of this RegexActionFromAction.
         :type: str
         """
         self._attrs["pattern"] = pattern
 
     @property
     def ruleid(self) -> "str":
-        """ Gets the ruleid of this RegexAction.
+        """ Gets the ruleid of this RegexActionFromAction.
         The rule that this action is part of.
         """
         return self._attrs.get("ruleid")
 
     @ruleid.setter
     def ruleid(self, ruleid: "str"):
-        """Sets the ruleid of this RegexAction.
+        """Sets the ruleid of this RegexActionFromAction.
 
         The rule that this action is part of.
 
-        :param ruleid: The ruleid of this RegexAction.
+        :param ruleid: The ruleid of this RegexActionFromAction.
         :type: str
         """
         self._attrs["ruleid"] = ruleid
 
     @property
     def version(self) -> "int":
-        """ Gets the version of this RegexAction.
+        """ Gets the version of this RegexActionFromAction.
         The catalog version.
         """
         return self._attrs.get("version")
 
     @version.setter
     def version(self, version: "int"):
-        """Sets the version of this RegexAction.
+        """Sets the version of this RegexActionFromAction.
 
         The catalog version.
 
-        :param version: The version of this RegexAction.
+        :param version: The version of this RegexActionFromAction.
         :type: int
         """
         self._attrs["version"] = version
@@ -12583,7 +13723,306 @@ class RegexAction(Action):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-Action.from_dict_handlers["REGEX"] = RegexAction._from_dict
+Action.from_dict_handlers["REGEX"] = RegexActionFromAction._from_dict
+
+
+
+class RegexActionFromActionPOST(ActionPOST):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "RegexActionFromActionPOST":
+        instance = RegexActionFromActionPOST.__new__(RegexActionFromActionPOST)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, created: "datetime", createdby: "str", modified: "datetime", modifiedby: "str", owner: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, field: "str" = None, id: "str" = None, limit: "int" = None, pattern: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+        """RegexActionFromActionPOST"""
+
+        self._attrs = dict()
+        if created is not None:
+            self._attrs["created"] = created
+        if createdby is not None:
+            self._attrs["createdby"] = createdby
+        if modified is not None:
+            self._attrs["modified"] = modified
+        if modifiedby is not None:
+            self._attrs["modifiedby"] = modifiedby
+        if owner is not None:
+            self._attrs["owner"] = owner
+        if appclientidcreatedby is not None:
+            self._attrs["appclientidcreatedby"] = appclientidcreatedby
+        if appclientidmodifiedby is not None:
+            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+        if field is not None:
+            self._attrs["field"] = field
+        if id is not None:
+            self._attrs["id"] = id
+        self._attrs["kind"] = "REGEX" 
+        if limit is not None:
+            self._attrs["limit"] = limit
+        if pattern is not None:
+            self._attrs["pattern"] = pattern
+        if ruleid is not None:
+            self._attrs["ruleid"] = ruleid
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def created(self) -> "datetime":
+        """ Gets the created of this RegexActionFromActionPOST.
+        The date and time object was created.
+        """
+        return self._attrs.get("created")
+
+    @created.setter
+    def created(self, created: "datetime"):
+        """Sets the created of this RegexActionFromActionPOST.
+
+        The date and time object was created.
+
+        :param created: The created of this RegexActionFromActionPOST.
+        :type: datetime
+        """
+        if created is None:
+            raise ValueError("Invalid value for `created`, must not be `None`")
+        self._attrs["created"] = created
+
+    @property
+    def createdby(self) -> "str":
+        """ Gets the createdby of this RegexActionFromActionPOST.
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+        """
+        return self._attrs.get("createdby")
+
+    @createdby.setter
+    def createdby(self, createdby: "str"):
+        """Sets the createdby of this RegexActionFromActionPOST.
+
+        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
+
+        :param createdby: The createdby of this RegexActionFromActionPOST.
+        :type: str
+        """
+        if createdby is None:
+            raise ValueError("Invalid value for `createdby`, must not be `None`")
+        self._attrs["createdby"] = createdby
+
+    @property
+    def modified(self) -> "datetime":
+        """ Gets the modified of this RegexActionFromActionPOST.
+        The date and time object was modified.
+        """
+        return self._attrs.get("modified")
+
+    @modified.setter
+    def modified(self, modified: "datetime"):
+        """Sets the modified of this RegexActionFromActionPOST.
+
+        The date and time object was modified.
+
+        :param modified: The modified of this RegexActionFromActionPOST.
+        :type: datetime
+        """
+        if modified is None:
+            raise ValueError("Invalid value for `modified`, must not be `None`")
+        self._attrs["modified"] = modified
+
+    @property
+    def modifiedby(self) -> "str":
+        """ Gets the modifiedby of this RegexActionFromActionPOST.
+        The name of the user who most recently modified the object.
+        """
+        return self._attrs.get("modifiedby")
+
+    @modifiedby.setter
+    def modifiedby(self, modifiedby: "str"):
+        """Sets the modifiedby of this RegexActionFromActionPOST.
+
+        The name of the user who most recently modified the object.
+
+        :param modifiedby: The modifiedby of this RegexActionFromActionPOST.
+        :type: str
+        """
+        if modifiedby is None:
+            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
+        self._attrs["modifiedby"] = modifiedby
+
+    @property
+    def owner(self) -> "str":
+        """ Gets the owner of this RegexActionFromActionPOST.
+        The name of the object's owner.
+        """
+        return self._attrs.get("owner")
+
+    @owner.setter
+    def owner(self, owner: "str"):
+        """Sets the owner of this RegexActionFromActionPOST.
+
+        The name of the object's owner.
+
+        :param owner: The owner of this RegexActionFromActionPOST.
+        :type: str
+        """
+        if owner is None:
+            raise ValueError("Invalid value for `owner`, must not be `None`")
+        self._attrs["owner"] = owner
+
+    @property
+    def appclientidcreatedby(self) -> "str":
+        """ Gets the appclientidcreatedby of this RegexActionFromActionPOST.
+        AppClinetId of the creator app of the dataset.
+        """
+        return self._attrs.get("appclientidcreatedby")
+
+    @appclientidcreatedby.setter
+    def appclientidcreatedby(self, appclientidcreatedby: "str"):
+        """Sets the appclientidcreatedby of this RegexActionFromActionPOST.
+
+        AppClinetId of the creator app of the dataset.
+
+        :param appclientidcreatedby: The appclientidcreatedby of this RegexActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidcreatedby"] = appclientidcreatedby
+
+    @property
+    def appclientidmodifiedby(self) -> "str":
+        """ Gets the appclientidmodifiedby of this RegexActionFromActionPOST.
+        AppClinetId of the modifier app of the dataset.
+        """
+        return self._attrs.get("appclientidmodifiedby")
+
+    @appclientidmodifiedby.setter
+    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
+        """Sets the appclientidmodifiedby of this RegexActionFromActionPOST.
+
+        AppClinetId of the modifier app of the dataset.
+
+        :param appclientidmodifiedby: The appclientidmodifiedby of this RegexActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
+
+    @property
+    def field(self) -> "str":
+        """ Gets the field of this RegexActionFromActionPOST.
+        Name of the field that is matched against the regular expression.
+        """
+        return self._attrs.get("field")
+
+    @field.setter
+    def field(self, field: "str"):
+        """Sets the field of this RegexActionFromActionPOST.
+
+        Name of the field that is matched against the regular expression.
+
+        :param field: The field of this RegexActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["field"] = field
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this RegexActionFromActionPOST.
+        A unique action ID.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this RegexActionFromActionPOST.
+
+        A unique action ID.
+
+        :param id: The id of this RegexActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["id"] = id
+
+    @property
+    def kind(self) -> str:
+        return "REGEX"
+
+
+    @property
+    def limit(self) -> "int":
+        """ Gets the limit of this RegexActionFromActionPOST.
+        The maximum number of times per event to attempt to match fields with the regular expression.
+        """
+        return self._attrs.get("limit")
+
+    @limit.setter
+    def limit(self, limit: "int"):
+        """Sets the limit of this RegexActionFromActionPOST.
+
+        The maximum number of times per event to attempt to match fields with the regular expression.
+
+        :param limit: The limit of this RegexActionFromActionPOST.
+        :type: int
+        """
+        self._attrs["limit"] = limit
+
+    @property
+    def pattern(self) -> "str":
+        """ Gets the pattern of this RegexActionFromActionPOST.
+        A regular expression that includes named capture groups for the purpose of field extraction.
+        """
+        return self._attrs.get("pattern")
+
+    @pattern.setter
+    def pattern(self, pattern: "str"):
+        """Sets the pattern of this RegexActionFromActionPOST.
+
+        A regular expression that includes named capture groups for the purpose of field extraction.
+
+        :param pattern: The pattern of this RegexActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["pattern"] = pattern
+
+    @property
+    def ruleid(self) -> "str":
+        """ Gets the ruleid of this RegexActionFromActionPOST.
+        The rule that this action is part of.
+        """
+        return self._attrs.get("ruleid")
+
+    @ruleid.setter
+    def ruleid(self, ruleid: "str"):
+        """Sets the ruleid of this RegexActionFromActionPOST.
+
+        The rule that this action is part of.
+
+        :param ruleid: The ruleid of this RegexActionFromActionPOST.
+        :type: str
+        """
+        self._attrs["ruleid"] = ruleid
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this RegexActionFromActionPOST.
+        The catalog version.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this RegexActionFromActionPOST.
+
+        The catalog version.
+
+        :param version: The version of this RegexActionFromActionPOST.
+        :type: int
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+ActionPOST.from_dict_handlers["REGEX"] = RegexActionFromActionPOST._from_dict
 
 
 
@@ -12744,7 +14183,7 @@ class RegexActionPOST(ActionPOST):
         instance._attrs = model
         return instance
 
-    def __init__(self, field: "str" = None, id: "str" = None, limit: "int" = None, pattern: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
+    def __init__(self, field: "str" = None, id: "str" = None, kind: "RegexActionKind" = None, limit: "int" = None, pattern: "str" = None, ruleid: "str" = None, version: "int" = None, **extra):
         """RegexActionPOST"""
 
         self._attrs = dict()
@@ -12752,7 +14191,8 @@ class RegexActionPOST(ActionPOST):
             self._attrs["field"] = field
         if id is not None:
             self._attrs["id"] = id
-        self._attrs["kind"] = "REGEX" 
+        if kind is not None:
+            self._attrs["kind"] = kind
         if limit is not None:
             self._attrs["limit"] = limit
         if pattern is not None:
@@ -12801,9 +14241,23 @@ class RegexActionPOST(ActionPOST):
         self._attrs["id"] = id
 
     @property
-    def kind(self) -> str:
-        return "REGEX"
+    def kind(self) -> "RegexActionKind":
+        """ Gets the kind of this RegexActionPOST.
+        """
+        return RegexActionKind.from_value(self._attrs.get("kind"))
 
+    @kind.setter
+    def kind(self, kind: "RegexActionKind"):
+        """Sets the kind of this RegexActionPOST.
+
+
+        :param kind: The kind of this RegexActionPOST.
+        :type: RegexActionKind
+        """
+        if isinstance(kind, Enum):
+            self._attrs["kind"] = kind.value
+        else:
+            self._attrs["kind"] = kind  # If you supply a string, we presume you know the service will take it.
 
     @property
     def limit(self) -> "int":
@@ -12879,10 +14333,6 @@ class RegexActionPOST(ActionPOST):
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-ActionPOST.from_dict_handlers["REGEX"] = RegexActionPOST._from_dict
-
 
 
 class RelationshipField(SSCModel):
@@ -18690,388 +20140,3 @@ class WorkflowRunPOST(SSCModel):
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-class ImportDataset(Dataset):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "ImportDataset":
-        instance = ImportDataset.__new__(ImportDataset)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, created: "datetime", createdby: "str", id: "str", modified: "datetime", modifiedby: "str", module: "str", name: "str", owner: "str", resourcename: "str", appclientidcreatedby: "str" = None, appclientidmodifiedby: "str" = None, description: "str" = None, source_module: "str" = None, source_name: "str" = None, summary: "str" = None, title: "str" = None, version: "int" = None, **extra):
-        """ImportDataset"""
-
-        self._attrs = dict()
-        if created is not None:
-            self._attrs["created"] = created
-        if createdby is not None:
-            self._attrs["createdby"] = createdby
-        if id is not None:
-            self._attrs["id"] = id
-        if modified is not None:
-            self._attrs["modified"] = modified
-        if modifiedby is not None:
-            self._attrs["modifiedby"] = modifiedby
-        if module is not None:
-            self._attrs["module"] = module
-        if name is not None:
-            self._attrs["name"] = name
-        if owner is not None:
-            self._attrs["owner"] = owner
-        if resourcename is not None:
-            self._attrs["resourcename"] = resourcename
-        if appclientidcreatedby is not None:
-            self._attrs["appclientidcreatedby"] = appclientidcreatedby
-        if appclientidmodifiedby is not None:
-            self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
-        if description is not None:
-            self._attrs["description"] = description
-        self._attrs["kind"] = "import"
-        if source_module is not None:
-            self._attrs["sourceModule"] = source_module
-        if source_name is not None:
-            self._attrs["sourceName"] = source_name
-        if summary is not None:
-            self._attrs["summary"] = summary
-        if title is not None:
-            self._attrs["title"] = title
-        if version is not None:
-            self._attrs["version"] = version
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def created(self) -> "datetime":
-        """ Gets the created of this ImportDataset.
-        The date and time object was created.
-        """
-        return self._attrs.get("created")
-
-    @created.setter
-    def created(self, created: "datetime"):
-        """Sets the created of this ImportDataset.
-
-        The date and time object was created.
-
-        :param created: The created of this ImportDataset.
-        :type: datetime
-        """
-        if created is None:
-            raise ValueError("Invalid value for `created`, must not be `None`")
-        self._attrs["created"] = created
-
-    @property
-    def createdby(self) -> "str":
-        """ Gets the createdby of this ImportDataset.
-        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
-        """
-        return self._attrs.get("createdby")
-
-    @createdby.setter
-    def createdby(self, createdby: "str"):
-        """Sets the createdby of this ImportDataset.
-
-        The name of the user who created the object. This value is obtained from the bearer token and may not be changed.
-
-        :param createdby: The createdby of this ImportDataset.
-        :type: str
-        """
-        if createdby is None:
-            raise ValueError("Invalid value for `createdby`, must not be `None`")
-        self._attrs["createdby"] = createdby
-
-    @property
-    def id(self) -> "str":
-        """ Gets the id of this ImportDataset.
-        A unique dataset ID.
-        """
-        return self._attrs.get("id")
-
-    @id.setter
-    def id(self, id: "str"):
-        """Sets the id of this ImportDataset.
-
-        A unique dataset ID.
-
-        :param id: The id of this ImportDataset.
-        :type: str
-        """
-        if id is None:
-            raise ValueError("Invalid value for `id`, must not be `None`")
-        self._attrs["id"] = id
-
-    @property
-    def modified(self) -> "datetime":
-        """ Gets the modified of this ImportDataset.
-        The date and time object was modified.
-        """
-        return self._attrs.get("modified")
-
-    @modified.setter
-    def modified(self, modified: "datetime"):
-        """Sets the modified of this ImportDataset.
-
-        The date and time object was modified.
-
-        :param modified: The modified of this ImportDataset.
-        :type: datetime
-        """
-        if modified is None:
-            raise ValueError("Invalid value for `modified`, must not be `None`")
-        self._attrs["modified"] = modified
-
-    @property
-    def modifiedby(self) -> "str":
-        """ Gets the modifiedby of this ImportDataset.
-        The name of the user who most recently modified the object.
-        """
-        return self._attrs.get("modifiedby")
-
-    @modifiedby.setter
-    def modifiedby(self, modifiedby: "str"):
-        """Sets the modifiedby of this ImportDataset.
-
-        The name of the user who most recently modified the object.
-
-        :param modifiedby: The modifiedby of this ImportDataset.
-        :type: str
-        """
-        if modifiedby is None:
-            raise ValueError("Invalid value for `modifiedby`, must not be `None`")
-        self._attrs["modifiedby"] = modifiedby
-
-    @property
-    def module(self) -> "str":
-        """ Gets the module of this ImportDataset.
-        The name of the module that contains the dataset.
-        """
-        return self._attrs.get("module")
-
-    @module.setter
-    def module(self, module: "str"):
-        """Sets the module of this ImportDataset.
-
-        The name of the module that contains the dataset.
-
-        :param module: The module of this ImportDataset.
-        :type: str
-        """
-        if module is None:
-            raise ValueError("Invalid value for `module`, must not be `None`")
-        self._attrs["module"] = module
-
-    @property
-    def name(self) -> "str":
-        """ Gets the name of this ImportDataset.
-        The dataset name. Dataset names must be unique within each module.
-        """
-        return self._attrs.get("name")
-
-    @name.setter
-    def name(self, name: "str"):
-        """Sets the name of this ImportDataset.
-
-        The dataset name. Dataset names must be unique within each module.
-
-        :param name: The name of this ImportDataset.
-        :type: str
-        """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
-        self._attrs["name"] = name
-
-    @property
-    def owner(self) -> "str":
-        """ Gets the owner of this ImportDataset.
-        The name of the object's owner.
-        """
-        return self._attrs.get("owner")
-
-    @owner.setter
-    def owner(self, owner: "str"):
-        """Sets the owner of this ImportDataset.
-
-        The name of the object's owner.
-
-        :param owner: The owner of this ImportDataset.
-        :type: str
-        """
-        if owner is None:
-            raise ValueError("Invalid value for `owner`, must not be `None`")
-        self._attrs["owner"] = owner
-
-    @property
-    def resourcename(self) -> "str":
-        """ Gets the resourcename of this ImportDataset.
-        The dataset name qualified by the module name.
-        """
-        return self._attrs.get("resourcename")
-
-    @resourcename.setter
-    def resourcename(self, resourcename: "str"):
-        """Sets the resourcename of this ImportDataset.
-
-        The dataset name qualified by the module name.
-
-        :param resourcename: The resourcename of this ImportDataset.
-        :type: str
-        """
-        if resourcename is None:
-            raise ValueError("Invalid value for `resourcename`, must not be `None`")
-        self._attrs["resourcename"] = resourcename
-
-    @property
-    def appclientidcreatedby(self) -> "str":
-        """ Gets the appclientidcreatedby of this ImportDataset.
-        AppClinetId of the creator app of the dataset.
-        """
-        return self._attrs.get("appclientidcreatedby")
-
-    @appclientidcreatedby.setter
-    def appclientidcreatedby(self, appclientidcreatedby: "str"):
-        """Sets the appclientidcreatedby of this ImportDataset.
-
-        AppClinetId of the creator app of the dataset.
-
-        :param appclientidcreatedby: The appclientidcreatedby of this ImportDataset.
-        :type: str
-        """
-        self._attrs["appclientidcreatedby"] = appclientidcreatedby
-
-    @property
-    def appclientidmodifiedby(self) -> "str":
-        """ Gets the appclientidmodifiedby of this ImportDataset.
-        AppClinetId of the modifier app of the dataset.
-        """
-        return self._attrs.get("appclientidmodifiedby")
-
-    @appclientidmodifiedby.setter
-    def appclientidmodifiedby(self, appclientidmodifiedby: "str"):
-        """Sets the appclientidmodifiedby of this ImportDataset.
-
-        AppClinetId of the modifier app of the dataset.
-
-        :param appclientidmodifiedby: The appclientidmodifiedby of this ImportDataset.
-        :type: str
-        """
-        self._attrs["appclientidmodifiedby"] = appclientidmodifiedby
-
-    @property
-    def description(self) -> "str":
-        """ Gets the description of this ImportDataset.
-        Detailed description of the dataset.
-        """
-        return self._attrs.get("description")
-
-    @description.setter
-    def description(self, description: "str"):
-        """Sets the description of this ImportDataset.
-
-        Detailed description of the dataset.
-
-        :param description: The description of this ImportDataset.
-        :type: str
-        """
-        self._attrs["description"] = description
-
-    @property
-    def kind(self) -> str:
-        return "import"
-
-
-    @property
-    def source_module(self) -> "str":
-        """ Gets the source_module of this ImportDataset.
-        The dataset module being imported.
-        """
-        return self._attrs.get("sourceModule")
-
-    @source_module.setter
-    def source_module(self, source_module: "str"):
-        """Sets the source_module of this ImportDataset.
-
-        The dataset module being imported.
-
-        :param source_module: The source_module of this ImportDataset.
-        :type: str
-        """
-        self._attrs["sourceModule"] = source_module
-
-    @property
-    def source_name(self) -> "str":
-        """ Gets the source_name of this ImportDataset.
-        The dataset name being imported.
-        """
-        return self._attrs.get("sourceName")
-
-    @source_name.setter
-    def source_name(self, source_name: "str"):
-        """Sets the source_name of this ImportDataset.
-
-        The dataset name being imported.
-
-        :param source_name: The source_name of this ImportDataset.
-        :type: str
-        """
-        self._attrs["sourceName"] = source_name
-
-    @property
-    def summary(self) -> "str":
-        """ Gets the summary of this ImportDataset.
-        Summary of the dataset's purpose.
-        """
-        return self._attrs.get("summary")
-
-    @summary.setter
-    def summary(self, summary: "str"):
-        """Sets the summary of this ImportDataset.
-
-        Summary of the dataset's purpose.
-
-        :param summary: The summary of this ImportDataset.
-        :type: str
-        """
-        self._attrs["summary"] = summary
-
-    @property
-    def title(self) -> "str":
-        """ Gets the title of this ImportDataset.
-        The title of the dataset.  Does not have to be unique.
-        """
-        return self._attrs.get("title")
-
-    @title.setter
-    def title(self, title: "str"):
-        """Sets the title of this ImportDataset.
-
-        The title of the dataset.  Does not have to be unique.
-
-        :param title: The title of this ImportDataset.
-        :type: str
-        """
-        self._attrs["title"] = title
-
-    @property
-    def version(self) -> "int":
-        """ Gets the version of this ImportDataset.
-        The catalog version.
-        """
-        return self._attrs.get("version")
-
-    @version.setter
-    def version(self, version: "int"):
-        """Sets the version of this ImportDataset.
-
-        The catalog version.
-
-        :param version: The version of this ImportDataset.
-        :type: int
-        """
-        self._attrs["version"] = version
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-Dataset.from_dict_handlers["import"] = ImportDataset._from_dict

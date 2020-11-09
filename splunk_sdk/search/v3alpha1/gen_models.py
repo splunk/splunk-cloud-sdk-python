@@ -170,7 +170,7 @@ class QueryParameters(SSCModel):
     @property
     def relative_time_anchor(self) -> "datetime":
         """ Gets the relative_time_anchor of this QueryParameters.
-        Relative values for the 'earliest' and 'latest' parameters  snap to the unit that you specify.  For example, if 'earliest' is set to -d@d, the unit is day.  If the 'relativeTimeAnchor' is is set to '1994-11-05T13:15:30Z'  then 'resolvedEarliest' is snapped to '1994-11-05T00:00:00Z',  which is the day. Hours, minutes, and seconds are dropped.  If no 'relativeTimeAnchor' is specified, the default value  is set to the time the search job was created. 
+        Relative values for the 'earliest' and 'latest' parameters  snap to the unit that you specify.  For example, if 'earliest' is set to -d@d, the unit is day.  If the 'relativeTimeAnchor' is is set to '2020-10-05T13:15:30Z'  then 'resolvedEarliest' is snapped to '2020-10-05T00:00:00Z',  which is the day. Hours, minutes, and seconds are dropped.  If no 'relativeTimeAnchor' is specified, the default value  is set to the time the search job was created. 
         """
         return self._attrs.get("relativeTimeAnchor")
 
@@ -178,7 +178,7 @@ class QueryParameters(SSCModel):
     def relative_time_anchor(self, relative_time_anchor: "datetime"):
         """Sets the relative_time_anchor of this QueryParameters.
 
-        Relative values for the 'earliest' and 'latest' parameters  snap to the unit that you specify.  For example, if 'earliest' is set to -d@d, the unit is day.  If the 'relativeTimeAnchor' is is set to '1994-11-05T13:15:30Z'  then 'resolvedEarliest' is snapped to '1994-11-05T00:00:00Z',  which is the day. Hours, minutes, and seconds are dropped.  If no 'relativeTimeAnchor' is specified, the default value  is set to the time the search job was created. 
+        Relative values for the 'earliest' and 'latest' parameters  snap to the unit that you specify.  For example, if 'earliest' is set to -d@d, the unit is day.  If the 'relativeTimeAnchor' is is set to '2020-10-05T13:15:30Z'  then 'resolvedEarliest' is snapped to '2020-10-05T00:00:00Z',  which is the day. Hours, minutes, and seconds are dropped.  If no 'relativeTimeAnchor' is specified, the default value  is set to the time the search job was created. 
 
         :param relative_time_anchor: The relative_time_anchor of this QueryParameters.
         :type: datetime
@@ -1186,16 +1186,16 @@ class FieldsSummary(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-class ListSearchResultsResponseFields(SSCModel):
+class ListPreviewResultsResponseFields(SSCModel):
 
     @staticmethod
-    def _from_dict(model: dict) -> "ListSearchResultsResponseFields":
-        instance = ListSearchResultsResponseFields.__new__(ListSearchResultsResponseFields)
+    def _from_dict(model: dict) -> "ListPreviewResultsResponseFields":
+        instance = ListPreviewResultsResponseFields.__new__(ListPreviewResultsResponseFields)
         instance._attrs = model
         return instance
 
     def __init__(self, name: "str", data_source: "str" = None, groupby_rank: "str" = None, split_field: "str" = None, split_value: "str" = None, splitby_special: "str" = None, type_special: "str" = None, **extra):
-        """ListSearchResultsResponseFields"""
+        """ListPreviewResultsResponseFields"""
 
         self._attrs = dict()
         if name is not None:
@@ -1217,16 +1217,16 @@ class ListSearchResultsResponseFields(SSCModel):
 
     @property
     def name(self) -> "str":
-        """ Gets the name of this ListSearchResultsResponseFields.
+        """ Gets the name of this ListPreviewResultsResponseFields.
         """
         return self._attrs.get("name")
 
     @name.setter
     def name(self, name: "str"):
-        """Sets the name of this ListSearchResultsResponseFields.
+        """Sets the name of this ListPreviewResultsResponseFields.
 
 
-        :param name: The name of this ListSearchResultsResponseFields.
+        :param name: The name of this ListPreviewResultsResponseFields.
         :type: str
         """
         if name is None:
@@ -1235,96 +1235,96 @@ class ListSearchResultsResponseFields(SSCModel):
 
     @property
     def data_source(self) -> "str":
-        """ Gets the data_source of this ListSearchResultsResponseFields.
+        """ Gets the data_source of this ListPreviewResultsResponseFields.
         """
         return self._attrs.get("dataSource")
 
     @data_source.setter
     def data_source(self, data_source: "str"):
-        """Sets the data_source of this ListSearchResultsResponseFields.
+        """Sets the data_source of this ListPreviewResultsResponseFields.
 
 
-        :param data_source: The data_source of this ListSearchResultsResponseFields.
+        :param data_source: The data_source of this ListPreviewResultsResponseFields.
         :type: str
         """
         self._attrs["dataSource"] = data_source
 
     @property
     def groupby_rank(self) -> "str":
-        """ Gets the groupby_rank of this ListSearchResultsResponseFields.
+        """ Gets the groupby_rank of this ListPreviewResultsResponseFields.
         """
         return self._attrs.get("groupbyRank")
 
     @groupby_rank.setter
     def groupby_rank(self, groupby_rank: "str"):
-        """Sets the groupby_rank of this ListSearchResultsResponseFields.
+        """Sets the groupby_rank of this ListPreviewResultsResponseFields.
 
 
-        :param groupby_rank: The groupby_rank of this ListSearchResultsResponseFields.
+        :param groupby_rank: The groupby_rank of this ListPreviewResultsResponseFields.
         :type: str
         """
         self._attrs["groupbyRank"] = groupby_rank
 
     @property
     def split_field(self) -> "str":
-        """ Gets the split_field of this ListSearchResultsResponseFields.
+        """ Gets the split_field of this ListPreviewResultsResponseFields.
         """
         return self._attrs.get("splitField")
 
     @split_field.setter
     def split_field(self, split_field: "str"):
-        """Sets the split_field of this ListSearchResultsResponseFields.
+        """Sets the split_field of this ListPreviewResultsResponseFields.
 
 
-        :param split_field: The split_field of this ListSearchResultsResponseFields.
+        :param split_field: The split_field of this ListPreviewResultsResponseFields.
         :type: str
         """
         self._attrs["splitField"] = split_field
 
     @property
     def split_value(self) -> "str":
-        """ Gets the split_value of this ListSearchResultsResponseFields.
+        """ Gets the split_value of this ListPreviewResultsResponseFields.
         """
         return self._attrs.get("splitValue")
 
     @split_value.setter
     def split_value(self, split_value: "str"):
-        """Sets the split_value of this ListSearchResultsResponseFields.
+        """Sets the split_value of this ListPreviewResultsResponseFields.
 
 
-        :param split_value: The split_value of this ListSearchResultsResponseFields.
+        :param split_value: The split_value of this ListPreviewResultsResponseFields.
         :type: str
         """
         self._attrs["splitValue"] = split_value
 
     @property
     def splitby_special(self) -> "str":
-        """ Gets the splitby_special of this ListSearchResultsResponseFields.
+        """ Gets the splitby_special of this ListPreviewResultsResponseFields.
         """
         return self._attrs.get("splitbySpecial")
 
     @splitby_special.setter
     def splitby_special(self, splitby_special: "str"):
-        """Sets the splitby_special of this ListSearchResultsResponseFields.
+        """Sets the splitby_special of this ListPreviewResultsResponseFields.
 
 
-        :param splitby_special: The splitby_special of this ListSearchResultsResponseFields.
+        :param splitby_special: The splitby_special of this ListPreviewResultsResponseFields.
         :type: str
         """
         self._attrs["splitbySpecial"] = splitby_special
 
     @property
     def type_special(self) -> "str":
-        """ Gets the type_special of this ListSearchResultsResponseFields.
+        """ Gets the type_special of this ListPreviewResultsResponseFields.
         """
         return self._attrs.get("typeSpecial")
 
     @type_special.setter
     def type_special(self, type_special: "str"):
-        """Sets the type_special of this ListSearchResultsResponseFields.
+        """Sets the type_special of this ListPreviewResultsResponseFields.
 
 
-        :param type_special: The type_special of this ListSearchResultsResponseFields.
+        :param type_special: The type_special of this ListPreviewResultsResponseFields.
         :type: str
         """
         self._attrs["typeSpecial"] = type_special
@@ -1341,7 +1341,7 @@ class ListPreviewResultsResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, is_preview_stable: "bool", results: "List[object]", fields: "List[ListSearchResultsResponseFields]" = None, messages: "List[Message]" = None, next_link: "str" = None, wait: "str" = None, **extra):
+    def __init__(self, is_preview_stable: "bool", results: "List[object]", fields: "List[ListPreviewResultsResponseFields]" = None, messages: "List[Message]" = None, next_link: "str" = None, wait: "str" = None, **extra):
         """ListPreviewResultsResponse"""
 
         self._attrs = dict()
@@ -1397,18 +1397,18 @@ class ListPreviewResultsResponse(SSCModel):
         self._attrs["results"] = results
 
     @property
-    def fields(self) -> "List[ListSearchResultsResponseFields]":
+    def fields(self) -> "List[ListPreviewResultsResponseFields]":
         """ Gets the fields of this ListPreviewResultsResponse.
         """
-        return [ListSearchResultsResponseFields._from_dict(i) for i in self._attrs.get("fields")]
+        return [ListPreviewResultsResponseFields._from_dict(i) for i in self._attrs.get("fields")]
 
     @fields.setter
-    def fields(self, fields: "List[ListSearchResultsResponseFields]"):
+    def fields(self, fields: "List[ListPreviewResultsResponseFields]"):
         """Sets the fields of this ListPreviewResultsResponse.
 
 
         :param fields: The fields of this ListPreviewResultsResponse.
-        :type: List[ListSearchResultsResponseFields]
+        :type: List[ListPreviewResultsResponseFields]
         """
         self._attrs["fields"] = fields
 
@@ -1472,7 +1472,7 @@ class ListSearchResultsResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, results: "List[object]", fields: "List[ListSearchResultsResponseFields]" = None, messages: "List[Message]" = None, next_link: "str" = None, wait: "str" = None, **extra):
+    def __init__(self, results: "List[object]", fields: "List[ListPreviewResultsResponseFields]" = None, messages: "List[Message]" = None, next_link: "str" = None, wait: "str" = None, **extra):
         """ListSearchResultsResponse"""
 
         self._attrs = dict()
@@ -1508,18 +1508,18 @@ class ListSearchResultsResponse(SSCModel):
         self._attrs["results"] = results
 
     @property
-    def fields(self) -> "List[ListSearchResultsResponseFields]":
+    def fields(self) -> "List[ListPreviewResultsResponseFields]":
         """ Gets the fields of this ListSearchResultsResponse.
         """
-        return [ListSearchResultsResponseFields._from_dict(i) for i in self._attrs.get("fields")]
+        return [ListPreviewResultsResponseFields._from_dict(i) for i in self._attrs.get("fields")]
 
     @fields.setter
-    def fields(self, fields: "List[ListSearchResultsResponseFields]"):
+    def fields(self, fields: "List[ListPreviewResultsResponseFields]"):
         """Sets the fields of this ListSearchResultsResponse.
 
 
         :param fields: The fields of this ListSearchResultsResponse.
-        :type: List[ListSearchResultsResponseFields]
+        :type: List[ListPreviewResultsResponseFields]
         """
         self._attrs["fields"] = fields
 
@@ -2419,6 +2419,324 @@ class SearchJob(SSCModel):
             self._attrs["status"] = status.value
         else:
             self._attrs["status"] = status  # If you supply a string, we presume you know the service will take it.
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class SingleStatementQueryParameters(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "SingleStatementQueryParameters":
+        instance = SingleStatementQueryParameters.__new__(SingleStatementQueryParameters)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, allow_side_effects: "bool" = False, collect_field_summary: "bool" = False, collect_time_buckets: "bool" = False, earliest: "str" = '-24h@h', enable_preview: "bool" = False, extract_fields: "str" = 'indexed', latest: "str" = 'now', max_time: "int" = 3600, relative_time_anchor: "datetime" = None, sid: "str" = '', timezone: "object" = None, **extra):
+        """SingleStatementQueryParameters"""
+
+        self._attrs = dict()
+        if allow_side_effects is not None:
+            self._attrs["allowSideEffects"] = allow_side_effects
+        if collect_field_summary is not None:
+            self._attrs["collectFieldSummary"] = collect_field_summary
+        if collect_time_buckets is not None:
+            self._attrs["collectTimeBuckets"] = collect_time_buckets
+        if earliest is not None:
+            self._attrs["earliest"] = earliest
+        if enable_preview is not None:
+            self._attrs["enablePreview"] = enable_preview
+        if extract_fields is not None:
+            self._attrs["extractFields"] = extract_fields
+        if latest is not None:
+            self._attrs["latest"] = latest
+        if max_time is not None:
+            self._attrs["maxTime"] = max_time
+        if relative_time_anchor is not None:
+            self._attrs["relativeTimeAnchor"] = relative_time_anchor
+        if sid is not None:
+            self._attrs["sid"] = sid
+        if timezone is not None:
+            self._attrs["timezone"] = timezone
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def allow_side_effects(self) -> "bool":
+        """ Gets the allow_side_effects of this SingleStatementQueryParameters.
+        Specifies whether a search that contains commands with side effects (with possible security risks) is allowed to run. The search contains commands, thru or into, that have side effects. 
+        """
+        return self._attrs.get("allowSideEffects")
+
+    @allow_side_effects.setter
+    def allow_side_effects(self, allow_side_effects: "bool"):
+        """Sets the allow_side_effects of this SingleStatementQueryParameters.
+
+        Specifies whether a search that contains commands with side effects (with possible security risks) is allowed to run. The search contains commands, thru or into, that have side effects. 
+
+        :param allow_side_effects: The allow_side_effects of this SingleStatementQueryParameters.
+        :type: bool
+        """
+        self._attrs["allowSideEffects"] = allow_side_effects
+
+    @property
+    def collect_field_summary(self) -> "bool":
+        """ Gets the collect_field_summary of this SingleStatementQueryParameters.
+        Specifies whether a search is allowed to collect the Fields summary during the run time. 
+        """
+        return self._attrs.get("collectFieldSummary")
+
+    @collect_field_summary.setter
+    def collect_field_summary(self, collect_field_summary: "bool"):
+        """Sets the collect_field_summary of this SingleStatementQueryParameters.
+
+        Specifies whether a search is allowed to collect the Fields summary during the run time. 
+
+        :param collect_field_summary: The collect_field_summary of this SingleStatementQueryParameters.
+        :type: bool
+        """
+        self._attrs["collectFieldSummary"] = collect_field_summary
+
+    @property
+    def collect_time_buckets(self) -> "bool":
+        """ Gets the collect_time_buckets of this SingleStatementQueryParameters.
+        Specifies whether a search is allowed to collect the Timeline Buckets summary during the run time. 
+        """
+        return self._attrs.get("collectTimeBuckets")
+
+    @collect_time_buckets.setter
+    def collect_time_buckets(self, collect_time_buckets: "bool"):
+        """Sets the collect_time_buckets of this SingleStatementQueryParameters.
+
+        Specifies whether a search is allowed to collect the Timeline Buckets summary during the run time. 
+
+        :param collect_time_buckets: The collect_time_buckets of this SingleStatementQueryParameters.
+        :type: bool
+        """
+        self._attrs["collectTimeBuckets"] = collect_time_buckets
+
+    @property
+    def earliest(self) -> "str":
+        """ Gets the earliest of this SingleStatementQueryParameters.
+        The earliest time, in absolute or relative format, to retrieve events. When specifying an absolute time specify either UNIX time, or UTC in seconds using the ISO-8601 (%FT%T.%Q) format. For example 2020-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC. Any offset specified is ignored. 
+        """
+        return self._attrs.get("earliest")
+
+    @earliest.setter
+    def earliest(self, earliest: "str"):
+        """Sets the earliest of this SingleStatementQueryParameters.
+
+        The earliest time, in absolute or relative format, to retrieve events. When specifying an absolute time specify either UNIX time, or UTC in seconds using the ISO-8601 (%FT%T.%Q) format. For example 2020-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC. Any offset specified is ignored. 
+
+        :param earliest: The earliest of this SingleStatementQueryParameters.
+        :type: str
+        """
+        self._attrs["earliest"] = earliest
+
+    @property
+    def enable_preview(self) -> "bool":
+        """ Gets the enable_preview of this SingleStatementQueryParameters.
+        Specifies whether a search is allowed to collect the preview results during the run time. 
+        """
+        return self._attrs.get("enablePreview")
+
+    @enable_preview.setter
+    def enable_preview(self, enable_preview: "bool"):
+        """Sets the enable_preview of this SingleStatementQueryParameters.
+
+        Specifies whether a search is allowed to collect the preview results during the run time. 
+
+        :param enable_preview: The enable_preview of this SingleStatementQueryParameters.
+        :type: bool
+        """
+        self._attrs["enablePreview"] = enable_preview
+
+    @property
+    def extract_fields(self) -> "str":
+        """ Gets the extract_fields of this SingleStatementQueryParameters.
+        Specifies how the Search service should extract fields. Valid values include 'all', 'none', or 'indexed'. 'all' extracts all fields, 'indexed' extracts only indexed fields, and 'none' extracts only the default fields. 
+        """
+        return self._attrs.get("extractFields")
+
+    @extract_fields.setter
+    def extract_fields(self, extract_fields: "str"):
+        """Sets the extract_fields of this SingleStatementQueryParameters.
+
+        Specifies how the Search service should extract fields. Valid values include 'all', 'none', or 'indexed'. 'all' extracts all fields, 'indexed' extracts only indexed fields, and 'none' extracts only the default fields. 
+
+        :param extract_fields: The extract_fields of this SingleStatementQueryParameters.
+        :type: str
+        """
+        self._attrs["extractFields"] = extract_fields
+
+    @property
+    def latest(self) -> "str":
+        """ Gets the latest of this SingleStatementQueryParameters.
+        The latest time, in absolute or relative format, to retrieve events. When specifying an absolute time specify either UNIX time, or UTC in seconds using the ISO-8601 (%FT%T.%Q) format. For example 2020-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC. Any offset specified is ignored. 
+        """
+        return self._attrs.get("latest")
+
+    @latest.setter
+    def latest(self, latest: "str"):
+        """Sets the latest of this SingleStatementQueryParameters.
+
+        The latest time, in absolute or relative format, to retrieve events. When specifying an absolute time specify either UNIX time, or UTC in seconds using the ISO-8601 (%FT%T.%Q) format. For example 2020-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC. Any offset specified is ignored. 
+
+        :param latest: The latest of this SingleStatementQueryParameters.
+        :type: str
+        """
+        self._attrs["latest"] = latest
+
+    @property
+    def max_time(self) -> "int":
+        """ Gets the max_time of this SingleStatementQueryParameters.
+        The number of seconds to run the search before finalizing the search. The maximum value is 3600 seconds (1 hour). 
+        """
+        return self._attrs.get("maxTime")
+
+    @max_time.setter
+    def max_time(self, max_time: "int"):
+        """Sets the max_time of this SingleStatementQueryParameters.
+
+        The number of seconds to run the search before finalizing the search. The maximum value is 3600 seconds (1 hour). 
+
+        :param max_time: The max_time of this SingleStatementQueryParameters.
+        :type: int
+        """
+        self._attrs["maxTime"] = max_time
+
+    @property
+    def relative_time_anchor(self) -> "datetime":
+        """ Gets the relative_time_anchor of this SingleStatementQueryParameters.
+        Relative values for the 'earliest' and 'latest' parameters snap to the unit that you specify. For example, if 'earliest' is set to -d@d, the unit is day. If the 'relativeTimeAnchor' is is set to '2020-10-05T13:15:30Z' then 'resolvedEarliest' is snapped to '2020-10-05T00:00:00Z', which is the day. Hours, minutes, and seconds are dropped. If no 'relativeTimeAnchor' is specified, the default value is set to the time the search job was created. 
+        """
+        return self._attrs.get("relativeTimeAnchor")
+
+    @relative_time_anchor.setter
+    def relative_time_anchor(self, relative_time_anchor: "datetime"):
+        """Sets the relative_time_anchor of this SingleStatementQueryParameters.
+
+        Relative values for the 'earliest' and 'latest' parameters snap to the unit that you specify. For example, if 'earliest' is set to -d@d, the unit is day. If the 'relativeTimeAnchor' is is set to '2020-10-05T13:15:30Z' then 'resolvedEarliest' is snapped to '2020-10-05T00:00:00Z', which is the day. Hours, minutes, and seconds are dropped. If no 'relativeTimeAnchor' is specified, the default value is set to the time the search job was created. 
+
+        :param relative_time_anchor: The relative_time_anchor of this SingleStatementQueryParameters.
+        :type: datetime
+        """
+        self._attrs["relativeTimeAnchor"] = relative_time_anchor
+
+    @property
+    def sid(self) -> "str":
+        """ Gets the sid of this SingleStatementQueryParameters.
+        Reuse the results from the previous search ID (sid) for the statement. For customized default queryParameters, the sid is ignored. 
+        """
+        return self._attrs.get("sid")
+
+    @sid.setter
+    def sid(self, sid: "str"):
+        """Sets the sid of this SingleStatementQueryParameters.
+
+        Reuse the results from the previous search ID (sid) for the statement. For customized default queryParameters, the sid is ignored. 
+
+        :param sid: The sid of this SingleStatementQueryParameters.
+        :type: str
+        """
+        self._attrs["sid"] = sid
+
+    @property
+    def timezone(self) -> "object":
+        """ Gets the timezone of this SingleStatementQueryParameters.
+        The timezone that relative time specifiers are based off of. Timezone only applies to relative time literals for 'earliest' and 'latest'. If UNIX time or UTC format is used for 'earliest' and 'latest', this field is ignored. For the list of supported timezone formats, see https://docs.splunk.com/Documentation/Splunk/latest/Data/Applytimezoneoffsetstotimestamps#zoneinfo_.28TZ.29_database type: string default: \"GMT\" 
+        """
+        return self._attrs.get("timezone")
+
+    @timezone.setter
+    def timezone(self, timezone: "object"):
+        """Sets the timezone of this SingleStatementQueryParameters.
+
+        The timezone that relative time specifiers are based off of. Timezone only applies to relative time literals for 'earliest' and 'latest'. If UNIX time or UTC format is used for 'earliest' and 'latest', this field is ignored. For the list of supported timezone formats, see https://docs.splunk.com/Documentation/Splunk/latest/Data/Applytimezoneoffsetstotimestamps#zoneinfo_.28TZ.29_database type: string default: \"GMT\" 
+
+        :param timezone: The timezone of this SingleStatementQueryParameters.
+        :type: object
+        """
+        self._attrs["timezone"] = timezone
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class SearchModule(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "SearchModule":
+        instance = SearchModule.__new__(SearchModule)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, module: "str" = None, namespace: "str" = '', query_parameters: "Dict[str, SingleStatementQueryParameters]" = None, **extra):
+        """SearchModule"""
+
+        self._attrs = dict()
+        if module is not None:
+            self._attrs["module"] = module
+        if namespace is not None:
+            self._attrs["namespace"] = namespace
+        if query_parameters is not None:
+            self._attrs["queryParameters"] = query_parameters
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def module(self) -> "str":
+        """ Gets the module of this SearchModule.
+        Multi-statement module with inter-dependencies between statements. Statements are separated by semicolons.
+        """
+        return self._attrs.get("module")
+
+    @module.setter
+    def module(self, module: "str"):
+        """Sets the module of this SearchModule.
+
+        Multi-statement module with inter-dependencies between statements. Statements are separated by semicolons.
+
+        :param module: The module of this SearchModule.
+        :type: str
+        """
+        self._attrs["module"] = module
+
+    @property
+    def namespace(self) -> "str":
+        """ Gets the namespace of this SearchModule.
+        The namespace to run the search in. The default namespace is used if a namespace is not specified.
+        """
+        return self._attrs.get("namespace")
+
+    @namespace.setter
+    def namespace(self, namespace: "str"):
+        """Sets the namespace of this SearchModule.
+
+        The namespace to run the search in. The default namespace is used if a namespace is not specified.
+
+        :param namespace: The namespace of this SearchModule.
+        :type: str
+        """
+        self._attrs["namespace"] = namespace
+
+    @property
+    def query_parameters(self) -> "Dict[str, SingleStatementQueryParameters]":
+        """ Gets the query_parameters of this SearchModule.
+        The parameters on the search statement, such as 'earliest' and 'latest. The request can specify a \"defaults\" set of statement queryParameters which override the system default queryParameters. Each export statement requires to have a statement queryParameters in the object, it can be empty if there is no override. 
+        """
+        return self._attrs.get("queryParameters")
+
+    @query_parameters.setter
+    def query_parameters(self, query_parameters: "Dict[str, SingleStatementQueryParameters]"):
+        """Sets the query_parameters of this SearchModule.
+
+        The parameters on the search statement, such as 'earliest' and 'latest. The request can specify a \"defaults\" set of statement queryParameters which override the system default queryParameters. Each export statement requires to have a statement queryParameters in the object, it can be empty if there is no override. 
+
+        :param query_parameters: The query_parameters of this SearchModule.
+        :type: Dict[str, SingleStatementQueryParameters]
+        """
+        self._attrs["queryParameters"] = query_parameters
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}

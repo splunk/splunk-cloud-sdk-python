@@ -41,7 +41,7 @@ from splunk_sdk.search.v2beta1.gen_models import Message, \
     SingleFieldSummary, \
     SingleValueMode, \
     FieldsSummary, \
-    ListSearchResultsResponseFields, \
+    ListPreviewResultsResponseFields, \
     ListPreviewResultsResponse, \
     ListSearchResultsResponse, \
     SearchJob, \
