@@ -45,6 +45,9 @@
 
 ##### Features
 
+- Auth 
+    - `ServicePrincipalAuthManager` added to Auth service
+
 - Identity v2beta1:
     - New model `AddInvisibleMemberBody` added
     - New endpoints `add_invisible_member`, `get_member_admin` and `remove_member_admin` added
