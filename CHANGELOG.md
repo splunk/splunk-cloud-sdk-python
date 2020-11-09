@@ -1,5 +1,82 @@
 # Splunk Cloud SDK for Python Changelog
 
+## Version 10.0.0
+
+### Services
+
+#### Breaking Changes
+
+##### Features
+
+- Catalog v2beta1:
+    - `create_dataset_import` returns datatype of `Dataset` (replaced 'ImportDataset')
+    - `create_dataset_import_by_id` returns `DatasetImportedby` (replaced 'ImportDataset')
+    - `DatasetImportedBy` has a new property `owner` and property `name` is now optional
+
+- Identity service v2beta1:
+    - Models `AppList`, `GroupList`, `Keylist`, `MemberList`, `PricipalList`, `RoleList`, `RolePermissionList` and `SubscriptionList` removed
+    - Property `encode_state` added to `ResolveBody` model
+    - Property `count` removed from model `IdentityProviderList`
+    - Property `name` removed from model `SenstiveTenant`
+    - Properties `count` and `details` removed from models `ServiceAccountList`, `TakedownPrincipalList`, `TenantList`
+    - Property `items` in model `ServiceAccountList` has a reference to `ServiceAccount`
+    - Property `items` in model `TakedownPrincipalList` has a reference to `TakedownPrincipal`
+    - Property `items` in model `TenantList` has a reference to `Tenant`
+
+- Ingest v1beta2: 
+    - New properties `ack_enabled`, `allow_query_string_auth`, `diabled` and `indexes` added to models `HecTokenAccessResponse`, `HecTokenCretaeRequest`, `HecTokenCreateResponse`, `HecTokenUpdateRequest`
+    - Remove endpoint of `upload_files`
+
+- Provisioner v1beta1:
+    - Model `ECStackName` renamed to `EcStackName`
+
+- Search v2beta1:
+    - Model `ListSearchResultsResponseFields` renamed to `ListPreiviewResultsResponseFields`
+
+- Search v3alpha1:
+    - Model `ListSearchResultsResponseFields` renamed to `ListPreiviewResultsResponseFields`
+
+- Stream v3beta1: 
+    - Remove endpoint of `upload_plugin` and `upload_file`
+    - Model `RulesSourcetypesResponse` renamed to `RulesPackageSourcetypes`
+    - Model `RulesActionsResponse` renamed to `RulesPackageActions`
+    
+#### Non-Breaking Changes
+
+##### Features
+
+- Identity v2beta1:
+    - New model `AddInvisibleMemberBody` added
+    - New endpoints `add_invisible_member`, `get_member_admin` and `remove_member_admin` added
+    - New properties `expires_at` and `visible` added to `Member` model
+    - New models `DeviceAuthInfo` and `UpdateRoleBody` added
+
+- Identity v3alpha1: 
+    - New version introduced
+
+- Ingest v1beta2: 
+    - New models `UploadSuccessResponse` and `FileUploadDetails`  added
+
+- KVStore v1beta1:
+    - New endpoint `truncate_records` added
+    - New parameter `IfMatchHeaderParam` added
+
+- Search v3alpha1:
+    - New models `SearchModule`, `StatementDispatchStatus`, and `SingleSatatementQueryParamters` added
+    - New endpoints `create_multi_search_method` and `create_search_statements` added
+
+- Streams v2beta1:
+    - New property `messages` added to model `ConnectionSaveResponse`
+    - New property `complexity` added to model `PipelineResponse`
+    - New property `activate_latest_version` added to model `ReactivatePipelineRequest`
+
+- Streams v3beta1:
+    - New models `CollectJobPatchRequest`, `DataStream`, `DataStreamRequest`, `DataStreamResponse`, `EntitlementRequest`,
+     `EntitlementResponse`, `PaginatedResponseOfRuleKind`, `RulesKind` and `PluginResponse`
+    - New endpoints `create_data_stream`, `delete_collect_job`, `delete_data_stream`, `delete_entitlements`, `delete_rules_package`, 
+     `describe_data_stream`, `get_entitlements`, `get_rules_package_by_id`, `list_data_streams`, `list_rule_kinds`, `release_info`, 
+     `set_entitlements`, `update_collect_job`, `update_data_stream` and `update_rules_package_by_id` added
+
 ## Version 9.0.0
 
 ### Library
