@@ -36,6 +36,7 @@ from splunk_sdk.identity.v2beta1.gen_identity_api import Identity
 # import models into sdk package
 from splunk_sdk.identity.v2beta1.gen_models import AddGroupMemberBody, \
     AddGroupRoleBody, \
+    AddInvisibleMemberBody, \
     AddMemberBody, \
     CreateGroupBody, \
     CreateRoleBody, \

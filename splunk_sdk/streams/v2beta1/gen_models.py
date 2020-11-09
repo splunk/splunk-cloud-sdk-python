@@ -698,7 +698,7 @@ class ConnectionSaveResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, connector_id: "str" = None, create_date: "int" = None, create_user_id: "str" = None, data: "object" = None, description: "str" = None, id: "str" = None, name: "str" = None, version: "int" = None, **extra):
+    def __init__(self, connector_id: "str" = None, create_date: "int" = None, create_user_id: "str" = None, data: "object" = None, description: "str" = None, id: "str" = None, messages: "List[str]" = None, name: "str" = None, version: "int" = None, **extra):
         """ConnectionSaveResponse"""
 
         self._attrs = dict()
@@ -714,6 +714,8 @@ class ConnectionSaveResponse(SSCModel):
             self._attrs["description"] = description
         if id is not None:
             self._attrs["id"] = id
+        if messages is not None:
+            self._attrs["messages"] = messages
         if name is not None:
             self._attrs["name"] = name
         if version is not None:
@@ -816,6 +818,22 @@ class ConnectionSaveResponse(SSCModel):
         :type: str
         """
         self._attrs["id"] = id
+
+    @property
+    def messages(self) -> "List[str]":
+        """ Gets the messages of this ConnectionSaveResponse.
+        """
+        return self._attrs.get("messages")
+
+    @messages.setter
+    def messages(self, messages: "List[str]"):
+        """Sets the messages of this ConnectionSaveResponse.
+
+
+        :param messages: The messages of this ConnectionSaveResponse.
+        :type: List[str]
+        """
+        self._attrs["messages"] = messages
 
     @property
     def name(self) -> "str":
@@ -3425,7 +3443,7 @@ class PipelineResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, activated_date: "int" = None, activated_user_id: "str" = None, activated_version: "int" = None, create_date: "int" = None, create_user_id: "str" = None, current_version: "int" = None, data: "UplPipeline" = None, description: "str" = None, id: "str" = None, last_update_date: "int" = None, last_update_user_id: "str" = None, name: "str" = None, status: "str" = None, status_message: "str" = None, streaming_configuration_id: "int" = None, tenant_id: "str" = None, validation_messages: "List[str]" = None, version: "int" = None, **extra):
+    def __init__(self, activated_date: "int" = None, activated_user_id: "str" = None, activated_version: "int" = None, complexity: "float" = None, create_date: "int" = None, create_user_id: "str" = None, current_version: "int" = None, data: "UplPipeline" = None, description: "str" = None, id: "str" = None, last_update_date: "int" = None, last_update_user_id: "str" = None, name: "str" = None, status: "str" = None, status_message: "str" = None, streaming_configuration_id: "int" = None, tenant_id: "str" = None, validation_messages: "List[str]" = None, version: "int" = None, **extra):
         """PipelineResponse"""
 
         self._attrs = dict()
@@ -3435,6 +3453,8 @@ class PipelineResponse(SSCModel):
             self._attrs["activatedUserId"] = activated_user_id
         if activated_version is not None:
             self._attrs["activatedVersion"] = activated_version
+        if complexity is not None:
+            self._attrs["complexity"] = complexity
         if create_date is not None:
             self._attrs["createDate"] = create_date
         if create_user_id is not None:
@@ -3515,6 +3535,22 @@ class PipelineResponse(SSCModel):
         :type: int
         """
         self._attrs["activatedVersion"] = activated_version
+
+    @property
+    def complexity(self) -> "float":
+        """ Gets the complexity of this PipelineResponse.
+        """
+        return self._attrs.get("complexity")
+
+    @complexity.setter
+    def complexity(self, complexity: "float"):
+        """Sets the complexity of this PipelineResponse.
+
+
+        :param complexity: The complexity of this PipelineResponse.
+        :type: float
+        """
+        self._attrs["complexity"] = complexity
 
     @property
     def create_date(self) -> "int":
@@ -4947,16 +4983,36 @@ class ReactivatePipelineRequest(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, allow_non_restored_state: "bool" = None, skip_restore_state: "bool" = None, **extra):
+    def __init__(self, activate_latest_version: "bool" = None, allow_non_restored_state: "bool" = None, skip_restore_state: "bool" = None, **extra):
         """ReactivatePipelineRequest"""
 
         self._attrs = dict()
+        if activate_latest_version is not None:
+            self._attrs["activateLatestVersion"] = activate_latest_version
         if allow_non_restored_state is not None:
             self._attrs["allowNonRestoredState"] = allow_non_restored_state
         if skip_restore_state is not None:
             self._attrs["skipRestoreState"] = skip_restore_state
         for k, v in extra.items():
             self._attrs[k] = v
+
+    @property
+    def activate_latest_version(self) -> "bool":
+        """ Gets the activate_latest_version of this ReactivatePipelineRequest.
+        Set to true to activate the latest version of the pipeline. Set to false to use the previously activated version of the pipeline. Defaults to true.
+        """
+        return self._attrs.get("activateLatestVersion")
+
+    @activate_latest_version.setter
+    def activate_latest_version(self, activate_latest_version: "bool"):
+        """Sets the activate_latest_version of this ReactivatePipelineRequest.
+
+        Set to true to activate the latest version of the pipeline. Set to false to use the previously activated version of the pipeline. Defaults to true.
+
+        :param activate_latest_version: The activate_latest_version of this ReactivatePipelineRequest.
+        :type: bool
+        """
+        self._attrs["activateLatestVersion"] = activate_latest_version
 
     @property
     def allow_non_restored_state(self) -> "bool":

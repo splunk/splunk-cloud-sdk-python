@@ -19,7 +19,7 @@
 ############# This file is auto-generated.  Do not edit! #############
 
 """
-    SDC Service: Metadata Catalog
+    SDC Service: Metadata Catalog service
 
     With the Metadata Catalog in Splunk Cloud Services you can create and manage knowledge objects such as datasets, fields, rules, actions, dashboards, and workflows.
 
@@ -37,13 +37,15 @@ from splunk_sdk.catalog.v2beta1.gen_metadata_catalog_api import MetadataCatalog
 from splunk_sdk.catalog.v2beta1.gen_models import Action, \
     ActionPATCH, \
     ActionPOST, \
-    AliasAction, \
+    AliasActionFromAction, \
+    AliasActionFromActionPOST, \
     AliasActionKind, \
     AliasActionPATCH, \
     AliasActionPOST, \
     Annotation, \
     AnnotationPOST, \
-    AutoKVAction, \
+    AutoKVActionFromAction, \
+    AutoKVActionFromActionPOST, \
     AutoKVActionKind, \
     AutoKVActionPATCH, \
     AutoKVActionPOST, \
@@ -61,7 +63,8 @@ from splunk_sdk.catalog.v2beta1.gen_models import Action, \
     FieldType, \
     FieldPrevalence, \
     DatasetPOST, \
-    EvalAction, \
+    EvalActionFromAction, \
+    EvalActionFromActionPOST, \
     EvalActionKind, \
     EvalActionPATCH, \
     EvalActionPOST, \
@@ -91,7 +94,8 @@ from splunk_sdk.catalog.v2beta1.gen_models import Action, \
     KVCollectionDatasetKind, \
     KVCollectionDatasetPATCH, \
     KVCollectionDatasetPOST, \
-    LookupAction, \
+    LookupActionFromAction, \
+    LookupActionFromActionPOST, \
     LookupActionKind, \
     LookupActionPATCH, \
     LookupActionPOST, \
@@ -107,7 +111,8 @@ from splunk_sdk.catalog.v2beta1.gen_models import Action, \
     MetricDatasetPATCH, \
     MetricDatasetPOST, \
     Module, \
-    RegexAction, \
+    RegexActionFromAction, \
+    RegexActionFromActionPOST, \
     RegexActionKind, \
     RegexActionPATCH, \
     RegexActionPOST, \

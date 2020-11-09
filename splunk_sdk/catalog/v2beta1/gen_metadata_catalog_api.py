@@ -17,7 +17,7 @@
 ############# This file is auto-generated.  Do not edit! #############
 
 """
-    SDC Service: Metadata Catalog
+    SDC Service: Metadata Catalog service
 
     With the Metadata Catalog in Splunk Cloud Services you can create and manage knowledge objects such as datasets, fields, rules, actions, dashboards, and workflows.
 
@@ -50,7 +50,6 @@ from splunk_sdk.catalog.v2beta1.gen_models import DatasetPOST
 from splunk_sdk.catalog.v2beta1.gen_models import Field
 from splunk_sdk.catalog.v2beta1.gen_models import FieldPATCH
 from splunk_sdk.catalog.v2beta1.gen_models import FieldPOST
-from splunk_sdk.catalog.v2beta1.gen_models import ImportDataset
 from splunk_sdk.catalog.v2beta1.gen_models import Module
 from splunk_sdk.catalog.v2beta1.gen_models import Relationship
 from splunk_sdk.catalog.v2beta1.gen_models import RelationshipPATCH
@@ -71,7 +70,7 @@ from splunk_sdk.catalog.v2beta1.gen_models import WorkflowRunPOST
 
 class MetadataCatalog(BaseService):
     """
-    Metadata Catalog
+    Metadata Catalog service
     Version: v2beta1.4
     With the Metadata Catalog in Splunk Cloud Services you can create and manage knowledge objects such as datasets, fields, rules, actions, dashboards, and workflows.
     """
@@ -213,7 +212,7 @@ class MetadataCatalog(BaseService):
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, Dataset)
 
-    def create_dataset_import(self, datasetresourcename: str, dataset_imported_by: DatasetImportedBy = None, query_params: Dict[str, object] = None) -> ImportDataset:
+    def create_dataset_import(self, datasetresourcename: str, dataset_imported_by: DatasetImportedBy = None, query_params: Dict[str, object] = None) -> Dataset:
         """
         Creates a new dataset import using the resource name of the imported dataset.
         """
@@ -228,9 +227,9 @@ class MetadataCatalog(BaseService):
         url = self.base_client.build_url(path)
         data = dataset_imported_by.to_dict()
         response = self.base_client.post(url, json=data, params=query_params)
-        return handle_response(response, ImportDataset)
+        return handle_response(response, Dataset)
 
-    def create_dataset_import_by_id(self, datasetid: str, dataset_imported_by: DatasetImportedBy = None, query_params: Dict[str, object] = None) -> ImportDataset:
+    def create_dataset_import_by_id(self, datasetid: str, dataset_imported_by: DatasetImportedBy = None, query_params: Dict[str, object] = None) -> DatasetImportedBy:
         """
         Creates a new dataset import using the ID of the imported dataset.
         """
@@ -245,7 +244,7 @@ class MetadataCatalog(BaseService):
         url = self.base_client.build_url(path)
         data = dataset_imported_by.to_dict()
         response = self.base_client.post(url, json=data, params=query_params)
-        return handle_response(response, ImportDataset)
+        return handle_response(response, DatasetImportedBy)
 
     def create_dataset_import_by_idv1(self, datasetid: str, dataset_imported_by: DatasetImportedBy = None, query_params: Dict[str, object] = None) -> DatasetImportedBy:
         """

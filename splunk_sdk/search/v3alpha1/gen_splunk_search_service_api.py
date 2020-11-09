@@ -40,6 +40,7 @@ from splunk_sdk.search.v3alpha1.gen_models import ListPreviewResultsResponse
 from splunk_sdk.search.v3alpha1.gen_models import ListSearchResultsResponse
 from splunk_sdk.search.v3alpha1.gen_models import RecurringSearch
 from splunk_sdk.search.v3alpha1.gen_models import SearchJob
+from splunk_sdk.search.v3alpha1.gen_models import SearchModule
 from splunk_sdk.search.v3alpha1.gen_models import SearchStatus
 from splunk_sdk.search.v3alpha1.gen_models import TimeBucketsSummary
 from splunk_sdk.search.v3alpha1.gen_models import UpdateJob
@@ -72,6 +73,22 @@ class SplunkSearchService(BaseService):
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, SearchJob)
 
+    def create_multi_search(self, search_module: SearchModule = None, query_params: Dict[str, object] = None) -> SearchModule:
+        """
+        Create a multi-statement module with inter-dependencies between statements.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/search/v3alpha1/multisearch").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = search_module.to_dict()
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, SearchModule)
+
     def create_recurring_search(self, recurring_search: RecurringSearch = None, query_params: Dict[str, object] = None) -> RecurringSearch:
         """
         Creates a recurring search job.
@@ -87,6 +104,22 @@ class SplunkSearchService(BaseService):
         data = recurring_search.to_dict()
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, RecurringSearch)
+
+    def create_search_statements(self, search_module: SearchModule = None, query_params: Dict[str, object] = None) -> SearchModule:
+        """
+        Create a multi-statement module with inter-dependencies between statements.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/search/v3alpha1/dispatch").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = search_module.to_dict()
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, SearchModule)
 
     def delete_job(self, delete_search_job: DeleteSearchJob = None, query_params: Dict[str, object] = None) -> DeleteSearchJob:
         """
