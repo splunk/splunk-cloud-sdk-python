@@ -36,7 +36,7 @@ setup(
         'dev': ['pep8>=1.7.1,<2',
                 'sphinx >= 2.0.1,<3',
                 'sphinxcontrib-apidoc>=0.3.0',
-                'cryptography>=2.6.1,<2.7',
+                'cryptography>=2.6.1,<3.3',
                 ],
         'test': ['coverage>=4.5.3,<5',
                  'flake8>=3.7.7,<4',
