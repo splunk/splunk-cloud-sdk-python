@@ -37,7 +37,6 @@
     - Model `ListSearchResultsResponseFields` renamed to `ListPreiviewResultsResponseFields`
 
 - Stream v3beta1: 
-    - Remove endpoint of `upload_plugin` and `upload_file`
     - Model `RulesSourcetypesResponse` renamed to `RulesPackageSourcetypes`
     - Model `RulesActionsResponse` renamed to `RulesPackageActions`
     
@@ -62,7 +61,6 @@
 
 - KVStore v1beta1:
     - New endpoint `truncate_records` added
-    - New parameter `IfMatchHeaderParam` added
 
 - Search v3alpha1:
     - New models `SearchModule`, `StatementDispatchStatus`, and `SingleSatatementQueryParamters` added
