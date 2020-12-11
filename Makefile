@@ -30,6 +30,9 @@ test_specific:
 package:
 	python setup.py sdist bdist_wheel
 
+prerelease:
+	sh ./scripts/prerelease.sh
+
 deploy: package
 	pip install twine
 #	echo "Uploading to internal pypi ..."
