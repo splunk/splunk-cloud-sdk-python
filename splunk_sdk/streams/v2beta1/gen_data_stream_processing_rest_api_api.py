@@ -509,7 +509,7 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, TemplateResponse)
 
-    def list_connections(self, connector_id: List[str] = None, create_user_id: str = None, function_id: str = None, name: str = None, offset: int = None, page_size: int = None, show_secret_names: str = None, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> PaginatedResponseOfConnectionResponse:
+    def list_connections(self, connector_id: List[str] = None, create_user_id: str = None, function_id: str = None, function_op: str = None, name: str = None, offset: int = None, page_size: int = None, show_secret_names: str = None, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> PaginatedResponseOfConnectionResponse:
         """
         Returns a list of connections (latest versions only) by tenant ID.
         """
@@ -521,6 +521,8 @@ class DataStreamProcessingRESTAPI(BaseService):
             query_params['createUserId'] = create_user_id
         if function_id is not None:
             query_params['functionId'] = function_id
+        if function_op is not None:
+            query_params['functionOp'] = function_op
         if name is not None:
             query_params['name'] = name
         if offset is not None:

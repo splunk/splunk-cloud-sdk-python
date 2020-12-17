@@ -15,7 +15,7 @@ import pytest
 
 from splunk_sdk.base_client import BaseClient
 from splunk_sdk.identity import Identity as IdentityAndAccessControl
-from splunk_sdk.identity import CreateRoleBody, AddGroupRoleBody, AddMemberBody, AddGroupMemberBody
+from splunk_sdk.identity import CreateRoleBody, AddGroupRoleBody, AddMemberBody, AddGroupMemberBody, AddRolePermissionBody
 from splunk_sdk.identity import CreateGroupBody
 from test.fixtures import get_test_client as test_client  # NOQA
 
@@ -36,7 +36,7 @@ def test_crud_groups(test_client: BaseClient):
     assert(fetched_group.created_at == group.created_at)
 
     all_groups = identity.list_groups()
-    assert(all_groups.index(fetched_group.name) >= 0)
+    assert(str(all_groups.items).index(fetched_group.name) >= 0)
 
     role_name = "pygrouptestrole{}".format(random.randint(0, 100000000))
     role = identity.create_role(CreateRoleBody(role_name))
@@ -51,7 +51,7 @@ def test_crud_groups(test_client: BaseClient):
 
     sleep(2)
     group_roles = identity.list_group_roles(group_name)
-    assert(group_roles == [role_name])
+    assert(group_roles.items[0].role == role_name)
 
     member_name = "test1@splunk.com"
     member = identity.add_member(AddMemberBody(member_name))
@@ -60,7 +60,7 @@ def test_crud_groups(test_client: BaseClient):
 
     sleep(2)
     members = identity.list_group_members(group_name)
-    members_found = [m for m in members if m == member_name]
+    members_found = [m for m in members.items if m == member_name]
     assert(len(members_found) == 0)
 
     group_member = identity.add_group_member(group_name, AddGroupMemberBody(name=member_name))
@@ -68,7 +68,7 @@ def test_crud_groups(test_client: BaseClient):
 
     sleep(2)
     members = identity.list_group_members(group_name)
-    assert(members.index(member_name) >= -1)
+    assert(str(members.items).index(member_name) >= -1)
 
     result_member = identity.get_group_member(group_name, member_name)
     assert(result_member.group == group_name)
@@ -99,10 +99,10 @@ def test_crud_roles(test_client: BaseClient):
     assert(result_role.tenant == test_client.get_tenant())
 
     all_roles = identity.list_roles()
-    assert(all_roles.index(result_role.name) >= 0)
+    assert(str(all_roles.items).index(result_role.name) >= 0)
 
     permission = "{}:*:pyperm1.{}".format(test_client.get_tenant(), random.randint(0, 100000000))
-    result_role_perm = identity.add_role_permission(role_name, permission)
+    result_role_perm = identity.add_role_permission(role_name, AddRolePermissionBody(permission=permission))
     assert(result_role_perm.role == role_name)
     assert(result_role_perm.permission == permission)
     assert(result_role_perm.added_by == username)
@@ -113,7 +113,7 @@ def test_crud_roles(test_client: BaseClient):
     assert(retrieved_perm.permission == permission)
 
     perms = identity.list_role_permissions(role_name)
-    assert(perms.index(permission) >= 0)
+    assert(str(perms.items).index(permission) >= 0)
 
     identity.delete_role(role_name)
 

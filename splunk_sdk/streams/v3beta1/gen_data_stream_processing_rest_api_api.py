@@ -35,10 +35,6 @@ from splunk_sdk.base_service import BaseService
 from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
 from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest
-from splunk_sdk.streams.v3beta1.gen_models import CollectJobPatchRequest
-from splunk_sdk.streams.v3beta1.gen_models import CollectJobRequest
-from splunk_sdk.streams.v3beta1.gen_models import CollectJobResponse
-from splunk_sdk.streams.v3beta1.gen_models import CollectJobStartStopResponse
 from splunk_sdk.streams.v3beta1.gen_models import ConnectionPatchRequest
 from splunk_sdk.streams.v3beta1.gen_models import ConnectionPutRequest
 from splunk_sdk.streams.v3beta1.gen_models import ConnectionRequest
@@ -49,34 +45,22 @@ from splunk_sdk.streams.v3beta1.gen_models import DataStreamResponse
 from splunk_sdk.streams.v3beta1.gen_models import DeactivatePipelineRequest
 from splunk_sdk.streams.v3beta1.gen_models import DecompileRequest
 from splunk_sdk.streams.v3beta1.gen_models import DecompileResponse
-from splunk_sdk.streams.v3beta1.gen_models import Dict
-from splunk_sdk.streams.v3beta1.gen_models import EntitlementRequest
-from splunk_sdk.streams.v3beta1.gen_models import EntitlementResponse
 from splunk_sdk.streams.v3beta1.gen_models import ErrorResponse
 from splunk_sdk.streams.v3beta1.gen_models import FilesMetaDataResponse
 from splunk_sdk.streams.v3beta1.gen_models import GetInputSchemaRequest
 from splunk_sdk.streams.v3beta1.gen_models import GetOutputSchemaRequest
-from splunk_sdk.streams.v3beta1.gen_models import List
 from splunk_sdk.streams.v3beta1.gen_models import LookupTableResponse
 from splunk_sdk.streams.v3beta1.gen_models import MetricsResponse
-from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfCollectJobResponse
 from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfConnectionResponse
 from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfConnectorResponse
 from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfPipelineJobStatus
 from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfPipelineResponse
-from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfPlugin
-from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfRulesKind
-from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfRulesResponse
 from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfTemplateResponse
 from splunk_sdk.streams.v3beta1.gen_models import Pipeline
 from splunk_sdk.streams.v3beta1.gen_models import PipelinePatchRequest
 from splunk_sdk.streams.v3beta1.gen_models import PipelineReactivateResponse
 from splunk_sdk.streams.v3beta1.gen_models import PipelineRequest
 from splunk_sdk.streams.v3beta1.gen_models import PipelineResponse
-from splunk_sdk.streams.v3beta1.gen_models import Plugin
-from splunk_sdk.streams.v3beta1.gen_models import PluginPatchRequest
-from splunk_sdk.streams.v3beta1.gen_models import PluginRequest
-from splunk_sdk.streams.v3beta1.gen_models import PluginResponse
 from splunk_sdk.streams.v3beta1.gen_models import PreviewData
 from splunk_sdk.streams.v3beta1.gen_models import PreviewSessionStartRequest
 from splunk_sdk.streams.v3beta1.gen_models import PreviewStartResponse
@@ -84,15 +68,13 @@ from splunk_sdk.streams.v3beta1.gen_models import PreviewState
 from splunk_sdk.streams.v3beta1.gen_models import ReactivatePipelineRequest
 from splunk_sdk.streams.v3beta1.gen_models import RegistryModel
 from splunk_sdk.streams.v3beta1.gen_models import Response
-from splunk_sdk.streams.v3beta1.gen_models import RulesRequest
-from splunk_sdk.streams.v3beta1.gen_models import RulesResponse
 from splunk_sdk.streams.v3beta1.gen_models import SplCompileRequest
 from splunk_sdk.streams.v3beta1.gen_models import TemplatePatchRequest
 from splunk_sdk.streams.v3beta1.gen_models import TemplatePutRequest
 from splunk_sdk.streams.v3beta1.gen_models import TemplateRequest
 from splunk_sdk.streams.v3beta1.gen_models import TemplateResponse
 from splunk_sdk.streams.v3beta1.gen_models import UplType
-from splunk_sdk.streams.v3beta1.gen_models import UploadFile
+from splunk_sdk.streams.v3beta1.gen_models import UploadFileResponse
 from splunk_sdk.streams.v3beta1.gen_models import ValidateRequest
 from splunk_sdk.streams.v3beta1.gen_models import ValidateResponse
 
@@ -139,22 +121,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         data = spl_compile_request.to_dict()
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, Pipeline)
-
-    def create_collect_job(self, collect_job_request: CollectJobRequest, query_params: Dict[str, object] = None) -> CollectJobResponse:
-        """
-        Create a new collect job.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-        }
-
-        path = Template("/streams/v3beta1/collect-jobs").substitute(path_params)
-        url = self.base_client.build_url(path)
-        data = collect_job_request.to_dict()
-        response = self.base_client.post(url, json=data, params=query_params)
-        return handle_response(response, CollectJobResponse)
 
     def create_connection(self, connection_request: ConnectionRequest, query_params: Dict[str, object] = None) -> ConnectionSaveResponse:
         """
@@ -203,22 +169,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         data = pipeline_request.to_dict()
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, PipelineResponse)
-
-    def create_rules_package(self, rules_request: RulesRequest, query_params: Dict[str, object] = None) -> RulesResponse:
-        """
-        Creates a new RulesPackage
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-        }
-
-        path = Template("/streams/v3beta1/rules").substitute(path_params)
-        url = self.base_client.build_url(path)
-        data = rules_request.to_dict()
-        response = self.base_client.post(url, json=data, params=query_params)
-        return handle_response(response, RulesResponse)
 
     def create_template(self, template_request: TemplateRequest, query_params: Dict[str, object] = None) -> TemplateResponse:
         """
@@ -269,37 +219,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, DecompileResponse)
 
-    def delete_collect_jobs(self, query_params: Dict[str, object] = None) -> SSCVoidModel:
-        """
-        Delete all collect jobs.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-        }
-
-        path = Template("/streams/v3beta1/collect-jobs").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.delete(url, params=query_params)
-        return handle_response(response, )
-
-    def delete_collect_job(self, id: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
-        """
-        Delete a collect job.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "id": id,
-        }
-
-        path = Template("/streams/v3beta1/collect-jobs/${id}").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.delete(url, params=query_params)
-        return handle_response(response, )
-
     def delete_connection(self, connection_id: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
         Delete all versions of a connection by its id.
@@ -332,23 +251,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.delete(url, params=query_params)
         return handle_response(response, )
 
-    def delete_entitlements(self, app_client_id: str, request_body: List[str], query_params: Dict[str, object] = None) -> SSCVoidModel:
-        """
-        Delete known entitlements
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "appClientId": app_client_id,
-        }
-
-        path = Template("/streams/v3beta1/commerce/subscribed-apps/${appClientId}/entitlements").substitute(path_params)
-        url = self.base_client.build_url(path)
-        data = request_body
-        response = self.base_client.delete(url, json=data, params=query_params)
-        return handle_response(response, )
-
     def delete_file(self, file_id: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
         Delete file.
@@ -365,6 +267,22 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.delete(url, params=query_params)
         return handle_response(response, )
 
+    def delete_lookup_file(self, file_id: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
+        """
+        Delete lookup file.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "fileId": file_id,
+        }
+
+        path = Template("/streams/v3beta1/lookups/files/${fileId}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.delete(url, params=query_params)
+        return handle_response(response, )
+
     def delete_pipeline(self, id: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
         Removes a pipeline.
@@ -377,38 +295,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         }
 
         path = Template("/streams/v3beta1/pipelines/${id}").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.delete(url, params=query_params)
-        return handle_response(response, )
-
-    def delete_plugin(self, plugin_id: str, query_params: Dict[str, object] = None) -> str:
-        """
-        Delete an admin plugin
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "pluginId": plugin_id,
-        }
-
-        path = Template("/system/streams/v3beta1/plugins/${pluginId}").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.delete(url, params=query_params)
-        return handle_response(response, str)
-
-    def delete_rules_package(self, external_id: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
-        """
-        Delete a rules package with a specific id
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "externalId": external_id,
-        }
-
-        path = Template("/streams/v3beta1/rules/${externalId}").substitute(path_params)
         url = self.base_client.build_url(path)
         response = self.base_client.delete(url, params=query_params)
         return handle_response(response, )
@@ -445,41 +331,7 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, DataStreamResponse)
 
-    def get_collect_job(self, id: str, version: str = None, query_params: Dict[str, object] = None) -> CollectJobResponse:
-        """
-        Get a collect job.
-        """
-        if query_params is None:
-            query_params = {}
-        if version is not None:
-            query_params['version'] = version
-
-        path_params = {
-            "id": id,
-        }
-
-        path = Template("/streams/v3beta1/collect-jobs/${id}").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.get(url, params=query_params)
-        return handle_response(response, CollectJobResponse)
-
-    def get_entitlements(self, app_client_id: str, query_params: Dict[str, object] = None) -> List[EntitlementResponse]:
-        """
-        Get known entitlements
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "appClientId": app_client_id,
-        }
-
-        path = Template("/streams/v3beta1/commerce/subscribed-apps/${appClientId}/entitlements").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.get(url, params=query_params)
-        return handle_response(response, EntitlementResponse)
-
-    def get_file_metadata(self, file_id: str, query_params: Dict[str, object] = None) -> UploadFile:
+    def get_file_metadata(self, file_id: str, query_params: Dict[str, object] = None) -> UploadFileResponse:
         """
         Get file metadata.
         """
@@ -493,7 +345,7 @@ class DataStreamProcessingRESTAPI(BaseService):
         path = Template("/streams/v3beta1/files/${fileId}").substitute(path_params)
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
-        return handle_response(response, UploadFile)
+        return handle_response(response, UploadFileResponse)
 
     def get_files_metadata(self, query_params: Dict[str, object] = None) -> FilesMetaDataResponse:
         """
@@ -525,6 +377,37 @@ class DataStreamProcessingRESTAPI(BaseService):
         data = get_input_schema_request.to_dict()
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, UplType)
+
+    def get_lookup_file_metadata(self, file_id: str, query_params: Dict[str, object] = None) -> UploadFileResponse:
+        """
+        Get lookup file metadata.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "fileId": file_id,
+        }
+
+        path = Template("/streams/v3beta1/lookups/files/${fileId}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, UploadFileResponse)
+
+    def get_lookup_files_metadata(self, query_params: Dict[str, object] = None) -> FilesMetaDataResponse:
+        """
+        Returns lookup files metadata.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/streams/v3beta1/lookups/files").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, FilesMetaDataResponse)
 
     def get_lookup_table(self, connection_id: str, offset: int, size: int, query_params: Dict[str, object] = None) -> LookupTableResponse:
         """
@@ -625,29 +508,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, PaginatedResponseOfPipelineJobStatus)
 
-    def get_plugins(self, offset: int = None, page_size: int = None, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> PaginatedResponseOfPlugin:
-        """
-        Returns all the plugins that are available for all tenants.
-        """
-        if query_params is None:
-            query_params = {}
-        if offset is not None:
-            query_params['offset'] = offset
-        if page_size is not None:
-            query_params['pageSize'] = page_size
-        if sort_dir is not None:
-            query_params['sortDir'] = sort_dir
-        if sort_field is not None:
-            query_params['sortField'] = sort_field
-
-        path_params = {
-        }
-
-        path = Template("/system/streams/v3beta1/plugins").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.get(url, params=query_params)
-        return handle_response(response, PaginatedResponseOfPlugin)
-
     def get_preview_data(self, preview_session_id: str, query_params: Dict[str, object] = None) -> PreviewData:
         """
         Returns the preview data for a session.
@@ -713,22 +573,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, RegistryModel)
 
-    def get_rules_package_by_id(self, external_id: str, query_params: Dict[str, object] = None) -> RulesResponse:
-        """
-        Returns the rules package with specific id
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "externalId": external_id,
-        }
-
-        path = Template("/streams/v3beta1/rules/${externalId}").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.get(url, params=query_params)
-        return handle_response(response, RulesResponse)
-
     def get_template(self, template_id: str, version: int = None, query_params: Dict[str, object] = None) -> TemplateResponse:
         """
         Returns an individual template by version.
@@ -747,22 +591,7 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, TemplateResponse)
 
-    def list_collect_jobs(self, query_params: Dict[str, object] = None) -> PaginatedResponseOfCollectJobResponse:
-        """
-        Get all collect jobs.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-        }
-
-        path = Template("/streams/v3beta1/collect-jobs").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.get(url, params=query_params)
-        return handle_response(response, PaginatedResponseOfCollectJobResponse)
-
-    def list_connections(self, connector_id: List[str] = None, create_user_id: str = None, function_id: str = None, name: str = None, offset: int = None, page_size: int = None, show_secret_names: str = None, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> PaginatedResponseOfConnectionResponse:
+    def list_connections(self, connector_id: List[str] = None, create_user_id: str = None, function_id: str = None, function_op: str = None, name: str = None, offset: int = None, page_size: int = None, show_secret_names: str = None, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> PaginatedResponseOfConnectionResponse:
         """
         Returns a list of connections (latest versions only) by tenant ID.
         """
@@ -774,6 +603,8 @@ class DataStreamProcessingRESTAPI(BaseService):
             query_params['createUserId'] = create_user_id
         if function_id is not None:
             query_params['functionId'] = function_id
+        if function_op is not None:
+            query_params['functionOp'] = function_op
         if name is not None:
             query_params['name'] = name
         if offset is not None:
@@ -864,40 +695,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, PaginatedResponseOfPipelineResponse)
 
-    def list_rules_kinds(self, query_params: Dict[str, object] = None) -> PaginatedResponseOfRulesKind:
-        """
-        Returns all rules kinds.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-        }
-
-        path = Template("/streams/v3beta1/rules/kinds").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.get(url, params=query_params)
-        return handle_response(response, PaginatedResponseOfRulesKind)
-
-    def list_rules_packages(self, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> PaginatedResponseOfRulesResponse:
-        """
-        Returns all rules packages.
-        """
-        if query_params is None:
-            query_params = {}
-        if sort_dir is not None:
-            query_params['sortDir'] = sort_dir
-        if sort_field is not None:
-            query_params['sortField'] = sort_field
-
-        path_params = {
-        }
-
-        path = Template("/streams/v3beta1/rules").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.get(url, params=query_params)
-        return handle_response(response, PaginatedResponseOfRulesResponse)
-
     def list_templates(self, offset: int = None, page_size: int = None, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> PaginatedResponseOfTemplateResponse:
         """
         Returns a list of all templates.
@@ -937,23 +734,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         data = pipeline_patch_request.to_dict()
         response = self.base_client.patch(url, json=data, params=query_params)
         return handle_response(response, PipelineResponse)
-
-    def patch_plugin(self, plugin_id: str, plugin_patch_request: PluginPatchRequest = None, query_params: Dict[str, object] = None) -> Plugin:
-        """
-        Patch an existing admin plugin.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "pluginId": plugin_id,
-        }
-
-        path = Template("/system/streams/v3beta1/plugins/${pluginId}").substitute(path_params)
-        url = self.base_client.build_url(path)
-        data = plugin_patch_request.to_dict()
-        response = self.base_client.patch(url, json=data, params=query_params)
-        return handle_response(response, Plugin)
 
     def put_connection(self, connection_id: str, connection_put_request: ConnectionPutRequest, query_params: Dict[str, object] = None) -> ConnectionSaveResponse:
         """
@@ -1006,70 +786,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, PipelineReactivateResponse)
 
-    def register_plugin(self, plugin_request: PluginRequest, query_params: Dict[str, object] = None) -> Plugin:
-        """
-        Register a new plugin that's available for all tenants.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-        }
-
-        path = Template("/system/streams/v3beta1/plugins").substitute(path_params)
-        url = self.base_client.build_url(path)
-        data = plugin_request.to_dict()
-        response = self.base_client.post(url, json=data, params=query_params)
-        return handle_response(response, Plugin)
-
-    def release_info(self, query_params: Dict[str, object] = None) -> Dict[str, str]:
-        """
-        Provides commit sha for release
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-        }
-
-        path = Template("/streams/v3beta1/releaseInfo").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.get(url, params=query_params)
-        return handle_response(response, str)
-
-    def set_entitlements(self, app_client_id: str, entitlement_request: List[EntitlementRequest], query_params: Dict[str, object] = None) -> List[EntitlementResponse]:
-        """
-        Create or update entitlements
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "appClientId": app_client_id,
-        }
-
-        path = Template("/streams/v3beta1/commerce/subscribed-apps/${appClientId}/entitlements").substitute(path_params)
-        url = self.base_client.build_url(path)
-        data = [e.to_dict() for e in entitlement_request]
-        response = self.base_client.put(url, json=data, params=query_params)
-        return handle_response(response, EntitlementResponse)
-
-    def start_collect_job(self, id: str, query_params: Dict[str, object] = None) -> CollectJobStartStopResponse:
-        """
-        Start a collect job.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "id": id,
-        }
-
-        path = Template("/streams/v3beta1/collect-jobs/${id}/start").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.post(url, params=query_params)
-        return handle_response(response, CollectJobStartStopResponse)
-
     def start_preview(self, preview_session_start_request: PreviewSessionStartRequest, query_params: Dict[str, object] = None) -> PreviewStartResponse:
         """
         Creates a preview session for a pipeline.
@@ -1086,22 +802,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, PreviewStartResponse)
 
-    def stop_collect_job(self, id: str, query_params: Dict[str, object] = None) -> CollectJobStartStopResponse:
-        """
-        Stop a collect job.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "id": id,
-        }
-
-        path = Template("/streams/v3beta1/collect-jobs/${id}/stop").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.post(url, params=query_params)
-        return handle_response(response, CollectJobStartStopResponse)
-
     def stop_preview(self, preview_session_id: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
         Stops a preview session.
@@ -1117,23 +817,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.delete(url, params=query_params)
         return handle_response(response, )
-
-    def update_collect_job(self, id: str, collect_job_patch_request: CollectJobPatchRequest, query_params: Dict[str, object] = None) -> CollectJobResponse:
-        """
-        Patches an existing collect job.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "id": id,
-        }
-
-        path = Template("/streams/v3beta1/collect-jobs/${id}").substitute(path_params)
-        url = self.base_client.build_url(path)
-        data = collect_job_patch_request.to_dict()
-        response = self.base_client.patch(url, json=data, params=query_params)
-        return handle_response(response, CollectJobResponse)
 
     def update_connection(self, connection_id: str, connection_patch_request: ConnectionPatchRequest, query_params: Dict[str, object] = None) -> ConnectionSaveResponse:
         """
@@ -1185,40 +868,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         data = pipeline_request.to_dict()
         response = self.base_client.put(url, json=data, params=query_params)
         return handle_response(response, PipelineResponse)
-
-    def update_plugin(self, plugin_id: str, plugin_request: PluginRequest = None, query_params: Dict[str, object] = None) -> Plugin:
-        """
-        Update admin plugin info.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "pluginId": plugin_id,
-        }
-
-        path = Template("/system/streams/v3beta1/plugins/${pluginId}").substitute(path_params)
-        url = self.base_client.build_url(path)
-        data = plugin_request.to_dict()
-        response = self.base_client.put(url, json=data, params=query_params)
-        return handle_response(response, Plugin)
-
-    def update_rules_package_by_id(self, external_id: str, rules_request: RulesRequest, query_params: Dict[str, object] = None) -> RulesResponse:
-        """
-        Updates the rules package with specific id
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "externalId": external_id,
-        }
-
-        path = Template("/streams/v3beta1/rules/${externalId}").substitute(path_params)
-        url = self.base_client.build_url(path)
-        data = rules_request.to_dict()
-        response = self.base_client.put(url, json=data, params=query_params)
-        return handle_response(response, RulesResponse)
 
     def update_template(self, template_id: str, template_patch_request: TemplatePatchRequest, query_params: Dict[str, object] = None) -> TemplateResponse:
         """

@@ -280,6 +280,13 @@ components:
         maxLength: 36
         minLength: 4
         type: string
+    userCode:
+      description: userCode
+      in: path
+      name: userCode
+      required: true
+      schema:
+        type: string
     version:
       description: The service API version.
       in: path
@@ -290,6 +297,7 @@ components:
         - v2beta1
         - v2alpha1
         - v3alpha1
+        - v3
         type: string
     version2:
       description: Service API v2alpha1 and v2beta1.
@@ -319,15 +327,7 @@ components:
         enum:
         - v2beta1
         - v3alpha1
-        type: string
-    version3alpha1:
-      description: Service API version 3 alpha 1.
-      in: path
-      name: version3alpha1
-      required: true
-      schema:
-        enum:
-        - v3alpha1
+        - v3
         type: string
   schemas:
     AddGroupMemberAsAnAdminBody:
@@ -565,6 +565,10 @@ components:
     CreatePrincipalBody:
       description: Payload when creating a principal
       properties:
+        credentials:
+          $ref: '#/components/schemas/CredentialList'
+        enabled:
+          type: boolean
         key:
           $ref: '#/components/schemas/ECJwk'
         kind:
@@ -573,8 +577,30 @@ components:
           minLength: 2
           type: string
           x-case-insensitive: true
+        profile:
+          $ref: '#/components/schemas/CreatePrincipalProfile'
       required:
       - kind
+      type: object
+    CreatePrincipalProfile:
+      description: Payload when creating Principal profile
+      properties:
+        email:
+          maxLength: 320
+          pattern: ^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$
+          type: string
+        firstName:
+          maxLength: 320
+          minLength: 1
+          type: string
+        lastName:
+          maxLength: 320
+          minLength: 1
+          type: string
+      required:
+      - email
+      - firstName
+      - lastName
       type: object
     CreateRoleBody:
       properties:
@@ -619,6 +645,26 @@ components:
       required:
       - name
       type: object
+    Credential:
+      description: Principal credential
+      properties:
+        type:
+          enum:
+          - password
+          type: string
+        value:
+          maxLength: 128
+          minLength: 8
+          type: string
+      required:
+      - type
+      - value
+      type: object
+    CredentialList:
+      description: List of credentials
+      items:
+        $ref: '#/components/schemas/Credential'
+      type: array
     CsrfToken:
       properties:
         csrf:
@@ -1049,7 +1095,11 @@ components:
       properties:
         email:
           type: string
+        firstName:
+          type: string
         fullName:
+          type: string
+        lastName:
           type: string
       type: object
     PrincipalPublicKey:
@@ -1486,6 +1536,30 @@ components:
       required:
       - state
       type: object
+    UserCodeValidateInfo:
+      properties:
+        country:
+          type: string
+        device:
+          type: string
+        ip_address:
+          type: string
+        principal:
+          type: string
+        scope:
+          type: string
+        tenant:
+          type: string
+        user_code:
+          type: string
+      required:
+      - device
+      - user_code
+      - scope
+      - tenant
+      - ip_address
+      - country
+      - principal
     ValidateInfo:
       properties:
         clientId:
@@ -1519,85 +1593,6 @@ info:
   version: v2beta1.20
 openapi: 3.0.0
 paths:
-  /{tenant}/identity/{version}/admin/escalate:
-    parameters:
-    - $ref: '#/components/parameters/tenant'
-    - $ref: '#/components/parameters/version'
-    post:
-      description: Adds an invisible member in a given tenant.
-      operationId: addInvisibleMember
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AddInvisibleMemberBody'
-        description: The invisible member to add to the tenant.
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Member'
-          description: The invisible member was successfully added.
-        "400":
-          description: The request isn't valid.
-        "401":
-          description: The user isn't authenticated.
-        "403":
-          description: The user isn't authorized.
-        "404":
-          description: The resource wasn't found.
-        "409":
-          description: Invisible member already exists.
-        "422":
-          description: The provided fields aren't valid.
-        "423":
-          description: The resource is locked.
-      x-authz-scope: identity.admin.members.write
-  /{tenant}/identity/{version}/admin/members/{member}:
-    delete:
-      description: Remove a member in a tenant.
-      operationId: removeMemberAdmin
-      responses:
-        "204":
-          description: Member successfully removed.
-        "401":
-          description: The user isn't authenticated.
-        "403":
-          description: The user isn't authorized.
-        "404":
-          description: The resource wasn't found.
-        "423":
-          description: The resource is locked.
-      x-authz-scope: identity.admin.members.write
-    get:
-      description: Gets a member in a tenant.
-      operationId: getMemberAdmin
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Member'
-          description: Operation was a success.
-        "400":
-          description: The request isn't valid.
-        "401":
-          description: The user isn't authenticated.
-        "403":
-          description: The user isn't authorized.
-        "404":
-          description: The resource wasn't found.
-        "422":
-          description: The provided fields aren't valid.
-        "423":
-          description: The resource is locked.
-      x-authz-scope: identity.admin.members.read
-    parameters:
-    - $ref: '#/components/parameters/tenant'
-    - $ref: '#/components/parameters/version'
-    - $ref: '#/components/parameters/member'
   /{tenant}/identity/v2beta1/groups:
     get:
       description: List the groups that exist in a given tenant.
@@ -2351,6 +2346,36 @@ paths:
         "403":
           description: The operation isn't authorized.
       x-authz-scope: identity.principals.read
+    post:
+      description: Create a new principal
+      operationId: createPrincipal
+      parameters:
+      - $ref: '#/components/parameters/inviteId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePrincipalBody'
+        description: The new principal to add to the system.
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Principal'
+          description: The principal was successfully created.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "409":
+          description: The principal already exists.
+      security: []
+      x-auth-required: false
+      x-authz-scope: identity.principals.create
   /system/identity/v2beta1/principals/{principal}:
     get:
       description: Returns the details of a principal, including its tenant membership.
@@ -2506,4 +2531,4 @@ security:
 servers:
 - url: /
 
-# Retrieved from scp-openapi commit 2a83a71fc5f034d6a6308d40793cf42658bfbf9a path: identity/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit 75824d71791e0b0bdf66dbcce7dd9dc1e7061407 path: identity/v2beta1/openapi.yaml

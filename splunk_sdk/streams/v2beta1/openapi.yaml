@@ -152,6 +152,9 @@ components:
     ConnectorResponse:
       description: ""
       properties:
+        attributes:
+          properties: {}
+          type: object
         config:
           $ref: '#/components/schemas/ObjectNode'
         connectorType:
@@ -730,6 +733,10 @@ components:
           - rolledBack
           - rolledBackError
           type: string
+        statusDescription:
+          additionalProperties:
+            type: string
+          type: object
       type: object
     PipelineRequest:
       description: ""
@@ -1274,6 +1281,10 @@ paths:
         style: form
       - in: query
         name: functionId
+        schema:
+          type: string
+      - in: query
+        name: functionOp
         schema:
           type: string
       - in: query
@@ -3038,4 +3049,4 @@ tags:
 - description: V2Beta1 Preview API Endpoints
   name: apiv-2-beta-1-preview-controller
 
-# Retrieved from scp-openapi commit 2a83a71fc5f034d6a6308d40793cf42658bfbf9a path: streams/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit 75824d71791e0b0bdf66dbcce7dd9dc1e7061407 path: streams/v2beta1/openapi.yaml

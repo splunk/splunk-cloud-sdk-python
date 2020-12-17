@@ -584,6 +584,10 @@ components:
     CreatePrincipalBody:
       description: Payload when creating a principal
       properties:
+        credentials:
+          $ref: '#/components/schemas/CredentialList'
+        enabled:
+          type: boolean
         key:
           $ref: '#/components/schemas/ECJwk'
         kind:
@@ -592,8 +596,30 @@ components:
           minLength: 2
           type: string
           x-case-insensitive: true
+        profile:
+          $ref: '#/components/schemas/CreatePrincipalProfile'
       required:
       - kind
+      type: object
+    CreatePrincipalProfile:
+      description: Payload when creating Principal profile
+      properties:
+        email:
+          maxLength: 320
+          pattern: ^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$
+          type: string
+        firstName:
+          maxLength: 320
+          minLength: 1
+          type: string
+        lastName:
+          maxLength: 320
+          minLength: 1
+          type: string
+      required:
+      - email
+      - firstName
+      - lastName
       type: object
     CreateRoleBody:
       properties:
@@ -638,6 +664,26 @@ components:
       required:
       - name
       type: object
+    Credential:
+      description: Principal credential
+      properties:
+        type:
+          enum:
+          - password
+          type: string
+        value:
+          maxLength: 128
+          minLength: 8
+          type: string
+      required:
+      - type
+      - value
+      type: object
+    CredentialList:
+      description: List of credentials
+      items:
+        $ref: '#/components/schemas/Credential'
+      type: array
     CsrfToken:
       properties:
         csrf:
@@ -1175,7 +1221,11 @@ components:
       properties:
         email:
           type: string
+        firstName:
+          type: string
         fullName:
+          type: string
+        lastName:
           type: string
       type: object
     PrincipalPublicKey:
@@ -1712,10 +1762,10 @@ components:
 info:
   description: With the Identity service in Splunk Cloud Services, you can authenticate and authorize Splunk Cloud Services users.
   title: Identity
-  version: v3alpha1.1
+  version: v3.1
 openapi: 3.0.0
 paths:
-  /{tenant}/identity/v3alpha1/groups:
+  /{tenant}/identity/v3/groups:
     get:
       description: List the groups that exist in a given tenant.
       operationId: listGroups
@@ -1777,7 +1827,7 @@ paths:
           description: The resource is locked.
       x-authz-scope: identity.groups.write
       x-trigger-name: splunk.identity.groups
-  /{tenant}/identity/v3alpha1/groups/{group}:
+  /{tenant}/identity/v3/groups/{group}:
     delete:
       description: Deletes a group in a given tenant.
       operationId: deleteGroup
@@ -1818,7 +1868,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/group'
-  /{tenant}/identity/v3alpha1/groups/{group}/members:
+  /{tenant}/identity/v3/groups/{group}/members:
     get:
       description: Returns a list of the members within a given group.
       operationId: listGroupMembers
@@ -1876,7 +1926,7 @@ paths:
           description: The resource is locked.
       x-authz-scope: identity.groups.write
       x-trigger-name: splunk.identity.group-members
-  /{tenant}/identity/v3alpha1/groups/{group}/members/{member}:
+  /{tenant}/identity/v3/groups/{group}/members/{member}:
     delete:
       description: Removes the member from a given group.
       operationId: removeGroupMember
@@ -1918,7 +1968,7 @@ paths:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/group'
     - $ref: '#/components/parameters/member'
-  /{tenant}/identity/v3alpha1/groups/{group}/roles:
+  /{tenant}/identity/v3/groups/{group}/roles:
     get:
       description: Returns a list of the roles that are attached to a group within a given tenant.
       operationId: listGroupRoles
@@ -1976,7 +2026,7 @@ paths:
           description: The resource is locked.
       x-authz-scope: identity.groups.write
       x-trigger-name: splunk.identity.group-roles
-  /{tenant}/identity/v3alpha1/groups/{group}/roles/{role}:
+  /{tenant}/identity/v3/groups/{group}/roles/{role}:
     delete:
       description: Removes a role from a given group.
       operationId: removeGroupRole
@@ -2018,7 +2068,7 @@ paths:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/group'
     - $ref: '#/components/parameters/role'
-  /{tenant}/identity/v3alpha1/members:
+  /{tenant}/identity/v3/members:
     get:
       description: Returns a list of members in a given tenant.
       operationId: listMembers
@@ -2074,7 +2124,7 @@ paths:
           description: The resource is locked.
       x-authz-scope: identity.members.write
       x-trigger-name: splunk.identity.members
-  /{tenant}/identity/v3alpha1/members/{member}:
+  /{tenant}/identity/v3/members/{member}:
     delete:
       description: Removes a member from a given tenant
       operationId: removeMember
@@ -2115,7 +2165,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/member'
-  /{tenant}/identity/v3alpha1/members/{member}/groups:
+  /{tenant}/identity/v3/members/{member}/groups:
     get:
       description: Returns a list of groups that a member belongs to within a tenant.
       operationId: listMemberGroups
@@ -2142,7 +2192,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/member'
-  /{tenant}/identity/v3alpha1/members/{member}/permissions:
+  /{tenant}/identity/v3/members/{member}/permissions:
     get:
       description: |
         Returns a set of permissions granted to the member within the tenant.
@@ -2181,7 +2231,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/member'
-  /{tenant}/identity/v3alpha1/members/{member}/roles:
+  /{tenant}/identity/v3/members/{member}/roles:
     get:
       description: |
         Returns a set of roles that a given member holds within the tenant.
@@ -2209,7 +2259,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/member'
-  /{tenant}/identity/v3alpha1/roles:
+  /{tenant}/identity/v3/roles:
     get:
       description: Returns all roles for a given tenant.
       operationId: listRoles
@@ -2266,7 +2316,7 @@ paths:
           description: The resource is locked.
       x-authz-scope: identity.roles.write
       x-trigger-name: splunk.identity.roles
-  /{tenant}/identity/v3alpha1/roles/{role}:
+  /{tenant}/identity/v3/roles/{role}:
     delete:
       description: Deletes a defined role for a given tenant.
       operationId: deleteRole
@@ -2307,7 +2357,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/role'
-  /{tenant}/identity/v3alpha1/roles/{role}/groups:
+  /{tenant}/identity/v3/roles/{role}/groups:
     get:
       description: Gets a list of groups for a role in a given tenant.
       operationId: listRoleGroups
@@ -2332,7 +2382,7 @@ paths:
     parameters:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/role'
-  /{tenant}/identity/v3alpha1/roles/{role}/permissions:
+  /{tenant}/identity/v3/roles/{role}/permissions:
     get:
       description: Gets the permissions for a role in a given tenant.
       operationId: listRolePermissions
@@ -2390,7 +2440,7 @@ paths:
           description: The resource is locked.
       x-authz-scope: identity.roles.write
       x-trigger-name: splunk.identity.role-permissions
-  /{tenant}/identity/v3alpha1/roles/{role}/permissions/{permission}:
+  /{tenant}/identity/v3/roles/{role}/permissions/{permission}:
     delete:
       description: Removes a permission from the role.
       operationId: removeRolePermission
@@ -2432,7 +2482,7 @@ paths:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/role'
     - $ref: '#/components/parameters/permission'
-  /{tenant}/identity/v3alpha1/validate:
+  /{tenant}/identity/v3/validate:
     get:
       description: |
         Validates the access token obtained from the authorization header and returns the principal name and tenant memberships.
@@ -2467,7 +2517,7 @@ paths:
           description: Too many requests were sent.
     parameters:
     - $ref: '#/components/parameters/tenant'
-  /system/identity/v3alpha1/principals:
+  /system/identity/v3/principals:
     get:
       description: |
         Returns the list of principals that the Identity service knows about.
@@ -2490,7 +2540,37 @@ paths:
         "403":
           description: The operation isn't authorized.
       x-authz-scope: identity.principals.read
-  /system/identity/v3alpha1/principals/{principal}:
+    post:
+      description: Create a new principal
+      operationId: createPrincipal
+      parameters:
+      - $ref: '#/components/parameters/inviteId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePrincipalBody'
+        description: The new principal to add to the system.
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Principal'
+          description: The principal was successfully created.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "409":
+          description: The principal already exists.
+      security: []
+      x-auth-required: false
+      x-authz-scope: identity.principals.create
+  /system/identity/v3/principals/{principal}:
     get:
       description: |
         Returns the details of a principal, including its tenant membership and any relevant profile information.
@@ -2513,7 +2593,7 @@ paths:
       x-authz-scope: identity.principals.read
     parameters:
     - $ref: '#/components/parameters/principal'
-  /system/identity/v3alpha1/principals/{principal}/keys:
+  /system/identity/v3/principals/{principal}/keys:
     get:
       description: Returns principal public keys
       operationId: getPrincipalPublicKeys
@@ -2561,7 +2641,7 @@ paths:
         "404":
           description: The resource wasn't found.
       x-authz-scope: identity.principalkeys.write
-  /system/identity/v3alpha1/principals/{principal}/keys/{keyId}:
+  /system/identity/v3/principals/{principal}/keys/{keyId}:
     delete:
       description: Deletes principal public key
       operationId: deletePrincipalPublicKey
@@ -2623,7 +2703,7 @@ paths:
         "404":
           description: The resource wasn't found.
       x-authz-scope: identity.principalkeys.write
-  /system/identity/v3alpha1/principals/{principal}/revoke:
+  /system/identity/v3/principals/{principal}/revoke:
     parameters:
     - $ref: '#/components/parameters/principal'
     post:
@@ -2647,4 +2727,4 @@ security:
 servers:
 - url: /
 
-# Retrieved from scp-openapi commit 75824d71791e0b0bdf66dbcce7dd9dc1e7061407 path: identity/v3alpha1/openapi.yaml
+# Retrieved from scp-openapi commit 75824d71791e0b0bdf66dbcce7dd9dc1e7061407 path: identity/v3/openapi.yaml

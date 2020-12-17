@@ -34,11 +34,9 @@ from splunk_sdk.base_client import handle_response
 from splunk_sdk.base_service import BaseService
 from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
-from splunk_sdk.provisioner.v1beta1.gen_models import CreateProvisionJobBody
 from splunk_sdk.provisioner.v1beta1.gen_models import Error
 from splunk_sdk.provisioner.v1beta1.gen_models import InviteBody
 from splunk_sdk.provisioner.v1beta1.gen_models import InviteInfo
-from splunk_sdk.provisioner.v1beta1.gen_models import ProvisionJobInfo
 from splunk_sdk.provisioner.v1beta1.gen_models import TenantInfo
 from splunk_sdk.provisioner.v1beta1.gen_models import UpdateInviteBody
 
@@ -68,22 +66,6 @@ class Provisioner(BaseService):
         data = invite_body.to_dict()
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, InviteInfo)
-
-    def create_provision_job(self, create_provision_job_body: CreateProvisionJobBody, query_params: Dict[str, object] = None) -> ProvisionJobInfo:
-        """
-        Creates a new job that provisions a new tenant and subscribes apps to the tenant.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-        }
-
-        path = Template("/system/provisioner/v1beta1/jobs/tenants/provision").substitute(path_params)
-        url = self.base_client.build_url(path)
-        data = create_provision_job_body.to_dict()
-        response = self.base_client.post(url, json=data, params=query_params)
-        return handle_response(response, ProvisionJobInfo)
 
     def delete_invite(self, invite_id: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
@@ -117,22 +99,6 @@ class Provisioner(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, InviteInfo)
 
-    def get_provision_job(self, job_id: str, query_params: Dict[str, object] = None) -> ProvisionJobInfo:
-        """
-        Returns details of a specific provision job.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "jobId": job_id,
-        }
-
-        path = Template("/system/provisioner/v1beta1/jobs/tenants/provision/${jobId}").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.get(url, params=query_params)
-        return handle_response(response, ProvisionJobInfo)
-
     def get_tenant(self, tenant_name: str, query_params: Dict[str, object] = None) -> TenantInfo:
         """
         Returns a specific tenant.
@@ -163,21 +129,6 @@ class Provisioner(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, InviteInfo)
-
-    def list_provision_jobs(self, query_params: Dict[str, object] = None) -> List[ProvisionJobInfo]:
-        """
-        Returns a list of all provision jobs created by the user.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-        }
-
-        path = Template("/system/provisioner/v1beta1/jobs/tenants/provision").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.get(url, params=query_params)
-        return handle_response(response, ProvisionJobInfo)
 
     def list_tenants(self, query_params: Dict[str, object] = None) -> List[TenantInfo]:
         """

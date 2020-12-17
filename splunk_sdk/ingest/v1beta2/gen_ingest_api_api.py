@@ -123,6 +123,58 @@ class IngestAPI(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, HECTokenAccessResponse)
 
+    def post_collector_raw(self, host: str = None, index: str = None, source: str = None, sourcetype: str = None, time: str = None, body: str = None, query_params: Dict[str, object] = None) -> HECResponse:
+        """
+        Sends collector raw events.
+        """
+        if query_params is None:
+            query_params = {}
+        if host is not None:
+            query_params['host'] = host
+        if index is not None:
+            query_params['index'] = index
+        if source is not None:
+            query_params['source'] = source
+        if sourcetype is not None:
+            query_params['sourcetype'] = sourcetype
+        if time is not None:
+            query_params['time'] = time
+
+        path_params = {
+        }
+
+        path = Template("/ingest/v1beta2/collector/raw").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = body
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, HECResponse)
+
+    def post_collector_raw_v1(self, host: str = None, index: str = None, source: str = None, sourcetype: str = None, time: str = None, body: str = None, query_params: Dict[str, object] = None) -> HECResponse:
+        """
+        Sends collector raw events.
+        """
+        if query_params is None:
+            query_params = {}
+        if host is not None:
+            query_params['host'] = host
+        if index is not None:
+            query_params['index'] = index
+        if source is not None:
+            query_params['source'] = source
+        if sourcetype is not None:
+            query_params['sourcetype'] = sourcetype
+        if time is not None:
+            query_params['time'] = time
+
+        path_params = {
+        }
+
+        path = Template("/ingest/v1beta2/collector/raw/1.0").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = body
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, HECResponse)
+
     def post_collector_tokens(self, hec_token_create_request: HECTokenCreateRequest, query_params: Dict[str, object] = None) -> HECTokenCreateResponse:
         """
         Creates dsphec tokens.

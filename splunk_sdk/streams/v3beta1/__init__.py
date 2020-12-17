@@ -36,11 +36,6 @@ from splunk_sdk.streams.v3beta1.gen_data_stream_processing_rest_api_api import D
 # import models into sdk package
 from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     ArgumentModel, \
-    CollectJobSchedule, \
-    CollectJobPatchRequest, \
-    CollectJobRequest, \
-    CollectJobResponse, \
-    CollectJobStartStopResponse, \
     ConnectionPatchRequest, \
     ConnectionPutRequest, \
     ConnectionRequest, \
@@ -59,10 +54,8 @@ from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     PipelineMigrationInfo, \
     DecompileRequest, \
     DecompileResponse, \
-    EntitlementRequest, \
-    EntitlementResponse, \
     ErrorResponse, \
-    UploadFile, \
+    UploadFileResponse, \
     FilesMetaDataResponse, \
     FunctionModel, \
     GetInputSchemaRequest, \
@@ -70,29 +63,17 @@ from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     LookupTableResponse, \
     NodeMetrics, \
     MetricsResponse, \
-    PaginatedResponseOfCollectJobResponse, \
     PaginatedResponseOfConnectionResponse, \
     PaginatedResponseOfConnectorResponse, \
     PipelineJobStatus, \
     PaginatedResponseOfPipelineJobStatus, \
     PipelineResponse, \
     PaginatedResponseOfPipelineResponse, \
-    Plugin, \
-    PaginatedResponseOfPlugin, \
-    RulesKind, \
-    PaginatedResponseOfRulesKind, \
-    RulesResponse, \
-    RulesPackageSourcetypes, \
-    RulesPackageActions, \
-    PaginatedResponseOfRulesResponse, \
     TemplateResponse, \
     PaginatedResponseOfTemplateResponse, \
     PipelinePatchRequest, \
     PipelineReactivateResponse, \
     PipelineRequest, \
-    PluginPatchRequest, \
-    PluginRequest, \
-    PluginResponse, \
     PreviewNode, \
     RuleMetrics, \
     PreviewData, \
@@ -102,7 +83,6 @@ from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     ReactivatePipelineRequest, \
     RegistryModel, \
     Response, \
-    RulesRequest, \
     SplCompileRequest, \
     TemplatePatchRequest, \
     TemplatePutRequest, \

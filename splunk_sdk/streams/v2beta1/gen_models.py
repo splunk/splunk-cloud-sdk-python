@@ -879,10 +879,12 @@ class ConnectorResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, config: "object" = None, connector_type: "str" = None, description: "str" = None, functions: "List[object]" = None, hidden: "bool" = None, id: "str" = None, name: "str" = None, panel_url: "str" = None, tag: "str" = None, **extra):
+    def __init__(self, attributes: "object" = None, config: "object" = None, connector_type: "str" = None, description: "str" = None, functions: "List[object]" = None, hidden: "bool" = None, id: "str" = None, name: "str" = None, panel_url: "str" = None, tag: "str" = None, **extra):
         """ConnectorResponse"""
 
         self._attrs = dict()
+        if attributes is not None:
+            self._attrs["attributes"] = attributes
         if config is not None:
             self._attrs["config"] = config
         if connector_type is not None:
@@ -903,6 +905,22 @@ class ConnectorResponse(SSCModel):
             self._attrs["tag"] = tag
         for k, v in extra.items():
             self._attrs[k] = v
+
+    @property
+    def attributes(self) -> "dict":
+        """ Gets the attributes of this ConnectorResponse.
+        """
+        return self._attrs.get("attributes")
+
+    @attributes.setter
+    def attributes(self, attributes: "dict"):
+        """Sets the attributes of this ConnectorResponse.
+
+
+        :param attributes: The attributes of this ConnectorResponse.
+        :type: object
+        """
+        self._attrs["attributes"] = attributes
 
     @property
     def config(self) -> "dict":
@@ -4276,7 +4294,7 @@ class PipelineReactivateResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, currently_active_version: "int" = None, pipeline_id: "str" = None, pipeline_reactivation_status: "str" = None, **extra):
+    def __init__(self, currently_active_version: "int" = None, pipeline_id: "str" = None, pipeline_reactivation_status: "str" = None, status_description: "Dict[str, str]" = None, **extra):
         """PipelineReactivateResponse"""
 
         self._attrs = dict()
@@ -4286,6 +4304,8 @@ class PipelineReactivateResponse(SSCModel):
             self._attrs["pipelineId"] = pipeline_id
         if pipeline_reactivation_status is not None:
             self._attrs["pipelineReactivationStatus"] = pipeline_reactivation_status
+        if status_description is not None:
+            self._attrs["statusDescription"] = status_description
         for k, v in extra.items():
             self._attrs[k] = v
 
@@ -4339,6 +4359,22 @@ class PipelineReactivateResponse(SSCModel):
             self._attrs["pipelineReactivationStatus"] = pipeline_reactivation_status.value
         else:
             self._attrs["pipelineReactivationStatus"] = pipeline_reactivation_status  # If you supply a string, we presume you know the service will take it.
+
+    @property
+    def status_description(self) -> "Dict[str, str]":
+        """ Gets the status_description of this PipelineReactivateResponse.
+        """
+        return self._attrs.get("statusDescription")
+
+    @status_description.setter
+    def status_description(self, status_description: "Dict[str, str]"):
+        """Sets the status_description of this PipelineReactivateResponse.
+
+
+        :param status_description: The status_description of this PipelineReactivateResponse.
+        :type: Dict[str, str]
+        """
+        self._attrs["statusDescription"] = status_description
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}

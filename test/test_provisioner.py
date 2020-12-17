@@ -11,36 +11,8 @@
 import pytest
 
 from splunk_sdk.base_client import BaseClient, HTTPError
-from splunk_sdk.provisioner import Provisioner, CreateProvisionJobBody
-from test.fixtures import get_test_client_provisioner as test_client  # NOQA
-
-
-@pytest.mark.usefixtures("test_client")  # NOQA
-def test_invalid_create_job(test_client: BaseClient):
-    provisioner = Provisioner(test_client)
-    with pytest.raises(HTTPError) as excinfo:
-        provisioner.create_provision_job(CreateProvisionJobBody(tenant="splunk"))
-    err = excinfo.value
-    assert(err is not None)
-
-
-@pytest.mark.usefixtures("test_client")  # NOQA
-def test_invalid_get_provision_job(test_client: BaseClient):
-    provisioner = Provisioner(test_client)
-    with pytest.raises(HTTPError) as excinfo:
-        provisioner.get_provision_job(-1)
-
-    err = excinfo.value
-    assert(err.http_status_code == 404)
-    assert(err.code == "NotFound")
-
-
-@pytest.mark.usefixtures("test_client")  # NOQA
-def test_list_provision_jobs(test_client: BaseClient):
-    provisioner = Provisioner(test_client)
-    jobs = provisioner.list_provision_jobs()
-    assert(len(jobs) == 0)
-
+from splunk_sdk.provisioner import Provisioner
+from test.fixtures import get_test_client_provisioner as test_client  # NOQ
 
 @pytest.mark.usefixtures("test_client")  # NOQA
 def test_get_tenant(test_client: BaseClient):

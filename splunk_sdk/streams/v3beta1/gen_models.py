@@ -184,679 +184,6 @@ class ArgumentModel(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-class CollectJobSchedule(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "CollectJobSchedule":
-        instance = CollectJobSchedule.__new__(CollectJobSchedule)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, cron: "str", **extra):
-        """CollectJobSchedule"""
-
-        self._attrs = dict()
-        if cron is not None:
-            self._attrs["cron"] = cron
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def cron(self) -> "str":
-        """ Gets the cron of this CollectJobSchedule.
-        The CRON expression.
-        """
-        return self._attrs.get("cron")
-
-    @cron.setter
-    def cron(self, cron: "str"):
-        """Sets the cron of this CollectJobSchedule.
-
-        The CRON expression.
-
-        :param cron: The cron of this CollectJobSchedule.
-        :type: str
-        """
-        if cron is None:
-            raise ValueError("Invalid value for `cron`, must not be `None`")
-        self._attrs["cron"] = cron
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class CollectJobPatchRequest(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "CollectJobPatchRequest":
-        instance = CollectJobPatchRequest.__new__(CollectJobPatchRequest)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, description: "str" = None, name: "str" = None, parameters: "object" = None, schedule: "CollectJobSchedule" = None, workers: "int" = None, **extra):
-        """CollectJobPatchRequest"""
-
-        self._attrs = dict()
-        if description is not None:
-            self._attrs["description"] = description
-        if name is not None:
-            self._attrs["name"] = name
-        if parameters is not None:
-            self._attrs["parameters"] = parameters
-        if schedule is not None:
-            self._attrs["schedule"] = schedule.to_dict()
-        if workers is not None:
-            self._attrs["workers"] = workers
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def description(self) -> "str":
-        """ Gets the description of this CollectJobPatchRequest.
-        The description of the collect job.
-        """
-        return self._attrs.get("description")
-
-    @description.setter
-    def description(self, description: "str"):
-        """Sets the description of this CollectJobPatchRequest.
-
-        The description of the collect job.
-
-        :param description: The description of this CollectJobPatchRequest.
-        :type: str
-        """
-        self._attrs["description"] = description
-
-    @property
-    def name(self) -> "str":
-        """ Gets the name of this CollectJobPatchRequest.
-        The name of the collect job.
-        """
-        return self._attrs.get("name")
-
-    @name.setter
-    def name(self, name: "str"):
-        """Sets the name of this CollectJobPatchRequest.
-
-        The name of the collect job.
-
-        :param name: The name of this CollectJobPatchRequest.
-        :type: str
-        """
-        self._attrs["name"] = name
-
-    @property
-    def parameters(self) -> "dict":
-        """ Gets the parameters of this CollectJobPatchRequest.
-        The key-value pairs of configurations for this collect job.
-        """
-        return self._attrs.get("parameters")
-
-    @parameters.setter
-    def parameters(self, parameters: "dict"):
-        """Sets the parameters of this CollectJobPatchRequest.
-
-        The key-value pairs of configurations for this collect job.
-
-        :param parameters: The parameters of this CollectJobPatchRequest.
-        :type: object
-        """
-        self._attrs["parameters"] = parameters
-
-    @property
-    def schedule(self) -> "CollectJobSchedule":
-        """ Gets the schedule of this CollectJobPatchRequest.
-        """
-        return CollectJobSchedule._from_dict(self._attrs["schedule"])
-
-    @schedule.setter
-    def schedule(self, schedule: "CollectJobSchedule"):
-        """Sets the schedule of this CollectJobPatchRequest.
-
-
-        :param schedule: The schedule of this CollectJobPatchRequest.
-        :type: CollectJobSchedule
-        """
-        self._attrs["schedule"] = schedule.to_dict()
-
-    @property
-    def workers(self) -> "int":
-        """ Gets the workers of this CollectJobPatchRequest.
-        The number of workers for collecting data.
-        """
-        return self._attrs.get("workers")
-
-    @workers.setter
-    def workers(self, workers: "int"):
-        """Sets the workers of this CollectJobPatchRequest.
-
-        The number of workers for collecting data.
-
-        :param workers: The workers of this CollectJobPatchRequest.
-        :type: int
-        """
-        self._attrs["workers"] = workers
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class CollectJobRequest(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "CollectJobRequest":
-        instance = CollectJobRequest.__new__(CollectJobRequest)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, connection_id: "str", connector_id: "str", description: "str", name: "str", parameters: "object", schedule: "CollectJobSchedule", workers: "int", **extra):
-        """CollectJobRequest"""
-
-        self._attrs = dict()
-        if connection_id is not None:
-            self._attrs["connectionId"] = connection_id
-        if connector_id is not None:
-            self._attrs["connectorId"] = connector_id
-        if description is not None:
-            self._attrs["description"] = description
-        if name is not None:
-            self._attrs["name"] = name
-        if parameters is not None:
-            self._attrs["parameters"] = parameters
-        if schedule is not None:
-            self._attrs["schedule"] = schedule.to_dict()
-        if workers is not None:
-            self._attrs["workers"] = workers
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def connection_id(self) -> "str":
-        """ Gets the connection_id of this CollectJobRequest.
-        The ID of the connection that is assigned to this collect job.
-        """
-        return self._attrs.get("connectionId")
-
-    @connection_id.setter
-    def connection_id(self, connection_id: "str"):
-        """Sets the connection_id of this CollectJobRequest.
-
-        The ID of the connection that is assigned to this collect job.
-
-        :param connection_id: The connection_id of this CollectJobRequest.
-        :type: str
-        """
-        if connection_id is None:
-            raise ValueError("Invalid value for `connection_id`, must not be `None`")
-        self._attrs["connectionId"] = connection_id
-
-    @property
-    def connector_id(self) -> "str":
-        """ Gets the connector_id of this CollectJobRequest.
-        The ID of the connector this collect job uses.
-        """
-        return self._attrs.get("connectorId")
-
-    @connector_id.setter
-    def connector_id(self, connector_id: "str"):
-        """Sets the connector_id of this CollectJobRequest.
-
-        The ID of the connector this collect job uses.
-
-        :param connector_id: The connector_id of this CollectJobRequest.
-        :type: str
-        """
-        if connector_id is None:
-            raise ValueError("Invalid value for `connector_id`, must not be `None`")
-        self._attrs["connectorId"] = connector_id
-
-    @property
-    def description(self) -> "str":
-        """ Gets the description of this CollectJobRequest.
-        The description of the collect job.
-        """
-        return self._attrs.get("description")
-
-    @description.setter
-    def description(self, description: "str"):
-        """Sets the description of this CollectJobRequest.
-
-        The description of the collect job.
-
-        :param description: The description of this CollectJobRequest.
-        :type: str
-        """
-        if description is None:
-            raise ValueError("Invalid value for `description`, must not be `None`")
-        self._attrs["description"] = description
-
-    @property
-    def name(self) -> "str":
-        """ Gets the name of this CollectJobRequest.
-        The name of the collect job.
-        """
-        return self._attrs.get("name")
-
-    @name.setter
-    def name(self, name: "str"):
-        """Sets the name of this CollectJobRequest.
-
-        The name of the collect job.
-
-        :param name: The name of this CollectJobRequest.
-        :type: str
-        """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
-        self._attrs["name"] = name
-
-    @property
-    def parameters(self) -> "dict":
-        """ Gets the parameters of this CollectJobRequest.
-        The key-value pairs of parameters for this collect job. Collect jobs may have some configurations that are required, which all collect jobs must provide values for. For configuration values of type BYTES, the provided values must be Base64 encoded.
-        """
-        return self._attrs.get("parameters")
-
-    @parameters.setter
-    def parameters(self, parameters: "dict"):
-        """Sets the parameters of this CollectJobRequest.
-
-        The key-value pairs of parameters for this collect job. Collect jobs may have some configurations that are required, which all collect jobs must provide values for. For configuration values of type BYTES, the provided values must be Base64 encoded.
-
-        :param parameters: The parameters of this CollectJobRequest.
-        :type: object
-        """
-        if parameters is None:
-            raise ValueError("Invalid value for `parameters`, must not be `None`")
-        self._attrs["parameters"] = parameters
-
-    @property
-    def schedule(self) -> "CollectJobSchedule":
-        """ Gets the schedule of this CollectJobRequest.
-        """
-        return CollectJobSchedule._from_dict(self._attrs["schedule"])
-
-    @schedule.setter
-    def schedule(self, schedule: "CollectJobSchedule"):
-        """Sets the schedule of this CollectJobRequest.
-
-
-        :param schedule: The schedule of this CollectJobRequest.
-        :type: CollectJobSchedule
-        """
-        if schedule is None:
-            raise ValueError("Invalid value for `schedule`, must not be `None`")
-        self._attrs["schedule"] = schedule.to_dict()
-
-    @property
-    def workers(self) -> "int":
-        """ Gets the workers of this CollectJobRequest.
-        The number of workers for collecting data.
-        """
-        return self._attrs.get("workers")
-
-    @workers.setter
-    def workers(self, workers: "int"):
-        """Sets the workers of this CollectJobRequest.
-
-        The number of workers for collecting data.
-
-        :param workers: The workers of this CollectJobRequest.
-        :type: int
-        """
-        if workers is None:
-            raise ValueError("Invalid value for `workers`, must not be `None`")
-        self._attrs["workers"] = workers
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class CollectJobResponse(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "CollectJobResponse":
-        instance = CollectJobResponse.__new__(CollectJobResponse)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, active_pipelines_using: "List[object]" = None, connection_id: "str" = None, connector_id: "str" = None, create_date: "int" = None, create_user_id: "str" = None, description: "str" = None, id: "str" = None, last_update_date: "int" = None, last_update_user_id: "str" = None, name: "str" = None, parameters: "object" = None, schedule: "CollectJobSchedule" = None, status: "str" = None, version: "int" = None, workers: "int" = None, **extra):
-        """CollectJobResponse"""
-
-        self._attrs = dict()
-        if active_pipelines_using is not None:
-            self._attrs["activePipelinesUsing"] = active_pipelines_using
-        if connection_id is not None:
-            self._attrs["connectionId"] = connection_id
-        if connector_id is not None:
-            self._attrs["connectorId"] = connector_id
-        if create_date is not None:
-            self._attrs["createDate"] = create_date
-        if create_user_id is not None:
-            self._attrs["createUserId"] = create_user_id
-        if description is not None:
-            self._attrs["description"] = description
-        if id is not None:
-            self._attrs["id"] = id
-        if last_update_date is not None:
-            self._attrs["lastUpdateDate"] = last_update_date
-        if last_update_user_id is not None:
-            self._attrs["lastUpdateUserId"] = last_update_user_id
-        if name is not None:
-            self._attrs["name"] = name
-        if parameters is not None:
-            self._attrs["parameters"] = parameters
-        if schedule is not None:
-            self._attrs["schedule"] = schedule.to_dict()
-        if status is not None:
-            self._attrs["status"] = status
-        if version is not None:
-            self._attrs["version"] = version
-        if workers is not None:
-            self._attrs["workers"] = workers
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def active_pipelines_using(self) -> "List[object]":
-        """ Gets the active_pipelines_using of this CollectJobResponse.
-        """
-        return self._attrs.get("activePipelinesUsing")
-
-    @active_pipelines_using.setter
-    def active_pipelines_using(self, active_pipelines_using: "List[object]"):
-        """Sets the active_pipelines_using of this CollectJobResponse.
-
-
-        :param active_pipelines_using: The active_pipelines_using of this CollectJobResponse.
-        :type: List[object]
-        """
-        self._attrs["activePipelinesUsing"] = active_pipelines_using
-
-    @property
-    def connection_id(self) -> "str":
-        """ Gets the connection_id of this CollectJobResponse.
-        """
-        return self._attrs.get("connectionId")
-
-    @connection_id.setter
-    def connection_id(self, connection_id: "str"):
-        """Sets the connection_id of this CollectJobResponse.
-
-
-        :param connection_id: The connection_id of this CollectJobResponse.
-        :type: str
-        """
-        self._attrs["connectionId"] = connection_id
-
-    @property
-    def connector_id(self) -> "str":
-        """ Gets the connector_id of this CollectJobResponse.
-        """
-        return self._attrs.get("connectorId")
-
-    @connector_id.setter
-    def connector_id(self, connector_id: "str"):
-        """Sets the connector_id of this CollectJobResponse.
-
-
-        :param connector_id: The connector_id of this CollectJobResponse.
-        :type: str
-        """
-        self._attrs["connectorId"] = connector_id
-
-    @property
-    def create_date(self) -> "int":
-        """ Gets the create_date of this CollectJobResponse.
-        """
-        return self._attrs.get("createDate")
-
-    @create_date.setter
-    def create_date(self, create_date: "int"):
-        """Sets the create_date of this CollectJobResponse.
-
-
-        :param create_date: The create_date of this CollectJobResponse.
-        :type: int
-        """
-        self._attrs["createDate"] = create_date
-
-    @property
-    def create_user_id(self) -> "str":
-        """ Gets the create_user_id of this CollectJobResponse.
-        """
-        return self._attrs.get("createUserId")
-
-    @create_user_id.setter
-    def create_user_id(self, create_user_id: "str"):
-        """Sets the create_user_id of this CollectJobResponse.
-
-
-        :param create_user_id: The create_user_id of this CollectJobResponse.
-        :type: str
-        """
-        self._attrs["createUserId"] = create_user_id
-
-    @property
-    def description(self) -> "str":
-        """ Gets the description of this CollectJobResponse.
-        """
-        return self._attrs.get("description")
-
-    @description.setter
-    def description(self, description: "str"):
-        """Sets the description of this CollectJobResponse.
-
-
-        :param description: The description of this CollectJobResponse.
-        :type: str
-        """
-        self._attrs["description"] = description
-
-    @property
-    def id(self) -> "str":
-        """ Gets the id of this CollectJobResponse.
-        """
-        return self._attrs.get("id")
-
-    @id.setter
-    def id(self, id: "str"):
-        """Sets the id of this CollectJobResponse.
-
-
-        :param id: The id of this CollectJobResponse.
-        :type: str
-        """
-        self._attrs["id"] = id
-
-    @property
-    def last_update_date(self) -> "int":
-        """ Gets the last_update_date of this CollectJobResponse.
-        """
-        return self._attrs.get("lastUpdateDate")
-
-    @last_update_date.setter
-    def last_update_date(self, last_update_date: "int"):
-        """Sets the last_update_date of this CollectJobResponse.
-
-
-        :param last_update_date: The last_update_date of this CollectJobResponse.
-        :type: int
-        """
-        self._attrs["lastUpdateDate"] = last_update_date
-
-    @property
-    def last_update_user_id(self) -> "str":
-        """ Gets the last_update_user_id of this CollectJobResponse.
-        """
-        return self._attrs.get("lastUpdateUserId")
-
-    @last_update_user_id.setter
-    def last_update_user_id(self, last_update_user_id: "str"):
-        """Sets the last_update_user_id of this CollectJobResponse.
-
-
-        :param last_update_user_id: The last_update_user_id of this CollectJobResponse.
-        :type: str
-        """
-        self._attrs["lastUpdateUserId"] = last_update_user_id
-
-    @property
-    def name(self) -> "str":
-        """ Gets the name of this CollectJobResponse.
-        """
-        return self._attrs.get("name")
-
-    @name.setter
-    def name(self, name: "str"):
-        """Sets the name of this CollectJobResponse.
-
-
-        :param name: The name of this CollectJobResponse.
-        :type: str
-        """
-        self._attrs["name"] = name
-
-    @property
-    def parameters(self) -> "dict":
-        """ Gets the parameters of this CollectJobResponse.
-        """
-        return self._attrs.get("parameters")
-
-    @parameters.setter
-    def parameters(self, parameters: "dict"):
-        """Sets the parameters of this CollectJobResponse.
-
-
-        :param parameters: The parameters of this CollectJobResponse.
-        :type: object
-        """
-        self._attrs["parameters"] = parameters
-
-    @property
-    def schedule(self) -> "CollectJobSchedule":
-        """ Gets the schedule of this CollectJobResponse.
-        """
-        return CollectJobSchedule._from_dict(self._attrs["schedule"])
-
-    @schedule.setter
-    def schedule(self, schedule: "CollectJobSchedule"):
-        """Sets the schedule of this CollectJobResponse.
-
-
-        :param schedule: The schedule of this CollectJobResponse.
-        :type: CollectJobSchedule
-        """
-        self._attrs["schedule"] = schedule.to_dict()
-
-    @property
-    def status(self) -> "str":
-        """ Gets the status of this CollectJobResponse.
-        """
-        return self._attrs.get("status")
-
-    @status.setter
-    def status(self, status: "str"):
-        """Sets the status of this CollectJobResponse.
-
-
-        :param status: The status of this CollectJobResponse.
-        :type: str
-        """
-        self._attrs["status"] = status
-
-    @property
-    def version(self) -> "int":
-        """ Gets the version of this CollectJobResponse.
-        """
-        return self._attrs.get("version")
-
-    @version.setter
-    def version(self, version: "int"):
-        """Sets the version of this CollectJobResponse.
-
-
-        :param version: The version of this CollectJobResponse.
-        :type: int
-        """
-        self._attrs["version"] = version
-
-    @property
-    def workers(self) -> "int":
-        """ Gets the workers of this CollectJobResponse.
-        """
-        return self._attrs.get("workers")
-
-    @workers.setter
-    def workers(self, workers: "int"):
-        """Sets the workers of this CollectJobResponse.
-
-
-        :param workers: The workers of this CollectJobResponse.
-        :type: int
-        """
-        self._attrs["workers"] = workers
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class CollectJobStartStopResponse(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "CollectJobStartStopResponse":
-        instance = CollectJobStartStopResponse.__new__(CollectJobStartStopResponse)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, id: "str" = None, status: "str" = None, **extra):
-        """CollectJobStartStopResponse"""
-
-        self._attrs = dict()
-        if id is not None:
-            self._attrs["id"] = id
-        if status is not None:
-            self._attrs["status"] = status
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def id(self) -> "str":
-        """ Gets the id of this CollectJobStartStopResponse.
-        """
-        return self._attrs.get("id")
-
-    @id.setter
-    def id(self, id: "str"):
-        """Sets the id of this CollectJobStartStopResponse.
-
-
-        :param id: The id of this CollectJobStartStopResponse.
-        :type: str
-        """
-        self._attrs["id"] = id
-
-    @property
-    def status(self) -> "str":
-        """ Gets the status of this CollectJobStartStopResponse.
-        """
-        return self._attrs.get("status")
-
-    @status.setter
-    def status(self, status: "str"):
-        """Sets the status of this CollectJobStartStopResponse.
-
-
-        :param status: The status of this CollectJobStartStopResponse.
-        :type: str
-        """
-        self._attrs["status"] = status
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
 class ConnectionPatchRequest(SSCModel):
 
     @staticmethod
@@ -1625,10 +952,12 @@ class ConnectorResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, config: "object" = None, connector_type: "str" = None, description: "str" = None, functions: "List[object]" = None, hidden: "bool" = None, id: "str" = None, name: "str" = None, panel_url: "str" = None, tag: "str" = None, **extra):
+    def __init__(self, attributes: "object" = None, config: "object" = None, connector_type: "str" = None, description: "str" = None, functions: "List[object]" = None, hidden: "bool" = None, id: "str" = None, name: "str" = None, panel_url: "str" = None, tag: "str" = None, **extra):
         """ConnectorResponse"""
 
         self._attrs = dict()
+        if attributes is not None:
+            self._attrs["attributes"] = attributes
         if config is not None:
             self._attrs["config"] = config
         if connector_type is not None:
@@ -1649,6 +978,22 @@ class ConnectorResponse(SSCModel):
             self._attrs["tag"] = tag
         for k, v in extra.items():
             self._attrs[k] = v
+
+    @property
+    def attributes(self) -> "dict":
+        """ Gets the attributes of this ConnectorResponse.
+        """
+        return self._attrs.get("attributes")
+
+    @attributes.setter
+    def attributes(self, attributes: "dict"):
+        """Sets the attributes of this ConnectorResponse.
+
+
+        :param attributes: The attributes of this ConnectorResponse.
+        :type: object
+        """
+        self._attrs["attributes"] = attributes
 
     @property
     def config(self) -> "dict":
@@ -2749,160 +2094,6 @@ class DecompileResponse(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-class EntitlementRequest(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "EntitlementRequest":
-        instance = EntitlementRequest.__new__(EntitlementRequest)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, name: "str", value: "object", **extra):
-        """EntitlementRequest"""
-
-        self._attrs = dict()
-        if name is not None:
-            self._attrs["name"] = name
-        if value is not None:
-            self._attrs["value"] = value
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def name(self) -> "str":
-        """ Gets the name of this EntitlementRequest.
-        The name of the entitlement
-        """
-        return self._attrs.get("name")
-
-    @name.setter
-    def name(self, name: "str"):
-        """Sets the name of this EntitlementRequest.
-
-        The name of the entitlement
-
-        :param name: The name of this EntitlementRequest.
-        :type: str
-        """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
-        self._attrs["name"] = name
-
-    @property
-    def value(self) -> "dict":
-        """ Gets the value of this EntitlementRequest.
-        The key-value pairs values
-        """
-        return self._attrs.get("value")
-
-    @value.setter
-    def value(self, value: "dict"):
-        """Sets the value of this EntitlementRequest.
-
-        The key-value pairs values
-
-        :param value: The value of this EntitlementRequest.
-        :type: object
-        """
-        if value is None:
-            raise ValueError("Invalid value for `value`, must not be `None`")
-        self._attrs["value"] = value
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class EntitlementResponse(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "EntitlementResponse":
-        instance = EntitlementResponse.__new__(EntitlementResponse)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, app_client_id: "str" = None, name: "str" = None, status: "str" = None, value: "object" = None, **extra):
-        """EntitlementResponse"""
-
-        self._attrs = dict()
-        if app_client_id is not None:
-            self._attrs["appClientId"] = app_client_id
-        if name is not None:
-            self._attrs["name"] = name
-        if status is not None:
-            self._attrs["status"] = status
-        if value is not None:
-            self._attrs["value"] = value
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def app_client_id(self) -> "str":
-        """ Gets the app_client_id of this EntitlementResponse.
-        """
-        return self._attrs.get("appClientId")
-
-    @app_client_id.setter
-    def app_client_id(self, app_client_id: "str"):
-        """Sets the app_client_id of this EntitlementResponse.
-
-
-        :param app_client_id: The app_client_id of this EntitlementResponse.
-        :type: str
-        """
-        self._attrs["appClientId"] = app_client_id
-
-    @property
-    def name(self) -> "str":
-        """ Gets the name of this EntitlementResponse.
-        """
-        return self._attrs.get("name")
-
-    @name.setter
-    def name(self, name: "str"):
-        """Sets the name of this EntitlementResponse.
-
-
-        :param name: The name of this EntitlementResponse.
-        :type: str
-        """
-        self._attrs["name"] = name
-
-    @property
-    def status(self) -> "str":
-        """ Gets the status of this EntitlementResponse.
-        """
-        return self._attrs.get("status")
-
-    @status.setter
-    def status(self, status: "str"):
-        """Sets the status of this EntitlementResponse.
-
-
-        :param status: The status of this EntitlementResponse.
-        :type: str
-        """
-        self._attrs["status"] = status
-
-    @property
-    def value(self) -> "dict":
-        """ Gets the value of this EntitlementResponse.
-        """
-        return self._attrs.get("value")
-
-    @value.setter
-    def value(self, value: "dict"):
-        """Sets the value of this EntitlementResponse.
-
-
-        :param value: The value of this EntitlementResponse.
-        :type: object
-        """
-        self._attrs["value"] = value
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
 class ErrorResponse(SSCModel):
 
     @staticmethod
@@ -2994,16 +2185,16 @@ class ErrorResponse(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-class UploadFile(SSCModel):
+class UploadFileResponse(SSCModel):
 
     @staticmethod
-    def _from_dict(model: dict) -> "UploadFile":
-        instance = UploadFile.__new__(UploadFile)
+    def _from_dict(model: dict) -> "UploadFileResponse":
+        instance = UploadFileResponse.__new__(UploadFileResponse)
         instance._attrs = model
         return instance
 
     def __init__(self, created_date: "int" = None, created_user_id: "str" = None, filename: "str" = None, id: "str" = None, sha256: "str" = None, tenant_id: "str" = None, **extra):
-        """UploadFile"""
+        """UploadFileResponse"""
 
         self._attrs = dict()
         if created_date is not None:
@@ -3023,96 +2214,96 @@ class UploadFile(SSCModel):
 
     @property
     def created_date(self) -> "int":
-        """ Gets the created_date of this UploadFile.
+        """ Gets the created_date of this UploadFileResponse.
         """
         return self._attrs.get("createdDate")
 
     @created_date.setter
     def created_date(self, created_date: "int"):
-        """Sets the created_date of this UploadFile.
+        """Sets the created_date of this UploadFileResponse.
 
 
-        :param created_date: The created_date of this UploadFile.
+        :param created_date: The created_date of this UploadFileResponse.
         :type: int
         """
         self._attrs["createdDate"] = created_date
 
     @property
     def created_user_id(self) -> "str":
-        """ Gets the created_user_id of this UploadFile.
+        """ Gets the created_user_id of this UploadFileResponse.
         """
         return self._attrs.get("createdUserId")
 
     @created_user_id.setter
     def created_user_id(self, created_user_id: "str"):
-        """Sets the created_user_id of this UploadFile.
+        """Sets the created_user_id of this UploadFileResponse.
 
 
-        :param created_user_id: The created_user_id of this UploadFile.
+        :param created_user_id: The created_user_id of this UploadFileResponse.
         :type: str
         """
         self._attrs["createdUserId"] = created_user_id
 
     @property
     def filename(self) -> "str":
-        """ Gets the filename of this UploadFile.
+        """ Gets the filename of this UploadFileResponse.
         """
         return self._attrs.get("filename")
 
     @filename.setter
     def filename(self, filename: "str"):
-        """Sets the filename of this UploadFile.
+        """Sets the filename of this UploadFileResponse.
 
 
-        :param filename: The filename of this UploadFile.
+        :param filename: The filename of this UploadFileResponse.
         :type: str
         """
         self._attrs["filename"] = filename
 
     @property
     def id(self) -> "str":
-        """ Gets the id of this UploadFile.
+        """ Gets the id of this UploadFileResponse.
         """
         return self._attrs.get("id")
 
     @id.setter
     def id(self, id: "str"):
-        """Sets the id of this UploadFile.
+        """Sets the id of this UploadFileResponse.
 
 
-        :param id: The id of this UploadFile.
+        :param id: The id of this UploadFileResponse.
         :type: str
         """
         self._attrs["id"] = id
 
     @property
     def sha256(self) -> "str":
-        """ Gets the sha256 of this UploadFile.
+        """ Gets the sha256 of this UploadFileResponse.
         """
         return self._attrs.get("sha256")
 
     @sha256.setter
     def sha256(self, sha256: "str"):
-        """Sets the sha256 of this UploadFile.
+        """Sets the sha256 of this UploadFileResponse.
 
 
-        :param sha256: The sha256 of this UploadFile.
+        :param sha256: The sha256 of this UploadFileResponse.
         :type: str
         """
         self._attrs["sha256"] = sha256
 
     @property
     def tenant_id(self) -> "str":
-        """ Gets the tenant_id of this UploadFile.
+        """ Gets the tenant_id of this UploadFileResponse.
         """
         return self._attrs.get("tenantId")
 
     @tenant_id.setter
     def tenant_id(self, tenant_id: "str"):
-        """Sets the tenant_id of this UploadFile.
+        """Sets the tenant_id of this UploadFileResponse.
 
 
-        :param tenant_id: The tenant_id of this UploadFile.
+        :param tenant_id: The tenant_id of this UploadFileResponse.
         :type: str
         """
         self._attrs["tenantId"] = tenant_id
@@ -3129,7 +2320,7 @@ class FilesMetaDataResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, files: "List[UploadFile]" = None, **extra):
+    def __init__(self, files: "List[UploadFileResponse]" = None, **extra):
         """FilesMetaDataResponse"""
 
         self._attrs = dict()
@@ -3139,18 +2330,18 @@ class FilesMetaDataResponse(SSCModel):
             self._attrs[k] = v
 
     @property
-    def files(self) -> "List[UploadFile]":
+    def files(self) -> "List[UploadFileResponse]":
         """ Gets the files of this FilesMetaDataResponse.
         """
-        return [UploadFile._from_dict(i) for i in self._attrs.get("files")]
+        return [UploadFileResponse._from_dict(i) for i in self._attrs.get("files")]
 
     @files.setter
-    def files(self, files: "List[UploadFile]"):
+    def files(self, files: "List[UploadFileResponse]"):
         """Sets the files of this FilesMetaDataResponse.
 
 
         :param files: The files of this FilesMetaDataResponse.
-        :type: List[UploadFile]
+        :type: List[UploadFileResponse]
         """
         self._attrs["files"] = files
 
@@ -3553,61 +2744,6 @@ class MetricsResponse(SSCModel):
         :type: Dict[str, NodeMetrics]
         """
         self._attrs["nodes"] = nodes
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class PaginatedResponseOfCollectJobResponse(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "PaginatedResponseOfCollectJobResponse":
-        instance = PaginatedResponseOfCollectJobResponse.__new__(PaginatedResponseOfCollectJobResponse)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, items: "List[CollectJobResponse]" = None, total: "int" = None, **extra):
-        """PaginatedResponseOfCollectJobResponse"""
-
-        self._attrs = dict()
-        if items is not None:
-            self._attrs["items"] = items
-        if total is not None:
-            self._attrs["total"] = total
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def items(self) -> "List[CollectJobResponse]":
-        """ Gets the items of this PaginatedResponseOfCollectJobResponse.
-        """
-        return [CollectJobResponse._from_dict(i) for i in self._attrs.get("items")]
-
-    @items.setter
-    def items(self, items: "List[CollectJobResponse]"):
-        """Sets the items of this PaginatedResponseOfCollectJobResponse.
-
-
-        :param items: The items of this PaginatedResponseOfCollectJobResponse.
-        :type: List[CollectJobResponse]
-        """
-        self._attrs["items"] = items
-
-    @property
-    def total(self) -> "int":
-        """ Gets the total of this PaginatedResponseOfCollectJobResponse.
-        """
-        return self._attrs.get("total")
-
-    @total.setter
-    def total(self, total: "int"):
-        """Sets the total of this PaginatedResponseOfCollectJobResponse.
-
-
-        :param total: The total of this PaginatedResponseOfCollectJobResponse.
-        :type: int
-        """
-        self._attrs["total"] = total
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
@@ -4291,734 +3427,6 @@ class PaginatedResponseOfPipelineResponse(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-class Plugin(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "Plugin":
-        instance = Plugin.__new__(Plugin)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, description: "str" = None, is_deleted: "bool" = None, last_update_date: "int" = None, last_update_user_id: "str" = None, name: "str" = None, plugin_id: "str" = None, tenant_id: "str" = None, **extra):
-        """Plugin"""
-
-        self._attrs = dict()
-        if description is not None:
-            self._attrs["description"] = description
-        if is_deleted is not None:
-            self._attrs["isDeleted"] = is_deleted
-        if last_update_date is not None:
-            self._attrs["lastUpdateDate"] = last_update_date
-        if last_update_user_id is not None:
-            self._attrs["lastUpdateUserId"] = last_update_user_id
-        if name is not None:
-            self._attrs["name"] = name
-        if plugin_id is not None:
-            self._attrs["pluginId"] = plugin_id
-        if tenant_id is not None:
-            self._attrs["tenantId"] = tenant_id
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def description(self) -> "str":
-        """ Gets the description of this Plugin.
-        """
-        return self._attrs.get("description")
-
-    @description.setter
-    def description(self, description: "str"):
-        """Sets the description of this Plugin.
-
-
-        :param description: The description of this Plugin.
-        :type: str
-        """
-        self._attrs["description"] = description
-
-    @property
-    def is_deleted(self) -> "bool":
-        """ Gets the is_deleted of this Plugin.
-        """
-        return self._attrs.get("isDeleted")
-
-    @is_deleted.setter
-    def is_deleted(self, is_deleted: "bool"):
-        """Sets the is_deleted of this Plugin.
-
-
-        :param is_deleted: The is_deleted of this Plugin.
-        :type: bool
-        """
-        self._attrs["isDeleted"] = is_deleted
-
-    @property
-    def last_update_date(self) -> "int":
-        """ Gets the last_update_date of this Plugin.
-        """
-        return self._attrs.get("lastUpdateDate")
-
-    @last_update_date.setter
-    def last_update_date(self, last_update_date: "int"):
-        """Sets the last_update_date of this Plugin.
-
-
-        :param last_update_date: The last_update_date of this Plugin.
-        :type: int
-        """
-        self._attrs["lastUpdateDate"] = last_update_date
-
-    @property
-    def last_update_user_id(self) -> "str":
-        """ Gets the last_update_user_id of this Plugin.
-        """
-        return self._attrs.get("lastUpdateUserId")
-
-    @last_update_user_id.setter
-    def last_update_user_id(self, last_update_user_id: "str"):
-        """Sets the last_update_user_id of this Plugin.
-
-
-        :param last_update_user_id: The last_update_user_id of this Plugin.
-        :type: str
-        """
-        self._attrs["lastUpdateUserId"] = last_update_user_id
-
-    @property
-    def name(self) -> "str":
-        """ Gets the name of this Plugin.
-        """
-        return self._attrs.get("name")
-
-    @name.setter
-    def name(self, name: "str"):
-        """Sets the name of this Plugin.
-
-
-        :param name: The name of this Plugin.
-        :type: str
-        """
-        self._attrs["name"] = name
-
-    @property
-    def plugin_id(self) -> "str":
-        """ Gets the plugin_id of this Plugin.
-        """
-        return self._attrs.get("pluginId")
-
-    @plugin_id.setter
-    def plugin_id(self, plugin_id: "str"):
-        """Sets the plugin_id of this Plugin.
-
-
-        :param plugin_id: The plugin_id of this Plugin.
-        :type: str
-        """
-        self._attrs["pluginId"] = plugin_id
-
-    @property
-    def tenant_id(self) -> "str":
-        """ Gets the tenant_id of this Plugin.
-        """
-        return self._attrs.get("tenantId")
-
-    @tenant_id.setter
-    def tenant_id(self, tenant_id: "str"):
-        """Sets the tenant_id of this Plugin.
-
-
-        :param tenant_id: The tenant_id of this Plugin.
-        :type: str
-        """
-        self._attrs["tenantId"] = tenant_id
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class PaginatedResponseOfPlugin(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "PaginatedResponseOfPlugin":
-        instance = PaginatedResponseOfPlugin.__new__(PaginatedResponseOfPlugin)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, items: "List[Plugin]" = None, total: "int" = None, **extra):
-        """PaginatedResponseOfPlugin"""
-
-        self._attrs = dict()
-        if items is not None:
-            self._attrs["items"] = items
-        if total is not None:
-            self._attrs["total"] = total
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def items(self) -> "List[Plugin]":
-        """ Gets the items of this PaginatedResponseOfPlugin.
-        """
-        return [Plugin._from_dict(i) for i in self._attrs.get("items")]
-
-    @items.setter
-    def items(self, items: "List[Plugin]"):
-        """Sets the items of this PaginatedResponseOfPlugin.
-
-
-        :param items: The items of this PaginatedResponseOfPlugin.
-        :type: List[Plugin]
-        """
-        self._attrs["items"] = items
-
-    @property
-    def total(self) -> "int":
-        """ Gets the total of this PaginatedResponseOfPlugin.
-        """
-        return self._attrs.get("total")
-
-    @total.setter
-    def total(self, total: "int"):
-        """Sets the total of this PaginatedResponseOfPlugin.
-
-
-        :param total: The total of this PaginatedResponseOfPlugin.
-        :type: int
-        """
-        self._attrs["total"] = total
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class RulesKind(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "RulesKind":
-        instance = RulesKind.__new__(RulesKind)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, rule_kind_name: "str" = None, rule_kind_value: "str" = None, **extra):
-        """RulesKind"""
-
-        self._attrs = dict()
-        if rule_kind_name is not None:
-            self._attrs["ruleKindName"] = rule_kind_name
-        if rule_kind_value is not None:
-            self._attrs["ruleKindValue"] = rule_kind_value
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def rule_kind_name(self) -> "str":
-        """ Gets the rule_kind_name of this RulesKind.
-        """
-        return self._attrs.get("ruleKindName")
-
-    @rule_kind_name.setter
-    def rule_kind_name(self, rule_kind_name: "str"):
-        """Sets the rule_kind_name of this RulesKind.
-
-
-        :param rule_kind_name: The rule_kind_name of this RulesKind.
-        :type: str
-        """
-        self._attrs["ruleKindName"] = rule_kind_name
-
-    @property
-    def rule_kind_value(self) -> "str":
-        """ Gets the rule_kind_value of this RulesKind.
-        """
-        return self._attrs.get("ruleKindValue")
-
-    @rule_kind_value.setter
-    def rule_kind_value(self, rule_kind_value: "str"):
-        """Sets the rule_kind_value of this RulesKind.
-
-
-        :param rule_kind_value: The rule_kind_value of this RulesKind.
-        :type: str
-        """
-        self._attrs["ruleKindValue"] = rule_kind_value
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class PaginatedResponseOfRulesKind(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "PaginatedResponseOfRulesKind":
-        instance = PaginatedResponseOfRulesKind.__new__(PaginatedResponseOfRulesKind)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, items: "List[RulesKind]" = None, total: "int" = None, **extra):
-        """PaginatedResponseOfRulesKind"""
-
-        self._attrs = dict()
-        if items is not None:
-            self._attrs["items"] = items
-        if total is not None:
-            self._attrs["total"] = total
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def items(self) -> "List[RulesKind]":
-        """ Gets the items of this PaginatedResponseOfRulesKind.
-        """
-        return [RulesKind._from_dict(i) for i in self._attrs.get("items")]
-
-    @items.setter
-    def items(self, items: "List[RulesKind]"):
-        """Sets the items of this PaginatedResponseOfRulesKind.
-
-
-        :param items: The items of this PaginatedResponseOfRulesKind.
-        :type: List[RulesKind]
-        """
-        self._attrs["items"] = items
-
-    @property
-    def total(self) -> "int":
-        """ Gets the total of this PaginatedResponseOfRulesKind.
-        """
-        return self._attrs.get("total")
-
-    @total.setter
-    def total(self, total: "int"):
-        """Sets the total of this PaginatedResponseOfRulesKind.
-
-
-        :param total: The total of this PaginatedResponseOfRulesKind.
-        :type: int
-        """
-        self._attrs["total"] = total
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class RulesResponse(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "RulesResponse":
-        instance = RulesResponse.__new__(RulesResponse)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, external_id: "str", name: "str", sourcetypes: "Dict[str, RulesPackageSourcetypes]", version: "str", create_date: "int" = None, create_user_id: "str" = None, last_update_date: "int" = None, last_update_user_id: "str" = None, rules_description: "str" = None, tenant_id: "str" = None, **extra):
-        """RulesResponse"""
-
-        self._attrs = dict()
-        if external_id is not None:
-            self._attrs["externalId"] = external_id
-        if name is not None:
-            self._attrs["name"] = name
-        if sourcetypes is not None:
-            self._attrs["sourcetypes"] = sourcetypes
-        if version is not None:
-            self._attrs["version"] = version
-        if create_date is not None:
-            self._attrs["createDate"] = create_date
-        if create_user_id is not None:
-            self._attrs["createUserId"] = create_user_id
-        if last_update_date is not None:
-            self._attrs["lastUpdateDate"] = last_update_date
-        if last_update_user_id is not None:
-            self._attrs["lastUpdateUserId"] = last_update_user_id
-        if rules_description is not None:
-            self._attrs["rulesDescription"] = rules_description
-        if tenant_id is not None:
-            self._attrs["tenantId"] = tenant_id
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def external_id(self) -> "str":
-        """ Gets the external_id of this RulesResponse.
-        Unique id of the rules package
-        """
-        return self._attrs.get("externalId")
-
-    @external_id.setter
-    def external_id(self, external_id: "str"):
-        """Sets the external_id of this RulesResponse.
-
-        Unique id of the rules package
-
-        :param external_id: The external_id of this RulesResponse.
-        :type: str
-        """
-        if external_id is None:
-            raise ValueError("Invalid value for `external_id`, must not be `None`")
-        self._attrs["externalId"] = external_id
-
-    @property
-    def name(self) -> "str":
-        """ Gets the name of this RulesResponse.
-        The name of the rules
-        """
-        return self._attrs.get("name")
-
-    @name.setter
-    def name(self, name: "str"):
-        """Sets the name of this RulesResponse.
-
-        The name of the rules
-
-        :param name: The name of this RulesResponse.
-        :type: str
-        """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
-        self._attrs["name"] = name
-
-    @property
-    def sourcetypes(self) -> "Dict[str, RulesPackageSourcetypes]":
-        """ Gets the sourcetypes of this RulesResponse.
-        The sourcetype that the rules has to be applied
-        """
-        return self._attrs.get("sourcetypes")
-
-    @sourcetypes.setter
-    def sourcetypes(self, sourcetypes: "Dict[str, RulesPackageSourcetypes]"):
-        """Sets the sourcetypes of this RulesResponse.
-
-        The sourcetype that the rules has to be applied
-
-        :param sourcetypes: The sourcetypes of this RulesResponse.
-        :type: Dict[str, RulesPackageSourcetypes]
-        """
-        if sourcetypes is None:
-            raise ValueError("Invalid value for `sourcetypes`, must not be `None`")
-        self._attrs["sourcetypes"] = sourcetypes
-
-    @property
-    def version(self) -> "str":
-        """ Gets the version of this RulesResponse.
-        The version of the rules
-        """
-        return self._attrs.get("version")
-
-    @version.setter
-    def version(self, version: "str"):
-        """Sets the version of this RulesResponse.
-
-        The version of the rules
-
-        :param version: The version of this RulesResponse.
-        :type: str
-        """
-        if version is None:
-            raise ValueError("Invalid value for `version`, must not be `None`")
-        self._attrs["version"] = version
-
-    @property
-    def create_date(self) -> "int":
-        """ Gets the create_date of this RulesResponse.
-        """
-        return self._attrs.get("createDate")
-
-    @create_date.setter
-    def create_date(self, create_date: "int"):
-        """Sets the create_date of this RulesResponse.
-
-
-        :param create_date: The create_date of this RulesResponse.
-        :type: int
-        """
-        self._attrs["createDate"] = create_date
-
-    @property
-    def create_user_id(self) -> "str":
-        """ Gets the create_user_id of this RulesResponse.
-        """
-        return self._attrs.get("createUserId")
-
-    @create_user_id.setter
-    def create_user_id(self, create_user_id: "str"):
-        """Sets the create_user_id of this RulesResponse.
-
-
-        :param create_user_id: The create_user_id of this RulesResponse.
-        :type: str
-        """
-        self._attrs["createUserId"] = create_user_id
-
-    @property
-    def last_update_date(self) -> "int":
-        """ Gets the last_update_date of this RulesResponse.
-        """
-        return self._attrs.get("lastUpdateDate")
-
-    @last_update_date.setter
-    def last_update_date(self, last_update_date: "int"):
-        """Sets the last_update_date of this RulesResponse.
-
-
-        :param last_update_date: The last_update_date of this RulesResponse.
-        :type: int
-        """
-        self._attrs["lastUpdateDate"] = last_update_date
-
-    @property
-    def last_update_user_id(self) -> "str":
-        """ Gets the last_update_user_id of this RulesResponse.
-        """
-        return self._attrs.get("lastUpdateUserId")
-
-    @last_update_user_id.setter
-    def last_update_user_id(self, last_update_user_id: "str"):
-        """Sets the last_update_user_id of this RulesResponse.
-
-
-        :param last_update_user_id: The last_update_user_id of this RulesResponse.
-        :type: str
-        """
-        self._attrs["lastUpdateUserId"] = last_update_user_id
-
-    @property
-    def rules_description(self) -> "str":
-        """ Gets the rules_description of this RulesResponse.
-        The description of the rules. Defaults to null.
-        """
-        return self._attrs.get("rulesDescription")
-
-    @rules_description.setter
-    def rules_description(self, rules_description: "str"):
-        """Sets the rules_description of this RulesResponse.
-
-        The description of the rules. Defaults to null.
-
-        :param rules_description: The rules_description of this RulesResponse.
-        :type: str
-        """
-        self._attrs["rulesDescription"] = rules_description
-
-    @property
-    def tenant_id(self) -> "str":
-        """ Gets the tenant_id of this RulesResponse.
-        """
-        return self._attrs.get("tenantId")
-
-    @tenant_id.setter
-    def tenant_id(self, tenant_id: "str"):
-        """Sets the tenant_id of this RulesResponse.
-
-
-        :param tenant_id: The tenant_id of this RulesResponse.
-        :type: str
-        """
-        self._attrs["tenantId"] = tenant_id
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class RulesPackageSourcetypes(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "RulesPackageSourcetypes":
-        instance = RulesPackageSourcetypes.__new__(RulesPackageSourcetypes)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, actions: "List[RulesPackageActions]", definition: "str", description: "str" = None, **extra):
-        """RulesPackageSourcetypes"""
-
-        self._attrs = dict()
-        if actions is not None:
-            self._attrs["actions"] = actions
-        if definition is not None:
-            self._attrs["definition"] = definition
-        if description is not None:
-            self._attrs["description"] = description
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def actions(self) -> "List[RulesPackageActions]":
-        """ Gets the actions of this RulesPackageSourcetypes.
-        List of actions for the sourcetype
-        """
-        return [RulesPackageActions._from_dict(i) for i in self._attrs.get("actions")]
-
-    @actions.setter
-    def actions(self, actions: "List[RulesPackageActions]"):
-        """Sets the actions of this RulesPackageSourcetypes.
-
-        List of actions for the sourcetype
-
-        :param actions: The actions of this RulesPackageSourcetypes.
-        :type: List[RulesPackageActions]
-        """
-        if actions is None:
-            raise ValueError("Invalid value for `actions`, must not be `None`")
-        self._attrs["actions"] = actions
-
-    @property
-    def definition(self) -> "str":
-        """ Gets the definition of this RulesPackageSourcetypes.
-        Sourcetype definition
-        """
-        return self._attrs.get("definition")
-
-    @definition.setter
-    def definition(self, definition: "str"):
-        """Sets the definition of this RulesPackageSourcetypes.
-
-        Sourcetype definition
-
-        :param definition: The definition of this RulesPackageSourcetypes.
-        :type: str
-        """
-        if definition is None:
-            raise ValueError("Invalid value for `definition`, must not be `None`")
-        self._attrs["definition"] = definition
-
-    @property
-    def description(self) -> "str":
-        """ Gets the description of this RulesPackageSourcetypes.
-        Sourcetype description
-        """
-        return self._attrs.get("description")
-
-    @description.setter
-    def description(self, description: "str"):
-        """Sets the description of this RulesPackageSourcetypes.
-
-        Sourcetype description
-
-        :param description: The description of this RulesPackageSourcetypes.
-        :type: str
-        """
-        self._attrs["description"] = description
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class RulesPackageActions(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "RulesPackageActions":
-        instance = RulesPackageActions.__new__(RulesPackageActions)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, arguments: "object", kind: "str", **extra):
-        """RulesPackageActions"""
-
-        self._attrs = dict()
-        if arguments is not None:
-            self._attrs["arguments"] = arguments
-        if kind is not None:
-            self._attrs["kind"] = kind
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def arguments(self) -> "dict":
-        """ Gets the arguments of this RulesPackageActions.
-        The arguments for the rules
-        """
-        return self._attrs.get("arguments")
-
-    @arguments.setter
-    def arguments(self, arguments: "dict"):
-        """Sets the arguments of this RulesPackageActions.
-
-        The arguments for the rules
-
-        :param arguments: The arguments of this RulesPackageActions.
-        :type: object
-        """
-        if arguments is None:
-            raise ValueError("Invalid value for `arguments`, must not be `None`")
-        self._attrs["arguments"] = arguments
-
-    @property
-    def kind(self) -> "str":
-        """ Gets the kind of this RulesPackageActions.
-        Rules kind
-        """
-        return self._attrs.get("kind")
-
-    @kind.setter
-    def kind(self, kind: "str"):
-        """Sets the kind of this RulesPackageActions.
-
-        Rules kind
-
-        :param kind: The kind of this RulesPackageActions.
-        :type: str
-        """
-        if kind is None:
-            raise ValueError("Invalid value for `kind`, must not be `None`")
-        self._attrs["kind"] = kind
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class PaginatedResponseOfRulesResponse(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "PaginatedResponseOfRulesResponse":
-        instance = PaginatedResponseOfRulesResponse.__new__(PaginatedResponseOfRulesResponse)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, items: "List[RulesResponse]" = None, total: "int" = None, **extra):
-        """PaginatedResponseOfRulesResponse"""
-
-        self._attrs = dict()
-        if items is not None:
-            self._attrs["items"] = items
-        if total is not None:
-            self._attrs["total"] = total
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def items(self) -> "List[RulesResponse]":
-        """ Gets the items of this PaginatedResponseOfRulesResponse.
-        """
-        return [RulesResponse._from_dict(i) for i in self._attrs.get("items")]
-
-    @items.setter
-    def items(self, items: "List[RulesResponse]"):
-        """Sets the items of this PaginatedResponseOfRulesResponse.
-
-
-        :param items: The items of this PaginatedResponseOfRulesResponse.
-        :type: List[RulesResponse]
-        """
-        self._attrs["items"] = items
-
-    @property
-    def total(self) -> "int":
-        """ Gets the total of this PaginatedResponseOfRulesResponse.
-        """
-        return self._attrs.get("total")
-
-    @total.setter
-    def total(self, total: "int"):
-        """Sets the total of this PaginatedResponseOfRulesResponse.
-
-
-        :param total: The total of this PaginatedResponseOfRulesResponse.
-        :type: int
-        """
-        self._attrs["total"] = total
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
 class TemplateResponse(SSCModel):
 
     @staticmethod
@@ -5386,7 +3794,7 @@ class PipelineReactivateResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, currently_active_version: "int" = None, pipeline_id: "str" = None, pipeline_reactivation_status: "str" = None, **extra):
+    def __init__(self, currently_active_version: "int" = None, pipeline_id: "str" = None, pipeline_reactivation_status: "str" = None, status_description: "Dict[str, str]" = None, **extra):
         """PipelineReactivateResponse"""
 
         self._attrs = dict()
@@ -5396,6 +3804,8 @@ class PipelineReactivateResponse(SSCModel):
             self._attrs["pipelineId"] = pipeline_id
         if pipeline_reactivation_status is not None:
             self._attrs["pipelineReactivationStatus"] = pipeline_reactivation_status
+        if status_description is not None:
+            self._attrs["statusDescription"] = status_description
         for k, v in extra.items():
             self._attrs[k] = v
 
@@ -5449,6 +3859,22 @@ class PipelineReactivateResponse(SSCModel):
             self._attrs["pipelineReactivationStatus"] = pipeline_reactivation_status.value
         else:
             self._attrs["pipelineReactivationStatus"] = pipeline_reactivation_status  # If you supply a string, we presume you know the service will take it.
+
+    @property
+    def status_description(self) -> "Dict[str, str]":
+        """ Gets the status_description of this PipelineReactivateResponse.
+        """
+        return self._attrs.get("statusDescription")
+
+    @status_description.setter
+    def status_description(self, status_description: "Dict[str, str]"):
+        """Sets the status_description of this PipelineReactivateResponse.
+
+
+        :param status_description: The status_description of this PipelineReactivateResponse.
+        :type: Dict[str, str]
+        """
+        self._attrs["statusDescription"] = status_description
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
@@ -5550,273 +3976,6 @@ class PipelineRequest(SSCModel):
         :type: str
         """
         self._attrs["description"] = description
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class PluginPatchRequest(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "PluginPatchRequest":
-        instance = PluginPatchRequest.__new__(PluginPatchRequest)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, description: "str" = None, name: "str" = None, **extra):
-        """PluginPatchRequest"""
-
-        self._attrs = dict()
-        if description is not None:
-            self._attrs["description"] = description
-        if name is not None:
-            self._attrs["name"] = name
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def description(self) -> "str":
-        """ Gets the description of this PluginPatchRequest.
-        Plugin description
-        """
-        return self._attrs.get("description")
-
-    @description.setter
-    def description(self, description: "str"):
-        """Sets the description of this PluginPatchRequest.
-
-        Plugin description
-
-        :param description: The description of this PluginPatchRequest.
-        :type: str
-        """
-        self._attrs["description"] = description
-
-    @property
-    def name(self) -> "str":
-        """ Gets the name of this PluginPatchRequest.
-        Plugin name
-        """
-        return self._attrs.get("name")
-
-    @name.setter
-    def name(self, name: "str"):
-        """Sets the name of this PluginPatchRequest.
-
-        Plugin name
-
-        :param name: The name of this PluginPatchRequest.
-        :type: str
-        """
-        self._attrs["name"] = name
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class PluginRequest(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "PluginRequest":
-        instance = PluginRequest.__new__(PluginRequest)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, description: "str", name: "str", **extra):
-        """PluginRequest"""
-
-        self._attrs = dict()
-        if description is not None:
-            self._attrs["description"] = description
-        if name is not None:
-            self._attrs["name"] = name
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def description(self) -> "str":
-        """ Gets the description of this PluginRequest.
-        Plugin description
-        """
-        return self._attrs.get("description")
-
-    @description.setter
-    def description(self, description: "str"):
-        """Sets the description of this PluginRequest.
-
-        Plugin description
-
-        :param description: The description of this PluginRequest.
-        :type: str
-        """
-        if description is None:
-            raise ValueError("Invalid value for `description`, must not be `None`")
-        self._attrs["description"] = description
-
-    @property
-    def name(self) -> "str":
-        """ Gets the name of this PluginRequest.
-        Plugin name
-        """
-        return self._attrs.get("name")
-
-    @name.setter
-    def name(self, name: "str"):
-        """Sets the name of this PluginRequest.
-
-        Plugin name
-
-        :param name: The name of this PluginRequest.
-        :type: str
-        """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
-        self._attrs["name"] = name
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class PluginResponse(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "PluginResponse":
-        instance = PluginResponse.__new__(PluginResponse)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, create_date: "int" = None, create_user_id: "str" = None, description: "str" = None, jar_location: "str" = None, name: "str" = None, plugin_id: "str" = None, version: "int" = None, **extra):
-        """PluginResponse"""
-
-        self._attrs = dict()
-        if create_date is not None:
-            self._attrs["createDate"] = create_date
-        if create_user_id is not None:
-            self._attrs["createUserId"] = create_user_id
-        if description is not None:
-            self._attrs["description"] = description
-        if jar_location is not None:
-            self._attrs["jarLocation"] = jar_location
-        if name is not None:
-            self._attrs["name"] = name
-        if plugin_id is not None:
-            self._attrs["pluginId"] = plugin_id
-        if version is not None:
-            self._attrs["version"] = version
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def create_date(self) -> "int":
-        """ Gets the create_date of this PluginResponse.
-        """
-        return self._attrs.get("createDate")
-
-    @create_date.setter
-    def create_date(self, create_date: "int"):
-        """Sets the create_date of this PluginResponse.
-
-
-        :param create_date: The create_date of this PluginResponse.
-        :type: int
-        """
-        self._attrs["createDate"] = create_date
-
-    @property
-    def create_user_id(self) -> "str":
-        """ Gets the create_user_id of this PluginResponse.
-        """
-        return self._attrs.get("createUserId")
-
-    @create_user_id.setter
-    def create_user_id(self, create_user_id: "str"):
-        """Sets the create_user_id of this PluginResponse.
-
-
-        :param create_user_id: The create_user_id of this PluginResponse.
-        :type: str
-        """
-        self._attrs["createUserId"] = create_user_id
-
-    @property
-    def description(self) -> "str":
-        """ Gets the description of this PluginResponse.
-        """
-        return self._attrs.get("description")
-
-    @description.setter
-    def description(self, description: "str"):
-        """Sets the description of this PluginResponse.
-
-
-        :param description: The description of this PluginResponse.
-        :type: str
-        """
-        self._attrs["description"] = description
-
-    @property
-    def jar_location(self) -> "str":
-        """ Gets the jar_location of this PluginResponse.
-        """
-        return self._attrs.get("jarLocation")
-
-    @jar_location.setter
-    def jar_location(self, jar_location: "str"):
-        """Sets the jar_location of this PluginResponse.
-
-
-        :param jar_location: The jar_location of this PluginResponse.
-        :type: str
-        """
-        self._attrs["jarLocation"] = jar_location
-
-    @property
-    def name(self) -> "str":
-        """ Gets the name of this PluginResponse.
-        """
-        return self._attrs.get("name")
-
-    @name.setter
-    def name(self, name: "str"):
-        """Sets the name of this PluginResponse.
-
-
-        :param name: The name of this PluginResponse.
-        :type: str
-        """
-        self._attrs["name"] = name
-
-    @property
-    def plugin_id(self) -> "str":
-        """ Gets the plugin_id of this PluginResponse.
-        """
-        return self._attrs.get("pluginId")
-
-    @plugin_id.setter
-    def plugin_id(self, plugin_id: "str"):
-        """Sets the plugin_id of this PluginResponse.
-
-
-        :param plugin_id: The plugin_id of this PluginResponse.
-        :type: str
-        """
-        self._attrs["pluginId"] = plugin_id
-
-    @property
-    def version(self) -> "int":
-        """ Gets the version of this PluginResponse.
-        """
-        return self._attrs.get("version")
-
-    @version.setter
-    def version(self, version: "int"):
-        """Sets the version of this PluginResponse.
-
-
-        :param version: The version of this PluginResponse.
-        :type: int
-        """
-        self._attrs["version"] = version
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
@@ -6528,133 +4687,6 @@ class Response(SSCModel):
         :type: str
         """
         self._attrs["deactivated"] = deactivated
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class RulesRequest(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "RulesRequest":
-        instance = RulesRequest.__new__(RulesRequest)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, external_id: "str", name: "str", sourcetypes: "Dict[str, RulesPackageSourcetypes]", version: "str", rules_description: "str" = None, **extra):
-        """RulesRequest"""
-
-        self._attrs = dict()
-        if external_id is not None:
-            self._attrs["externalId"] = external_id
-        if name is not None:
-            self._attrs["name"] = name
-        if sourcetypes is not None:
-            self._attrs["sourcetypes"] = sourcetypes
-        if version is not None:
-            self._attrs["version"] = version
-        if rules_description is not None:
-            self._attrs["rulesDescription"] = rules_description
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def external_id(self) -> "str":
-        """ Gets the external_id of this RulesRequest.
-        Unique id of the rules package
-        """
-        return self._attrs.get("externalId")
-
-    @external_id.setter
-    def external_id(self, external_id: "str"):
-        """Sets the external_id of this RulesRequest.
-
-        Unique id of the rules package
-
-        :param external_id: The external_id of this RulesRequest.
-        :type: str
-        """
-        if external_id is None:
-            raise ValueError("Invalid value for `external_id`, must not be `None`")
-        self._attrs["externalId"] = external_id
-
-    @property
-    def name(self) -> "str":
-        """ Gets the name of this RulesRequest.
-        The name of the rules
-        """
-        return self._attrs.get("name")
-
-    @name.setter
-    def name(self, name: "str"):
-        """Sets the name of this RulesRequest.
-
-        The name of the rules
-
-        :param name: The name of this RulesRequest.
-        :type: str
-        """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
-        self._attrs["name"] = name
-
-    @property
-    def sourcetypes(self) -> "Dict[str, RulesPackageSourcetypes]":
-        """ Gets the sourcetypes of this RulesRequest.
-        The sourcetype that the rules has to be applied
-        """
-        return self._attrs.get("sourcetypes")
-
-    @sourcetypes.setter
-    def sourcetypes(self, sourcetypes: "Dict[str, RulesPackageSourcetypes]"):
-        """Sets the sourcetypes of this RulesRequest.
-
-        The sourcetype that the rules has to be applied
-
-        :param sourcetypes: The sourcetypes of this RulesRequest.
-        :type: Dict[str, RulesPackageSourcetypes]
-        """
-        if sourcetypes is None:
-            raise ValueError("Invalid value for `sourcetypes`, must not be `None`")
-        self._attrs["sourcetypes"] = sourcetypes
-
-    @property
-    def version(self) -> "str":
-        """ Gets the version of this RulesRequest.
-        The version of the rules
-        """
-        return self._attrs.get("version")
-
-    @version.setter
-    def version(self, version: "str"):
-        """Sets the version of this RulesRequest.
-
-        The version of the rules
-
-        :param version: The version of this RulesRequest.
-        :type: str
-        """
-        if version is None:
-            raise ValueError("Invalid value for `version`, must not be `None`")
-        self._attrs["version"] = version
-
-    @property
-    def rules_description(self) -> "str":
-        """ Gets the rules_description of this RulesRequest.
-        The description of the rules. Defaults to null.
-        """
-        return self._attrs.get("rulesDescription")
-
-    @rules_description.setter
-    def rules_description(self, rules_description: "str"):
-        """Sets the rules_description of this RulesRequest.
-
-        The description of the rules. Defaults to null.
-
-        :param rules_description: The rules_description of this RulesRequest.
-        :type: str
-        """
-        self._attrs["rulesDescription"] = rules_description
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
