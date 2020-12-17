@@ -1,5 +1,61 @@
 # Splunk Cloud SDK for Python Changelog
 
+## Version 11.0.0
+### Services
+
+#### Breaking Changes
+
+##### Features
+
+- Identity v2beta1:
+    - Model `AddInvisibleMemberBody` removed
+    - Endpoints `add_invisible_member`, `get_member_admin` and `remove_member_admin` removed
+
+- Provisioner v1beta1
+    - Models `CreateProvisionJobBody`, `ProvisionJobInfo`, `ProvisionJobInfoErrors`, `ProvisionJobInfoErrors` and 
+    `ProvisionJobs` removed
+    - Endpoints `create_provision_job`, `get_provision_job` and `list_provision_jobs` removed
+
+- Streams v3beta1:
+    - Models `CollectJobPatchRequest`, `CollectJobRequest`, `CollectJobResponse`, `CollectJobStartStopResponse`, 
+    `EntitlementRequest`, `EntitlementResponse`, `PaginatedResponseOfCollectJobResponse`, `PaginatedResponseOfPlugin`, 
+    `PaginatedResponseOfRulesResponse`,  `PaginatedResponseOfRuleKind`, `Plugin`, `PluginPatchRequest`, `PluginRequest`, 
+    `PluginResponse`, `RulesRequest` and `RulesResponse` removed
+
+    - Model `UploadFile` renamed to `UploadFileResponse`
+
+    - Endpoints `create_collect_job`, `create_rules_package`, `delete_collect_jobs`, `delete_collect_job`, `delete_entitlements`, 
+    `delete_plugin`, `delete_rules_package`, `get_collect_job`, `get_entitlements`, `get_plugins`, `get_rules_package_by_id`, 
+    `list_collect_jobs`, `list_rules_kinds`, `list_rules_packages`, `patch_plugin`, `register_plugin`, `release_info`, 
+    `set_entitlements`, `start_collect_job`, `stop_collect_job`, `update_collect_job`, `update_plugin` and `update_rules_package_by_id` 
+    removed  
+
+#### Non-Breaking Changes
+
+##### Features
+
+- Identity v2beta1:
+    - New model `CreatePrincipalBody` added
+    - New endpoint `create_principal` added
+
+- Identity v3: 
+    - New version introduced
+
+- Identity v3alpha1
+    - New models `GroupMemberList` and `GroupRoleList`added
+
+- Ingest v1beta2: 
+    - New endpoints `post_collector_raw` and `post_collector_raw_v1` added
+
+- Streams v2beta1:
+    - New property `attributes` added to `ConnectorResponse`
+    - New property `status_description` added to `PipelineReactivateResponse`
+    - New parameter `functionOp`added to `listConnections`
+
+- Streams v3beta1
+    - New model `UploadFileResponse` added
+    - New endpoint `delete_lookup_file`, `get_lookup_file_metadata` and `get_lookup_files_metadata` added
+
 ## Version 10.0.0
 
 ### Services
