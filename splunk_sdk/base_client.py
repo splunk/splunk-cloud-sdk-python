@@ -238,7 +238,13 @@ class BaseClient(object):
         :param kwargs: TODO DOCS
         :return: The full URL.
         """
-        url = self.context.scheme + "://" + self.context.host
+        if self.context.tenant_scoped is True and self.context.tenant != "system" and route.startswith("/system") is False:
+            url = self.context.scheme + "://" + self.context.tenant + "." + self.context.host
+        elif self.context.tenant_scoped is True and route.startswith("/system/") and self.context.region is not None:
+            url = self.context.scheme + "://region-" + self.context.region + "." + self.context.host
+        else:
+            url = self.context.scheme + "://" + self.context.host
+
         if self.context.port is not None and self.context.port != "":
             url += ":" + self.context.port
 
@@ -247,7 +253,6 @@ class BaseClient(object):
         if route.startswith("/system/") is False and omit_tenant is False:
             url += "/" + self.get_tenant()
         url += route
-
         # set any url path vars
         if len(kwargs) > 0:
             url = url.format(**kwargs)

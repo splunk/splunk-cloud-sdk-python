@@ -161,8 +161,11 @@ class AuthManager(ABC):
     the flow that you need for your app.
     """
 
-    def __init__(self, host, client_id, requests_hooks=None):
+    def __init__(self, host, client_id, tenant=None, tenant_scoped=False, region=None, requests_hooks=None):
         self._host = host
+        self._tenant = tenant
+        self._tenant_scoped = tenant_scoped
+        self._region = region
         self._client_id = client_id
         self._context = None
         self._requests_hooks = requests_hooks or []
@@ -190,6 +193,13 @@ class AuthManager(ABC):
         return response
 
     def _url(self, path):
+        if self._tenant_scoped is True and self._tenant is not None and self._tenant != "system":
+            self._host = self._tenant + "." + self._host
+            # generate tenant scoped token
+            os.path.join("/", self._tenant, path)
+        # ToDo:Region+system scoped tokens will be added once implementation details are finalized in multi-cell
+        # else:
+        print("https://%s%s" % (self._host, path))
         return "https://%s%s" % (self._host, path)
 
     @staticmethod
@@ -240,8 +250,8 @@ class ClientAuthManager(AuthManager):
     """
 
     # TODO: Host can be an optional value since it has a default
-    def __init__(self, host, client_id, client_secret, scope="", requests_hooks=None):
-        super().__init__(host, client_id, requests_hooks=requests_hooks)
+    def __init__(self, host, client_id, client_secret, scope="", tenant=None, tenant_scoped=False, region=None, requests_hooks=None):
+        super().__init__(host, client_id, tenant, tenant_scoped, region, requests_hooks=requests_hooks)
         self._client_secret = client_secret
         self._scope = scope
 
@@ -269,8 +279,9 @@ class PKCEAuthManager(AuthManager):
     and password, the app through the client_id and redirect_uri. For more details, see identity service documentation.
     """
 
-    def __init__(self, host, client_id, redirect_uri, username, password, scope=DEFAULT_REFRESH_SCOPE, requests_hooks=None):
-        super().__init__(host, client_id, requests_hooks=requests_hooks)
+    def __init__(self, host, client_id, redirect_uri, username, password, scope=DEFAULT_REFRESH_SCOPE, tenant=None,
+                 tenant_scoped=False, region=None, requests_hooks=None):
+        super().__init__(host, client_id, tenant, tenant_scoped, region, requests_hooks=requests_hooks)
         self._redirect_uri = redirect_uri
         self._username = username
         self._password = password
@@ -336,6 +347,8 @@ class PKCEAuthManager(AuthManager):
         data = {"username": username, "password": password, "csrfToken": csrfToken}
         response = self._post(self._url(PATH_AUTHN), data=json.dumps(data), cookies=cookies)
         if response.status_code != 200:
+            print("RESPONSE")
+            print(response)
             raise AuthnError("Authentication failed.", response)
         result = response.json()
         status = result.get("status", None)
@@ -432,10 +445,11 @@ class TokenAuthManager(AuthManager):
 
 
 class RefreshTokenAuthManager(AuthManager):
-    def __init__(self, client_id, refresh_token, host, scope="openid", requests_hooks=None):
-        super().__init__(host, client_id, requests_hooks=requests_hooks)
+    def __init__(self, client_id, refresh_token, host, scope="openid", tenant=None, tenant_scoped=False, region=None, requests_hooks=None):
+        super().__init__(host, client_id, tenant, tenant_scoped, region, requests_hooks=requests_hooks)
         self._refresh_token = refresh_token
         self._scope = scope
+
 
     def authenticate(self):
         """Authenticate using the OAuth refresh_token grant type."""
@@ -454,7 +468,8 @@ class RefreshTokenAuthManager(AuthManager):
 
 
 class ServicePrincipalAuthManager(AuthManager):
-    def __init__(self, host, principal_name, key, kid, algorithm="ES256", **kwargs):
+    def __init__(self, host, principal_name, key, kid, algorithm="ES256", tenant=None,
+                 tenant_scoped=False, region=None, **kwargs):
         """
         Creates an AuthManager that uses Service Principals to authenticate.
 
@@ -463,7 +478,7 @@ class ServicePrincipalAuthManager(AuthManager):
         kid is the key_id of `key`
         algorithm is the algorithm that generated `key`
         """
-        super().__init__(host=host, client_id=None, **kwargs)
+        super().__init__(host=host, client_id=None, tenant=tenant, tenant_scoped=tenant_scoped, region=region, **kwargs)
         self._principal_name = principal_name
         self._key = key
         self._kid = kid

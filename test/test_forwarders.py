@@ -19,7 +19,7 @@ from cryptography.x509 import NameOID
 
 from splunk_sdk.base_client import BaseClient
 from splunk_sdk.forwarders import SplunkForwarderService, Certificate
-from test.fixtures import get_test_client as test_client  # NOQA
+from test.fixtures import get_test_client_scoped_hosts as test_client  # NOQA
 
 
 @pytest.mark.usefixtures("test_client")  # NOQA

@@ -10,6 +10,7 @@ from splunk_sdk.identity import Identity as IdentityAndAccessControl
 from splunk_sdk.auth import PKCEAuthManager, ClientAuthManager
 from test.fixtures import get_auth_manager as pkce_auth_manager  # NOQA
 from test.fixtures import get_client_auth_manager as client_auth_manager  # NOQA
+from test.fixtures import get_client_auth_manager_scoped as client_auth_manager_scoped
 from test.fixtures import get_service_principal_auth_manager as service_principal_auth_manager  # NOQA
 
 
@@ -66,6 +67,10 @@ def test_client_credentials_authenticate(client_auth_manager):
     auth_context = client_auth_manager.authenticate()
     _assert_client_credentials_auth_context(auth_context)
 
+@pytest.mark.usefixtures('client_auth_manager')  # NOQA
+def test_client_credentials_authenticate_scoped(client_auth_manager_scoped):
+    auth_context = client_auth_manager_scoped.authenticate()
+    _assert_client_credentials_auth_context(auth_context)
 
 @pytest.mark.usefixtures('client_auth_manager')  # NOQA
 def test_token_authenticate(client_auth_manager):
@@ -192,7 +197,7 @@ def _assert_client_credentials_auth_context(auth_context, expires_in=43200):
 
 
 def _assert_sp_credentials_auth_context(auth_context):
-    _assert_client_credentials_auth_context(auth_context, 3600)
+    _assert_client_credentials_auth_context(auth_context)
 
 
 @pytest.mark.usefixtures('service_principal_auth_manager')  # NOQA

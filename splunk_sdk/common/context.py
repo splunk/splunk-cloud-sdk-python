@@ -18,16 +18,23 @@ class Context(object):
     Example:
         client = SplunkCloud(Context(tenant="mytenant"), authManager)
         client.identity.validate()
+
+    Configure tenant_scoped of bool type to True if the hostnames are scoped to a specific tenant/region to support
+    multi-cell environments, currently defaults to False
+    Configure Region as the name of the region that the tenant is contained in
+}
     """
 
     DEFAULT_API_HOST = "api.scp.splunk.com"
     DEFAULT_HOST = DEFAULT_API_HOST
 
     def __init__(self, host=DEFAULT_HOST, api_host=DEFAULT_API_HOST,
-                 port=None, scheme="https", tenant='system', debug=False):
+                 port=None, scheme="https", tenant='system', tenant_scoped=False, region=None, debug=False):
         self.host = host
         self.api_host = api_host
         self.port = port
         self.scheme = scheme
         self.tenant = tenant
         self.debug = debug
+        self.tenant_scoped = tenant_scoped
+        self.region = region
