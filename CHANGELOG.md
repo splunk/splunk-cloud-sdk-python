@@ -1,6 +1,6 @@
 # Splunk Cloud SDK for Python Changelog
 
-## Version 12.0.0
+## Version 12.0.0-beta1
 Add Multi-cell support to api and auth endpoints.
 
 ## Version 11.0.0
