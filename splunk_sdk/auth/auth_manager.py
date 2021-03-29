@@ -193,30 +193,30 @@ class AuthManager(ABC):
         return response
 
     def _url(self, path):
+        scopedHost = self._host
         if self._tenant_scoped is True:
             if self._tenant is None:
                 raise ValueError("Tenant is empty.")
             elif self._region is None:
                 raise ValueError("Region is empty.")
             elif "token" in path and self._tenant != "system":
-                self._host = self._tenant + "." + self._host
+                scopedHost = self._tenant + "." + self._host
                 # generate tenant scoped token
                 path = "/" + self._tenant + path
             elif "token" in path and self._tenant == "system":
-                self._host = "region-" + self._region + "." + self._host
+                scopedHost = "region-" + self._region + "." + self._host
                 # generate system scoped token
                 path = "/system" + path
             elif "authorize" in path and self._tenant != "system":
-                self._host = self._tenant + "." + self._host
+                scopedHost = self._tenant + "." + self._host
             elif "authorize" in path and self._tenant == "system":
-                self._host = "region-" + self._region + "." + self._host
+                scopedHost = "region-" + self._region + "." + self._host
             elif "csrfToken" in path:
-                self._host = "region-" + self._region + "." + self._host
+                scopedHost = "region-" + self._region + "." + self._host
             elif "authn" in path:
-                self._host = "region-" + self._region + "." + self._host
-
-        print("https://%s%s" % (self._host, path))
-        return "https://%s%s" % (self._host, path)
+                scopedHost = "region-" + self._region + "." + self._host
+        print("https://%s%s" % (scopedHost, path))
+        return "https://%s%s" % (scopedHost, path)
 
     @staticmethod
     def _parse_querystring(url):
