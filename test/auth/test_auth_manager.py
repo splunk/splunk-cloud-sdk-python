@@ -67,7 +67,7 @@ def test_client_credentials_authenticate(client_auth_manager):
     auth_context = client_auth_manager.authenticate()
     _assert_client_credentials_auth_context(auth_context)
 
-@pytest.mark.usefixtures('client_auth_manager')  # NOQA
+@pytest.mark.usefixtures('client_auth_manager_scoped')  # NOQA
 def test_client_credentials_authenticate_scoped(client_auth_manager_scoped):
     auth_context = client_auth_manager_scoped.authenticate()
     _assert_client_credentials_auth_context(auth_context)

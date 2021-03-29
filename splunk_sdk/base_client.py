@@ -240,6 +240,8 @@ class BaseClient(object):
         """
         if self.context.tenant_scoped is True and self.context.tenant != "system" and route.startswith("/system") is False:
             url = self.context.scheme + "://" + self.context.tenant + "." + self.context.host
+        elif self.context.tenant_scoped is True and route.startswith("/system/") and self.context.region is None:
+            raise ValueError("Invalid value for `region`, must not be `None`")
         elif self.context.tenant_scoped is True and route.startswith("/system/") and self.context.region is not None:
             url = self.context.scheme + "://region-" + self.context.region + "." + self.context.host
         else:
