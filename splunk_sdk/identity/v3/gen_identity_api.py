@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Copyright © 2020 Splunk, Inc.
+# Copyright © 2021 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -48,6 +48,8 @@ from splunk_sdk.identity.v3.gen_models import GroupMember
 from splunk_sdk.identity.v3.gen_models import GroupMemberList
 from splunk_sdk.identity.v3.gen_models import GroupRole
 from splunk_sdk.identity.v3.gen_models import GroupRoleList
+from splunk_sdk.identity.v3.gen_models import IdentityProviderBody
+from splunk_sdk.identity.v3.gen_models import IdentityProviderConfigBody
 from splunk_sdk.identity.v3.gen_models import Member
 from splunk_sdk.identity.v3.gen_models import MemberList
 from splunk_sdk.identity.v3.gen_models import PermissionList
@@ -172,6 +174,22 @@ class Identity(BaseService):
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, Group)
 
+    def create_identity_provider(self, identity_provider_config_body: IdentityProviderConfigBody, query_params: Dict[str, object] = None) -> IdentityProviderBody:
+        """
+        Create an Identity Provider.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/identity/v3/identityproviders").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = identity_provider_config_body.to_dict()
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, IdentityProviderBody)
+
     def create_principal(self, create_principal_body: CreatePrincipalBody, invite_id: str = None, query_params: Dict[str, object] = None) -> Principal:
         """
         Create a new principal
@@ -218,6 +236,22 @@ class Identity(BaseService):
         }
 
         path = Template("/identity/v3/groups/${group}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.delete(url, params=query_params)
+        return handle_response(response, )
+
+    def delete_identity_provider(self, idp: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
+        """
+        Deletes the Identity Provider.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "idp": idp,
+        }
+
+        path = Template("/identity/v3/identityproviders/${idp}").substitute(path_params)
         url = self.base_client.build_url(path)
         response = self.base_client.delete(url, params=query_params)
         return handle_response(response, )
@@ -304,6 +338,22 @@ class Identity(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, GroupRole)
+
+    def get_identity_provider(self, idp: str, query_params: Dict[str, object] = None) -> IdentityProviderBody:
+        """
+        Returns the Identity Provider for the given tenant.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "idp": idp,
+        }
+
+        path = Template("/identity/v3/identityproviders/${idp}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, IdentityProviderBody)
 
     def get_member(self, member: str, query_params: Dict[str, object] = None) -> Member:
         """
@@ -470,6 +520,21 @@ class Identity(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, GroupList)
+
+    def list_identity_provider(self, query_params: Dict[str, object] = None) -> List[IdentityProviderBody]:
+        """
+        Returns the list of Identity Providers for the given tenant.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/identity/v3/identityproviders").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, IdentityProviderBody)
 
     def list_member_groups(self, member: str, orderby: str = None, page_size: int = None, page_token: str = None, query_params: Dict[str, object] = None) -> GroupList:
         """
@@ -734,6 +799,23 @@ class Identity(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.post(url, params=query_params)
         return handle_response(response, )
+
+    def update_identity_provider(self, idp: str, identity_provider_config_body: IdentityProviderConfigBody, query_params: Dict[str, object] = None) -> IdentityProviderBody:
+        """
+        Update the configuration for an Identity Provider.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "idp": idp,
+        }
+
+        path = Template("/identity/v3/identityproviders/${idp}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = identity_provider_config_body.to_dict()
+        response = self.base_client.put(url, json=data, params=query_params)
+        return handle_response(response, IdentityProviderBody)
 
     def update_principal_public_key(self, principal: str, key_id: str, principal_public_key_status_body: PrincipalPublicKeyStatusBody, query_params: Dict[str, object] = None) -> PrincipalPublicKey:
         """

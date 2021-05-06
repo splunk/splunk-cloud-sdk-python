@@ -2,7 +2,7 @@
 
 # flake8: noqa
 
-# Copyright © 2020 Splunk, Inc.
+# Copyright © 2021 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -39,14 +39,11 @@ from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     ConnectionPatchRequest, \
     ConnectionPutRequest, \
     ConnectionRequest, \
+    Source, \
     ConnectionVersionResponse, \
     ConnectionResponse, \
     ConnectionSaveResponse, \
     ConnectorResponse, \
-    DataStream, \
-    DataStreamProperties, \
-    DataStreamRequest, \
-    DataStreamResponse, \
     DeactivatePipelineRequest, \
     Pipeline, \
     PipelineEdge, \

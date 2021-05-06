@@ -175,6 +175,10 @@ class BaseClient(object):
 
         self.update_auth()
 
+        # if `files` is specified request will automatically set the headers; need to remove the content-type inserted in the init
+        if 'files' in kwargs.keys():
+            del self._session.headers['Content-Type']
+
         response = self._session.post(url, data, json, **kwargs)
 
         return self.handle_error_response("POST", response, url, data, json, self._retry_config, **kwargs)

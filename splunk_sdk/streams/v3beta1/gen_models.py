@@ -1,4 +1,4 @@
-# Copyright © 2020 Splunk, Inc.
+# Copyright © 2021 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -455,6 +455,61 @@ class ConnectionRequest(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
+class Source(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "Source":
+        instance = Source.__new__(Source)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, node: "str" = None, pipeline_version: "str" = None, **extra):
+        """Source"""
+
+        self._attrs = dict()
+        if node is not None:
+            self._attrs["node"] = node
+        if pipeline_version is not None:
+            self._attrs["pipelineVersion"] = pipeline_version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def node(self) -> "str":
+        """ Gets the node of this Source.
+        """
+        return self._attrs.get("node")
+
+    @node.setter
+    def node(self, node: "str"):
+        """Sets the node of this Source.
+
+
+        :param node: The node of this Source.
+        :type: str
+        """
+        self._attrs["node"] = node
+
+    @property
+    def pipeline_version(self) -> "str":
+        """ Gets the pipeline_version of this Source.
+        """
+        return self._attrs.get("pipelineVersion")
+
+    @pipeline_version.setter
+    def pipeline_version(self, pipeline_version: "str"):
+        """Sets the pipeline_version of this Source.
+
+
+        :param pipeline_version: The pipeline_version of this Source.
+        :type: str
+        """
+        self._attrs["pipelineVersion"] = pipeline_version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
 class ConnectionVersionResponse(SSCModel):
 
     @staticmethod
@@ -590,12 +645,14 @@ class ConnectionResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, active_pipelines_using: "List[object]" = None, connector_id: "str" = None, connector_name: "str" = None, create_date: "int" = None, create_user_id: "str" = None, id: "str" = None, last_update_date: "int" = None, last_update_user_id: "str" = None, versions: "List[ConnectionVersionResponse]" = None, **extra):
+    def __init__(self, active_pipelines_using: "List[object]" = None, active_sources_using: "List[Source]" = None, connector_id: "str" = None, connector_name: "str" = None, create_date: "int" = None, create_user_id: "str" = None, id: "str" = None, last_update_date: "int" = None, last_update_user_id: "str" = None, versions: "List[ConnectionVersionResponse]" = None, **extra):
         """ConnectionResponse"""
 
         self._attrs = dict()
         if active_pipelines_using is not None:
             self._attrs["activePipelinesUsing"] = active_pipelines_using
+        if active_sources_using is not None:
+            self._attrs["activeSourcesUsing"] = active_sources_using
         if connector_id is not None:
             self._attrs["connectorId"] = connector_id
         if connector_name is not None:
@@ -630,6 +687,22 @@ class ConnectionResponse(SSCModel):
         :type: List[object]
         """
         self._attrs["activePipelinesUsing"] = active_pipelines_using
+
+    @property
+    def active_sources_using(self) -> "List[Source]":
+        """ Gets the active_sources_using of this ConnectionResponse.
+        """
+        return [Source._from_dict(i) for i in self._attrs.get("activeSourcesUsing")]
+
+    @active_sources_using.setter
+    def active_sources_using(self, active_sources_using: "List[Source]"):
+        """Sets the active_sources_using of this ConnectionResponse.
+
+
+        :param active_sources_using: The active_sources_using of this ConnectionResponse.
+        :type: List[Source]
+        """
+        self._attrs["activeSourcesUsing"] = active_sources_using
 
     @property
     def connector_id(self) -> "str":
@@ -1138,434 +1211,6 @@ class ConnectorResponse(SSCModel):
         :type: str
         """
         self._attrs["tag"] = tag
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class DataStream(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "DataStream":
-        instance = DataStream.__new__(DataStream)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, create_date: "datetime" = None, create_user_id: "str" = None, current_version: "int" = None, description: "str" = None, id: "str" = None, last_update_date: "datetime" = None, name: "str" = None, partitions: "int" = None, tenant_id: "str" = None, topic_name: "str" = None, **extra):
-        """DataStream"""
-
-        self._attrs = dict()
-        if create_date is not None:
-            self._attrs["createDate"] = create_date
-        if create_user_id is not None:
-            self._attrs["createUserId"] = create_user_id
-        if current_version is not None:
-            self._attrs["currentVersion"] = current_version
-        if description is not None:
-            self._attrs["description"] = description
-        if id is not None:
-            self._attrs["id"] = id
-        if last_update_date is not None:
-            self._attrs["lastUpdateDate"] = last_update_date
-        if name is not None:
-            self._attrs["name"] = name
-        if partitions is not None:
-            self._attrs["partitions"] = partitions
-        if tenant_id is not None:
-            self._attrs["tenantId"] = tenant_id
-        if topic_name is not None:
-            self._attrs["topicName"] = topic_name
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def create_date(self) -> "datetime":
-        """ Gets the create_date of this DataStream.
-        """
-        return self._attrs.get("createDate")
-
-    @create_date.setter
-    def create_date(self, create_date: "datetime"):
-        """Sets the create_date of this DataStream.
-
-
-        :param create_date: The create_date of this DataStream.
-        :type: datetime
-        """
-        self._attrs["createDate"] = create_date
-
-    @property
-    def create_user_id(self) -> "str":
-        """ Gets the create_user_id of this DataStream.
-        """
-        return self._attrs.get("createUserId")
-
-    @create_user_id.setter
-    def create_user_id(self, create_user_id: "str"):
-        """Sets the create_user_id of this DataStream.
-
-
-        :param create_user_id: The create_user_id of this DataStream.
-        :type: str
-        """
-        self._attrs["createUserId"] = create_user_id
-
-    @property
-    def current_version(self) -> "int":
-        """ Gets the current_version of this DataStream.
-        """
-        return self._attrs.get("currentVersion")
-
-    @current_version.setter
-    def current_version(self, current_version: "int"):
-        """Sets the current_version of this DataStream.
-
-
-        :param current_version: The current_version of this DataStream.
-        :type: int
-        """
-        self._attrs["currentVersion"] = current_version
-
-    @property
-    def description(self) -> "str":
-        """ Gets the description of this DataStream.
-        """
-        return self._attrs.get("description")
-
-    @description.setter
-    def description(self, description: "str"):
-        """Sets the description of this DataStream.
-
-
-        :param description: The description of this DataStream.
-        :type: str
-        """
-        self._attrs["description"] = description
-
-    @property
-    def id(self) -> "str":
-        """ Gets the id of this DataStream.
-        """
-        return self._attrs.get("id")
-
-    @id.setter
-    def id(self, id: "str"):
-        """Sets the id of this DataStream.
-
-
-        :param id: The id of this DataStream.
-        :type: str
-        """
-        self._attrs["id"] = id
-
-    @property
-    def last_update_date(self) -> "datetime":
-        """ Gets the last_update_date of this DataStream.
-        """
-        return self._attrs.get("lastUpdateDate")
-
-    @last_update_date.setter
-    def last_update_date(self, last_update_date: "datetime"):
-        """Sets the last_update_date of this DataStream.
-
-
-        :param last_update_date: The last_update_date of this DataStream.
-        :type: datetime
-        """
-        self._attrs["lastUpdateDate"] = last_update_date
-
-    @property
-    def name(self) -> "str":
-        """ Gets the name of this DataStream.
-        """
-        return self._attrs.get("name")
-
-    @name.setter
-    def name(self, name: "str"):
-        """Sets the name of this DataStream.
-
-
-        :param name: The name of this DataStream.
-        :type: str
-        """
-        self._attrs["name"] = name
-
-    @property
-    def partitions(self) -> "int":
-        """ Gets the partitions of this DataStream.
-        """
-        return self._attrs.get("partitions")
-
-    @partitions.setter
-    def partitions(self, partitions: "int"):
-        """Sets the partitions of this DataStream.
-
-
-        :param partitions: The partitions of this DataStream.
-        :type: int
-        """
-        self._attrs["partitions"] = partitions
-
-    @property
-    def tenant_id(self) -> "str":
-        """ Gets the tenant_id of this DataStream.
-        """
-        return self._attrs.get("tenantId")
-
-    @tenant_id.setter
-    def tenant_id(self, tenant_id: "str"):
-        """Sets the tenant_id of this DataStream.
-
-
-        :param tenant_id: The tenant_id of this DataStream.
-        :type: str
-        """
-        self._attrs["tenantId"] = tenant_id
-
-    @property
-    def topic_name(self) -> "str":
-        """ Gets the topic_name of this DataStream.
-        """
-        return self._attrs.get("topicName")
-
-    @topic_name.setter
-    def topic_name(self, topic_name: "str"):
-        """Sets the topic_name of this DataStream.
-
-
-        :param topic_name: The topic_name of this DataStream.
-        :type: str
-        """
-        self._attrs["topicName"] = topic_name
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class DataStreamProperties(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "DataStreamProperties":
-        instance = DataStreamProperties.__new__(DataStreamProperties)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, partitions: "int" = None, **extra):
-        """DataStreamProperties"""
-
-        self._attrs = dict()
-        if partitions is not None:
-            self._attrs["partitions"] = partitions
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def partitions(self) -> "int":
-        """ Gets the partitions of this DataStreamProperties.
-        Partitions, up to the partition count of the firehose
-        """
-        return self._attrs.get("partitions")
-
-    @partitions.setter
-    def partitions(self, partitions: "int"):
-        """Sets the partitions of this DataStreamProperties.
-
-        Partitions, up to the partition count of the firehose
-
-        :param partitions: The partitions of this DataStreamProperties.
-        :type: int
-        """
-        self._attrs["partitions"] = partitions
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class DataStreamRequest(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "DataStreamRequest":
-        instance = DataStreamRequest.__new__(DataStreamRequest)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, name: "str", properties: "DataStreamProperties", description: "str" = None, **extra):
-        """DataStreamRequest"""
-
-        self._attrs = dict()
-        if name is not None:
-            self._attrs["name"] = name
-        if properties is not None:
-            self._attrs["properties"] = properties.to_dict()
-        if description is not None:
-            self._attrs["description"] = description
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def name(self) -> "str":
-        """ Gets the name of this DataStreamRequest.
-        The name of the data stream.
-        """
-        return self._attrs.get("name")
-
-    @name.setter
-    def name(self, name: "str"):
-        """Sets the name of this DataStreamRequest.
-
-        The name of the data stream.
-
-        :param name: The name of this DataStreamRequest.
-        :type: str
-        """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")
-        self._attrs["name"] = name
-
-    @property
-    def properties(self) -> "DataStreamProperties":
-        """ Gets the properties of this DataStreamRequest.
-        """
-        return DataStreamProperties._from_dict(self._attrs["properties"])
-
-    @properties.setter
-    def properties(self, properties: "DataStreamProperties"):
-        """Sets the properties of this DataStreamRequest.
-
-
-        :param properties: The properties of this DataStreamRequest.
-        :type: DataStreamProperties
-        """
-        if properties is None:
-            raise ValueError("Invalid value for `properties`, must not be `None`")
-        self._attrs["properties"] = properties.to_dict()
-
-    @property
-    def description(self) -> "str":
-        """ Gets the description of this DataStreamRequest.
-        The description of the data stream. Defaults to null.
-        """
-        return self._attrs.get("description")
-
-    @description.setter
-    def description(self, description: "str"):
-        """Sets the description of this DataStreamRequest.
-
-        The description of the data stream. Defaults to null.
-
-        :param description: The description of this DataStreamRequest.
-        :type: str
-        """
-        self._attrs["description"] = description
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
-class DataStreamResponse(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "DataStreamResponse":
-        instance = DataStreamResponse.__new__(DataStreamResponse)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, active_pipelines_using: "List[str]" = None, description: "str" = None, id: "str" = None, name: "str" = None, properties: "DataStreamProperties" = None, **extra):
-        """DataStreamResponse"""
-
-        self._attrs = dict()
-        if active_pipelines_using is not None:
-            self._attrs["activePipelinesUsing"] = active_pipelines_using
-        if description is not None:
-            self._attrs["description"] = description
-        if id is not None:
-            self._attrs["id"] = id
-        if name is not None:
-            self._attrs["name"] = name
-        if properties is not None:
-            self._attrs["properties"] = properties.to_dict()
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def active_pipelines_using(self) -> "List[str]":
-        """ Gets the active_pipelines_using of this DataStreamResponse.
-        """
-        return self._attrs.get("activePipelinesUsing")
-
-    @active_pipelines_using.setter
-    def active_pipelines_using(self, active_pipelines_using: "List[str]"):
-        """Sets the active_pipelines_using of this DataStreamResponse.
-
-
-        :param active_pipelines_using: The active_pipelines_using of this DataStreamResponse.
-        :type: List[str]
-        """
-        self._attrs["activePipelinesUsing"] = active_pipelines_using
-
-    @property
-    def description(self) -> "str":
-        """ Gets the description of this DataStreamResponse.
-        """
-        return self._attrs.get("description")
-
-    @description.setter
-    def description(self, description: "str"):
-        """Sets the description of this DataStreamResponse.
-
-
-        :param description: The description of this DataStreamResponse.
-        :type: str
-        """
-        self._attrs["description"] = description
-
-    @property
-    def id(self) -> "str":
-        """ Gets the id of this DataStreamResponse.
-        """
-        return self._attrs.get("id")
-
-    @id.setter
-    def id(self, id: "str"):
-        """Sets the id of this DataStreamResponse.
-
-
-        :param id: The id of this DataStreamResponse.
-        :type: str
-        """
-        self._attrs["id"] = id
-
-    @property
-    def name(self) -> "str":
-        """ Gets the name of this DataStreamResponse.
-        """
-        return self._attrs.get("name")
-
-    @name.setter
-    def name(self, name: "str"):
-        """Sets the name of this DataStreamResponse.
-
-
-        :param name: The name of this DataStreamResponse.
-        :type: str
-        """
-        self._attrs["name"] = name
-
-    @property
-    def properties(self) -> "DataStreamProperties":
-        """ Gets the properties of this DataStreamResponse.
-        """
-        return DataStreamProperties._from_dict(self._attrs["properties"])
-
-    @properties.setter
-    def properties(self, properties: "DataStreamProperties"):
-        """Sets the properties of this DataStreamResponse.
-
-
-        :param properties: The properties of this DataStreamResponse.
-        :type: DataStreamProperties
-        """
-        self._attrs["properties"] = properties.to_dict()
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}

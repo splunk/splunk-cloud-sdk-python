@@ -2,7 +2,7 @@
 
 # flake8: noqa
 
-# Copyright © 2020 Splunk, Inc.
+# Copyright © 2021 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -34,7 +34,12 @@ __version__ = "1.0.0"
 from splunk_sdk.search.v3alpha1.gen_splunk_search_service_api import SplunkSearchService
 
 # import models into sdk package
-from splunk_sdk.search.v3alpha1.gen_models import Message, \
+from splunk_sdk.search.v3alpha1.gen_models import Field, \
+    FieldDataType, \
+    FieldType, \
+    FieldPrevalence, \
+    Dataset, \
+    Message, \
     QueryParameters, \
     SearchStatus, \
     DeleteSearchJob, \
@@ -44,6 +49,7 @@ from splunk_sdk.search.v3alpha1.gen_models import Message, \
     ListPreviewResultsResponseFields, \
     ListPreviewResultsResponse, \
     ListSearchResultsResponse, \
+    Module, \
     RecurringSearch, \
     SearchJob, \
     SingleStatementQueryParameters, \

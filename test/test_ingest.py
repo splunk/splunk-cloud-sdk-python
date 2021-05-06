@@ -7,6 +7,7 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
+import os.path
 
 import pytest
 
@@ -57,3 +58,11 @@ def test_post_events_bad_request(test_client):
         assert (error.http_status_code == 400)
         assert (error.code == 'INVALID_DATA')
         assert (error.details == error_str)
+
+
+@pytest.mark.usefixtures("test_client")
+def test_post_file(test_client):
+    ingest = IngestAPI(test_client)
+    # just use test_ingest.py as a random file to test upload
+    resp = ingest.upload_files(os.path.join(os.curdir, "test_ingest.py"))
+    assert (resp.code == "SUCCESS")

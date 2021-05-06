@@ -1,4 +1,4 @@
-# Copyright © 2020 Splunk, Inc.
+# Copyright © 2021 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -985,6 +985,664 @@ class GroupRoleList(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
+class MethodEnum(str, Enum):
+    POST = "post"
+    REDIRECT = "redirect"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "post":
+            return MethodEnum.POST
+        if value == "redirect":
+            return MethodEnum.REDIRECT
+
+
+class IdentityProviderBodyConfig(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "IdentityProviderBodyConfig":
+        instance = IdentityProviderBodyConfig.__new__(IdentityProviderBodyConfig)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, certificate: "str", email_attribute: "str", entity_descriptor: "str", method: "str", single_sign_on_service_url: "str", first_name_attribute: "str" = None, last_name_attribute: "str" = None, **extra):
+        """IdentityProviderBodyConfig"""
+
+        self._attrs = dict()
+        if certificate is not None:
+            self._attrs["certificate"] = certificate
+        if email_attribute is not None:
+            self._attrs["email_attribute"] = email_attribute
+        if entity_descriptor is not None:
+            self._attrs["entity_descriptor"] = entity_descriptor
+        if method is not None:
+            self._attrs["method"] = method
+        if single_sign_on_service_url is not None:
+            self._attrs["single_sign_on_service_url"] = single_sign_on_service_url
+        if first_name_attribute is not None:
+            self._attrs["first_name_attribute"] = first_name_attribute
+        if last_name_attribute is not None:
+            self._attrs["last_name_attribute"] = last_name_attribute
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def certificate(self) -> "str":
+        """ Gets the certificate of this IdentityProviderBodyConfig.
+        """
+        return self._attrs.get("certificate")
+
+    @certificate.setter
+    def certificate(self, certificate: "str"):
+        """Sets the certificate of this IdentityProviderBodyConfig.
+
+
+        :param certificate: The certificate of this IdentityProviderBodyConfig.
+        :type: str
+        """
+        if certificate is None:
+            raise ValueError("Invalid value for `certificate`, must not be `None`")
+        self._attrs["certificate"] = certificate
+
+    @property
+    def email_attribute(self) -> "str":
+        """ Gets the email_attribute of this IdentityProviderBodyConfig.
+        """
+        return self._attrs.get("email_attribute")
+
+    @email_attribute.setter
+    def email_attribute(self, email_attribute: "str"):
+        """Sets the email_attribute of this IdentityProviderBodyConfig.
+
+
+        :param email_attribute: The email_attribute of this IdentityProviderBodyConfig.
+        :type: str
+        """
+        if email_attribute is None:
+            raise ValueError("Invalid value for `email_attribute`, must not be `None`")
+        self._attrs["email_attribute"] = email_attribute
+
+    @property
+    def entity_descriptor(self) -> "str":
+        """ Gets the entity_descriptor of this IdentityProviderBodyConfig.
+        """
+        return self._attrs.get("entity_descriptor")
+
+    @entity_descriptor.setter
+    def entity_descriptor(self, entity_descriptor: "str"):
+        """Sets the entity_descriptor of this IdentityProviderBodyConfig.
+
+
+        :param entity_descriptor: The entity_descriptor of this IdentityProviderBodyConfig.
+        :type: str
+        """
+        if entity_descriptor is None:
+            raise ValueError("Invalid value for `entity_descriptor`, must not be `None`")
+        self._attrs["entity_descriptor"] = entity_descriptor
+
+    @property
+    def method(self) -> "MethodEnum":
+        """ Gets the method of this IdentityProviderBodyConfig.
+        """
+        return MethodEnum.from_value(self._attrs.get("method"))
+
+    @method.setter
+    def method(self, method: "str"):
+        """Sets the method of this IdentityProviderBodyConfig.
+
+
+        :param method: The method of this IdentityProviderBodyConfig.
+        :type: str
+        """
+        if method is None:
+            raise ValueError("Invalid value for `method`, must not be `None`")
+        if isinstance(method, Enum):
+            self._attrs["method"] = method.value
+        else:
+            self._attrs["method"] = method  # If you supply a string, we presume you know the service will take it.
+
+    @property
+    def single_sign_on_service_url(self) -> "str":
+        """ Gets the single_sign_on_service_url of this IdentityProviderBodyConfig.
+        """
+        return self._attrs.get("single_sign_on_service_url")
+
+    @single_sign_on_service_url.setter
+    def single_sign_on_service_url(self, single_sign_on_service_url: "str"):
+        """Sets the single_sign_on_service_url of this IdentityProviderBodyConfig.
+
+
+        :param single_sign_on_service_url: The single_sign_on_service_url of this IdentityProviderBodyConfig.
+        :type: str
+        """
+        if single_sign_on_service_url is None:
+            raise ValueError("Invalid value for `single_sign_on_service_url`, must not be `None`")
+        self._attrs["single_sign_on_service_url"] = single_sign_on_service_url
+
+    @property
+    def first_name_attribute(self) -> "str":
+        """ Gets the first_name_attribute of this IdentityProviderBodyConfig.
+        """
+        return self._attrs.get("first_name_attribute")
+
+    @first_name_attribute.setter
+    def first_name_attribute(self, first_name_attribute: "str"):
+        """Sets the first_name_attribute of this IdentityProviderBodyConfig.
+
+
+        :param first_name_attribute: The first_name_attribute of this IdentityProviderBodyConfig.
+        :type: str
+        """
+        self._attrs["first_name_attribute"] = first_name_attribute
+
+    @property
+    def last_name_attribute(self) -> "str":
+        """ Gets the last_name_attribute of this IdentityProviderBodyConfig.
+        """
+        return self._attrs.get("last_name_attribute")
+
+    @last_name_attribute.setter
+    def last_name_attribute(self, last_name_attribute: "str"):
+        """Sets the last_name_attribute of this IdentityProviderBodyConfig.
+
+
+        :param last_name_attribute: The last_name_attribute of this IdentityProviderBodyConfig.
+        :type: str
+        """
+        self._attrs["last_name_attribute"] = last_name_attribute
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class KindEnum(str, Enum):
+    SAML = "saml"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "saml":
+            return KindEnum.SAML
+
+
+class IdentityProviderBody(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "IdentityProviderBody":
+        instance = IdentityProviderBody.__new__(IdentityProviderBody)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, config: "IdentityProviderBodyConfig", id: "str", kind: "str", title: "str", created_at: "datetime" = None, created_by: "str" = None, description: "str" = None, enabled: "bool" = None, **extra):
+        """IdentityProviderBody"""
+
+        self._attrs = dict()
+        if config is not None:
+            self._attrs["config"] = config.to_dict()
+        if id is not None:
+            self._attrs["id"] = id
+        if kind is not None:
+            self._attrs["kind"] = kind
+        if title is not None:
+            self._attrs["title"] = title
+        if created_at is not None:
+            self._attrs["createdAt"] = created_at
+        if created_by is not None:
+            self._attrs["createdBy"] = created_by
+        if description is not None:
+            self._attrs["description"] = description
+        if enabled is not None:
+            self._attrs["enabled"] = enabled
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def config(self) -> "IdentityProviderBodyConfig":
+        """ Gets the config of this IdentityProviderBody.
+        """
+        return IdentityProviderBodyConfig._from_dict(self._attrs["config"])
+
+    @config.setter
+    def config(self, config: "IdentityProviderBodyConfig"):
+        """Sets the config of this IdentityProviderBody.
+
+
+        :param config: The config of this IdentityProviderBody.
+        :type: IdentityProviderBodyConfig
+        """
+        if config is None:
+            raise ValueError("Invalid value for `config`, must not be `None`")
+        self._attrs["config"] = config.to_dict()
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this IdentityProviderBody.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this IdentityProviderBody.
+
+
+        :param id: The id of this IdentityProviderBody.
+        :type: str
+        """
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")
+        self._attrs["id"] = id
+
+    @property
+    def kind(self) -> "KindEnum":
+        """ Gets the kind of this IdentityProviderBody.
+        """
+        return KindEnum.from_value(self._attrs.get("kind"))
+
+    @kind.setter
+    def kind(self, kind: "str"):
+        """Sets the kind of this IdentityProviderBody.
+
+
+        :param kind: The kind of this IdentityProviderBody.
+        :type: str
+        """
+        if kind is None:
+            raise ValueError("Invalid value for `kind`, must not be `None`")
+        if isinstance(kind, Enum):
+            self._attrs["kind"] = kind.value
+        else:
+            self._attrs["kind"] = kind  # If you supply a string, we presume you know the service will take it.
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this IdentityProviderBody.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this IdentityProviderBody.
+
+
+        :param title: The title of this IdentityProviderBody.
+        :type: str
+        """
+        if title is None:
+            raise ValueError("Invalid value for `title`, must not be `None`")
+        self._attrs["title"] = title
+
+    @property
+    def created_at(self) -> "datetime":
+        """ Gets the created_at of this IdentityProviderBody.
+        """
+        return self._attrs.get("createdAt")
+
+    @created_at.setter
+    def created_at(self, created_at: "datetime"):
+        """Sets the created_at of this IdentityProviderBody.
+
+
+        :param created_at: The created_at of this IdentityProviderBody.
+        :type: datetime
+        """
+        self._attrs["createdAt"] = created_at
+
+    @property
+    def created_by(self) -> "str":
+        """ Gets the created_by of this IdentityProviderBody.
+        """
+        return self._attrs.get("createdBy")
+
+    @created_by.setter
+    def created_by(self, created_by: "str"):
+        """Sets the created_by of this IdentityProviderBody.
+
+
+        :param created_by: The created_by of this IdentityProviderBody.
+        :type: str
+        """
+        self._attrs["createdBy"] = created_by
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this IdentityProviderBody.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this IdentityProviderBody.
+
+
+        :param description: The description of this IdentityProviderBody.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def enabled(self) -> "bool":
+        """ Gets the enabled of this IdentityProviderBody.
+        """
+        return self._attrs.get("enabled")
+
+    @enabled.setter
+    def enabled(self, enabled: "bool"):
+        """Sets the enabled of this IdentityProviderBody.
+
+
+        :param enabled: The enabled of this IdentityProviderBody.
+        :type: bool
+        """
+        self._attrs["enabled"] = enabled
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class MethodEnum(str, Enum):
+    POST = "post"
+    REDIRECT = "redirect"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "post":
+            return MethodEnum.POST
+        if value == "redirect":
+            return MethodEnum.REDIRECT
+
+
+class IdentityProviderConfigBodyConfig(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "IdentityProviderConfigBodyConfig":
+        instance = IdentityProviderConfigBodyConfig.__new__(IdentityProviderConfigBodyConfig)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, certificate: "str" = None, email_attribute: "str" = None, entity_descriptor: "str" = None, first_name_attribute: "str" = None, last_name_attribute: "str" = None, method: "str" = None, single_sign_on_service_url: "str" = None, **extra):
+        """IdentityProviderConfigBodyConfig"""
+
+        self._attrs = dict()
+        if certificate is not None:
+            self._attrs["certificate"] = certificate
+        if email_attribute is not None:
+            self._attrs["email_attribute"] = email_attribute
+        if entity_descriptor is not None:
+            self._attrs["entity_descriptor"] = entity_descriptor
+        if first_name_attribute is not None:
+            self._attrs["first_name_attribute"] = first_name_attribute
+        if last_name_attribute is not None:
+            self._attrs["last_name_attribute"] = last_name_attribute
+        if method is not None:
+            self._attrs["method"] = method
+        if single_sign_on_service_url is not None:
+            self._attrs["single_sign_on_service_url"] = single_sign_on_service_url
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def certificate(self) -> "str":
+        """ Gets the certificate of this IdentityProviderConfigBodyConfig.
+        """
+        return self._attrs.get("certificate")
+
+    @certificate.setter
+    def certificate(self, certificate: "str"):
+        """Sets the certificate of this IdentityProviderConfigBodyConfig.
+
+
+        :param certificate: The certificate of this IdentityProviderConfigBodyConfig.
+        :type: str
+        """
+        self._attrs["certificate"] = certificate
+
+    @property
+    def email_attribute(self) -> "str":
+        """ Gets the email_attribute of this IdentityProviderConfigBodyConfig.
+        """
+        return self._attrs.get("email_attribute")
+
+    @email_attribute.setter
+    def email_attribute(self, email_attribute: "str"):
+        """Sets the email_attribute of this IdentityProviderConfigBodyConfig.
+
+
+        :param email_attribute: The email_attribute of this IdentityProviderConfigBodyConfig.
+        :type: str
+        """
+        self._attrs["email_attribute"] = email_attribute
+
+    @property
+    def entity_descriptor(self) -> "str":
+        """ Gets the entity_descriptor of this IdentityProviderConfigBodyConfig.
+        """
+        return self._attrs.get("entity_descriptor")
+
+    @entity_descriptor.setter
+    def entity_descriptor(self, entity_descriptor: "str"):
+        """Sets the entity_descriptor of this IdentityProviderConfigBodyConfig.
+
+
+        :param entity_descriptor: The entity_descriptor of this IdentityProviderConfigBodyConfig.
+        :type: str
+        """
+        self._attrs["entity_descriptor"] = entity_descriptor
+
+    @property
+    def first_name_attribute(self) -> "str":
+        """ Gets the first_name_attribute of this IdentityProviderConfigBodyConfig.
+        """
+        return self._attrs.get("first_name_attribute")
+
+    @first_name_attribute.setter
+    def first_name_attribute(self, first_name_attribute: "str"):
+        """Sets the first_name_attribute of this IdentityProviderConfigBodyConfig.
+
+
+        :param first_name_attribute: The first_name_attribute of this IdentityProviderConfigBodyConfig.
+        :type: str
+        """
+        self._attrs["first_name_attribute"] = first_name_attribute
+
+    @property
+    def last_name_attribute(self) -> "str":
+        """ Gets the last_name_attribute of this IdentityProviderConfigBodyConfig.
+        """
+        return self._attrs.get("last_name_attribute")
+
+    @last_name_attribute.setter
+    def last_name_attribute(self, last_name_attribute: "str"):
+        """Sets the last_name_attribute of this IdentityProviderConfigBodyConfig.
+
+
+        :param last_name_attribute: The last_name_attribute of this IdentityProviderConfigBodyConfig.
+        :type: str
+        """
+        self._attrs["last_name_attribute"] = last_name_attribute
+
+    @property
+    def method(self) -> "MethodEnum":
+        """ Gets the method of this IdentityProviderConfigBodyConfig.
+        """
+        return MethodEnum.from_value(self._attrs.get("method"))
+
+    @method.setter
+    def method(self, method: "str"):
+        """Sets the method of this IdentityProviderConfigBodyConfig.
+
+
+        :param method: The method of this IdentityProviderConfigBodyConfig.
+        :type: str
+        """
+        if isinstance(method, Enum):
+            self._attrs["method"] = method.value
+        else:
+            self._attrs["method"] = method  # If you supply a string, we presume you know the service will take it.
+
+    @property
+    def single_sign_on_service_url(self) -> "str":
+        """ Gets the single_sign_on_service_url of this IdentityProviderConfigBodyConfig.
+        """
+        return self._attrs.get("single_sign_on_service_url")
+
+    @single_sign_on_service_url.setter
+    def single_sign_on_service_url(self, single_sign_on_service_url: "str"):
+        """Sets the single_sign_on_service_url of this IdentityProviderConfigBodyConfig.
+
+
+        :param single_sign_on_service_url: The single_sign_on_service_url of this IdentityProviderConfigBodyConfig.
+        :type: str
+        """
+        self._attrs["single_sign_on_service_url"] = single_sign_on_service_url
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class KindEnum(str, Enum):
+    SAML = "saml"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "saml":
+            return KindEnum.SAML
+
+
+class IdentityProviderConfigBody(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "IdentityProviderConfigBody":
+        instance = IdentityProviderConfigBody.__new__(IdentityProviderConfigBody)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, config: "IdentityProviderConfigBodyConfig", id: "str", kind: "str", description: "str" = None, enabled: "bool" = None, title: "str" = None, **extra):
+        """IdentityProviderConfigBody"""
+
+        self._attrs = dict()
+        if config is not None:
+            self._attrs["config"] = config.to_dict()
+        if id is not None:
+            self._attrs["id"] = id
+        if kind is not None:
+            self._attrs["kind"] = kind
+        if description is not None:
+            self._attrs["description"] = description
+        if enabled is not None:
+            self._attrs["enabled"] = enabled
+        if title is not None:
+            self._attrs["title"] = title
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def config(self) -> "IdentityProviderConfigBodyConfig":
+        """ Gets the config of this IdentityProviderConfigBody.
+        """
+        return IdentityProviderConfigBodyConfig._from_dict(self._attrs["config"])
+
+    @config.setter
+    def config(self, config: "IdentityProviderConfigBodyConfig"):
+        """Sets the config of this IdentityProviderConfigBody.
+
+
+        :param config: The config of this IdentityProviderConfigBody.
+        :type: IdentityProviderConfigBodyConfig
+        """
+        if config is None:
+            raise ValueError("Invalid value for `config`, must not be `None`")
+        self._attrs["config"] = config.to_dict()
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this IdentityProviderConfigBody.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this IdentityProviderConfigBody.
+
+
+        :param id: The id of this IdentityProviderConfigBody.
+        :type: str
+        """
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")
+        self._attrs["id"] = id
+
+    @property
+    def kind(self) -> "KindEnum":
+        """ Gets the kind of this IdentityProviderConfigBody.
+        """
+        return KindEnum.from_value(self._attrs.get("kind"))
+
+    @kind.setter
+    def kind(self, kind: "str"):
+        """Sets the kind of this IdentityProviderConfigBody.
+
+
+        :param kind: The kind of this IdentityProviderConfigBody.
+        :type: str
+        """
+        if kind is None:
+            raise ValueError("Invalid value for `kind`, must not be `None`")
+        if isinstance(kind, Enum):
+            self._attrs["kind"] = kind.value
+        else:
+            self._attrs["kind"] = kind  # If you supply a string, we presume you know the service will take it.
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this IdentityProviderConfigBody.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this IdentityProviderConfigBody.
+
+
+        :param description: The description of this IdentityProviderConfigBody.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def enabled(self) -> "bool":
+        """ Gets the enabled of this IdentityProviderConfigBody.
+        """
+        return self._attrs.get("enabled")
+
+    @enabled.setter
+    def enabled(self, enabled: "bool"):
+        """Sets the enabled of this IdentityProviderConfigBody.
+
+
+        :param enabled: The enabled of this IdentityProviderConfigBody.
+        :type: bool
+        """
+        self._attrs["enabled"] = enabled
+
+    @property
+    def title(self) -> "str":
+        """ Gets the title of this IdentityProviderConfigBody.
+        """
+        return self._attrs.get("title")
+
+    @title.setter
+    def title(self, title: "str"):
+        """Sets the title of this IdentityProviderConfigBody.
+
+
+        :param title: The title of this IdentityProviderConfigBody.
+        :type: str
+        """
+        self._attrs["title"] = title
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
 class PrincipalProfile(SSCModel):
 
     @staticmethod
@@ -1778,6 +2436,45 @@ class PrincipalPublicKeyStatusBody(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
+class ResetPasswordBody(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "ResetPasswordBody":
+        instance = ResetPasswordBody.__new__(ResetPasswordBody)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, name: "str", **extra):
+        """ResetPasswordBody"""
+
+        self._attrs = dict()
+        if name is not None:
+            self._attrs["name"] = name
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this ResetPasswordBody.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this ResetPasswordBody.
+
+
+        :param name: The name of this ResetPasswordBody.
+        :type: str
+        """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
+        self._attrs["name"] = name
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
 class Role(SSCModel):
 
     @staticmethod
@@ -2153,7 +2850,7 @@ class Tenant(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, name: "str", created_at: "datetime" = None, created_by: "str" = None, status: "TenantStatus" = None, use_default_idp: "bool" = None, **extra):
+    def __init__(self, name: "str", created_at: "datetime" = None, created_by: "str" = None, status: "TenantStatus" = None, **extra):
         """Tenant"""
 
         self._attrs = dict()
@@ -2165,8 +2862,6 @@ class Tenant(SSCModel):
             self._attrs["createdBy"] = created_by
         if status is not None:
             self._attrs["status"] = status
-        if use_default_idp is not None:
-            self._attrs["useDefaultIdp"] = use_default_idp
         for k, v in extra.items():
             self._attrs[k] = v
 
@@ -2239,21 +2934,80 @@ class Tenant(SSCModel):
         else:
             self._attrs["status"] = status  # If you supply a string, we presume you know the service will take it.
 
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class UpdatePasswordBody(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "UpdatePasswordBody":
+        instance = UpdatePasswordBody.__new__(UpdatePasswordBody)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, password: "str", code: "str" = None, current_password: "str" = None, **extra):
+        """UpdatePasswordBody"""
+
+        self._attrs = dict()
+        if password is not None:
+            self._attrs["password"] = password
+        if code is not None:
+            self._attrs["code"] = code
+        if current_password is not None:
+            self._attrs["current_password"] = current_password
+        for k, v in extra.items():
+            self._attrs[k] = v
+
     @property
-    def use_default_idp(self) -> "bool":
-        """ Gets the use_default_idp of this Tenant.
+    def password(self) -> "str":
+        """ Gets the password of this UpdatePasswordBody.
         """
-        return self._attrs.get("useDefaultIdp")
+        return self._attrs.get("password")
 
-    @use_default_idp.setter
-    def use_default_idp(self, use_default_idp: "bool"):
-        """Sets the use_default_idp of this Tenant.
+    @password.setter
+    def password(self, password: "str"):
+        """Sets the password of this UpdatePasswordBody.
 
 
-        :param use_default_idp: The use_default_idp of this Tenant.
-        :type: bool
+        :param password: The password of this UpdatePasswordBody.
+        :type: str
         """
-        self._attrs["useDefaultIdp"] = use_default_idp
+        if password is None:
+            raise ValueError("Invalid value for `password`, must not be `None`")
+        self._attrs["password"] = password
+
+    @property
+    def code(self) -> "str":
+        """ Gets the code of this UpdatePasswordBody.
+        """
+        return self._attrs.get("code")
+
+    @code.setter
+    def code(self, code: "str"):
+        """Sets the code of this UpdatePasswordBody.
+
+
+        :param code: The code of this UpdatePasswordBody.
+        :type: str
+        """
+        self._attrs["code"] = code
+
+    @property
+    def current_password(self) -> "str":
+        """ Gets the current_password of this UpdatePasswordBody.
+        """
+        return self._attrs.get("current_password")
+
+    @current_password.setter
+    def current_password(self, current_password: "str"):
+        """Sets the current_password of this UpdatePasswordBody.
+
+
+        :param current_password: The current_password of this UpdatePasswordBody.
+        :type: str
+        """
+        self._attrs["current_password"] = current_password
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}

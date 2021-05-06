@@ -4,20 +4,30 @@ components:
       description: ""
       properties:
         activateLatestVersion:
-          description: Set to true to activate the latest version of the pipeline. Set to false to use the previously activated version of the pipeline. Defaults to true.
+          description: Set to true to activate the latest version of the pipeline.
+            Set to false to use the previously activated version of the pipeline.
+            Defaults to true.
           type: boolean
         allowNonRestoredState:
-          description: Set to true to allow the pipeline to ignore any unused progress states. In some cases, when a data pipeline is changed, the progress state will be stored for functions that no longer exist, so this must be set to activate a pipeline in this state. Defaults to false.
+          description: Set to true to allow the pipeline to ignore any unused progress
+            states. In some cases, when a data pipeline is changed, the progress state
+            will be stored for functions that no longer exist, so this must be set
+            to activate a pipeline in this state. Defaults to false.
           type: boolean
         skipRestoreState:
-          description: Set to true to start reading from the latest input rather than from where the pipeline's previous run left off, which can cause data loss. Defaults to false.
+          description: Set to true to start reading from the latest input rather than
+            from where the pipeline's previous run left off, which can cause data
+            loss. Defaults to false.
           type: boolean
       type: object
     ConnectionPatchRequest:
       description: ""
       properties:
         data:
-          description: The key-value pairs of configurations for this connection. Connectors may have some configurations that are required, which all connections must provide values for. For configuration values of type BYTES, the provided values must be Base64 encoded.
+          description: The key-value pairs of configurations for this connection.
+            Connectors may have some configurations that are required, which all connections
+            must provide values for. For configuration values of type BYTES, the provided
+            values must be Base64 encoded.
           example: ""
           properties: {}
           type: object
@@ -34,7 +44,10 @@ components:
       description: ""
       properties:
         data:
-          description: The key-value pairs of configurations for this connection. Connectors may have some configurations that are required, which all connections must provide values for. For configuration values of type BYTES, the provided values must be Base64 encoded.
+          description: The key-value pairs of configurations for this connection.
+            Connectors may have some configurations that are required, which all connections
+            must provide values for. For configuration values of type BYTES, the provided
+            values must be Base64 encoded.
           example: ""
           properties: {}
           type: object
@@ -59,7 +72,10 @@ components:
           example: ""
           type: string
         data:
-          description: The key-value pairs of configurations for this connection. Connectors may have some configurations that are required, which all connections must provide values for. For configuration values of type BYTES, the provided values must be Base64 encoded.
+          description: The key-value pairs of configurations for this connection.
+            Connectors may have some configurations that are required, which all connections
+            must provide values for. For configuration values of type BYTES, the provided
+            values must be Base64 encoded.
           example: ""
           properties: {}
           type: object
@@ -83,6 +99,10 @@ components:
         activePipelinesUsing:
           items:
             $ref: '#/components/schemas/MapOfstringAndobject'
+          type: array
+        activeSourcesUsing:
+          items:
+            $ref: '#/components/schemas/Source'
           type: array
         connectorId:
           type: string
@@ -180,7 +200,10 @@ components:
       description: ""
       properties:
         skipSavepoint:
-          description: Set to true to skip saving the state of a deactivated pipeline. When the pipeline is later activated, it will start with the newest data and skip any data that arrived after this deactivation, which can cause data loss. Defaults to false.
+          description: Set to true to skip saving the state of a deactivated pipeline.
+            When the pipeline is later activated, it will start with the newest data
+            and skip any data that arrived after this deactivation, which can cause
+            data loss. Defaults to false.
           type: boolean
       type: object
     DslCompilationRequest:
@@ -215,7 +238,8 @@ components:
       description: ""
       properties:
         nodeUuid:
-          description: The function ID. If omitted, returns the output schema for all functions.
+          description: The function ID. If omitted, returns the output schema for
+            all functions.
           example: ""
           type: string
         sourcePortName:
@@ -256,7 +280,8 @@ components:
           properties: {}
           type: object
         id:
-          description: The ID associated with your group function in the pipeline Streams JSON
+          description: The ID associated with your group function in the pipeline
+            Streams JSON
           example: ""
           type: string
       required:
@@ -655,6 +680,12 @@ components:
           type: integer
         tenantId:
           type: string
+        type:
+          enum:
+          - USER
+          - SOURCE
+          - ALL
+          type: string
         uberJarSha256:
           type: string
         validationMessages:
@@ -699,7 +730,9 @@ components:
       description: ""
       properties:
         bypassValidation:
-          description: Set to true to bypass initial pipeline validation upon creation. The pipeline still needs to be validated before activation. Defaults to false.
+          description: Set to true to bypass initial pipeline validation upon creation.
+            The pipeline still needs to be validated before activation. Defaults to
+            false.
           type: boolean
         createUserId:
           description: The user that created the pipeline. Deprecated.
@@ -742,7 +775,9 @@ components:
       description: ""
       properties:
         bypassValidation:
-          description: Set to true to bypass initial pipeline validation upon creation. The pipeline still needs to be validated before activation. Defaults to false.
+          description: Set to true to bypass initial pipeline validation upon creation.
+            The pipeline still needs to be validated before activation. Defaults to
+            false.
           type: boolean
         data:
           $ref: '#/components/schemas/UplPipeline'
@@ -899,7 +934,8 @@ components:
           format: int32
           type: integer
         sessionLifetimeMs:
-          description: The maximum lifetime of a session, in milliseconds. Defaults to 300,000.
+          description: The maximum lifetime of a session, in milliseconds. Defaults
+            to 300,000.
           format: int64
           type: integer
         upl:
@@ -939,13 +975,20 @@ components:
       description: ""
       properties:
         activateLatestVersion:
-          description: Set to true to activate the latest version of the pipeline. Set to false to use the previously activated version of the pipeline. Defaults to true.
+          description: Set to true to activate the latest version of the pipeline.
+            Set to false to use the previously activated version of the pipeline.
+            Defaults to true.
           type: boolean
         allowNonRestoredState:
-          description: Set to true to allow the pipeline to ignore any unused progress states. In some cases, when a data pipeline is changed, the progress state will be stored for functions that no longer exist, so this must be set to reactivate a pipeline in this state. Defaults to false.
+          description: Set to true to allow the pipeline to ignore any unused progress
+            states. In some cases, when a data pipeline is changed, the progress state
+            will be stored for functions that no longer exist, so this must be set
+            to reactivate a pipeline in this state. Defaults to false.
           type: boolean
         skipRestoreState:
-          description: Set to true to start reading from the latest input rather than from where the pipeline's previous run left off, which can cause data loss. Defaults to false.
+          description: Set to true to start reading from the latest input rather than
+            from where the pipeline's previous run left off, which can cause data
+            loss. Defaults to false.
           type: boolean
       type: object
     Response:
@@ -959,6 +1002,45 @@ components:
           description: Only set for /deactivate endpoint
           example: ""
           type: string
+      type: object
+    Source:
+      description: ""
+      properties:
+        arguments:
+          properties: {}
+          type: object
+        connectionId:
+          type: string
+        connectorId:
+          type: string
+        createDate:
+          format: int64
+          type: integer
+        createUserId:
+          type: string
+        dataStreamId:
+          type: string
+        description:
+          type: string
+        enabled:
+          type: boolean
+        id:
+          type: string
+        lastUpdateDate:
+          format: int64
+          type: integer
+        lastUpdateUserId:
+          type: string
+        name:
+          type: string
+        parallelism:
+          format: int32
+          type: integer
+        tenantId:
+          type: string
+        version:
+          format: int64
+          type: integer
       type: object
     SplCompileRequest:
       description: ""
@@ -1176,7 +1258,8 @@ components:
       description: ""
       properties:
         edges:
-          description: A list of links or connections between the output of one pipeline function and the input of another pipeline function
+          description: A list of links or connections between the output of one pipeline
+            function and the input of another pipeline function
           example: ""
           items:
             $ref: '#/components/schemas/UplEdge'
@@ -1184,7 +1267,8 @@ components:
         migrationInfo:
           $ref: '#/components/schemas/PipelineMigrationInfo'
         nodes:
-          description: The functions (or nodes) in your entire pipeline, including each function's operations, attributes, and properties
+          description: The functions (or nodes) in your entire pipeline, including
+            each function's operations, attributes, and properties
           example: ""
           items:
             $ref: '#/components/schemas/UplNode'
@@ -1255,7 +1339,9 @@ components:
           type: array
       type: object
 info:
-  description: Use the Streams service to perform create, read, update, and delete (CRUD) operations on your data pipeline. The Streams service also has metrics and preview session endpoints and gives you full control over your data pipeline.
+  description: Use the Streams service to perform create, read, update, and delete
+    (CRUD) operations on your data pipeline. The Streams service also has metrics
+    and preview session endpoints and gives you full control over your data pipeline.
   title: Data Stream Processing REST API
   version: v2beta1.4
 openapi: 3.0.1
@@ -1309,7 +1395,9 @@ paths:
         name: sortField
         schema:
           type: string
-      - description: Specify either ascending ('asc') or descending ('desc') sort order for a given field (sortField), which must be set for sortDir to apply. Defaults to 'asc'.
+      - description: Specify either ascending ('asc') or descending ('desc') sort
+          order for a given field (sortField), which must be set for sortDir to apply.
+          Defaults to 'asc'.
         in: query
         name: sortDir
         schema:
@@ -1569,7 +1657,8 @@ paths:
         "404":
           content: {}
           description: Not Found
-      summary: Create a new group function by combining the Streams JSON of two or more functions.
+      summary: Create a new group function by combining the Streams JSON of two or
+        more functions.
       tags:
       - apiv-2-beta-1-group-controller
       x-authz-scope: streams.groups.create
@@ -1682,7 +1771,8 @@ paths:
         "403":
           content: {}
           description: Forbidden
-      summary: Modify a group function by combining the Streams JSON of two or more functions.
+      summary: Modify a group function by combining the Streams JSON of two or more
+        functions.
       tags:
       - apiv-2-beta-1-group-controller
       x-authz-scope: streams.groups.update
@@ -2311,7 +2401,8 @@ paths:
         "404":
           content: {}
           description: Not Found
-      summary: Returns the entire Streams JSON, including the expanded Streams JSON of any group functions in the pipeline.
+      summary: Returns the entire Streams JSON, including the expanded Streams JSON
+        of any group functions in the pipeline.
       tags:
       - apiv-2-beta-1-pipeline-controller
       x-authz-scope: streams.groups.read
@@ -2436,7 +2527,9 @@ paths:
         "404":
           content: {}
           description: Not Found
-      summary: Returns the output schema for a specified function in a pipeline. If no function ID is  specified, the request returns the output schema for all functions in a pipeline.
+      summary: Returns the output schema for a specified function in a pipeline. If
+        no function ID is  specified, the request returns the output schema for all
+        functions in a pipeline.
       tags:
       - apiv-2-beta-1-pipeline-controller
       x-authz-scope: streams.pipelines.read
@@ -3049,4 +3142,4 @@ tags:
 - description: V2Beta1 Preview API Endpoints
   name: apiv-2-beta-1-preview-controller
 
-# Retrieved from scp-openapi commit 75824d71791e0b0bdf66dbcce7dd9dc1e7061407 path: streams/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit 3e10ab186559df6d0a5211cf734514cd53d79779 path: streams/v2beta1/openapi.yaml

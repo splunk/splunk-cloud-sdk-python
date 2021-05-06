@@ -98,7 +98,8 @@ components:
       schema:
         type: string
     include:
-      description: Include additional information to return when validating tenant membership. Valid parameters [tenant, principal]
+      description: Include additional information to return when validating tenant
+        membership. Valid parameters [tenant, principal]
       in: query
       name: include
       required: false
@@ -872,6 +873,103 @@ components:
       required:
       - name
       type: object
+    IdentityProviderBody:
+      properties:
+        config:
+          properties:
+            certificate:
+              type: string
+            email_attribute:
+              type: string
+            entity_descriptor:
+              maxLength: 1024
+              type: string
+            first_name_attribute:
+              type: string
+            last_name_attribute:
+              type: string
+            method:
+              enum:
+              - post
+              - redirect
+              type: string
+            single_sign_on_service_url:
+              type: string
+          required:
+          - entity_descriptor
+          - single_sign_on_service_url
+          - certificate
+          - method
+          - email_attribute
+          type: object
+        createdAt:
+          format: date-time
+          type: string
+        createdBy:
+          type: string
+        description:
+          type: string
+        enabled:
+          type: boolean
+        id:
+          type: string
+        kind:
+          enum:
+          - saml
+          type: string
+        title:
+          type: string
+      required:
+      - id
+      - title
+      - kind
+      - config
+      type: object
+    IdentityProviderConfigBody:
+      properties:
+        config:
+          properties:
+            certificate:
+              type: string
+            email_attribute:
+              type: string
+            entity_descriptor:
+              maxLength: 1024
+              type: string
+            first_name_attribute:
+              type: string
+            last_name_attribute:
+              type: string
+            method:
+              enum:
+              - post
+              - redirect
+              type: string
+            single_sign_on_service_url:
+              type: string
+          type: object
+        description:
+          maxLength: 1024
+          type: string
+        enabled:
+          type: boolean
+        id:
+          maxLength: 36
+          minLength: 4
+          pattern: ^[_a-z]([.]?[_a-z0-9])*$
+          type: string
+        kind:
+          enum:
+          - saml
+          type: string
+        title:
+          maxLength: 256
+          type: string
+      required:
+      - id
+      - kind
+      - config
+      type: object
     IdentityProviderList:
       description: A list of identity provider.
       properties:
@@ -889,6 +987,32 @@ components:
       items:
         $ref: '#/components/schemas/IdentityProvider'
       type: array
+    ImmutableApp:
+      properties:
+        appPermissions:
+          items:
+            type: string
+          type: array
+        name:
+          type: string
+        principal:
+          type: string
+        systemApp:
+          type: boolean
+        userPermissions:
+          items:
+            type: string
+          type: array
+      type: object
+    ImmutableApps:
+      description: A list of Immutable Application.
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/ImmutableApp'
+          type: array
+      required:
+      - items
     Jwk:
       properties:
         alg:
@@ -1230,6 +1354,14 @@ components:
       - principal
       - hasAccepted
       type: object
+    ResetPasswordBody:
+      properties:
+        name:
+          minLength: 2
+          type: string
+          x-case-insensitive: true
+      required:
+      - name
     ResolveBody:
       properties:
         client_id:
@@ -1514,8 +1646,6 @@ components:
           $ref: '#/components/schemas/TenantName'
         status:
           $ref: '#/components/schemas/TenantStatus'
-        useDefaultIdp:
-          type: boolean
       required:
       - name
       type: object
@@ -1537,8 +1667,6 @@ components:
           type: string
         status:
           $ref: '#/components/schemas/TenantStatus'
-        useDefaultIDP:
-          type: boolean
       required:
       - name
       - status
@@ -1547,7 +1675,6 @@ components:
       - proxiedBy
       - deletedAt
       - deletedBy
-      - useDefaultIDP
       type: object
     TenantIdp:
       properties:
@@ -1630,6 +1757,19 @@ components:
       - title
       - federation_id
       type: object
+    UpdatePasswordBody:
+      properties:
+        code:
+          maxLength: 256
+          type: string
+        current_password:
+          maxLength: 256
+          type: string
+        password:
+          maxLength: 256
+          type: string
+      required:
+      - password
     UpdateRoleBody:
       properties:
         permissions:
@@ -1651,11 +1791,6 @@ components:
           - deleting
           - tombstoned
           - failed
-          type: string
-        useDefaultIdp:
-          enum:
-          - "true"
-          - "false"
           type: string
       type: object
     UserCodeValidateInfo:
@@ -1710,7 +1845,8 @@ components:
       name: Authorization
       type: apiKey
 info:
-  description: With the Identity service in Splunk Cloud Services, you can authenticate and authorize Splunk Cloud Services users.
+  description: With the Identity service in Splunk Cloud Services, you can authenticate
+    and authorize Splunk Cloud Services users.
   title: Identity
   version: v3alpha1.1
 openapi: 3.0.0
@@ -1904,7 +2040,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GroupMember'
-          description: The group-to-member relationship details were successfully returned.
+          description: The group-to-member relationship details were successfully
+            returned.
         "400":
           description: The request isn't valid.
         "401":
@@ -1920,7 +2057,8 @@ paths:
     - $ref: '#/components/parameters/member'
   /{tenant}/identity/v3alpha1/groups/{group}/roles:
     get:
-      description: Returns a list of the roles that are attached to a group within a given tenant.
+      description: Returns a list of the roles that are attached to a group within
+        a given tenant.
       operationId: listGroupRoles
       parameters:
       - $ref: '#/components/parameters/pageToken'
@@ -2018,6 +2156,128 @@ paths:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/group'
     - $ref: '#/components/parameters/role'
+  /{tenant}/identity/v3alpha1/identityproviders:
+    get:
+      description: Returns the list of Identity Providers for the given tenant.
+      operationId: listIdentityProvider
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/IdentityProviderBody'
+                type: array
+          description: The list of Identity Providers was successfully returned.
+        "400":
+          description: Malformed request
+        "401":
+          description: Unauthenticated user
+        "403":
+          description: Unauthorized operation
+        "500":
+          description: Internal server error
+      x-authz-scope: identity.idps.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    post:
+      description: Create an Identity Provider.
+      operationId: createIdentityProvider
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentityProviderConfigBody'
+        description: The Identity Provider to create.
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentityProviderBody'
+          description: The Identity Provider was successfully created.
+        "400":
+          description: Malformed request
+        "401":
+          description: Unauthenticated user
+        "403":
+          description: Unauthorized operation
+        "409":
+          description: The Identity Provider already exists
+        "500":
+          description: Internal server error
+      x-authz-scope: identity.idps.write
+  /{tenant}/identity/v3alpha1/identityproviders/{idp}:
+    delete:
+      description: Deletes the Identity Provider.
+      operationId: deleteIdentityProvider
+      responses:
+        "204":
+          description: The Identity Provider was successfully.
+        "400":
+          description: Malformed request
+        "401":
+          description: Unauthenticated user
+        "403":
+          description: Unauthorized operation
+        "404":
+          description: Resource not found
+        "500":
+          description: Internal server error
+      x-authz-scope: identity.idps.write
+    get:
+      description: Returns the Identity Provider for the given tenant.
+      operationId: getIdentityProvider
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentityProviderBody'
+          description: The Identity Provider was successfully returned.
+        "400":
+          description: Malformed request
+        "401":
+          description: Unauthenticated user
+        "403":
+          description: Unauthorized operation
+        "404":
+          description: Resource not found
+        "500":
+          description: Internal server error
+      x-authz-scope: identity.idps.read
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/idp'
+    put:
+      description: Update the configuration for an Identity Provider.
+      operationId: updateIdentityProvider
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentityProviderConfigBody'
+        description: The properties to update the Identity Provider with.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentityProviderBody'
+          description: The Identity Provider was successfully updated.
+        "400":
+          description: Malformed request
+        "401":
+          description: Unauthenticated user
+        "403":
+          description: Unauthorized operation
+        "404":
+          description: Resource not found
+        "500":
+          description: Internal server error
+      x-authz-scope: identity.idps.write
   /{tenant}/identity/v3alpha1/members:
     get:
       description: Returns a list of members in a given tenant.
@@ -2166,7 +2426,8 @@ paths:
           description: The set of permissions was successfully returned.
           headers:
             Cache-Control:
-              description: max-age=<seconds>, specifies the time member permission can be cached.
+              description: max-age=<seconds>, specifies the time member permission
+                can be cached.
               schema:
                 type: string
         "400":
@@ -2452,7 +2713,8 @@ paths:
               schema:
                 type: string
             X-Internal-Cache-Control:
-              description: max-age=<seconds>, specifies the time a token can be cached. This is meant for internal services only.
+              description: max-age=<seconds>, specifies the time a token can be cached.
+                This is meant for internal services only.
               schema:
                 type: string
         "400":
@@ -2623,6 +2885,32 @@ paths:
         "404":
           description: The resource wasn't found.
       x-authz-scope: identity.principalkeys.write
+  /system/identity/v3alpha1/principals/{principal}/password:
+    parameters:
+    - $ref: '#/components/parameters/principal'
+    patch:
+      description: Update principal password
+      operationId: updatePassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePasswordBody'
+        description: The new password to set for the principal.
+        required: true
+      responses:
+        "204":
+          description: The password was successfully updated.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+      security: []
+      x-auth-required: false
   /system/identity/v3alpha1/principals/{principal}/revoke:
     parameters:
     - $ref: '#/components/parameters/principal'
@@ -2632,7 +2920,8 @@ paths:
       operationId: revokePrincipalAuthTokens
       responses:
         "204":
-          description: All tokens associated with this principal were successfully revoked.
+          description: All tokens associated with this principal were successfully
+            revoked.
         "400":
           description: The request isn't valid.
         "401":
@@ -2642,9 +2931,31 @@ paths:
         "404":
           description: The resource wasn't found.
       x-authz-scope: identity.principals.revoke
+  /system/identity/v3alpha1/reset-password:
+    post:
+      description: Sends an email which allows a principal to reset a forgotten password.
+      operationId: resetPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordBody'
+        description: The principal information to recover password.
+        required: true
+      responses:
+        "202":
+          description: Request accepted. Email will be sent if principal exists.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+      security: []
+      x-auth-required: false
 security:
 - Bearer: []
 servers:
 - url: /
 
-# Retrieved from scp-openapi commit 75824d71791e0b0bdf66dbcce7dd9dc1e7061407 path: identity/v3alpha1/openapi.yaml
+# Retrieved from scp-openapi commit 3e10ab186559df6d0a5211cf734514cd53d79779 path: identity/v3alpha1/openapi.yaml

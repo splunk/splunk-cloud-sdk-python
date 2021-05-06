@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Copyright © 2020 Splunk, Inc.
+# Copyright © 2021 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -47,6 +47,8 @@ from splunk_sdk.identity.v3alpha1.gen_models import GroupMember
 from splunk_sdk.identity.v3alpha1.gen_models import GroupMemberList
 from splunk_sdk.identity.v3alpha1.gen_models import GroupRole
 from splunk_sdk.identity.v3alpha1.gen_models import GroupRoleList
+from splunk_sdk.identity.v3alpha1.gen_models import IdentityProviderBody
+from splunk_sdk.identity.v3alpha1.gen_models import IdentityProviderConfigBody
 from splunk_sdk.identity.v3alpha1.gen_models import Member
 from splunk_sdk.identity.v3alpha1.gen_models import MemberList
 from splunk_sdk.identity.v3alpha1.gen_models import PermissionList
@@ -54,10 +56,12 @@ from splunk_sdk.identity.v3alpha1.gen_models import Principal
 from splunk_sdk.identity.v3alpha1.gen_models import PrincipalList
 from splunk_sdk.identity.v3alpha1.gen_models import PrincipalPublicKey
 from splunk_sdk.identity.v3alpha1.gen_models import PrincipalPublicKeyStatusBody
+from splunk_sdk.identity.v3alpha1.gen_models import ResetPasswordBody
 from splunk_sdk.identity.v3alpha1.gen_models import Role
 from splunk_sdk.identity.v3alpha1.gen_models import RoleList
 from splunk_sdk.identity.v3alpha1.gen_models import RolePermission
 from splunk_sdk.identity.v3alpha1.gen_models import RolePermissionList
+from splunk_sdk.identity.v3alpha1.gen_models import UpdatePasswordBody
 from splunk_sdk.identity.v3alpha1.gen_models import ValidateInfo
 
 
@@ -171,6 +175,22 @@ class Identity(BaseService):
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, Group)
 
+    def create_identity_provider(self, identity_provider_config_body: IdentityProviderConfigBody, query_params: Dict[str, object] = None) -> IdentityProviderBody:
+        """
+        Create an Identity Provider.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/identity/v3alpha1/identityproviders").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = identity_provider_config_body.to_dict()
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, IdentityProviderBody)
+
     def create_role(self, create_role_body: CreateRoleBody, query_params: Dict[str, object] = None) -> Role:
         """
         Creates a new authorization role in a given tenant.
@@ -199,6 +219,22 @@ class Identity(BaseService):
         }
 
         path = Template("/identity/v3alpha1/groups/${group}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.delete(url, params=query_params)
+        return handle_response(response, )
+
+    def delete_identity_provider(self, idp: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
+        """
+        Deletes the Identity Provider.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "idp": idp,
+        }
+
+        path = Template("/identity/v3alpha1/identityproviders/${idp}").substitute(path_params)
         url = self.base_client.build_url(path)
         response = self.base_client.delete(url, params=query_params)
         return handle_response(response, )
@@ -285,6 +321,22 @@ class Identity(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, GroupRole)
+
+    def get_identity_provider(self, idp: str, query_params: Dict[str, object] = None) -> IdentityProviderBody:
+        """
+        Returns the Identity Provider for the given tenant.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "idp": idp,
+        }
+
+        path = Template("/identity/v3alpha1/identityproviders/${idp}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, IdentityProviderBody)
 
     def get_member(self, member: str, query_params: Dict[str, object] = None) -> Member:
         """
@@ -451,6 +503,21 @@ class Identity(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, GroupList)
+
+    def list_identity_provider(self, query_params: Dict[str, object] = None) -> List[IdentityProviderBody]:
+        """
+        Returns the list of Identity Providers for the given tenant.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/identity/v3alpha1/identityproviders").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, IdentityProviderBody)
 
     def list_member_groups(self, member: str, orderby: str = None, page_size: int = None, page_token: str = None, query_params: Dict[str, object] = None) -> GroupList:
         """
@@ -699,6 +766,22 @@ class Identity(BaseService):
         response = self.base_client.delete(url, params=query_params)
         return handle_response(response, )
 
+    def reset_password(self, reset_password_body: ResetPasswordBody, query_params: Dict[str, object] = None) -> SSCVoidModel:
+        """
+        Sends an email which allows a principal to reset a forgotten password.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/system/identity/v3alpha1/reset-password").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = reset_password_body.to_dict()
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, )
+
     def revoke_principal_auth_tokens(self, principal: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
         Revoke all existing access tokens issued to a principal. Principals can reset their password by visiting https://login.splunk.com/en_us/page/lost_password
@@ -714,6 +797,40 @@ class Identity(BaseService):
         path = Template("/system/identity/v3alpha1/principals/${principal}/revoke").substitute(path_params)
         url = self.base_client.build_url(path)
         response = self.base_client.post(url, params=query_params)
+        return handle_response(response, )
+
+    def update_identity_provider(self, idp: str, identity_provider_config_body: IdentityProviderConfigBody, query_params: Dict[str, object] = None) -> IdentityProviderBody:
+        """
+        Update the configuration for an Identity Provider.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "idp": idp,
+        }
+
+        path = Template("/identity/v3alpha1/identityproviders/${idp}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = identity_provider_config_body.to_dict()
+        response = self.base_client.put(url, json=data, params=query_params)
+        return handle_response(response, IdentityProviderBody)
+
+    def update_password(self, principal: str, update_password_body: UpdatePasswordBody, query_params: Dict[str, object] = None) -> SSCVoidModel:
+        """
+        Update principal password
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "principal": principal,
+        }
+
+        path = Template("/system/identity/v3alpha1/principals/${principal}/password").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = update_password_body.to_dict()
+        response = self.base_client.patch(url, json=data, params=query_params)
         return handle_response(response, )
 
     def update_principal_public_key(self, principal: str, key_id: str, principal_public_key_status_body: PrincipalPublicKeyStatusBody, query_params: Dict[str, object] = None) -> PrincipalPublicKey:

@@ -60,6 +60,20 @@ components:
       schema:
         default: 30
         type: integer
+    datasetid:
+      description: The dataset ID.
+      in: path
+      name: datasetid
+      required: true
+      schema:
+        type: string
+    filename:
+      description: |
+        The export results filename. Default: exportResults
+      in: query
+      name: filename
+      schema:
+        type: string
     offset:
       description: The index of the first item to return.
       in: query
@@ -67,6 +81,23 @@ components:
       schema:
         default: 0
         type: integer
+    outputMode:
+      description: |
+        Specifies the format for the returned output.
+      in: query
+      name: outputMode
+      schema:
+        enum:
+        - csv
+        - json
+        type: string
+    resourceName:
+      description: The resource name.
+      in: path
+      name: resourceName
+      required: true
+      schema:
+        type: string
     rsid:
       description: The recurring job ID.
       in: path
@@ -89,6 +120,150 @@ components:
       schema:
         type: string
   schemas:
+    Dataset:
+      allOf:
+      - $ref: '#/components/schemas/DatasetReadOnlyProperties'
+      description: A fully constructed dataset
+      properties:
+        appclientidcreatedby:
+          description: AppClinetId of the creator app of the dataset.
+          type: string
+        appclientidmodifiedby:
+          description: AppClinetId of the modifier app of the dataset.
+          type: string
+        caseSensitiveMatch:
+          default: true
+          description: Match case-sensitively against the lookup.
+          type: boolean
+        description:
+          description: Detailed description of the dataset.
+          type: string
+        disabled:
+          description: Specifies whether or not the Splunk index is disabled.
+          type: boolean
+        earliestEventTime:
+          description: The timestamp, in seconds, of the earliest measure. The timestamp
+            is in UNIX time.
+          type: string
+        earliestIngestTime:
+          description: The earliest index time for any of the measures in this index.
+          type: string
+        externalKind:
+          description: The dataset kind.
+          enum:
+          - lookup
+          type: string
+        externalName:
+          description: The name of the external lookup.
+          example: nameOfKvCollection
+          type: string
+        fields:
+          description: The fields to be associated with this dataset.
+          items:
+            $ref: '#/components/schemas/Field'
+          type: array
+        filter:
+          description: A query that filters results out of the lookup before those
+            results are returned.
+          type: string
+        frozenTimePeriodInSecs:
+          description: The frozenTimePeriodInSecs to use for the index
+          type: integer
+        id:
+          description: A unique dataset ID.
+          example: 5bbf6d876d059d0b9ea8da3e
+          format: mongo-object-id
+          maxLength: 24
+          minLength: 24
+          type: string
+        internalname:
+          description: The dataset name qualified by the module name, primarily used
+            to distinguish between index/metric versus other datasets. Index/metric
+            datasets have a distinct underscore separator (_____) between name and
+            module. Internal use only.
+          example: nameOfModule_____nameOfDataset
+          readOnly: true
+          type: string
+        kind:
+          description: The dataset kind.
+          enum:
+          - kvcollection
+          - lookup
+          - metric
+          - index
+          type: string
+        latestEventTime:
+          description: The timestamp, in seconds, of the latest measure. The timestamp
+            is in UNIX time.
+          type: string
+        latestIngestTime:
+          description: The earliest index time for any of the measures in this index.
+          type: string
+        latestMetadataUpdateTime:
+          description: The latest time that the metric index metadata was refreshed.
+          type: string
+        module:
+          description: The name of the module that contains the dataset.
+          example: nameOfModule
+          maxLength: 100
+          type: string
+        name:
+          description: The dataset name. Dataset names must be unique within each
+            module.
+          example: nameOfDataset
+          maxLength: 100
+          type: string
+        resourcename:
+          description: The dataset name qualified by the module name.
+          example: nameOfModule.nameOfDataset
+          maxLength: 201
+          type: string
+        summary:
+          description: Summary of the dataset's purpose.
+          type: string
+        title:
+          description: The title of the dataset.  Does not have to be unique.
+          example: titleOfDataset
+          type: string
+        totalEventCount:
+          description: THe number of measures in the metric index.
+          type: integer
+        totalSize:
+          description: For metrics indexes, the totalSize is set to 0.
+          type: integer
+        version:
+          description: The catalog version.
+          minimum: 1
+          type: integer
+      type: object
+    DatasetReadOnlyProperties:
+      description: Properties of metric datasets which can only be read through the
+        API.
+      properties:
+        earliestEventTime:
+          description: The timestamp, in seconds, of the earliest measure. The timestamp
+            is in UNIX time.
+          type: string
+        earliestIngestTime:
+          description: The earliest index time for any of the measures in this index.
+          type: string
+        latestEventTime:
+          description: The timestamp, in seconds, of the latest measure. The timestamp
+            is in UNIX time.
+          type: string
+        latestIngestTime:
+          description: The earliest index time for any of the measures in this index.
+          type: string
+        latestMetadataUpdateTime:
+          description: The latest time that the metric index metadata was refreshed.
+          type: string
+        totalEventCount:
+          description: THe number of measures in the metric index.
+          type: integer
+        totalSize:
+          description: For metrics indexes, the totalSize is set to 0.
+          type: integer
+      type: object
     DeleteSearchJob:
       description: A fully-constructed delete search job, including read-only fields.
       properties:
@@ -157,7 +332,8 @@ components:
             $ref: '#/components/schemas/Message'
           type: array
         module:
-          description: The module to run the delete search job in. The default module is used if module field is empty.
+          description: The module to run the delete search job in. The default module
+            is used if module field is empty.
           type: string
         name:
           description: The name of the created search job.
@@ -166,25 +342,31 @@ components:
           type: string
         percentComplete:
           default: 0
-          description: An estimate of the percent of time remaining before the delete search job completes.
+          description: An estimate of the percent of time remaining before the delete
+            search job completes.
           readOnly: true
           type: integer
         predicate:
-          description: The predicate expression that identifies the events to delete from the index. This expression must return true or false. To delete all events from the index, specify "true" instead of an expression.
+          description: The predicate expression that identifies the events to delete
+            from the index. This expression must return true or false. To delete all
+            events from the index, specify "true" instead of an expression.
           type: string
         previewAvailable:
           default: false
-          description: This field does not apply to delete search jobs and is defaulted to false.
+          description: This field does not apply to delete search jobs and is defaulted
+            to false.
           readOnly: true
           type: string
         query:
-          description: The SPL search string that is generated based on index, module and predicate that are specified.
+          description: The SPL search string that is generated based on index, module
+            and predicate that are specified.
           readOnly: true
           type: string
         queryParameters:
           allOf:
           - $ref: '#/components/schemas/QueryParameters'
-          description: Represents parameters on the search job such as 'earliest' and 'latest'.
+          description: Represents parameters on the search job such as 'earliest'
+            and 'latest'.
         requiredFreshness:
           default: 0
           description: |
@@ -203,12 +385,14 @@ components:
           type: string
         resultsAvailable:
           default: 0
-          description: The number of results produced so far by the delete search job that are going to be deleted.
+          description: The number of results produced so far by the delete search
+            job that are going to be deleted.
           readOnly: true
           type: integer
         resultsPreviewAvailable:
           default: 0
-          description: This field does not apply to delete search jobs and is defaulted to 0.
+          description: This field does not apply to delete search jobs and is defaulted
+            to 0.
           readOnly: true
           type: integer
         sid:
@@ -233,6 +417,76 @@ components:
         message:
           type: string
       type: object
+    Field:
+      description: Initial property values for creating a new field using a POST request.
+      properties:
+        datasetid:
+          description: The dataset that the field is part of.
+          example: 5bc1a6fefee0d854a4188125
+          format: mongo-object-id
+          maxLength: 24
+          minLength: 24
+          type: string
+        datatype:
+          $ref: '#/components/schemas/FieldDataType'
+        description:
+          description: The field description.
+          example: Count of all the users in the request
+          type: string
+        fieldtype:
+          $ref: '#/components/schemas/FieldType'
+        id:
+          description: The unique ID of this field.
+          example: 5bc1a7a0fee0d854a418812e
+          format: mongo-object-id
+          maxLength: 24
+          minLength: 24
+          type: string
+        indexed:
+          description: Whether or not the field has been indexed.
+          type: boolean
+        name:
+          description: The field name.
+          example: nameOfField
+          maxLength: 100
+          type: string
+        prevalence:
+          $ref: '#/components/schemas/FieldPrevalence'
+        summary:
+          description: The field summary.
+          example: Count of the users
+          type: string
+        title:
+          description: The field title.
+          example: User Count
+          type: string
+      required:
+      - name
+      type: object
+    FieldDataType:
+      description: The type of data in the field. Must be one of the valid values.
+      enum:
+      - DATE
+      - NUMBER
+      - OBJECT_ID
+      - STRING
+      - UNKNOWN
+      type: string
+    FieldPrevalence:
+      description: How frequent the field appears in the dataset. Must be one of the
+        valid values.
+      enum:
+      - ALL
+      - SOME
+      - UNKNOWN
+      type: string
+    FieldType:
+      description: The type of field. Must be one of the valid values.
+      enum:
+      - DIMENSION
+      - MEASURE
+      - UNKNOWN
+      type: string
     FieldsSummary:
       description: |
         Fields statistics summary model of the events to-date for  search ID (sid).
@@ -356,6 +610,29 @@ components:
           - FATAL
           - ERROR
           type: string
+    Module:
+      description: A fully constructed module
+      properties:
+        created:
+          description: The timestamp when the module was created
+          type: string
+        createdby:
+          description: The user who created the module
+          type: string
+        definition:
+          description: The definition of the module
+          type: string
+        name:
+          description: The name of the module
+          example: namesdbc
+          maxLength: 100
+          type: string
+        namespace:
+          description: The namespace of the module
+          example: namespacefbc
+          maxLength: 100
+          type: string
+      type: object
     QueryParameters:
       description: |
         Represents parameters on the search job, such as  'earliest' and 'latest'.
@@ -589,14 +866,17 @@ components:
       - query
       type: object
     SearchModule:
-      description: A fully-constructed multi-statement Module, including read-only fields.
+      description: A fully-constructed multi-statement Module, including read-only
+        fields.
       properties:
         module:
-          description: Multi-statement module with inter-dependencies between statements. Statements are separated by semicolons.
+          description: Multi-statement module with inter-dependencies between statements.
+            Statements are separated by semicolons.
           type: string
         namespace:
           default: ""
-          description: The namespace to run the search in. The default namespace is used if a namespace is not specified.
+          description: The namespace to run the search in. The default namespace is
+            used if a namespace is not specified.
           type: string
         queryParameters:
           additionalProperties:
@@ -845,17 +1125,154 @@ components:
       scheme: basic
       type: http
 info:
-  description: Use the Search service in Splunk Cloud Services to dispatch, review, and manage searches and search jobs. You can finalize or cancel jobs, retrieve search results, and request search-related configurations from the Metadata Catalog service in Splunk Cloud Services.
+  description: Use the Search service in Splunk Cloud Services to dispatch, review,
+    and manage searches and search jobs. You can finalize or cancel jobs, retrieve
+    search results, and request search-related configurations from the Metadata Catalog
+    service in Splunk Cloud Services.
   title: Splunk Search service
   version: v3alpha1
 openapi: 3.0.0
 paths:
+  /{tenant}/search/v2beta1/jobs/{sid}/export:
+    get:
+      description: Export the search results for the job with the specified search
+        ID (SID). Export the results as a csv file or json file.
+      operationId: exportResults
+      parameters:
+      - $ref: '#/components/parameters/tenant'
+      - $ref: '#/components/parameters/sid'
+      - $ref: '#/components/parameters/count'
+      - $ref: '#/components/parameters/filename'
+      - $ref: '#/components/parameters/outputMode'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+            text/csv:
+              schema:
+                type: string
+          description: Export the search results in csv or json format
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn’t authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "500":
+          description: An internal service error occurred.
+  /{tenant}/search/v3alpha1/datasets:
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/AuthorizationHeader'
+    post:
+      description: Creates a dataset.
+      operationId: createDataset
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dataset'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dataset'
+          description: The dataset was created successfully.
+        "400":
+          description: The request isn’t valid.
+        "401":
+          description: The user isn’t authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "500":
+          description: An internal service error occurred.
+  /{tenant}/search/v3alpha1/datasets/{datasetid}:
+    delete:
+      description: |
+        Deletes a dataset with a  specified dataset ID (datasetid).
+      operationId: deleteDatasetById
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dataset'
+          description: |
+            The dataset with the specified  dataset ID (datasetid) was deleted successfully.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "500":
+          description: An internal service error occurred.
+    get:
+      description: |
+        Returns a dataset with a specified  dataset ID (datasetid).
+      operationId: getDatasetById
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dataset'
+          description: |
+            The search job information for the specified  datatset ID (datasetid) was returned successfully.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "500":
+          description: An internal service error occurred.
+    parameters:
+    - $ref: '#/components/parameters/AuthorizationHeader'
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/datasetid'
+    patch:
+      description: |
+        Modifies a dataset with a specified  dataset ID (datasetid).
+      operationId: updateDatasetById
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dataset'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dataset'
+          description: The dataset was modified successfully.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "500":
+          description: An internal service error occurred.
   /{tenant}/search/v3alpha1/dispatch:
     parameters:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/AuthorizationHeader'
     post:
-      description: Create a multi-statement module with inter-dependencies between statements.
+      description: Create a multi-statement module with inter-dependencies between
+        statements.
       operationId: createSearchStatements
       requestBody:
         content:
@@ -876,9 +1293,12 @@ paths:
         "403":
           description: The operation isn't authorized.
         "412":
-          description: The precondition check failed. The search contains commands, thru or into, that have side effects. However, the 'allowSideEffects' query parameter is set to false.
+          description: The precondition check failed. The search contains commands,
+            thru or into, that have side effects. However, the 'allowSideEffects'
+            query parameter is set to false.
         "429":
-          description: Too many requests were sent. The limit for the maximum number of concurrent searches was reached.
+          description: Too many requests were sent. The limit for the maximum number
+            of concurrent searches was reached.
         "500":
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/jobs:
@@ -932,7 +1352,9 @@ paths:
         "403":
           description: The operation isn't authorized.
         "412":
-          description: The precondition check failed. The search query contains commands, thru or into, that have side effects. However, the 'allowSideEffects' query parameter is set to false.
+          description: The precondition check failed. The search query contains commands,
+            thru or into, that have side effects. However, the 'allowSideEffects'
+            query parameter is set to false.
         "429":
           description: Too many requests were sent.
         "500":
@@ -1003,7 +1425,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListSearchResultsResponse'
-          description: The list of search results was returned successfully. Any results that are ready have been returned. If there are additional results, a 'nextLink' URL is provided.
+          description: The list of search results was returned successfully. Any results
+            that are ready have been returned. If there are additional results, a
+            'nextLink' URL is provided.
         "400":
           description: The request isn't valid.
         "401":
@@ -1016,7 +1440,8 @@ paths:
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/jobs/{sid}/results-preview:
     get:
-      description: Return the preview search results for the job with the specified search ID (SID). Can be used when a job is running to return interim results.
+      description: Return the preview search results for the job with the specified
+        search ID (SID). Can be used when a job is running to return interim results.
       operationId: listPreviewResults
       parameters:
       - $ref: '#/components/parameters/tenant'
@@ -1029,9 +1454,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListPreviewResultsResponse'
-          description: The results preview was returned successfully. If there are additional results, a 'nextLink' URL is provided.
+          description: The results preview was returned successfully. If there are
+            additional results, a 'nextLink' URL is provided.
         "204":
-          description: The results preview was returned successfully, but there is no response content.
+          description: The results preview was returned successfully, but there is
+            no response content.
         "400":
           description: The request isn't valid.
         "401":
@@ -1062,7 +1489,8 @@ paths:
                 $ref: '#/components/schemas/ListSearchResultsResponse'
           description: The events summary was returned successfully.
         "204":
-          description: The events summary was returned successfully, but there is no response content.
+          description: The events summary was returned successfully, but there is
+            no response content.
         "400":
           description: The request isn't valid.
         "401":
@@ -1075,7 +1503,8 @@ paths:
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/jobs/{sid}/timeline-metadata/auto/fields-summary:
     get:
-      description: Return fields stats summary of the events to-date, for search ID (SID) search.
+      description: Return fields stats summary of the events to-date, for search ID
+        (SID) search.
       operationId: listFieldsSummary
       parameters:
       - $ref: '#/components/parameters/tenant'
@@ -1090,7 +1519,8 @@ paths:
                 $ref: '#/components/schemas/FieldsSummary'
           description: The fields summary was returned successfully.
         "204":
-          description: The fields summary was returned successfully, but there is no response content.
+          description: The fields summary was returned successfully, but there is
+            no response content.
         "400":
           description: The request isn't valid.
         "401":
@@ -1103,7 +1533,8 @@ paths:
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/jobs/{sid}/timeline-metadata/auto/time-buckets:
     get:
-      description: Returns an event distribution over time of the untransformed events that are read to-date for a job with a specified search ID (sid).
+      description: Returns an event distribution over time of the untransformed events
+        that are read to-date for a job with a specified search ID (sid).
       operationId: listTimeBuckets
       parameters:
       - $ref: '#/components/parameters/tenant'
@@ -1116,7 +1547,8 @@ paths:
                 $ref: '#/components/schemas/TimeBucketsSummary'
           description: The timeline buckets were returned successfully.
         "204":
-          description: The timeline buckets were returned successfully, but there is no response content.
+          description: The timeline buckets were returned successfully, but there
+            is no response content.
         "400":
           description: The request isn't valid.
         "401":
@@ -1155,37 +1587,6 @@ paths:
           description: The operation isn't authorized.
         "404":
           description: The resource wasn't found.
-        "500":
-          description: An internal service error occurred.
-  /{tenant}/search/v3alpha1/multisearch:
-    parameters:
-    - $ref: '#/components/parameters/tenant'
-    - $ref: '#/components/parameters/AuthorizationHeader'
-    post:
-      description: Create a multi-statement module with inter-dependencies between statements.
-      operationId: createMultiSearch
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SearchModule'
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SearchModule'
-          description: The search jobs were created successfully.
-        "400":
-          description: The request isn’t valid.
-        "401":
-          description: The user isn’t authenticated.
-        "403":
-          description: The operation isn't authorized.
-        "412":
-          description: The precondition check failed. The search contains commands, thru or into, that have side effects. However, the 'allowSideEffects' query parameter is set to false.
-        "429":
-          description: Too many requests were sent. The limit for the maximum number of concurrent searches was reached.
         "500":
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/recurring-searches:
@@ -1236,7 +1637,9 @@ paths:
         "409":
           description: The recurring search name already exists.
         "412":
-          description: The precondition check failed. The search query contains commands, thru or into, that have side effects. However, the 'allowSideEffects' query parameter is set to false.
+          description: The precondition check failed. The search query contains commands,
+            thru or into, that have side effects. However, the 'allowSideEffects'
+            query parameter is set to false.
         "429":
           description: Too many requests were sent.
         "500":
@@ -1371,5 +1774,102 @@ paths:
     - $ref: '#/components/parameters/AuthorizationHeader'
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/rsid'
+  /{tenant}/search/v3alpha1/spl2-modules:
+    get:
+      description: gets a list of modules.
+      operationId: listSpl2Modules
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Module'
+                type: array
+          description: The modules were retrieved successfully.
+        "400":
+          description: The request isn’t valid.
+        "401":
+          description: The user isn’t authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "500":
+          description: An internal service error occurred.
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/AuthorizationHeader'
+  /{tenant}/search/v3alpha1/spl2-modules/{resourceName}:
+    delete:
+      description: |
+        Deletes a module with a  specified resource name (resourceName).
+      operationId: deleteSpl2ModuleByResourceName
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+          description: |
+            The module with the specified  resource name (resourceName) was deleted successfully.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "500":
+          description: An internal service error occurred.
+    get:
+      description: |
+        Returns a module with a specified  resource name (resourceName).
+      operationId: getSpl2ModuleByResourceName
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+          description: |
+            The mdoule for the specified  resource name (resourceName) was returned successfully.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "500":
+          description: An internal service error occurred.
+    parameters:
+    - $ref: '#/components/parameters/AuthorizationHeader'
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/resourceName'
+    put:
+      description: |
+        Modifies/Creates a module with a specified  resource name (resourceName).
+      operationId: createSpl2Module
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Module'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+          description: The module was modified/created successfully.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "500":
+          description: An internal service error occurred.
 
-# Retrieved from scp-openapi commit 75824d71791e0b0bdf66dbcce7dd9dc1e7061407 path: search/v3alpha1/openapi.yaml
+# Retrieved from scp-openapi commit 3e10ab186559df6d0a5211cf734514cd53d79779 path: search/v3alpha1/openapi.yaml

@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Copyright © 2020 Splunk, Inc.
+# Copyright © 2021 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -34,10 +34,12 @@ from splunk_sdk.base_client import handle_response
 from splunk_sdk.base_service import BaseService
 from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
+from splunk_sdk.search.v3alpha1.gen_models import Dataset
 from splunk_sdk.search.v3alpha1.gen_models import DeleteSearchJob
 from splunk_sdk.search.v3alpha1.gen_models import FieldsSummary
 from splunk_sdk.search.v3alpha1.gen_models import ListPreviewResultsResponse
 from splunk_sdk.search.v3alpha1.gen_models import ListSearchResultsResponse
+from splunk_sdk.search.v3alpha1.gen_models import Module
 from splunk_sdk.search.v3alpha1.gen_models import RecurringSearch
 from splunk_sdk.search.v3alpha1.gen_models import SearchJob
 from splunk_sdk.search.v3alpha1.gen_models import SearchModule
@@ -57,6 +59,22 @@ class SplunkSearchService(BaseService):
     def __init__(self, base_client):
         super().__init__(base_client)
 
+    def create_dataset(self, dataset: Dataset = None, query_params: Dict[str, object] = None) -> Dataset:
+        """
+        Creates a dataset.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/search/v3alpha1/datasets").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = dataset.to_dict()
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, Dataset)
+
     def create_job(self, search_job: SearchJob = None, query_params: Dict[str, object] = None) -> SearchJob:
         """
         Creates a search job.
@@ -72,22 +90,6 @@ class SplunkSearchService(BaseService):
         data = search_job.to_dict()
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, SearchJob)
-
-    def create_multi_search(self, search_module: SearchModule = None, query_params: Dict[str, object] = None) -> SearchModule:
-        """
-        Create a multi-statement module with inter-dependencies between statements.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-        }
-
-        path = Template("/search/v3alpha1/multisearch").substitute(path_params)
-        url = self.base_client.build_url(path)
-        data = search_module.to_dict()
-        response = self.base_client.post(url, json=data, params=query_params)
-        return handle_response(response, SearchModule)
 
     def create_recurring_search(self, recurring_search: RecurringSearch = None, query_params: Dict[str, object] = None) -> RecurringSearch:
         """
@@ -120,6 +122,41 @@ class SplunkSearchService(BaseService):
         data = search_module.to_dict()
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, SearchModule)
+
+    def create_spl2_module(self, resource_name: str, module: Module = None, query_params: Dict[str, object] = None) -> Module:
+        """
+        Modifies/Creates a module with a specified  resource name (resourceName).
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "resourceName": resource_name,
+        }
+
+        path = Template("/search/v3alpha1/spl2-modules/${resourceName}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = module.to_dict()
+        response = self.base_client.put(url, json=data, params=query_params)
+        return handle_response(response, Module)
+
+    def delete_dataset_by_id(self, datasetid: str, query_params: Dict[str, object] = None) -> Dataset:
+        """
+        Deletes a dataset with a  specified dataset ID (datasetid).
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "datasetid": datasetid,
+        }
+
+        path = Template("/search/v3alpha1/datasets/${datasetid}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.delete(url, params=query_params)
+        return handle_response(response, Dataset)
 
     def delete_job(self, delete_search_job: DeleteSearchJob = None, query_params: Dict[str, object] = None) -> DeleteSearchJob:
         """
@@ -155,6 +192,45 @@ class SplunkSearchService(BaseService):
         response = self.base_client.delete(url, params=query_params)
         return handle_response(response, RecurringSearch)
 
+    def delete_spl2_module_by_resource_name(self, resource_name: str, query_params: Dict[str, object] = None) -> Module:
+        """
+        Deletes a module with a  specified resource name (resourceName).
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "resourceName": resource_name,
+        }
+
+        path = Template("/search/v3alpha1/spl2-modules/${resourceName}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.delete(url, params=query_params)
+        return handle_response(response, Module)
+
+    def export_results(self, sid: str, count: int = None, filename: str = None, output_mode: str = None, query_params: Dict[str, object] = None) -> object:
+        """
+        Export the search results for the job with the specified search ID (SID). Export the results as a csv file or json file.
+        """
+        if query_params is None:
+            query_params = {}
+        if count is not None:
+            query_params['count'] = count
+        if filename is not None:
+            query_params['filename'] = filename
+        if output_mode is not None:
+            query_params['outputMode'] = output_mode
+
+        path_params = {
+            "sid": sid,
+        }
+
+        path = Template("/search/v2beta1/jobs/${sid}/export").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, object)
+
     def get_all_jobs_for_recurring_search(self, rsid: str, count: int = None, query_params: Dict[str, object] = None) -> List[SearchJob]:
         """
         Returns all search jobs associated with a recurring search with a specified recurring search ID (rsid).
@@ -173,6 +249,23 @@ class SplunkSearchService(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, SearchJob)
+
+    def get_dataset_by_id(self, datasetid: str, query_params: Dict[str, object] = None) -> Dataset:
+        """
+        Returns a dataset with a specified  dataset ID (datasetid).
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "datasetid": datasetid,
+        }
+
+        path = Template("/search/v3alpha1/datasets/${datasetid}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, Dataset)
 
     def get_job(self, sid: str, query_params: Dict[str, object] = None) -> SearchJob:
         """
@@ -223,6 +316,23 @@ class SplunkSearchService(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, RecurringSearch)
+
+    def get_spl2_module_by_resource_name(self, resource_name: str, query_params: Dict[str, object] = None) -> Module:
+        """
+        Returns a module with a specified  resource name (resourceName).
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "resourceName": resource_name,
+        }
+
+        path = Template("/search/v3alpha1/spl2-modules/${resourceName}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, Module)
 
     def list_events_summary(self, sid: str, count: int = None, earliest: str = None, field: str = None, latest: str = None, offset: int = None, query_params: Dict[str, object] = None) -> ListSearchResultsResponse:
         """
@@ -348,6 +458,21 @@ class SplunkSearchService(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, ListSearchResultsResponse)
 
+    def list_spl2_modules(self, query_params: Dict[str, object] = None) -> List[Module]:
+        """
+        gets a list of modules.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/search/v3alpha1/spl2-modules").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, Module)
+
     def list_time_buckets(self, sid: str, query_params: Dict[str, object] = None) -> TimeBucketsSummary:
         """
         Returns an event distribution over time of the untransformed events that are read to-date for a job with a specified search ID (sid).
@@ -363,6 +488,24 @@ class SplunkSearchService(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, TimeBucketsSummary)
+
+    def update_dataset_by_id(self, datasetid: str, dataset: Dataset = None, query_params: Dict[str, object] = None) -> Dataset:
+        """
+        Modifies a dataset with a specified  dataset ID (datasetid).
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "datasetid": datasetid,
+        }
+
+        path = Template("/search/v3alpha1/datasets/${datasetid}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = dataset.to_dict()
+        response = self.base_client.patch(url, json=data, params=query_params)
+        return handle_response(response, Dataset)
 
     def update_job(self, sid: str, update_job: UpdateJob = None, query_params: Dict[str, object] = None) -> SearchJob:
         """

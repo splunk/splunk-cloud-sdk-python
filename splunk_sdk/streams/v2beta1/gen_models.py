@@ -1,4 +1,4 @@
-# Copyright © 2020 Splunk, Inc.
+# Copyright © 2021 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -382,6 +382,295 @@ class ConnectionRequest(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
+class Source(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "Source":
+        instance = Source.__new__(Source)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, arguments: "object" = None, connection_id: "str" = None, connector_id: "str" = None, create_date: "int" = None, create_user_id: "str" = None, data_stream_id: "str" = None, description: "str" = None, enabled: "bool" = None, id: "str" = None, last_update_date: "int" = None, last_update_user_id: "str" = None, name: "str" = None, parallelism: "int" = None, tenant_id: "str" = None, version: "int" = None, **extra):
+        """Source"""
+
+        self._attrs = dict()
+        if arguments is not None:
+            self._attrs["arguments"] = arguments
+        if connection_id is not None:
+            self._attrs["connectionId"] = connection_id
+        if connector_id is not None:
+            self._attrs["connectorId"] = connector_id
+        if create_date is not None:
+            self._attrs["createDate"] = create_date
+        if create_user_id is not None:
+            self._attrs["createUserId"] = create_user_id
+        if data_stream_id is not None:
+            self._attrs["dataStreamId"] = data_stream_id
+        if description is not None:
+            self._attrs["description"] = description
+        if enabled is not None:
+            self._attrs["enabled"] = enabled
+        if id is not None:
+            self._attrs["id"] = id
+        if last_update_date is not None:
+            self._attrs["lastUpdateDate"] = last_update_date
+        if last_update_user_id is not None:
+            self._attrs["lastUpdateUserId"] = last_update_user_id
+        if name is not None:
+            self._attrs["name"] = name
+        if parallelism is not None:
+            self._attrs["parallelism"] = parallelism
+        if tenant_id is not None:
+            self._attrs["tenantId"] = tenant_id
+        if version is not None:
+            self._attrs["version"] = version
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def arguments(self) -> "dict":
+        """ Gets the arguments of this Source.
+        """
+        return self._attrs.get("arguments")
+
+    @arguments.setter
+    def arguments(self, arguments: "dict"):
+        """Sets the arguments of this Source.
+
+
+        :param arguments: The arguments of this Source.
+        :type: object
+        """
+        self._attrs["arguments"] = arguments
+
+    @property
+    def connection_id(self) -> "str":
+        """ Gets the connection_id of this Source.
+        """
+        return self._attrs.get("connectionId")
+
+    @connection_id.setter
+    def connection_id(self, connection_id: "str"):
+        """Sets the connection_id of this Source.
+
+
+        :param connection_id: The connection_id of this Source.
+        :type: str
+        """
+        self._attrs["connectionId"] = connection_id
+
+    @property
+    def connector_id(self) -> "str":
+        """ Gets the connector_id of this Source.
+        """
+        return self._attrs.get("connectorId")
+
+    @connector_id.setter
+    def connector_id(self, connector_id: "str"):
+        """Sets the connector_id of this Source.
+
+
+        :param connector_id: The connector_id of this Source.
+        :type: str
+        """
+        self._attrs["connectorId"] = connector_id
+
+    @property
+    def create_date(self) -> "int":
+        """ Gets the create_date of this Source.
+        """
+        return self._attrs.get("createDate")
+
+    @create_date.setter
+    def create_date(self, create_date: "int"):
+        """Sets the create_date of this Source.
+
+
+        :param create_date: The create_date of this Source.
+        :type: int
+        """
+        self._attrs["createDate"] = create_date
+
+    @property
+    def create_user_id(self) -> "str":
+        """ Gets the create_user_id of this Source.
+        """
+        return self._attrs.get("createUserId")
+
+    @create_user_id.setter
+    def create_user_id(self, create_user_id: "str"):
+        """Sets the create_user_id of this Source.
+
+
+        :param create_user_id: The create_user_id of this Source.
+        :type: str
+        """
+        self._attrs["createUserId"] = create_user_id
+
+    @property
+    def data_stream_id(self) -> "str":
+        """ Gets the data_stream_id of this Source.
+        """
+        return self._attrs.get("dataStreamId")
+
+    @data_stream_id.setter
+    def data_stream_id(self, data_stream_id: "str"):
+        """Sets the data_stream_id of this Source.
+
+
+        :param data_stream_id: The data_stream_id of this Source.
+        :type: str
+        """
+        self._attrs["dataStreamId"] = data_stream_id
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this Source.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this Source.
+
+
+        :param description: The description of this Source.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def enabled(self) -> "bool":
+        """ Gets the enabled of this Source.
+        """
+        return self._attrs.get("enabled")
+
+    @enabled.setter
+    def enabled(self, enabled: "bool"):
+        """Sets the enabled of this Source.
+
+
+        :param enabled: The enabled of this Source.
+        :type: bool
+        """
+        self._attrs["enabled"] = enabled
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this Source.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this Source.
+
+
+        :param id: The id of this Source.
+        :type: str
+        """
+        self._attrs["id"] = id
+
+    @property
+    def last_update_date(self) -> "int":
+        """ Gets the last_update_date of this Source.
+        """
+        return self._attrs.get("lastUpdateDate")
+
+    @last_update_date.setter
+    def last_update_date(self, last_update_date: "int"):
+        """Sets the last_update_date of this Source.
+
+
+        :param last_update_date: The last_update_date of this Source.
+        :type: int
+        """
+        self._attrs["lastUpdateDate"] = last_update_date
+
+    @property
+    def last_update_user_id(self) -> "str":
+        """ Gets the last_update_user_id of this Source.
+        """
+        return self._attrs.get("lastUpdateUserId")
+
+    @last_update_user_id.setter
+    def last_update_user_id(self, last_update_user_id: "str"):
+        """Sets the last_update_user_id of this Source.
+
+
+        :param last_update_user_id: The last_update_user_id of this Source.
+        :type: str
+        """
+        self._attrs["lastUpdateUserId"] = last_update_user_id
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this Source.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this Source.
+
+
+        :param name: The name of this Source.
+        :type: str
+        """
+        self._attrs["name"] = name
+
+    @property
+    def parallelism(self) -> "int":
+        """ Gets the parallelism of this Source.
+        """
+        return self._attrs.get("parallelism")
+
+    @parallelism.setter
+    def parallelism(self, parallelism: "int"):
+        """Sets the parallelism of this Source.
+
+
+        :param parallelism: The parallelism of this Source.
+        :type: int
+        """
+        self._attrs["parallelism"] = parallelism
+
+    @property
+    def tenant_id(self) -> "str":
+        """ Gets the tenant_id of this Source.
+        """
+        return self._attrs.get("tenantId")
+
+    @tenant_id.setter
+    def tenant_id(self, tenant_id: "str"):
+        """Sets the tenant_id of this Source.
+
+
+        :param tenant_id: The tenant_id of this Source.
+        :type: str
+        """
+        self._attrs["tenantId"] = tenant_id
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this Source.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this Source.
+
+
+        :param version: The version of this Source.
+        :type: int
+        """
+        self._attrs["version"] = version
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
 class ConnectionVersionResponse(SSCModel):
 
     @staticmethod
@@ -517,12 +806,14 @@ class ConnectionResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, active_pipelines_using: "List[object]" = None, connector_id: "str" = None, connector_name: "str" = None, create_date: "int" = None, create_user_id: "str" = None, id: "str" = None, last_update_date: "int" = None, last_update_user_id: "str" = None, versions: "List[ConnectionVersionResponse]" = None, **extra):
+    def __init__(self, active_pipelines_using: "List[object]" = None, active_sources_using: "List[Source]" = None, connector_id: "str" = None, connector_name: "str" = None, create_date: "int" = None, create_user_id: "str" = None, id: "str" = None, last_update_date: "int" = None, last_update_user_id: "str" = None, versions: "List[ConnectionVersionResponse]" = None, **extra):
         """ConnectionResponse"""
 
         self._attrs = dict()
         if active_pipelines_using is not None:
             self._attrs["activePipelinesUsing"] = active_pipelines_using
+        if active_sources_using is not None:
+            self._attrs["activeSourcesUsing"] = active_sources_using
         if connector_id is not None:
             self._attrs["connectorId"] = connector_id
         if connector_name is not None:
@@ -557,6 +848,22 @@ class ConnectionResponse(SSCModel):
         :type: List[object]
         """
         self._attrs["activePipelinesUsing"] = active_pipelines_using
+
+    @property
+    def active_sources_using(self) -> "List[Source]":
+        """ Gets the active_sources_using of this ConnectionResponse.
+        """
+        return [Source._from_dict(i) for i in self._attrs.get("activeSourcesUsing")]
+
+    @active_sources_using.setter
+    def active_sources_using(self, active_sources_using: "List[Source]"):
+        """Sets the active_sources_using of this ConnectionResponse.
+
+
+        :param active_sources_using: The active_sources_using of this ConnectionResponse.
+        :type: List[Source]
+        """
+        self._attrs["activeSourcesUsing"] = active_sources_using
 
     @property
     def connector_id(self) -> "str":

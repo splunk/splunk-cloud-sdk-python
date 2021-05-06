@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Copyright © 2020 Splunk, Inc.
+# Copyright © 2021 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -39,9 +39,6 @@ from splunk_sdk.streams.v3beta1.gen_models import ConnectionPatchRequest
 from splunk_sdk.streams.v3beta1.gen_models import ConnectionPutRequest
 from splunk_sdk.streams.v3beta1.gen_models import ConnectionRequest
 from splunk_sdk.streams.v3beta1.gen_models import ConnectionSaveResponse
-from splunk_sdk.streams.v3beta1.gen_models import DataStream
-from splunk_sdk.streams.v3beta1.gen_models import DataStreamRequest
-from splunk_sdk.streams.v3beta1.gen_models import DataStreamResponse
 from splunk_sdk.streams.v3beta1.gen_models import DeactivatePipelineRequest
 from splunk_sdk.streams.v3beta1.gen_models import DecompileRequest
 from splunk_sdk.streams.v3beta1.gen_models import DecompileResponse
@@ -138,22 +135,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, ConnectionSaveResponse)
 
-    def create_data_stream(self, data_stream_request: DataStreamRequest, query_params: Dict[str, object] = None) -> DataStreamResponse:
-        """
-        Creates a data stream for a tenant.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-        }
-
-        path = Template("/streams/v3beta1/datastreams").substitute(path_params)
-        url = self.base_client.build_url(path)
-        data = data_stream_request.to_dict()
-        response = self.base_client.post(url, json=data, params=query_params)
-        return handle_response(response, DataStreamResponse)
-
     def create_pipeline(self, pipeline_request: PipelineRequest, query_params: Dict[str, object] = None) -> PipelineResponse:
         """
         Creates a pipeline.
@@ -235,22 +216,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.delete(url, params=query_params)
         return handle_response(response, )
 
-    def delete_data_stream(self, id: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
-        """
-        Deletes a data stream for a tenant.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "id": id,
-        }
-
-        path = Template("/streams/v3beta1/datastreams/${id}").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.delete(url, params=query_params)
-        return handle_response(response, )
-
     def delete_file(self, file_id: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
         Delete file.
@@ -314,22 +279,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.delete(url, params=query_params)
         return handle_response(response, )
-
-    def describe_data_stream(self, id: str, query_params: Dict[str, object] = None) -> DataStreamResponse:
-        """
-        Describes a data stream for a tenant.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "id": id,
-        }
-
-        path = Template("/streams/v3beta1/datastreams/${id}").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.get(url, params=query_params)
-        return handle_response(response, DataStreamResponse)
 
     def get_file_metadata(self, file_id: str, query_params: Dict[str, object] = None) -> UploadFileResponse:
         """
@@ -641,29 +590,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, PaginatedResponseOfConnectorResponse)
 
-    def list_data_streams(self, offset: int = None, page_size: int = None, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> List[DataStreamResponse]:
-        """
-        Returns a list of datastreams for a tenant.
-        """
-        if query_params is None:
-            query_params = {}
-        if offset is not None:
-            query_params['offset'] = offset
-        if page_size is not None:
-            query_params['pageSize'] = page_size
-        if sort_dir is not None:
-            query_params['sortDir'] = sort_dir
-        if sort_field is not None:
-            query_params['sortField'] = sort_field
-
-        path_params = {
-        }
-
-        path = Template("/streams/v3beta1/datastreams").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.get(url, params=query_params)
-        return handle_response(response, DataStreamResponse)
-
     def list_pipelines(self, activated: bool = None, create_user_id: str = None, include_data: bool = None, name: str = None, offset: int = None, page_size: int = None, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> PaginatedResponseOfPipelineResponse:
         """
         Returns all pipelines.
@@ -835,23 +761,6 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.patch(url, json=data, params=query_params)
         return handle_response(response, ConnectionSaveResponse)
 
-    def update_data_stream(self, id: str, data_stream_request: DataStreamRequest, query_params: Dict[str, object] = None) -> DataStream:
-        """
-        Patches an existing data stream for a tenant.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "id": id,
-        }
-
-        path = Template("/streams/v3beta1/datastreams/${id}").substitute(path_params)
-        url = self.base_client.build_url(path)
-        data = data_stream_request.to_dict()
-        response = self.base_client.patch(url, json=data, params=query_params)
-        return handle_response(response, DataStream)
-
     def update_pipeline(self, id: str, pipeline_request: PipelineRequest, query_params: Dict[str, object] = None) -> PipelineResponse:
         """
         Updates an existing pipeline.
@@ -885,6 +794,44 @@ class DataStreamProcessingRESTAPI(BaseService):
         data = template_patch_request.to_dict()
         response = self.base_client.patch(url, json=data, params=query_params)
         return handle_response(response, TemplateResponse)
+
+    def upload_file(self, file: str = None, query_params: Dict[str, object] = None) -> UploadFileResponse:
+        """
+        Upload new file.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/streams/v3beta1/files").substitute(path_params)
+        url = self.base_client.build_url(path)
+
+        # handle file
+        files = {'upfile': open(file, 'rb')}
+        response = self.base_client.post(url, files=files)
+
+        return handle_response(response, UploadFileResponse)
+
+    def upload_lookup_file(self, file: str = None, query_params: Dict[str, object] = None) -> UploadFileResponse:
+        """
+        Upload new lookup file.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/streams/v3beta1/lookups/files").substitute(path_params)
+        url = self.base_client.build_url(path)
+
+        # handle file
+        files = {'upfile': open(file, 'rb')}
+        response = self.base_client.post(url, files=files)
+
+        return handle_response(response, UploadFileResponse)
 
     def validate_pipeline(self, validate_request: ValidateRequest, query_params: Dict[str, object] = None) -> ValidateResponse:
         """
