@@ -1,6 +1,6 @@
 # Splunk Cloud SDK for Python Changelog
 
-## Version 
+## Version 12.0.0-beta2
 #### Breaking Changes
 
 ##### Features
