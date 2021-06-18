@@ -107,8 +107,8 @@ def test_pkce_requests_hook():
 
     PKCEAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST'),
                     client_id=os.environ.get('SPLUNK_APP_CLIENT_ID'),
-                    username=os.environ.get('SPLUNK_USERNAME'),
-                    password=os.environ.get('SPLUNK_PASSWORD'),
+                    username=os.environ.get('TEST_USERNAME'),
+                    password=os.environ.get('TEST_PASSWORD'),
                     redirect_uri=os.environ.get('SPLUNK_REDIRECT_URL'),
                     requests_hooks=[test_hook]).authenticate()
     assert len(responses) == 4
@@ -135,8 +135,8 @@ def test_pkce_no_list_hooks():
 
     PKCEAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST'),
                     client_id=os.environ.get('SPLUNK_APP_CLIENT_ID'),
-                    username=os.environ.get('SPLUNK_USERNAME'),
-                    password=os.environ.get('SPLUNK_PASSWORD'),
+                    username=os.environ.get('TEST_USERNAME'),
+                    password=os.environ.get('TEST_PASSWORD'),
                     redirect_uri=os.environ.get('SPLUNK_REDIRECT_URL'),
                     requests_hooks=test_hook).authenticate()
     assert hook_called
@@ -164,8 +164,8 @@ def test_pkce_manager_no_list_hooks():
 
     PKCEAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST'),
                     client_id=os.environ.get('SPLUNK_APP_CLIENT_ID'),
-                    username=os.environ.get('SPLUNK_USERNAME'),
-                    password=os.environ.get('SPLUNK_PASSWORD'),
+                    username=os.environ.get('TEST_USERNAME'),
+                    password=os.environ.get('TEST_PASSWORD'),
                     redirect_uri=os.environ.get('SPLUNK_REDIRECT_URL'),
                     requests_hooks=test_hook).authenticate()
     assert hook_called

@@ -170,8 +170,8 @@ def get_service_principal_auth_manager():
 def _get_pkce_manager():
     return PKCEAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST'),
                            client_id=os.environ.get('SPLUNK_APP_CLIENT_ID'),
-                           username=os.environ.get('SPLUNK_USERNAME'),
-                           password=os.environ.get('SPLUNK_PASSWORD'),
+                           username=os.environ.get('TEST_USERNAME'),
+                           password=os.environ.get('TEST_PASSWORD'),
                            redirect_uri=os.environ.get('SPLUNK_REDIRECT_URL'))
 
 
