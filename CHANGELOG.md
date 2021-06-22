@@ -1,5 +1,42 @@
 # Splunk Cloud SDK for Python Changelog
 
+## Version 12.0.0-beta2
+#### Breaking Changes
+
+##### Features
+
+* Identity service: `use_default_idp` optional property was removed from `Tenant` model in v2beta1 and v3
+
+
+* Ingest service:
+ 
+     - `post_collector_raw` and `post_collector_rawV1` APIs were removed from v1beta2
+    
+
+* Search service: 
+    - renamed API of `create_multi_search` to `create_job` in v3alpha1
+
+* Streams service: `create_data_stream`, `delete_data_stream`, `describe_data_stream`, `list_data_streams`, and `update_data_stream` APIs were removed in v3beta1
+
+
+#### Non-Breaking Changes
+
+* Search service: 
+    - updated to target v2 endpoints (previously v2beta1) including new endpoint of `exportResults`
+    - added new APIs of `create_spl2_module`, `delete_dataset_by_id`, `get_dataset_by_id`, `get_spl2_module_by_resource_name`, `update_dataset_by_id`, `list_spl2_modules` in v3alpha1
+
+
+* Ingest service:
+    - added new API of `upload_files` in v1beta2
+
+* Identity service: 
+     - added new APIs of `create_identity_provider`, `delete_identity_provider`, `get_identity_provider`, `list_identity_provider`, and `update_identity_provider` in v2beta1 and v3
+
+     - New optional property `accept_tos` for `CreatePrincipalProfile` was added in v2beta1 and v3 and v3alpha1
+
+
+* Streams service: Added new APIs of `upload_file` and `upload_lookup_file`
+
 ## Version 12.0.0-beta1
 Add Multi-cell support to api and auth endpoints.
 
