@@ -38,5 +38,5 @@ from splunk_sdk.kvstore.v1beta1.gen_models import ErrorResponse, \
     IndexFieldDefinition, \
     IndexDefinition, \
     IndexDescription, \
-    Key, \
-    PingResponse
+    PingResponse, \
+    Record

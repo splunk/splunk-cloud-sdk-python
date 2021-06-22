@@ -463,48 +463,336 @@ class Source(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, node: "str" = None, pipeline_version: "str" = None, **extra):
+    def __init__(self, arguments: "object" = None, connection_id: "str" = None, connection_version: "int" = None, connector_id: "str" = None, create_date: "int" = None, create_user_id: "str" = None, data_stream_id: "str" = None, description: "str" = None, enabled: "bool" = None, event_attributes: "object" = None, id: "str" = None, last_update_date: "int" = None, last_update_user_id: "str" = None, name: "str" = None, parallelism: "int" = None, schedule: "str" = None, tenant_id: "str" = None, version: "int" = None, **extra):
         """Source"""
 
         self._attrs = dict()
-        if node is not None:
-            self._attrs["node"] = node
-        if pipeline_version is not None:
-            self._attrs["pipelineVersion"] = pipeline_version
+        if arguments is not None:
+            self._attrs["arguments"] = arguments
+        if connection_id is not None:
+            self._attrs["connectionId"] = connection_id
+        if connection_version is not None:
+            self._attrs["connectionVersion"] = connection_version
+        if connector_id is not None:
+            self._attrs["connectorId"] = connector_id
+        if create_date is not None:
+            self._attrs["createDate"] = create_date
+        if create_user_id is not None:
+            self._attrs["createUserId"] = create_user_id
+        if data_stream_id is not None:
+            self._attrs["dataStreamId"] = data_stream_id
+        if description is not None:
+            self._attrs["description"] = description
+        if enabled is not None:
+            self._attrs["enabled"] = enabled
+        if event_attributes is not None:
+            self._attrs["eventAttributes"] = event_attributes
+        if id is not None:
+            self._attrs["id"] = id
+        if last_update_date is not None:
+            self._attrs["lastUpdateDate"] = last_update_date
+        if last_update_user_id is not None:
+            self._attrs["lastUpdateUserId"] = last_update_user_id
+        if name is not None:
+            self._attrs["name"] = name
+        if parallelism is not None:
+            self._attrs["parallelism"] = parallelism
+        if schedule is not None:
+            self._attrs["schedule"] = schedule
+        if tenant_id is not None:
+            self._attrs["tenantId"] = tenant_id
+        if version is not None:
+            self._attrs["version"] = version
         for k, v in extra.items():
             self._attrs[k] = v
 
     @property
-    def node(self) -> "str":
-        """ Gets the node of this Source.
+    def arguments(self) -> "dict":
+        """ Gets the arguments of this Source.
         """
-        return self._attrs.get("node")
+        return self._attrs.get("arguments")
 
-    @node.setter
-    def node(self, node: "str"):
-        """Sets the node of this Source.
+    @arguments.setter
+    def arguments(self, arguments: "dict"):
+        """Sets the arguments of this Source.
 
 
-        :param node: The node of this Source.
-        :type: str
+        :param arguments: The arguments of this Source.
+        :type: object
         """
-        self._attrs["node"] = node
+        self._attrs["arguments"] = arguments
 
     @property
-    def pipeline_version(self) -> "str":
-        """ Gets the pipeline_version of this Source.
+    def connection_id(self) -> "str":
+        """ Gets the connection_id of this Source.
         """
-        return self._attrs.get("pipelineVersion")
+        return self._attrs.get("connectionId")
 
-    @pipeline_version.setter
-    def pipeline_version(self, pipeline_version: "str"):
-        """Sets the pipeline_version of this Source.
+    @connection_id.setter
+    def connection_id(self, connection_id: "str"):
+        """Sets the connection_id of this Source.
 
 
-        :param pipeline_version: The pipeline_version of this Source.
+        :param connection_id: The connection_id of this Source.
         :type: str
         """
-        self._attrs["pipelineVersion"] = pipeline_version
+        self._attrs["connectionId"] = connection_id
+
+    @property
+    def connection_version(self) -> "int":
+        """ Gets the connection_version of this Source.
+        """
+        return self._attrs.get("connectionVersion")
+
+    @connection_version.setter
+    def connection_version(self, connection_version: "int"):
+        """Sets the connection_version of this Source.
+
+
+        :param connection_version: The connection_version of this Source.
+        :type: int
+        """
+        self._attrs["connectionVersion"] = connection_version
+
+    @property
+    def connector_id(self) -> "str":
+        """ Gets the connector_id of this Source.
+        """
+        return self._attrs.get("connectorId")
+
+    @connector_id.setter
+    def connector_id(self, connector_id: "str"):
+        """Sets the connector_id of this Source.
+
+
+        :param connector_id: The connector_id of this Source.
+        :type: str
+        """
+        self._attrs["connectorId"] = connector_id
+
+    @property
+    def create_date(self) -> "int":
+        """ Gets the create_date of this Source.
+        """
+        return self._attrs.get("createDate")
+
+    @create_date.setter
+    def create_date(self, create_date: "int"):
+        """Sets the create_date of this Source.
+
+
+        :param create_date: The create_date of this Source.
+        :type: int
+        """
+        self._attrs["createDate"] = create_date
+
+    @property
+    def create_user_id(self) -> "str":
+        """ Gets the create_user_id of this Source.
+        """
+        return self._attrs.get("createUserId")
+
+    @create_user_id.setter
+    def create_user_id(self, create_user_id: "str"):
+        """Sets the create_user_id of this Source.
+
+
+        :param create_user_id: The create_user_id of this Source.
+        :type: str
+        """
+        self._attrs["createUserId"] = create_user_id
+
+    @property
+    def data_stream_id(self) -> "str":
+        """ Gets the data_stream_id of this Source.
+        """
+        return self._attrs.get("dataStreamId")
+
+    @data_stream_id.setter
+    def data_stream_id(self, data_stream_id: "str"):
+        """Sets the data_stream_id of this Source.
+
+
+        :param data_stream_id: The data_stream_id of this Source.
+        :type: str
+        """
+        self._attrs["dataStreamId"] = data_stream_id
+
+    @property
+    def description(self) -> "str":
+        """ Gets the description of this Source.
+        """
+        return self._attrs.get("description")
+
+    @description.setter
+    def description(self, description: "str"):
+        """Sets the description of this Source.
+
+
+        :param description: The description of this Source.
+        :type: str
+        """
+        self._attrs["description"] = description
+
+    @property
+    def enabled(self) -> "bool":
+        """ Gets the enabled of this Source.
+        """
+        return self._attrs.get("enabled")
+
+    @enabled.setter
+    def enabled(self, enabled: "bool"):
+        """Sets the enabled of this Source.
+
+
+        :param enabled: The enabled of this Source.
+        :type: bool
+        """
+        self._attrs["enabled"] = enabled
+
+    @property
+    def event_attributes(self) -> "dict":
+        """ Gets the event_attributes of this Source.
+        """
+        return self._attrs.get("eventAttributes")
+
+    @event_attributes.setter
+    def event_attributes(self, event_attributes: "dict"):
+        """Sets the event_attributes of this Source.
+
+
+        :param event_attributes: The event_attributes of this Source.
+        :type: object
+        """
+        self._attrs["eventAttributes"] = event_attributes
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this Source.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this Source.
+
+
+        :param id: The id of this Source.
+        :type: str
+        """
+        self._attrs["id"] = id
+
+    @property
+    def last_update_date(self) -> "int":
+        """ Gets the last_update_date of this Source.
+        """
+        return self._attrs.get("lastUpdateDate")
+
+    @last_update_date.setter
+    def last_update_date(self, last_update_date: "int"):
+        """Sets the last_update_date of this Source.
+
+
+        :param last_update_date: The last_update_date of this Source.
+        :type: int
+        """
+        self._attrs["lastUpdateDate"] = last_update_date
+
+    @property
+    def last_update_user_id(self) -> "str":
+        """ Gets the last_update_user_id of this Source.
+        """
+        return self._attrs.get("lastUpdateUserId")
+
+    @last_update_user_id.setter
+    def last_update_user_id(self, last_update_user_id: "str"):
+        """Sets the last_update_user_id of this Source.
+
+
+        :param last_update_user_id: The last_update_user_id of this Source.
+        :type: str
+        """
+        self._attrs["lastUpdateUserId"] = last_update_user_id
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this Source.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this Source.
+
+
+        :param name: The name of this Source.
+        :type: str
+        """
+        self._attrs["name"] = name
+
+    @property
+    def parallelism(self) -> "int":
+        """ Gets the parallelism of this Source.
+        """
+        return self._attrs.get("parallelism")
+
+    @parallelism.setter
+    def parallelism(self, parallelism: "int"):
+        """Sets the parallelism of this Source.
+
+
+        :param parallelism: The parallelism of this Source.
+        :type: int
+        """
+        self._attrs["parallelism"] = parallelism
+
+    @property
+    def schedule(self) -> "str":
+        """ Gets the schedule of this Source.
+        """
+        return self._attrs.get("schedule")
+
+    @schedule.setter
+    def schedule(self, schedule: "str"):
+        """Sets the schedule of this Source.
+
+
+        :param schedule: The schedule of this Source.
+        :type: str
+        """
+        self._attrs["schedule"] = schedule
+
+    @property
+    def tenant_id(self) -> "str":
+        """ Gets the tenant_id of this Source.
+        """
+        return self._attrs.get("tenantId")
+
+    @tenant_id.setter
+    def tenant_id(self, tenant_id: "str"):
+        """Sets the tenant_id of this Source.
+
+
+        :param tenant_id: The tenant_id of this Source.
+        :type: str
+        """
+        self._attrs["tenantId"] = tenant_id
+
+    @property
+    def version(self) -> "int":
+        """ Gets the version of this Source.
+        """
+        return self._attrs.get("version")
+
+    @version.setter
+    def version(self, version: "int"):
+        """Sets the version of this Source.
+
+
+        :param version: The version of this Source.
+        :type: int
+        """
+        self._attrs["version"] = version
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
@@ -1025,7 +1313,7 @@ class ConnectorResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, attributes: "object" = None, config: "object" = None, connector_type: "str" = None, description: "str" = None, functions: "List[object]" = None, hidden: "bool" = None, id: "str" = None, name: "str" = None, panel_url: "str" = None, tag: "str" = None, **extra):
+    def __init__(self, attributes: "object" = None, config: "object" = None, connector_type: "str" = None, description: "str" = None, functions: "List[object]" = None, hidden: "bool" = None, id: "str" = None, metadata: "object" = None, name: "str" = None, panel_url: "str" = None, tag: "str" = None, **extra):
         """ConnectorResponse"""
 
         self._attrs = dict()
@@ -1043,6 +1331,8 @@ class ConnectorResponse(SSCModel):
             self._attrs["hidden"] = hidden
         if id is not None:
             self._attrs["id"] = id
+        if metadata is not None:
+            self._attrs["metadata"] = metadata
         if name is not None:
             self._attrs["name"] = name
         if panel_url is not None:
@@ -1163,6 +1453,22 @@ class ConnectorResponse(SSCModel):
         :type: str
         """
         self._attrs["id"] = id
+
+    @property
+    def metadata(self) -> "dict":
+        """ Gets the metadata of this ConnectorResponse.
+        """
+        return self._attrs.get("metadata")
+
+    @metadata.setter
+    def metadata(self, metadata: "dict"):
+        """Sets the metadata of this ConnectorResponse.
+
+
+        :param metadata: The metadata of this ConnectorResponse.
+        :type: object
+        """
+        self._attrs["metadata"] = metadata
 
     @property
     def name(self) -> "str":
@@ -2638,6 +2944,8 @@ class StatusEnum(str, Enum):
     FAILED = "FAILED"
     RESTARTING = "RESTARTING"
     FINISHED = "FINISHED"
+    ACTIVATING = "ACTIVATING"
+    DEACTIVATING = "DEACTIVATING"
 
     @staticmethod
     def from_value(value: str):
@@ -2651,6 +2959,10 @@ class StatusEnum(str, Enum):
             return StatusEnum.RESTARTING
         if value == "FINISHED":
             return StatusEnum.FINISHED
+        if value == "ACTIVATING":
+            return StatusEnum.ACTIVATING
+        if value == "DEACTIVATING":
+            return StatusEnum.DEACTIVATING
 
 
 class PipelineResponse(SSCModel):
@@ -2661,7 +2973,7 @@ class PipelineResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, activated_date: "int" = None, activated_user_id: "str" = None, activated_version: "int" = None, complexity: "float" = None, create_date: "int" = None, create_user_id: "str" = None, current_version: "int" = None, data: "Pipeline" = None, description: "str" = None, id: "str" = None, last_update_date: "int" = None, last_update_user_id: "str" = None, name: "str" = None, status: "str" = None, status_message: "str" = None, streaming_configuration_id: "int" = None, tenant_id: "str" = None, validation_messages: "List[str]" = None, version: "int" = None, **extra):
+    def __init__(self, activated_date: "int" = None, activated_user_id: "str" = None, activated_version: "int" = None, complexity: "float" = None, create_date: "int" = None, create_user_id: "str" = None, current_version: "int" = None, data: "Pipeline" = None, description: "str" = None, id: "str" = None, labels: "Dict[str, str]" = None, last_update_date: "int" = None, last_update_user_id: "str" = None, name: "str" = None, status: "str" = None, status_message: "str" = None, streaming_configuration_id: "int" = None, tenant_id: "str" = None, uber_jar_sha256: "str" = None, validation_messages: "List[str]" = None, version: "int" = None, **extra):
         """PipelineResponse"""
 
         self._attrs = dict()
@@ -2685,6 +2997,8 @@ class PipelineResponse(SSCModel):
             self._attrs["description"] = description
         if id is not None:
             self._attrs["id"] = id
+        if labels is not None:
+            self._attrs["labels"] = labels
         if last_update_date is not None:
             self._attrs["lastUpdateDate"] = last_update_date
         if last_update_user_id is not None:
@@ -2699,6 +3013,8 @@ class PipelineResponse(SSCModel):
             self._attrs["streamingConfigurationId"] = streaming_configuration_id
         if tenant_id is not None:
             self._attrs["tenantId"] = tenant_id
+        if uber_jar_sha256 is not None:
+            self._attrs["uberJarSha256"] = uber_jar_sha256
         if validation_messages is not None:
             self._attrs["validationMessages"] = validation_messages
         if version is not None:
@@ -2867,6 +3183,22 @@ class PipelineResponse(SSCModel):
         self._attrs["id"] = id
 
     @property
+    def labels(self) -> "Dict[str, str]":
+        """ Gets the labels of this PipelineResponse.
+        """
+        return self._attrs.get("labels")
+
+    @labels.setter
+    def labels(self, labels: "Dict[str, str]"):
+        """Sets the labels of this PipelineResponse.
+
+
+        :param labels: The labels of this PipelineResponse.
+        :type: Dict[str, str]
+        """
+        self._attrs["labels"] = labels
+
+    @property
     def last_update_date(self) -> "int":
         """ Gets the last_update_date of this PipelineResponse.
         """
@@ -2982,6 +3314,24 @@ class PipelineResponse(SSCModel):
         self._attrs["tenantId"] = tenant_id
 
     @property
+    def uber_jar_sha256(self) -> "str":
+        """ Gets the uber_jar_sha256 of this PipelineResponse.
+        Null prior to initial activation. After deactivation, this field will be set to the SHA at the time of the last activation.
+        """
+        return self._attrs.get("uberJarSha256")
+
+    @uber_jar_sha256.setter
+    def uber_jar_sha256(self, uber_jar_sha256: "str"):
+        """Sets the uber_jar_sha256 of this PipelineResponse.
+
+        Null prior to initial activation. After deactivation, this field will be set to the SHA at the time of the last activation.
+
+        :param uber_jar_sha256: The uber_jar_sha256 of this PipelineResponse.
+        :type: str
+        """
+        self._attrs["uberJarSha256"] = uber_jar_sha256
+
+    @property
     def validation_messages(self) -> "List[str]":
         """ Gets the validation_messages of this PipelineResponse.
         """
@@ -3080,7 +3430,7 @@ class TemplateResponse(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, create_date: "int" = None, create_user_id: "str" = None, data: "Pipeline" = None, description: "str" = None, name: "str" = None, owner_tenant_id: "str" = None, template_id: "str" = None, version: "int" = None, **extra):
+    def __init__(self, create_date: "int" = None, create_user_id: "str" = None, data: "Pipeline" = None, description: "str" = None, learn_more_location: "str" = None, name: "str" = None, owner_tenant_id: "str" = None, template_id: "str" = None, version: "int" = None, **extra):
         """TemplateResponse"""
 
         self._attrs = dict()
@@ -3092,6 +3442,8 @@ class TemplateResponse(SSCModel):
             self._attrs["data"] = data.to_dict()
         if description is not None:
             self._attrs["description"] = description
+        if learn_more_location is not None:
+            self._attrs["learnMoreLocation"] = learn_more_location
         if name is not None:
             self._attrs["name"] = name
         if owner_tenant_id is not None:
@@ -3166,6 +3518,22 @@ class TemplateResponse(SSCModel):
         :type: str
         """
         self._attrs["description"] = description
+
+    @property
+    def learn_more_location(self) -> "str":
+        """ Gets the learn_more_location of this TemplateResponse.
+        """
+        return self._attrs.get("learnMoreLocation")
+
+    @learn_more_location.setter
+    def learn_more_location(self, learn_more_location: "str"):
+        """Sets the learn_more_location of this TemplateResponse.
+
+
+        :param learn_more_location: The learn_more_location of this TemplateResponse.
+        :type: str
+        """
+        self._attrs["learnMoreLocation"] = learn_more_location
 
     @property
     def name(self) -> "str":
@@ -3298,7 +3666,7 @@ class PipelinePatchRequest(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, bypass_validation: "bool" = None, create_user_id: "str" = None, data: "Pipeline" = None, description: "str" = None, name: "str" = None, **extra):
+    def __init__(self, bypass_validation: "bool" = None, create_user_id: "str" = None, data: "Pipeline" = None, description: "str" = None, labels: "Dict[str, str]" = None, name: "str" = None, **extra):
         """PipelinePatchRequest"""
 
         self._attrs = dict()
@@ -3310,6 +3678,8 @@ class PipelinePatchRequest(SSCModel):
             self._attrs["data"] = data.to_dict()
         if description is not None:
             self._attrs["description"] = description
+        if labels is not None:
+            self._attrs["labels"] = labels
         if name is not None:
             self._attrs["name"] = name
         for k, v in extra.items():
@@ -3384,6 +3754,24 @@ class PipelinePatchRequest(SSCModel):
         :type: str
         """
         self._attrs["description"] = description
+
+    @property
+    def labels(self) -> "Dict[str, str]":
+        """ Gets the labels of this PipelinePatchRequest.
+        Optional labels in associated with the pipeline. A label is represented by a key and a value.
+        """
+        return self._attrs.get("labels")
+
+    @labels.setter
+    def labels(self, labels: "Dict[str, str]"):
+        """Sets the labels of this PipelinePatchRequest.
+
+        Optional labels in associated with the pipeline. A label is represented by a key and a value.
+
+        :param labels: The labels of this PipelinePatchRequest.
+        :type: Dict[str, str]
+        """
+        self._attrs["labels"] = labels
 
     @property
     def name(self) -> "str":
@@ -3525,6 +3913,362 @@ class PipelineReactivateResponse(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
+class Requested_actionEnum(str, Enum):
+    ACTIVATE = "ACTIVATE"
+    DEACTIVATE = "DEACTIVATE"
+    REACTIVATE = "REACTIVATE"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "ACTIVATE":
+            return Requested_actionEnum.ACTIVATE
+        if value == "DEACTIVATE":
+            return Requested_actionEnum.DEACTIVATE
+        if value == "REACTIVATE":
+            return Requested_actionEnum.REACTIVATE
+
+
+class PipelineReactivateResponseAsync(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "PipelineReactivateResponseAsync":
+        instance = PipelineReactivateResponseAsync.__new__(PipelineReactivateResponseAsync)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, pipeline_id: "str" = None, reactivation_request_id: "str" = None, requested_action: "str" = None, **extra):
+        """PipelineReactivateResponseAsync"""
+
+        self._attrs = dict()
+        if pipeline_id is not None:
+            self._attrs["pipelineId"] = pipeline_id
+        if reactivation_request_id is not None:
+            self._attrs["reactivationRequestId"] = reactivation_request_id
+        if requested_action is not None:
+            self._attrs["requestedAction"] = requested_action
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def pipeline_id(self) -> "str":
+        """ Gets the pipeline_id of this PipelineReactivateResponseAsync.
+        """
+        return self._attrs.get("pipelineId")
+
+    @pipeline_id.setter
+    def pipeline_id(self, pipeline_id: "str"):
+        """Sets the pipeline_id of this PipelineReactivateResponseAsync.
+
+
+        :param pipeline_id: The pipeline_id of this PipelineReactivateResponseAsync.
+        :type: str
+        """
+        self._attrs["pipelineId"] = pipeline_id
+
+    @property
+    def reactivation_request_id(self) -> "str":
+        """ Gets the reactivation_request_id of this PipelineReactivateResponseAsync.
+        """
+        return self._attrs.get("reactivationRequestId")
+
+    @reactivation_request_id.setter
+    def reactivation_request_id(self, reactivation_request_id: "str"):
+        """Sets the reactivation_request_id of this PipelineReactivateResponseAsync.
+
+
+        :param reactivation_request_id: The reactivation_request_id of this PipelineReactivateResponseAsync.
+        :type: str
+        """
+        self._attrs["reactivationRequestId"] = reactivation_request_id
+
+    @property
+    def requested_action(self) -> "Requested_actionEnum":
+        """ Gets the requested_action of this PipelineReactivateResponseAsync.
+        """
+        return Requested_actionEnum.from_value(self._attrs.get("requestedAction"))
+
+    @requested_action.setter
+    def requested_action(self, requested_action: "str"):
+        """Sets the requested_action of this PipelineReactivateResponseAsync.
+
+
+        :param requested_action: The requested_action of this PipelineReactivateResponseAsync.
+        :type: str
+        """
+        if isinstance(requested_action, Enum):
+            self._attrs["requestedAction"] = requested_action.value
+        else:
+            self._attrs["requestedAction"] = requested_action  # If you supply a string, we presume you know the service will take it.
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class Exit_statusEnum(str, Enum):
+    SUCCESS = "SUCCESS"
+    FAILED = "FAILED"
+    PENDING = "PENDING"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "SUCCESS":
+            return Exit_statusEnum.SUCCESS
+        if value == "FAILED":
+            return Exit_statusEnum.FAILED
+        if value == "PENDING":
+            return Exit_statusEnum.PENDING
+
+
+class Pipeline_deployment_statusEnum(str, Enum):
+    CREATED = "CREATED"
+    ACTIVATED = "ACTIVATED"
+    FAILED = "FAILED"
+    RESTARTING = "RESTARTING"
+    FINISHED = "FINISHED"
+    ACTIVATING = "ACTIVATING"
+    DEACTIVATING = "DEACTIVATING"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "CREATED":
+            return Pipeline_deployment_statusEnum.CREATED
+        if value == "ACTIVATED":
+            return Pipeline_deployment_statusEnum.ACTIVATED
+        if value == "FAILED":
+            return Pipeline_deployment_statusEnum.FAILED
+        if value == "RESTARTING":
+            return Pipeline_deployment_statusEnum.RESTARTING
+        if value == "FINISHED":
+            return Pipeline_deployment_statusEnum.FINISHED
+        if value == "ACTIVATING":
+            return Pipeline_deployment_statusEnum.ACTIVATING
+        if value == "DEACTIVATING":
+            return Pipeline_deployment_statusEnum.DEACTIVATING
+
+
+class Requested_actionEnum(str, Enum):
+    ACTIVATE = "ACTIVATE"
+    DEACTIVATE = "DEACTIVATE"
+    REACTIVATE = "REACTIVATE"
+
+    @staticmethod
+    def from_value(value: str):
+        if value == "ACTIVATE":
+            return Requested_actionEnum.ACTIVATE
+        if value == "DEACTIVATE":
+            return Requested_actionEnum.DEACTIVATE
+        if value == "REACTIVATE":
+            return Requested_actionEnum.REACTIVATE
+
+
+class PipelineReactivationStatus(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "PipelineReactivationStatus":
+        instance = PipelineReactivationStatus.__new__(PipelineReactivationStatus)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, create_date: "int" = None, current_uber_jar: "str" = None, exit_status: "str" = None, flink_job_status: "str" = None, id: "str" = None, message: "str" = None, pipeline_deployment_status: "str" = None, pipeline_id: "str" = None, requested_action: "str" = None, requested_uber_jar: "str" = None, **extra):
+        """PipelineReactivationStatus"""
+
+        self._attrs = dict()
+        if create_date is not None:
+            self._attrs["createDate"] = create_date
+        if current_uber_jar is not None:
+            self._attrs["currentUberJar"] = current_uber_jar
+        if exit_status is not None:
+            self._attrs["exitStatus"] = exit_status
+        if flink_job_status is not None:
+            self._attrs["flinkJobStatus"] = flink_job_status
+        if id is not None:
+            self._attrs["id"] = id
+        if message is not None:
+            self._attrs["message"] = message
+        if pipeline_deployment_status is not None:
+            self._attrs["pipelineDeploymentStatus"] = pipeline_deployment_status
+        if pipeline_id is not None:
+            self._attrs["pipelineId"] = pipeline_id
+        if requested_action is not None:
+            self._attrs["requestedAction"] = requested_action
+        if requested_uber_jar is not None:
+            self._attrs["requestedUberJar"] = requested_uber_jar
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def create_date(self) -> "int":
+        """ Gets the create_date of this PipelineReactivationStatus.
+        """
+        return self._attrs.get("createDate")
+
+    @create_date.setter
+    def create_date(self, create_date: "int"):
+        """Sets the create_date of this PipelineReactivationStatus.
+
+
+        :param create_date: The create_date of this PipelineReactivationStatus.
+        :type: int
+        """
+        self._attrs["createDate"] = create_date
+
+    @property
+    def current_uber_jar(self) -> "str":
+        """ Gets the current_uber_jar of this PipelineReactivationStatus.
+        """
+        return self._attrs.get("currentUberJar")
+
+    @current_uber_jar.setter
+    def current_uber_jar(self, current_uber_jar: "str"):
+        """Sets the current_uber_jar of this PipelineReactivationStatus.
+
+
+        :param current_uber_jar: The current_uber_jar of this PipelineReactivationStatus.
+        :type: str
+        """
+        self._attrs["currentUberJar"] = current_uber_jar
+
+    @property
+    def exit_status(self) -> "Exit_statusEnum":
+        """ Gets the exit_status of this PipelineReactivationStatus.
+        """
+        return Exit_statusEnum.from_value(self._attrs.get("exitStatus"))
+
+    @exit_status.setter
+    def exit_status(self, exit_status: "str"):
+        """Sets the exit_status of this PipelineReactivationStatus.
+
+
+        :param exit_status: The exit_status of this PipelineReactivationStatus.
+        :type: str
+        """
+        if isinstance(exit_status, Enum):
+            self._attrs["exitStatus"] = exit_status.value
+        else:
+            self._attrs["exitStatus"] = exit_status  # If you supply a string, we presume you know the service will take it.
+
+    @property
+    def flink_job_status(self) -> "str":
+        """ Gets the flink_job_status of this PipelineReactivationStatus.
+        """
+        return self._attrs.get("flinkJobStatus")
+
+    @flink_job_status.setter
+    def flink_job_status(self, flink_job_status: "str"):
+        """Sets the flink_job_status of this PipelineReactivationStatus.
+
+
+        :param flink_job_status: The flink_job_status of this PipelineReactivationStatus.
+        :type: str
+        """
+        self._attrs["flinkJobStatus"] = flink_job_status
+
+    @property
+    def id(self) -> "str":
+        """ Gets the id of this PipelineReactivationStatus.
+        """
+        return self._attrs.get("id")
+
+    @id.setter
+    def id(self, id: "str"):
+        """Sets the id of this PipelineReactivationStatus.
+
+
+        :param id: The id of this PipelineReactivationStatus.
+        :type: str
+        """
+        self._attrs["id"] = id
+
+    @property
+    def message(self) -> "str":
+        """ Gets the message of this PipelineReactivationStatus.
+        """
+        return self._attrs.get("message")
+
+    @message.setter
+    def message(self, message: "str"):
+        """Sets the message of this PipelineReactivationStatus.
+
+
+        :param message: The message of this PipelineReactivationStatus.
+        :type: str
+        """
+        self._attrs["message"] = message
+
+    @property
+    def pipeline_deployment_status(self) -> "Pipeline_deployment_statusEnum":
+        """ Gets the pipeline_deployment_status of this PipelineReactivationStatus.
+        """
+        return Pipeline_deployment_statusEnum.from_value(self._attrs.get("pipelineDeploymentStatus"))
+
+    @pipeline_deployment_status.setter
+    def pipeline_deployment_status(self, pipeline_deployment_status: "str"):
+        """Sets the pipeline_deployment_status of this PipelineReactivationStatus.
+
+
+        :param pipeline_deployment_status: The pipeline_deployment_status of this PipelineReactivationStatus.
+        :type: str
+        """
+        if isinstance(pipeline_deployment_status, Enum):
+            self._attrs["pipelineDeploymentStatus"] = pipeline_deployment_status.value
+        else:
+            self._attrs["pipelineDeploymentStatus"] = pipeline_deployment_status  # If you supply a string, we presume you know the service will take it.
+
+    @property
+    def pipeline_id(self) -> "str":
+        """ Gets the pipeline_id of this PipelineReactivationStatus.
+        """
+        return self._attrs.get("pipelineId")
+
+    @pipeline_id.setter
+    def pipeline_id(self, pipeline_id: "str"):
+        """Sets the pipeline_id of this PipelineReactivationStatus.
+
+
+        :param pipeline_id: The pipeline_id of this PipelineReactivationStatus.
+        :type: str
+        """
+        self._attrs["pipelineId"] = pipeline_id
+
+    @property
+    def requested_action(self) -> "Requested_actionEnum":
+        """ Gets the requested_action of this PipelineReactivationStatus.
+        """
+        return Requested_actionEnum.from_value(self._attrs.get("requestedAction"))
+
+    @requested_action.setter
+    def requested_action(self, requested_action: "str"):
+        """Sets the requested_action of this PipelineReactivationStatus.
+
+
+        :param requested_action: The requested_action of this PipelineReactivationStatus.
+        :type: str
+        """
+        if isinstance(requested_action, Enum):
+            self._attrs["requestedAction"] = requested_action.value
+        else:
+            self._attrs["requestedAction"] = requested_action  # If you supply a string, we presume you know the service will take it.
+
+    @property
+    def requested_uber_jar(self) -> "str":
+        """ Gets the requested_uber_jar of this PipelineReactivationStatus.
+        """
+        return self._attrs.get("requestedUberJar")
+
+    @requested_uber_jar.setter
+    def requested_uber_jar(self, requested_uber_jar: "str"):
+        """Sets the requested_uber_jar of this PipelineReactivationStatus.
+
+
+        :param requested_uber_jar: The requested_uber_jar of this PipelineReactivationStatus.
+        :type: str
+        """
+        self._attrs["requestedUberJar"] = requested_uber_jar
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
 class PipelineRequest(SSCModel):
 
     @staticmethod
@@ -3533,7 +4277,7 @@ class PipelineRequest(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, data: "Pipeline", name: "str", bypass_validation: "bool" = None, description: "str" = None, **extra):
+    def __init__(self, data: "Pipeline", name: "str", bypass_validation: "bool" = None, description: "str" = None, labels: "Dict[str, str]" = None, **extra):
         """PipelineRequest"""
 
         self._attrs = dict()
@@ -3545,6 +4289,8 @@ class PipelineRequest(SSCModel):
             self._attrs["bypassValidation"] = bypass_validation
         if description is not None:
             self._attrs["description"] = description
+        if labels is not None:
+            self._attrs["labels"] = labels
         for k, v in extra.items():
             self._attrs[k] = v
 
@@ -3621,6 +4367,24 @@ class PipelineRequest(SSCModel):
         :type: str
         """
         self._attrs["description"] = description
+
+    @property
+    def labels(self) -> "Dict[str, str]":
+        """ Gets the labels of this PipelineRequest.
+        Optional labels in associated with the pipeline. A label is represented by a key and a value.
+        """
+        return self._attrs.get("labels")
+
+    @labels.setter
+    def labels(self, labels: "Dict[str, str]"):
+        """Sets the labels of this PipelineRequest.
+
+        Optional labels in associated with the pipeline. A label is represented by a key and a value.
+
+        :param labels: The labels of this PipelineRequest.
+        :type: Dict[str, str]
+        """
+        self._attrs["labels"] = labels
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
@@ -4641,6 +5405,85 @@ class TemplateRequest(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
+class UpgradePipelineRequest(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "UpgradePipelineRequest":
+        instance = UpgradePipelineRequest.__new__(UpgradePipelineRequest)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, allow_non_restored_state: "bool" = None, cancel_with_save_point: "bool" = None, skip_restore_state: "bool" = None, **extra):
+        """UpgradePipelineRequest"""
+
+        self._attrs = dict()
+        if allow_non_restored_state is not None:
+            self._attrs["allowNonRestoredState"] = allow_non_restored_state
+        if cancel_with_save_point is not None:
+            self._attrs["cancelWithSavePoint"] = cancel_with_save_point
+        if skip_restore_state is not None:
+            self._attrs["skipRestoreState"] = skip_restore_state
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def allow_non_restored_state(self) -> "bool":
+        """ Gets the allow_non_restored_state of this UpgradePipelineRequest.
+        Set to true to allow the pipeline to ignore any unused progress states. In some cases, when a data pipeline is changed, the progress state will be stored for functions that no longer exist, so this must be set to reactivate a pipeline in this state. Defaults to false.
+        """
+        return self._attrs.get("allowNonRestoredState")
+
+    @allow_non_restored_state.setter
+    def allow_non_restored_state(self, allow_non_restored_state: "bool"):
+        """Sets the allow_non_restored_state of this UpgradePipelineRequest.
+
+        Set to true to allow the pipeline to ignore any unused progress states. In some cases, when a data pipeline is changed, the progress state will be stored for functions that no longer exist, so this must be set to reactivate a pipeline in this state. Defaults to false.
+
+        :param allow_non_restored_state: The allow_non_restored_state of this UpgradePipelineRequest.
+        :type: bool
+        """
+        self._attrs["allowNonRestoredState"] = allow_non_restored_state
+
+    @property
+    def cancel_with_save_point(self) -> "bool":
+        """ Gets the cancel_with_save_point of this UpgradePipelineRequest.
+        Set to true to deactivate a pipeline with a savepoint. Defaults to false.
+        """
+        return self._attrs.get("cancelWithSavePoint")
+
+    @cancel_with_save_point.setter
+    def cancel_with_save_point(self, cancel_with_save_point: "bool"):
+        """Sets the cancel_with_save_point of this UpgradePipelineRequest.
+
+        Set to true to deactivate a pipeline with a savepoint. Defaults to false.
+
+        :param cancel_with_save_point: The cancel_with_save_point of this UpgradePipelineRequest.
+        :type: bool
+        """
+        self._attrs["cancelWithSavePoint"] = cancel_with_save_point
+
+    @property
+    def skip_restore_state(self) -> "bool":
+        """ Gets the skip_restore_state of this UpgradePipelineRequest.
+        Set to true to start reading from the latest input rather than from where the pipeline's previous run left off, which can cause data loss. Defaults to false.
+        """
+        return self._attrs.get("skipRestoreState")
+
+    @skip_restore_state.setter
+    def skip_restore_state(self, skip_restore_state: "bool"):
+        """Sets the skip_restore_state of this UpgradePipelineRequest.
+
+        Set to true to start reading from the latest input rather than from where the pipeline's previous run left off, which can cause data loss. Defaults to false.
+
+        :param skip_restore_state: The skip_restore_state of this UpgradePipelineRequest.
+        :type: bool
+        """
+        self._attrs["skipRestoreState"] = skip_restore_state
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
 class UplType(SSCModel):
 
     @staticmethod
@@ -4709,6 +5552,69 @@ class UplType(SSCModel):
         :type: str
         """
         self._attrs["type"] = type
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class ValidateConnectionRequest(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "ValidateConnectionRequest":
+        instance = ValidateConnectionRequest.__new__(ValidateConnectionRequest)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, connector_id: "str", data: "object", **extra):
+        """ValidateConnectionRequest"""
+
+        self._attrs = dict()
+        if connector_id is not None:
+            self._attrs["connectorId"] = connector_id
+        if data is not None:
+            self._attrs["data"] = data
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def connector_id(self) -> "str":
+        """ Gets the connector_id of this ValidateConnectionRequest.
+        The ID of the parent connector.
+        """
+        return self._attrs.get("connectorId")
+
+    @connector_id.setter
+    def connector_id(self, connector_id: "str"):
+        """Sets the connector_id of this ValidateConnectionRequest.
+
+        The ID of the parent connector.
+
+        :param connector_id: The connector_id of this ValidateConnectionRequest.
+        :type: str
+        """
+        if connector_id is None:
+            raise ValueError("Invalid value for `connector_id`, must not be `None`")
+        self._attrs["connectorId"] = connector_id
+
+    @property
+    def data(self) -> "dict":
+        """ Gets the data of this ValidateConnectionRequest.
+        The key-value pairs of connection configurations to be validated. Connectors may have some configurations that are required, which all connections must provide values for. For configuration values of type BYTES, the provided values must be Base64 encoded.
+        """
+        return self._attrs.get("data")
+
+    @data.setter
+    def data(self, data: "dict"):
+        """Sets the data of this ValidateConnectionRequest.
+
+        The key-value pairs of connection configurations to be validated. Connectors may have some configurations that are required, which all connections must provide values for. For configuration values of type BYTES, the provided values must be Base64 encoded.
+
+        :param data: The data of this ValidateConnectionRequest.
+        :type: object
+        """
+        if data is None:
+            raise ValueError("Invalid value for `data`, must not be `None`")
+        self._attrs["data"] = data
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}

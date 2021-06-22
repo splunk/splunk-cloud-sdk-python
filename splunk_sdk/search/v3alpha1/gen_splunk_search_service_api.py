@@ -35,18 +35,21 @@ from splunk_sdk.base_service import BaseService
 from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
 from splunk_sdk.search.v3alpha1.gen_models import Dataset
+from splunk_sdk.search.v3alpha1.gen_models import DatasetPATCH
+from splunk_sdk.search.v3alpha1.gen_models import DatasetPOST
 from splunk_sdk.search.v3alpha1.gen_models import DeleteSearchJob
+from splunk_sdk.search.v3alpha1.gen_models import FederatedConnection
+from splunk_sdk.search.v3alpha1.gen_models import FederatedConnectionInput
 from splunk_sdk.search.v3alpha1.gen_models import FieldsSummary
+from splunk_sdk.search.v3alpha1.gen_models import ListModules
 from splunk_sdk.search.v3alpha1.gen_models import ListPreviewResultsResponse
 from splunk_sdk.search.v3alpha1.gen_models import ListSearchResultsResponse
 from splunk_sdk.search.v3alpha1.gen_models import Module
-from splunk_sdk.search.v3alpha1.gen_models import RecurringSearch
 from splunk_sdk.search.v3alpha1.gen_models import SearchJob
 from splunk_sdk.search.v3alpha1.gen_models import SearchModule
 from splunk_sdk.search.v3alpha1.gen_models import SearchStatus
 from splunk_sdk.search.v3alpha1.gen_models import TimeBucketsSummary
 from splunk_sdk.search.v3alpha1.gen_models import UpdateJob
-from splunk_sdk.search.v3alpha1.gen_models import UpdateRecurringSearch
 
 
 class SplunkSearchService(BaseService):
@@ -59,7 +62,7 @@ class SplunkSearchService(BaseService):
     def __init__(self, base_client):
         super().__init__(base_client)
 
-    def create_dataset(self, dataset: Dataset = None, query_params: Dict[str, object] = None) -> Dataset:
+    def create_dataset(self, dataset_post: DatasetPOST = None, query_params: Dict[str, object] = None) -> Dataset:
         """
         Creates a dataset.
         """
@@ -71,9 +74,26 @@ class SplunkSearchService(BaseService):
 
         path = Template("/search/v3alpha1/datasets").substitute(path_params)
         url = self.base_client.build_url(path)
-        data = dataset.to_dict()
+        data = dataset_post.to_dict()
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, Dataset)
+
+    def create_federated_connection(self, federated_connection_input: FederatedConnectionInput = None, query_params: Dict[str, object] = None) -> FederatedConnection:
+        """
+        Creates a new federated connection with information about how to connect to a remote index.
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/search/v3alpha1/connections").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = federated_connection_input.to_dict()
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, FederatedConnection)
 
     def create_job(self, search_job: SearchJob = None, query_params: Dict[str, object] = None) -> SearchJob:
         """
@@ -90,22 +110,6 @@ class SplunkSearchService(BaseService):
         data = search_job.to_dict()
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, SearchJob)
-
-    def create_recurring_search(self, recurring_search: RecurringSearch = None, query_params: Dict[str, object] = None) -> RecurringSearch:
-        """
-        Creates a recurring search job.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-        }
-
-        path = Template("/search/v3alpha1/recurring-searches").substitute(path_params)
-        url = self.base_client.build_url(path)
-        data = recurring_search.to_dict()
-        response = self.base_client.post(url, json=data, params=query_params)
-        return handle_response(response, RecurringSearch)
 
     def create_search_statements(self, search_module: SearchModule = None, query_params: Dict[str, object] = None) -> SearchModule:
         """
@@ -125,7 +129,7 @@ class SplunkSearchService(BaseService):
 
     def create_spl2_module(self, resource_name: str, module: Module = None, query_params: Dict[str, object] = None) -> Module:
         """
-        Modifies/Creates a module with a specified  resource name (resourceName).
+        Modifies/Creates a module with a specified resource name (resourceName).
 
         """
         if query_params is None:
@@ -141,9 +145,9 @@ class SplunkSearchService(BaseService):
         response = self.base_client.put(url, json=data, params=query_params)
         return handle_response(response, Module)
 
-    def delete_dataset_by_id(self, datasetid: str, query_params: Dict[str, object] = None) -> Dataset:
+    def delete_dataset_by_id(self, datasetid: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
-        Deletes a dataset with a  specified dataset ID (datasetid).
+        Deletes a dataset with a specified dataset ID (datasetid).
 
         """
         if query_params is None:
@@ -156,7 +160,24 @@ class SplunkSearchService(BaseService):
         path = Template("/search/v3alpha1/datasets/${datasetid}").substitute(path_params)
         url = self.base_client.build_url(path)
         response = self.base_client.delete(url, params=query_params)
-        return handle_response(response, Dataset)
+        return handle_response(response, )
+
+    def delete_federated_connection(self, connection_name: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
+        """
+        Deletes a federated connection with the specified name (connectionName)
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "connectionName": connection_name,
+        }
+
+        path = Template("/search/v3alpha1/connections/${connectionName}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.delete(url, params=query_params)
+        return handle_response(response, )
 
     def delete_job(self, delete_search_job: DeleteSearchJob = None, query_params: Dict[str, object] = None) -> DeleteSearchJob:
         """
@@ -175,26 +196,9 @@ class SplunkSearchService(BaseService):
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, DeleteSearchJob)
 
-    def delete_recurring_search(self, rsid: str, query_params: Dict[str, object] = None) -> RecurringSearch:
-        """
-        Deletes a recurring search with a  specified recurring search ID (rsid).
-
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "rsid": rsid,
-        }
-
-        path = Template("/search/v3alpha1/recurring-searches/${rsid}").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.delete(url, params=query_params)
-        return handle_response(response, RecurringSearch)
-
     def delete_spl2_module_by_resource_name(self, resource_name: str, query_params: Dict[str, object] = None) -> Module:
         """
-        Deletes a module with a  specified resource name (resourceName).
+        Deletes a module with a specified resource name (resourceName).
 
         """
         if query_params is None:
@@ -231,28 +235,9 @@ class SplunkSearchService(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, object)
 
-    def get_all_jobs_for_recurring_search(self, rsid: str, count: int = None, query_params: Dict[str, object] = None) -> List[SearchJob]:
-        """
-        Returns all search jobs associated with a recurring search with a specified recurring search ID (rsid).
-
-        """
-        if query_params is None:
-            query_params = {}
-        if count is not None:
-            query_params['count'] = count
-
-        path_params = {
-            "rsid": rsid,
-        }
-
-        path = Template("/search/v3alpha1/recurring-searches/${rsid}/jobs").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.get(url, params=query_params)
-        return handle_response(response, SearchJob)
-
     def get_dataset_by_id(self, datasetid: str, query_params: Dict[str, object] = None) -> Dataset:
         """
-        Returns a dataset with a specified  dataset ID (datasetid).
+        Returns a dataset with a specified dataset ID (datasetid).
 
         """
         if query_params is None:
@@ -266,6 +251,23 @@ class SplunkSearchService(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, Dataset)
+
+    def get_federated_connection_by_name(self, connection_name: str, query_params: Dict[str, object] = None) -> FederatedConnection:
+        """
+        Returns the federated connection with the specified name (connectionName).
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "connectionName": connection_name,
+        }
+
+        path = Template("/search/v3alpha1/connections/${connectionName}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, FederatedConnection)
 
     def get_job(self, sid: str, query_params: Dict[str, object] = None) -> SearchJob:
         """
@@ -282,40 +284,6 @@ class SplunkSearchService(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, SearchJob)
-
-    def get_job_for_recurring_search(self, rsid: str, query_params: Dict[str, object] = None) -> SearchJob:
-        """
-        Returns the most recent search job associated with a  recurring search with a specified recurring search ID (rsid).
-
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "rsid": rsid,
-        }
-
-        path = Template("/search/v3alpha1/recurring-searches/${rsid}/most-recent").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.get(url, params=query_params)
-        return handle_response(response, SearchJob)
-
-    def get_recurring_search(self, rsid: str, query_params: Dict[str, object] = None) -> RecurringSearch:
-        """
-        Returns a recurring search job with a specified  recurring search ID (rsid).
-
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "rsid": rsid,
-        }
-
-        path = Template("/search/v3alpha1/recurring-searches/${rsid}").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.get(url, params=query_params)
-        return handle_response(response, RecurringSearch)
 
     def get_spl2_module_by_resource_name(self, resource_name: str, query_params: Dict[str, object] = None) -> Module:
         """
@@ -421,21 +389,6 @@ class SplunkSearchService(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, ListPreviewResultsResponse)
 
-    def list_recurring_searches(self, query_params: Dict[str, object] = None) -> List[RecurringSearch]:
-        """
-        Returns a matching list of all recurring searches.
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-        }
-
-        path = Template("/search/v3alpha1/recurring-searches").substitute(path_params)
-        url = self.base_client.build_url(path)
-        response = self.base_client.get(url, params=query_params)
-        return handle_response(response, RecurringSearch)
-
     def list_results(self, sid: str, count: int = None, field: str = None, offset: int = None, query_params: Dict[str, object] = None) -> ListSearchResultsResponse:
         """
         Returns search results for a job with a specified search ID (sid).
@@ -458,7 +411,7 @@ class SplunkSearchService(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, ListSearchResultsResponse)
 
-    def list_spl2_modules(self, query_params: Dict[str, object] = None) -> List[Module]:
+    def list_spl2_modules(self, query_params: Dict[str, object] = None) -> ListModules:
         """
         gets a list of modules.
         """
@@ -471,7 +424,7 @@ class SplunkSearchService(BaseService):
         path = Template("/search/v3alpha1/spl2-modules").substitute(path_params)
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
-        return handle_response(response, Module)
+        return handle_response(response, ListModules)
 
     def list_time_buckets(self, sid: str, query_params: Dict[str, object] = None) -> TimeBucketsSummary:
         """
@@ -489,9 +442,27 @@ class SplunkSearchService(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, TimeBucketsSummary)
 
-    def update_dataset_by_id(self, datasetid: str, dataset: Dataset = None, query_params: Dict[str, object] = None) -> Dataset:
+    def put_federated_connection_by_name(self, connection_name: str, federated_connection_input: FederatedConnectionInput = None, query_params: Dict[str, object] = None) -> FederatedConnection:
         """
-        Modifies a dataset with a specified  dataset ID (datasetid).
+        Creates or updates a federated connection with a specified name (connectionName).
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "connectionName": connection_name,
+        }
+
+        path = Template("/search/v3alpha1/connections/${connectionName}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = federated_connection_input.to_dict()
+        response = self.base_client.put(url, json=data, params=query_params)
+        return handle_response(response, FederatedConnection)
+
+    def update_dataset_by_id(self, datasetid: str, dataset_patch: DatasetPATCH = None, query_params: Dict[str, object] = None) -> Dataset:
+        """
+        Modifies a dataset with a specified dataset ID (datasetid).
 
         """
         if query_params is None:
@@ -503,13 +474,13 @@ class SplunkSearchService(BaseService):
 
         path = Template("/search/v3alpha1/datasets/${datasetid}").substitute(path_params)
         url = self.base_client.build_url(path)
-        data = dataset.to_dict()
+        data = dataset_patch.to_dict()
         response = self.base_client.patch(url, json=data, params=query_params)
         return handle_response(response, Dataset)
 
     def update_job(self, sid: str, update_job: UpdateJob = None, query_params: Dict[str, object] = None) -> SearchJob:
         """
-        Modifies a search job with a specified  search ID (sid) with an action.
+        Modifies a search job with a specified search ID (sid) with an action.
 
         """
         if query_params is None:
@@ -524,23 +495,5 @@ class SplunkSearchService(BaseService):
         data = update_job.to_dict()
         response = self.base_client.patch(url, json=data, params=query_params)
         return handle_response(response, SearchJob)
-
-    def update_recurring_search(self, rsid: str, update_recurring_search: UpdateRecurringSearch = None, query_params: Dict[str, object] = None) -> RecurringSearch:
-        """
-        Modifies a recurring search with a specified  recurring search ID (rsid).
-
-        """
-        if query_params is None:
-            query_params = {}
-
-        path_params = {
-            "rsid": rsid,
-        }
-
-        path = Template("/search/v3alpha1/recurring-searches/${rsid}").substitute(path_params)
-        url = self.base_client.build_url(path)
-        data = update_recurring_search.to_dict()
-        response = self.base_client.patch(url, json=data, params=query_params)
-        return handle_response(response, RecurringSearch)
 
 

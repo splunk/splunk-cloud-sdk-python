@@ -34,27 +34,46 @@ __version__ = "1.0.0"
 from splunk_sdk.search.v3alpha1.gen_splunk_search_service_api import SplunkSearchService
 
 # import models into sdk package
-from splunk_sdk.search.v3alpha1.gen_models import Field, \
+from splunk_sdk.search.v3alpha1.gen_models import Dataset, \
+    DatasetPATCH, \
+    FieldPOST, \
     FieldDataType, \
     FieldType, \
     FieldPrevalence, \
-    Dataset, \
+    DatasetPOST, \
     Message, \
     QueryParameters, \
     SearchStatus, \
     DeleteSearchJob, \
+    FederatedConnection, \
+    FederatedConnectionInput, \
+    FederatedDataset, \
+    FederatedDatasetKind, \
+    FederatedDatasetPATCH, \
     SingleFieldSummary, \
     SingleValueMode, \
     FieldsSummary, \
+    IndexDataset, \
+    IndexDatasetKind, \
+    IndexDatasetPATCH, \
+    KVCollectionDataset, \
+    KVCollectionDatasetKind, \
+    KVCollectionDatasetPATCH, \
+    Module, \
+    ListModules, \
     ListPreviewResultsResponseFields, \
     ListPreviewResultsResponse, \
     ListSearchResultsResponse, \
-    Module, \
-    RecurringSearch, \
+    LookupDatasetExternalKind, \
+    LookupDataset, \
+    LookupDatasetKind, \
+    LookupDatasetPATCH, \
+    MetricDataset, \
+    MetricDatasetKind, \
+    MetricDatasetPATCH, \
     SearchJob, \
     SingleStatementQueryParameters, \
     SearchModule, \
     SingleTimeBucket, \
     TimeBucketsSummary, \
-    UpdateJob, \
-    UpdateRecurringSearch
+    UpdateJob

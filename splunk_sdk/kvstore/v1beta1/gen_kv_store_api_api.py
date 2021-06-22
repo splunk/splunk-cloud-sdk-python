@@ -37,9 +37,9 @@ from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 from splunk_sdk.kvstore.v1beta1.gen_models import ErrorResponse
 from splunk_sdk.kvstore.v1beta1.gen_models import IndexDefinition
 from splunk_sdk.kvstore.v1beta1.gen_models import IndexDescription
-from splunk_sdk.kvstore.v1beta1.gen_models import Key
 from splunk_sdk.kvstore.v1beta1.gen_models import List
 from splunk_sdk.kvstore.v1beta1.gen_models import PingResponse
+from splunk_sdk.kvstore.v1beta1.gen_models import Record
 
 
 class KVStoreAPI(BaseService):
@@ -138,7 +138,7 @@ class KVStoreAPI(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, object)
 
-    def insert_record(self, collection: str, body: object, query_params: Dict[str, object] = None) -> Key:
+    def insert_record(self, collection: str, body: object, query_params: Dict[str, object] = None) -> Record:
         """
         Inserts a record into a collection.
         """
@@ -153,7 +153,7 @@ class KVStoreAPI(BaseService):
         url = self.base_client.build_url(path)
         data = body
         response = self.base_client.post(url, json=data, params=query_params)
-        return handle_response(response, Key)
+        return handle_response(response, Record)
 
     def insert_records(self, collection: str, request_body: List[object], allow_updates: bool = None, query_params: Dict[str, object] = None) -> List[str]:
         """
@@ -229,7 +229,7 @@ class KVStoreAPI(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, PingResponse)
 
-    def put_record(self, collection: str, key: str, body: object, query_params: Dict[str, object] = None) -> Key:
+    def put_record(self, collection: str, key: str, body: object, query_params: Dict[str, object] = None) -> Record:
         """
         Updates the record with a given key, either by inserting or replacing the record.
         """
@@ -245,7 +245,7 @@ class KVStoreAPI(BaseService):
         url = self.base_client.build_url(path)
         data = body
         response = self.base_client.put(url, json=data, params=query_params)
-        return handle_response(response, Key)
+        return handle_response(response, Record)
 
     def query_records(self, collection: str, count: int = None, fields: List[str] = None, offset: int = None, orderby: List[str] = None, query: str = None, query_params: Dict[str, object] = None) -> List[object]:
         """

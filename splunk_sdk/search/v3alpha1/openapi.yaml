@@ -19,21 +19,21 @@ components:
         type: integer
     Earliest:
       description: |
-        The earliest time filter, in absolute time. When specifying an absolute time specify either UNIX time, or UTC  in seconds using the ISO-8601 (%FT%T.%Q) format.  For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC.  Any offset specified is ignored.
+        The earliest time filter, in absolute time. When specifying an absolute time specify either UNIX time, or UTC in seconds using the ISO-8601 (%FT%T.%Q) format. For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC. Any offset specified is ignored.
       in: query
       name: earliest
       schema:
         type: string
     Field:
       description: |
-        The field to return for the result set. Specify multiple fields of comma-separated values if multiple fields  are required.
+        The field to return for the result set. Specify multiple fields of comma-separated values if multiple fields are required.
       in: query
       name: field
       schema:
         type: string
     Latest:
       description: |
-        The latest time filter, in absolute time. When specifying an absolute time specify either UNIX time, or UTC  in seconds using the ISO-8601 (%FT%T.%Q) format.  For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC.  Any offset specified is ignored.
+        The latest time filter, in absolute time. When specifying an absolute time specify either UNIX time, or UTC in seconds using the ISO-8601 (%FT%T.%Q) format. For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC. Any offset specified is ignored.
       in: query
       name: latest
       schema:
@@ -52,6 +52,13 @@ components:
       name: status
       schema:
         $ref: '#/components/schemas/SearchStatus'
+    connectionName:
+      description: The name of the federated connection.
+      in: path
+      name: connectionName
+      required: true
+      schema:
+        type: string
     count:
       description: |
         The maximum number of entries to return. Set to 0 to return all available entries.
@@ -121,9 +128,24 @@ components:
         type: string
   schemas:
     Dataset:
-      allOf:
-      - $ref: '#/components/schemas/DatasetReadOnlyProperties'
-      description: A fully constructed dataset
+      description: A complete dataset as rendered in POST, PATCH responses.
+      discriminator:
+        mapping:
+          federated: '#/components/schemas/FederatedDataset'
+          index: '#/components/schemas/IndexDataset'
+          kvcollection: '#/components/schemas/KVCollectionDataset'
+          lookup: '#/components/schemas/LookupDataset'
+          metric: '#/components/schemas/MetricDataset'
+        propertyName: kind
+      oneOf:
+      - $ref: '#/components/schemas/LookupDataset'
+      - $ref: '#/components/schemas/IndexDataset'
+      - $ref: '#/components/schemas/FederatedDataset'
+      - $ref: '#/components/schemas/MetricDataset'
+      - $ref: '#/components/schemas/KVCollectionDataset'
+    DatasetCommon:
+      description: Properties that are common across all Dataset kinds rendered in
+        POST, PATCH, and GET responses.
       properties:
         appclientidcreatedby:
           description: AppClinetId of the creator app of the dataset.
@@ -131,44 +153,9 @@ components:
         appclientidmodifiedby:
           description: AppClinetId of the modifier app of the dataset.
           type: string
-        caseSensitiveMatch:
-          default: true
-          description: Match case-sensitively against the lookup.
-          type: boolean
         description:
           description: Detailed description of the dataset.
           type: string
-        disabled:
-          description: Specifies whether or not the Splunk index is disabled.
-          type: boolean
-        earliestEventTime:
-          description: The timestamp, in seconds, of the earliest measure. The timestamp
-            is in UNIX time.
-          type: string
-        earliestIngestTime:
-          description: The earliest index time for any of the measures in this index.
-          type: string
-        externalKind:
-          description: The dataset kind.
-          enum:
-          - lookup
-          type: string
-        externalName:
-          description: The name of the external lookup.
-          example: nameOfKvCollection
-          type: string
-        fields:
-          description: The fields to be associated with this dataset.
-          items:
-            $ref: '#/components/schemas/Field'
-          type: array
-        filter:
-          description: A query that filters results out of the lookup before those
-            results are returned.
-          type: string
-        frozenTimePeriodInSecs:
-          description: The frozenTimePeriodInSecs to use for the index
-          type: integer
         id:
           description: A unique dataset ID.
           example: 5bbf6d876d059d0b9ea8da3e
@@ -176,41 +163,15 @@ components:
           maxLength: 24
           minLength: 24
           type: string
-        internalname:
-          description: The dataset name qualified by the module name, primarily used
-            to distinguish between index/metric versus other datasets. Index/metric
-            datasets have a distinct underscore separator (_____) between name and
-            module. Internal use only.
-          example: nameOfModule_____nameOfDataset
-          readOnly: true
-          type: string
-        kind:
-          description: The dataset kind.
-          enum:
-          - kvcollection
-          - lookup
-          - metric
-          - index
-          type: string
-        latestEventTime:
-          description: The timestamp, in seconds, of the latest measure. The timestamp
-            is in UNIX time.
-          type: string
-        latestIngestTime:
-          description: The earliest index time for any of the measures in this index.
-          type: string
-        latestMetadataUpdateTime:
-          description: The latest time that the metric index metadata was refreshed.
-          type: string
-        module:
-          description: The name of the module that contains the dataset.
-          example: nameOfModule
-          maxLength: 100
-          type: string
         name:
           description: The dataset name. Dataset names must be unique within each
             module.
           example: nameOfDataset
+          maxLength: 100
+          type: string
+        namespace:
+          description: The name of the namespace that contains the dataset.
+          example: nameOfNamespace
           maxLength: 100
           type: string
         resourcename:
@@ -225,16 +186,72 @@ components:
           description: The title of the dataset.  Does not have to be unique.
           example: titleOfDataset
           type: string
-        totalEventCount:
-          description: THe number of measures in the metric index.
-          type: integer
-        totalSize:
-          description: For metrics indexes, the totalSize is set to 0.
-          type: integer
-        version:
-          description: The catalog version.
-          minimum: 1
-          type: integer
+      required:
+      - id
+      - module
+      - name
+      - resourcename
+      type: object
+    DatasetPATCH:
+      description: Property values to be set in an existing dataset using a PATCH
+        request.
+      oneOf:
+      - $ref: '#/components/schemas/LookupDatasetPATCH'
+      - $ref: '#/components/schemas/IndexDatasetPATCH'
+      - $ref: '#/components/schemas/FederatedDatasetPATCH'
+      - $ref: '#/components/schemas/MetricDatasetPATCH'
+      - $ref: '#/components/schemas/KVCollectionDatasetPATCH'
+    DatasetPATCHCommon:
+      description: Properties that are common across all Dataset kinds to be set in
+        an existing dataset using a PATCH request.
+      properties:
+        module:
+          description: The name of module to reassign dataset into.
+          example: nameOfModule
+          maxLength: 100
+          type: string
+        name:
+          description: The dataset name. Dataset names must be unique within each
+            module.
+          example: nameOfDataset
+          maxLength: 100
+          type: string
+        owner:
+          description: The name of the dataset owner. This value is obtained from
+            the bearer token.
+          example: johndoe
+          maxLength: 24
+          type: string
+      type: object
+    DatasetPOST:
+      description: Properties that are common across all Dataset kinds for creating
+        a new dataset using a POST request.
+      properties:
+        fields:
+          description: The fields to be associated with this dataset.
+          items:
+            $ref: '#/components/schemas/FieldPOST'
+          type: array
+        id:
+          description: A unique dataset ID. Random ID used if not provided.
+          example: 5bc3c0cdfee0d854a4188132
+          format: mongo-object-id
+          maxLength: 24
+          minLength: 24
+          type: string
+        module:
+          description: The name of the module to create the new dataset in.
+          example: nameOfModule
+          maxLength: 100
+          type: string
+        name:
+          description: The dataset name. Dataset names must be unique within each
+            module.
+          example: nameOfDataset
+          maxLength: 100
+          type: string
+      required:
+      - name
       type: object
     DatasetReadOnlyProperties:
       description: Properties of metric datasets which can only be read through the
@@ -243,26 +260,53 @@ components:
         earliestEventTime:
           description: The timestamp, in seconds, of the earliest measure. The timestamp
             is in UNIX time.
+          readOnly: true
           type: string
         earliestIngestTime:
           description: The earliest index time for any of the measures in this index.
+          readOnly: true
           type: string
         latestEventTime:
           description: The timestamp, in seconds, of the latest measure. The timestamp
             is in UNIX time.
+          readOnly: true
           type: string
         latestIngestTime:
           description: The earliest index time for any of the measures in this index.
+          readOnly: true
           type: string
         latestMetadataUpdateTime:
           description: The latest time that the metric index metadata was refreshed.
+          readOnly: true
           type: string
         totalEventCount:
           description: THe number of measures in the metric index.
+          readOnly: true
           type: integer
         totalSize:
           description: For metrics indexes, the totalSize is set to 0.
+          readOnly: true
           type: integer
+      type: object
+    DateMetadataProperties:
+      description: Created and Modified date-time properties for inclusion in other
+        objects.
+      properties:
+        created:
+          description: The date and time object was created.
+          example: "2018-10-14 10:18:53.000417"
+          pattern: '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9].[0-9]{6}'
+          readOnly: true
+          type: string
+        modified:
+          description: The date and time object was modified.
+          example: "2018-10-11 07:56:35.000770"
+          pattern: '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9].[0-9]{6}'
+          readOnly: true
+          type: string
+      required:
+      - created
+      - modified
       type: object
     DeleteSearchJob:
       description: A fully-constructed delete search job, including read-only fields.
@@ -417,6 +461,110 @@ components:
         message:
           type: string
       type: object
+    FederatedConnection:
+      description: A fully constructed federated connection object.
+      properties:
+        created:
+          description: The timestamp when the federated connection was created.
+          example: 2021-06-01 23:08:51.888000Z
+          type: string
+        createdby:
+          description: The user who created the federated connection.
+          example: user@example.com
+          type: string
+        hostnameip:
+          description: The remote hostname to connect yo.
+          example: ec-botsv2.portal.io
+          maxLength: 100
+          type: string
+        modified:
+          description: The timestamp when the federated connection was modified.
+          example: 2021-06-01 23:08:51.888000Z
+          type: string
+        modifiedby:
+          description: The user who last modified the federated connection.
+          example: user@example.com
+          type: string
+        name:
+          description: The name of the federated connection.
+          example: connectionobject
+          maxLength: 100
+          type: string
+        port:
+          description: The remote port number.
+          example: 8080
+          type: number
+        serviceaccountuser:
+          description: The username on the service account.
+          example: username
+          maxLength: 100
+          type: string
+      type: object
+    FederatedConnectionInput:
+      description: |
+        The property values for creating a new federated connection using a PUT or POST request.
+      properties:
+        hostnameip:
+          description: The remote hostname to connect to.
+          example: ec-botsv2.portal.io
+          maxLength: 100
+          type: string
+        name:
+          description: The name of the federated connection.
+          example: connectionobject
+          maxLength: 100
+          type: string
+        port:
+          description: The remote port number.
+          example: 8080
+          type: number
+        serviceaccountuser:
+          description: The username on the service account.
+          example: username
+          maxLength: 100
+          type: string
+      type: object
+    FederatedDataset:
+      allOf:
+      - $ref: '#/components/schemas/FederatedDatasetProperties'
+      - $ref: '#/components/schemas/MetadataProperties'
+      - $ref: '#/components/schemas/DatasetCommon'
+      description: A complete federated dataset as rendered in POST, PATCH, and GET
+        responses.
+      required:
+      - kind
+      - federatedConnection
+      - federatedDataset
+      - federatedDatasetKind
+      type: object
+    FederatedDatasetKind:
+      description: The dataset kind.
+      enum:
+      - federated
+      type: string
+    FederatedDatasetPATCH:
+      allOf:
+      - $ref: '#/components/schemas/FederatedDatasetProperties'
+      - $ref: '#/components/schemas/DatasetPATCHCommon'
+      description: Property values to be set in an existing federated dataset using
+        a PATCH request.
+    FederatedDatasetProperties:
+      description: Properties of job datasets which may be read, set, and changed
+        through the API. Implementation detail of DatasetPOST, DatasetPATCH, and Dataset,
+        do not use directly.
+      properties:
+        federatedConnection:
+          description: Connection information to connect to remote federated connection.
+          type: string
+        federatedDataset:
+          description: Dataset information in the remote instance.
+          type: string
+        federatedDatasetKind:
+          description: Dataset kind information in the remote instance.
+          type: string
+        kind:
+          $ref: '#/components/schemas/FederatedDatasetKind'
+      type: object
     Field:
       description: Initial property values for creating a new field using a POST request.
       properties:
@@ -472,6 +620,13 @@ components:
       - STRING
       - UNKNOWN
       type: string
+    FieldPOST:
+      allOf:
+      - $ref: '#/components/schemas/FieldProperties'
+      description: Initial property values for creating a new field using a POST request.
+      required:
+      - name
+      type: object
     FieldPrevalence:
       description: How frequent the field appears in the dataset. Must be one of the
         valid values.
@@ -480,6 +635,37 @@ components:
       - SOME
       - UNKNOWN
       type: string
+    FieldProperties:
+      description: Properties of fields which can be read, set, and changed through
+        the API. Implementation detail of FieldPOST, FieldPATCH, and Field, do not
+        use directly.
+      properties:
+        datatype:
+          $ref: '#/components/schemas/FieldDataType'
+        description:
+          description: The field description.
+          example: Count of all the users in the request
+          type: string
+        fieldtype:
+          $ref: '#/components/schemas/FieldType'
+        indexed:
+          description: Whether or not the field has been indexed.
+          type: boolean
+        name:
+          description: The field name.
+          example: nameOfField
+          maxLength: 100
+          type: string
+        prevalence:
+          $ref: '#/components/schemas/FieldPrevalence'
+        summary:
+          description: The field summary.
+          example: Count of the users
+          type: string
+        title:
+          description: The field title.
+          example: User Count
+          type: string
     FieldType:
       description: The type of field. Must be one of the valid values.
       enum:
@@ -513,6 +699,110 @@ components:
           description: |
             If specified, the latest timestamp in UTC format  of the events to process.
           type: string
+      type: object
+    IndexDataset:
+      allOf:
+      - $ref: '#/components/schemas/IndexDatasetProperties'
+      - $ref: '#/components/schemas/IndexDatasetReadOnlyProperties'
+      - $ref: '#/components/schemas/MetadataProperties'
+      - $ref: '#/components/schemas/DatasetCommon'
+      description: A complete index dataset as rendered in POST, PATCH, and GET responses.
+      required:
+      - kind
+      - disabled
+      type: object
+    IndexDatasetKind:
+      description: The dataset kind.
+      enum:
+      - index
+      type: string
+    IndexDatasetPATCH:
+      allOf:
+      - $ref: '#/components/schemas/IndexDatasetProperties'
+      - $ref: '#/components/schemas/DatasetPATCHCommon'
+      description: Property values to be set in an existing index dataset using a
+        PATCH request.
+    IndexDatasetProperties:
+      description: Properties of job datasets which may be read, set, and changed
+        through the API. Implementation detail of DatasetPOST, DatasetPATCH, and Dataset,
+        do not use directly.
+      properties:
+        disabled:
+          description: Specifies whether or not the Splunk index is disabled.
+          type: boolean
+        frozenTimePeriodInSecs:
+          description: The frozenTimePeriodInSecs to use for the index
+          type: integer
+        kind:
+          $ref: '#/components/schemas/IndexDatasetKind'
+      type: object
+    IndexDatasetReadOnlyProperties:
+      description: Properties of index datasets which can only be read through the
+        API.
+      properties:
+        earliestEventTime:
+          description: The timestamp, in seconds, of the earliest event. The timestamp
+            is in UNIX time.
+          type: string
+        earliestIngestTime:
+          description: The earliest index time for any of the events in this index.
+          type: string
+        kind:
+          $ref: '#/components/schemas/IndexDatasetKind'
+        latestEventTime:
+          description: The timestamp, in seconds, of the latest event. The timestamp
+            is in UNIX time.
+          type: string
+        latestIngestTime:
+          description: The latest index time for any of the events in this index.
+          type: string
+        latestMetadataUpdateTime:
+          description: The latest time that the index metadata was refreshed.
+          type: string
+        totalEventCount:
+          description: The number of events in the index.
+          type: integer
+        totalSize:
+          description: The raw size, in bytes, of the uncompressed data in the indexers.
+          type: integer
+      type: object
+    KVCollectionDataset:
+      allOf:
+      - $ref: '#/components/schemas/KVCollectionDatasetProperties'
+      - $ref: '#/components/schemas/MetadataProperties'
+      - $ref: '#/components/schemas/DatasetCommon'
+      description: A complete kvcollection dataset as rendered in POST, PATCH, and
+        GET responses.
+      required:
+      - kind
+      type: object
+    KVCollectionDatasetKind:
+      description: The dataset kind.
+      enum:
+      - kvcollection
+      type: string
+    KVCollectionDatasetPATCH:
+      allOf:
+      - $ref: '#/components/schemas/KVCollectionDatasetProperties'
+      - $ref: '#/components/schemas/DatasetPATCHCommon'
+      description: Property values to be set in an existing kvcollection dataset using
+        a PATCH request.
+    KVCollectionDatasetProperties:
+      description: Properties of kvcollection datasets which may be read, set, and
+        changed through the API. Implementation detail of DatasetPOST, DatasetPATCH,
+        and Dataset, do not use directly.
+      properties:
+        kind:
+          $ref: '#/components/schemas/KVCollectionDatasetKind'
+      type: object
+    ListModules:
+      description: A list of fully constructed modules
+      properties:
+        results:
+          description: list of all modules
+          items:
+            $ref: '#/components/schemas/Module'
+          type: array
       type: object
     ListPreviewResultsResponse:
       description: |
@@ -597,9 +887,57 @@ components:
       required:
       - results
       type: object
+    LookupDataset:
+      allOf:
+      - $ref: '#/components/schemas/LookupDatasetProperties'
+      - $ref: '#/components/schemas/MetadataProperties'
+      - $ref: '#/components/schemas/DatasetCommon'
+      description: A complete lookup dataset as rendered in POST, PATCH, and GET responses.
+      required:
+      - kind
+      - externalKind
+      - externalName
+      type: object
+    LookupDatasetExternalKind:
+      description: The type of the external lookup.
+      enum:
+      - kvcollection
+      type: string
+    LookupDatasetKind:
+      description: The dataset kind.
+      enum:
+      - lookup
+      type: string
+    LookupDatasetPATCH:
+      allOf:
+      - $ref: '#/components/schemas/LookupDatasetProperties'
+      - $ref: '#/components/schemas/DatasetPATCHCommon'
+      description: Property values to be set in an existing lookup dataset using a
+        PATCH request.
+    LookupDatasetProperties:
+      description: Properties of lookup datasets which may be read, set, and changed
+        through the API. Implementation detail of DatasetPOST, DatasetPATCH, and Dataset,
+        do not use directly.
+      properties:
+        caseSensitiveMatch:
+          default: true
+          description: Match case-sensitively against the lookup.
+          type: boolean
+        externalKind:
+          $ref: '#/components/schemas/LookupDatasetExternalKind'
+        externalName:
+          description: The name of the external lookup.
+          example: nameOfKvCollection
+          type: string
+        filter:
+          description: A query that filters results out of the lookup before those
+            results are returned.
+          type: string
+        kind:
+          $ref: '#/components/schemas/LookupDatasetKind'
     Message:
       description: |
-        The message field in search results or search jobs.  The types of messages are INFO, DEBUG, FATAL, and ERROR.
+        The message field in search results or search jobs. The types of messages are INFO, DEBUG, FATAL, and ERROR.
       properties:
         text:
           type: string
@@ -610,6 +948,78 @@ components:
           - FATAL
           - ERROR
           type: string
+    MetadataProperties:
+      allOf:
+      - $ref: '#/components/schemas/DateMetadataProperties'
+      - $ref: '#/components/schemas/UserMetadataProperties'
+      description: Created, createdby, modified, modifiedby, and owner properties
+        for inclusion in other objects.
+    MetricDataset:
+      allOf:
+      - $ref: '#/components/schemas/MetricDatasetProperties'
+      - $ref: '#/components/schemas/MetricDatasetReadOnlyProperties'
+      - $ref: '#/components/schemas/MetadataProperties'
+      - $ref: '#/components/schemas/DatasetCommon'
+      description: A complete metric dataset as rendered in POST, PATCH, and GET responses.
+      required:
+      - kind
+      - disabled
+      type: object
+    MetricDatasetKind:
+      description: The dataset kind.
+      enum:
+      - metric
+      type: string
+    MetricDatasetPATCH:
+      allOf:
+      - $ref: '#/components/schemas/MetricDatasetProperties'
+      - $ref: '#/components/schemas/DatasetPATCHCommon'
+      description: Property values to be set in an existing metric dataset using a
+        PATCH request.
+    MetricDatasetProperties:
+      description: Properties of metric datasets which may be read, set, and changed
+        through the API. Implementation detail of DatasetPOST, DatasetPATCH, and Dataset,
+        do not use directly.
+      properties:
+        disabled:
+          description: Specifies whether or not the Splunk index is disabled.
+          type: boolean
+        frozenTimePeriodInSecs:
+          description: The frozenTimePeriodInSecs to use for the index
+          type: integer
+        kind:
+          $ref: '#/components/schemas/MetricDatasetKind'
+      type: object
+    MetricDatasetReadOnlyProperties:
+      description: Properties of metric datasets which can only be read through the
+        API.
+      properties:
+        earliestEventTime:
+          description: The timestamp, in seconds, of the earliest measure. The timestamp
+            is in UNIX time.
+          type: string
+        earliestIngestTime:
+          description: The earliest index time for any of the measures in this index.
+          type: string
+        kind:
+          $ref: '#/components/schemas/MetricDatasetKind'
+        latestEventTime:
+          description: The timestamp, in seconds, of the latest measure. The timestamp
+            is in UNIX time.
+          type: string
+        latestIngestTime:
+          description: The earliest index time for any of the measures in this index.
+          type: string
+        latestMetadataUpdateTime:
+          description: The latest time that the metric index metadata was refreshed.
+          type: string
+        totalEventCount:
+          description: THe number of measures in the metric index.
+          type: integer
+        totalSize:
+          description: For metrics indexes, the totalSize is set to 0.
+          type: integer
+      type: object
     Module:
       description: A fully constructed module
       properties:
@@ -635,103 +1045,27 @@ components:
       type: object
     QueryParameters:
       description: |
-        Represents parameters on the search job, such as  'earliest' and 'latest'.
+        Represents parameters on the search job, such as 'earliest' and 'latest'.
       properties:
         earliest:
           default: -24h@h
           description: |
-            The earliest time, in absolute or relative format, to retrieve events.  When specifying an absolute time specify either UNIX time,  or UTC in seconds using the ISO-8601 (%FT%T.%Q) format.  For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC.  Any offset specified is ignored.
+            The earliest time, in absolute or relative format, to retrieve events. When specifying an absolute time specify either UNIX time, or UTC in seconds using the ISO-8601 (%FT%T.%Q) format. For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC. Any offset specified is ignored.
           type: string
         latest:
           default: now
           description: |
-            The latest time, in absolute or relative format, to retrieve events.  When specifying an absolute time specify either UNIX time,  or UTC in seconds using the ISO-8601 (%FT%T.%Q) format.  For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC.  Any offset specified is ignored.
+            The latest time, in absolute or relative format, to retrieve events. When specifying an absolute time specify either UNIX time, or UTC in seconds using the ISO-8601 (%FT%T.%Q) format. For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC. Any offset specified is ignored.
           type: string
         relativeTimeAnchor:
           default: The system time when the search job is created.
           description: |
-            Relative values for the 'earliest' and 'latest' parameters  snap to the unit that you specify.  For example, if 'earliest' is set to -d@d, the unit is day.  If the 'relativeTimeAnchor' is is set to '2020-10-05T13:15:30Z'  then 'resolvedEarliest' is snapped to '2020-10-05T00:00:00Z',  which is the day. Hours, minutes, and seconds are dropped.  If no 'relativeTimeAnchor' is specified, the default value  is set to the time the search job was created.
+            Relative values for the 'earliest' and 'latest' parameters snap to the unit that you specify. For example, if 'earliest' is set to -d@d, the unit is day. If the 'relativeTimeAnchor' is is set to '2020-10-05T13:15:30Z' then 'resolvedEarliest' is snapped to '2020-10-05T00:00:00Z', which is the day. Hours, minutes, and seconds are dropped. If no 'relativeTimeAnchor' is specified, the default value is set to the time the search job was created.
           format: date-time
           type: string
         timezone:
           description: |
-            The timezone that relative time specifiers are based off of.  Timezone only applies to relative time literals for 'earliest' and 'latest'.  If UNIX time or UTC format is used for 'earliest' and 'latest',  this field is ignored. For the list of supported timezone formats, see https://docs.splunk.com/Documentation/Splunk/latest/Data/Applytimezoneoffsetstotimestamps#zoneinfo_.28TZ.29_database type: string default: "GMT"
-      type: object
-    RecurringSearch:
-      description: A fully constructed recurring search, including read-only fields.
-      properties:
-        app:
-          description: The app in which the recurring search is created.
-          type: string
-        createdAt:
-          description: The time the recurring search was created.
-          format: date-time
-          readOnly: true
-          type: string
-        createdBy:
-          description: The user who created the recurring search.
-          readOnly: true
-          type: string
-        description:
-          description: |
-            The user-defined description for this recurring search. There is no limit on the length of the description.
-          type: string
-        enabled:
-          default: true
-          description: |
-            Specifies whether this recurring search is enabled  (runs on the specified interval) or disabled.
-          type: boolean
-        interval:
-          description: |
-            The recurrence interval for the recurring search  specified using relative time specifier literals.
-          enum:
-          - 15m
-          - 30m
-          - 1h
-          - 12h
-          - 24h
-          type: string
-        modifiedAt:
-          description: The time the recurring search was last modified.
-          format: date-time
-          readOnly: true
-          type: string
-        modifiedBy:
-          description: The user who last modified the recurring search.
-          readOnly: true
-          type: string
-        module:
-          default: ""
-          description: |
-            The module to run the search in.  The default module is used if a module is not specified. The maximum lengeth for a module name is 100 characters.
-          type: string
-        name:
-          description: |
-            The user-defined name for this recurring search. The maximum length for a name is 100 characters.
-          maxLength: 100
-          type: string
-        query:
-          description: |
-            The SPL search string for the recurring search including  conditions, predicates, and triggers.
-          format: SPL (v2)
-          type: string
-        queryParameters:
-          allOf:
-          - $ref: '#/components/schemas/QueryParameters'
-          description: |
-            Represents parameters on the search job such as 'earliest'.  By default, the 'earliest' parameter is set based on the recurrence  interval. For example, if the interval is set to '1h', the default  value for 'earliest' is set to '-1h' by the platform.  The 'latest' and 'relativeTimeAnchor' parameters are reserved.  The readonly fields for recurring searches and their values are  determined by the platform.
-        rsid:
-          description: The ID assigned to the recurring search.
-          readOnly: true
-          type: string
-        title:
-          description: |
-            The user-defined title for this recurring search. There is no limit on the length of the title.
-          type: string
-      required:
-      - interval
-      - query
-      - name
+            The timezone that relative time specifiers are based off of. Timezone only applies to relative time literals for 'earliest' and 'latest'. If UNIX time or UTC format is used for 'earliest' and 'latest', this field is ignored. For the list of supported timezone formats, see https://docs.splunk.com/Documentation/Splunk/latest/Data/Applytimezoneoffsetstotimestamps#zoneinfo_.28TZ.29_database type: string default: "GMT"
       type: object
     SearchJob:
       description: A fully-constructed search job, including read-only fields.
@@ -889,7 +1223,7 @@ components:
       type: object
     SearchStatus:
       description: |
-        The current status of the search job. The valid status values are  'running', 'done', 'canceled', and 'failed'.
+        The current status of the search job. The valid status values are 'running', 'done', 'canceled', and 'failed'.
       enum:
       - running
       - done
@@ -1081,7 +1415,7 @@ components:
       properties:
         status:
           description: |
-            The status to PATCH to an existing search job.  The only status values you can PATCH are 'canceled' and 'finalized'.  You can PATCH the 'canceled' status only to a search job that is running.
+            The status to PATCH to an existing search job. The only status values you can PATCH are 'canceled' and 'finalized'. You can PATCH the 'canceled' status only to a search job that is running.
           enum:
           - canceled
           - finalized
@@ -1089,36 +1423,30 @@ components:
       required:
       - status
       type: object
-    UpdateRecurringSearch:
-      description: |
-        Disable or update a recurring search job with a new query,  time range or interval.
+    UserMetadataProperties:
+      description: Owner, createdby, and modifiedby user name properties for inclusion
+        in other objects.
       properties:
-        enabled:
-          default: true
-          description: |
-            Specifies whether this recurring search is enabled  (runs on the specified interval) or disabled.
-          type: boolean
-        interval:
-          description: |
-            The recurrence interval for the recurring search  specified with relative time specifier literals.
-          enum:
-          - 15m
-          - 30m
-          - 1h
-          - 12h
-          - 24h
+        createdby:
+          description: The name of the user who created the object. This value is
+            obtained from the bearer token and may not be changed.
+          example: janedoe
+          readOnly: true
           type: string
-        name:
-          description: The user defined name for this recurring search.
+        modifiedby:
+          description: The name of the user who most recently modified the object.
+          example: suedoe
+          readOnly: true
           type: string
-        query:
-          description: The query for the recurring search.
+        owner:
+          description: The name of the object's owner.
+          example: johndoe
+          readOnly: true
           type: string
-        queryParameters:
-          allOf:
-          - $ref: '#/components/schemas/QueryParameters'
-          description: |
-            Represents parameters on the search job such as 'earliest'.  By default, the 'earliest' parameter is set based on the  recurrence interval. For example, if the interval is set  to '1h', the default value for 'earliest' is set to '-1h'  by the platform. The 'latest' and 'relativeTimeAnchor'  parameters are reserved. The readonly fields for recurring  searches and their values are determined by the platform.
+      required:
+      - owner
+      - createdby
+      - modifiedby
       type: object
   securitySchemes:
     BasicAuth:
@@ -1164,6 +1492,100 @@ paths:
           description: The resource wasn't found.
         "500":
           description: An internal service error occurred.
+  /{tenant}/search/v3alpha1/connections:
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/AuthorizationHeader'
+    post:
+      description: |
+        Creates a new federated connection with information about how to connect to a remote index.
+      operationId: createFederatedConnection
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FederatedConnectionInput'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FederatedConnection'
+          description: |
+            The federated connection was created successfully.
+        "400":
+          description: The request payload isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "500":
+          description: An internal service error occurred.
+  /{tenant}/search/v3alpha1/connections/{connectionName}:
+    delete:
+      description: |
+        Deletes a federated connection with the specified name (connectionName)
+      operationId: deleteFederatedConnection
+      responses:
+        "204":
+          description: |
+            The federated connection with the specified name (connectionName) was deleted successfully.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "500":
+          description: An internal service error occurred.
+    get:
+      description: |
+        Returns the federated connection with the specified name (connectionName).
+      operationId: getFederatedConnectionByName
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FederatedConnection'
+          description: |
+            The federated connection for the specified name (connectionName) was returned successfully.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "500":
+          description: An internal service error occurred.
+    parameters:
+    - $ref: '#/components/parameters/AuthorizationHeader'
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/connectionName'
+    put:
+      description: |
+        Creates or updates a federated connection with a specified name (connectionName).
+      operationId: putFederatedConnectionByName
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FederatedConnectionInput'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FederatedConnection'
+          description: The federated connection was created or updated successfully.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "500":
+          description: An internal service error occurred.
   /{tenant}/search/v3alpha1/datasets:
     parameters:
     - $ref: '#/components/parameters/tenant'
@@ -1175,7 +1597,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Dataset'
+              $ref: '#/components/schemas/DatasetPOST'
       responses:
         "201":
           content:
@@ -1194,16 +1616,12 @@ paths:
   /{tenant}/search/v3alpha1/datasets/{datasetid}:
     delete:
       description: |
-        Deletes a dataset with a  specified dataset ID (datasetid).
+        Deletes a dataset with a specified dataset ID (datasetid).
       operationId: deleteDatasetById
       responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Dataset'
+        "204":
           description: |
-            The dataset with the specified  dataset ID (datasetid) was deleted successfully.
+            The dataset with the specified dataset ID (datasetid) was deleted successfully.
         "400":
           description: The request isn't valid.
         "401":
@@ -1216,7 +1634,7 @@ paths:
           description: An internal service error occurred.
     get:
       description: |
-        Returns a dataset with a specified  dataset ID (datasetid).
+        Returns a dataset with a specified dataset ID (datasetid).
       operationId: getDatasetById
       responses:
         "200":
@@ -1225,7 +1643,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Dataset'
           description: |
-            The search job information for the specified  datatset ID (datasetid) was returned successfully.
+            The search job information for the specified datatset ID (datasetid) was returned successfully.
         "400":
           description: The request isn't valid.
         "401":
@@ -1242,13 +1660,13 @@ paths:
     - $ref: '#/components/parameters/datasetid'
     patch:
       description: |
-        Modifies a dataset with a specified  dataset ID (datasetid).
+        Modifies a dataset with a specified dataset ID (datasetid).
       operationId: updateDatasetById
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Dataset'
+              $ref: '#/components/schemas/DatasetPATCH'
       responses:
         "200":
           content:
@@ -1370,7 +1788,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/SearchJob'
           description: |
-            The search job information for the specified  search ID (sid) was returned successfully.
+            The search job information for the specified search ID (sid) was returned successfully.
         "400":
           description: The request isn't valid.
         "401":
@@ -1387,7 +1805,7 @@ paths:
     - $ref: '#/components/parameters/sid'
     patch:
       description: |
-        Modifies a search job with a specified  search ID (sid) with an action.
+        Modifies a search job with a specified search ID (sid) with an action.
       operationId: updateJob
       requestBody:
         content:
@@ -1589,191 +2007,6 @@ paths:
           description: The resource wasn't found.
         "500":
           description: An internal service error occurred.
-  /{tenant}/search/v3alpha1/recurring-searches:
-    get:
-      description: Returns a matching list of all recurring searches.
-      operationId: listRecurringSearches
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/RecurringSearch'
-                type: array
-          description: The list of recurring searches was returned successfully.
-        "400":
-          description: The request isn't valid.
-        "401":
-          description: The user isn't authenticated.
-        "403":
-          description: The operation isn't authorized.
-        "500":
-          description: An internal service error occurred.
-    parameters:
-    - $ref: '#/components/parameters/tenant'
-    - $ref: '#/components/parameters/AuthorizationHeader'
-    post:
-      description: Creates a recurring search job.
-      operationId: createRecurringSearch
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RecurringSearch'
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RecurringSearch'
-          description: The recurring search was created successfully.
-        "400":
-          description: The request isn’t valid.
-        "401":
-          description: The user isn’t authenticated.
-        "403":
-          description: The operation isn't authorized.
-        "409":
-          description: The recurring search name already exists.
-        "412":
-          description: The precondition check failed. The search query contains commands,
-            thru or into, that have side effects. However, the 'allowSideEffects'
-            query parameter is set to false.
-        "429":
-          description: Too many requests were sent.
-        "500":
-          description: An internal service error occurred.
-  /{tenant}/search/v3alpha1/recurring-searches/{rsid}:
-    delete:
-      description: |
-        Deletes a recurring search with a  specified recurring search ID (rsid).
-      operationId: deleteRecurringSearch
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RecurringSearch'
-          description: |
-            The recurring search with the specified  recurring search ID (rsid) was deleted successfully.
-        "400":
-          description: The request isn't valid.
-        "401":
-          description: The user isn't authenticated.
-        "403":
-          description: The operation isn't authorized.
-        "404":
-          description: The resource wasn't found.
-        "500":
-          description: An internal service error occurred.
-    get:
-      description: |
-        Returns a recurring search job with a specified  recurring search ID (rsid).
-      operationId: getRecurringSearch
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RecurringSearch'
-          description: |
-            The search job information for the specified  recurring search ID (rsid) was returned successfully.
-        "400":
-          description: The request isn't valid.
-        "401":
-          description: The user isn't authenticated.
-        "403":
-          description: The operation isn't authorized.
-        "404":
-          description: The resource wasn't found.
-        "500":
-          description: An internal service error occurred.
-    parameters:
-    - $ref: '#/components/parameters/AuthorizationHeader'
-    - $ref: '#/components/parameters/tenant'
-    - $ref: '#/components/parameters/rsid'
-    patch:
-      description: |
-        Modifies a recurring search with a specified  recurring search ID (rsid).
-      operationId: updateRecurringSearch
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateRecurringSearch'
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RecurringSearch'
-          description: The recurring search job was modified successfully.
-        "400":
-          description: The request isn't valid.
-        "401":
-          description: The user isn't authenticated.
-        "403":
-          description: The operation isn't authorized.
-        "500":
-          description: An internal service error occurred.
-  /{tenant}/search/v3alpha1/recurring-searches/{rsid}/jobs:
-    get:
-      description: |
-        Returns all search jobs associated with a recurring search with a specified recurring search ID (rsid).
-      operationId: getAllJobsForRecurringSearch
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/SearchJob'
-                type: array
-          description: |
-            The search jobs associated with the recurring search  with the recurring search ID (rsid) were returned successfully.
-        "400":
-          description: The request isn't valid.
-        "401":
-          description: The user isn't authenticated.
-        "403":
-          description: The operation isn't authorized.
-        "404":
-          description: The resource wasn't found.
-        "500":
-          description: An internal service error occurred.
-    parameters:
-    - $ref: '#/components/parameters/AuthorizationHeader'
-    - $ref: '#/components/parameters/count'
-    - $ref: '#/components/parameters/tenant'
-    - $ref: '#/components/parameters/rsid'
-  /{tenant}/search/v3alpha1/recurring-searches/{rsid}/most-recent:
-    get:
-      description: |
-        Returns the most recent search job associated with a  recurring search with a specified recurring search ID (rsid).
-      operationId: getJobForRecurringSearch
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SearchJob'
-          description: |
-            The most recent recurring search job information that is associated with the recurring search ID (rsid) was returned successfully.
-        "400":
-          description: The request isn't valid.
-        "401":
-          description: The user isn't authenticated.
-        "403":
-          description: The operation isn't authorized.
-        "404":
-          description: The resouce wasn't found.
-        "500":
-          description: An internal service error occurred.
-    parameters:
-    - $ref: '#/components/parameters/AuthorizationHeader'
-    - $ref: '#/components/parameters/tenant'
-    - $ref: '#/components/parameters/rsid'
   /{tenant}/search/v3alpha1/spl2-modules:
     get:
       description: gets a list of modules.
@@ -1783,9 +2016,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Module'
-                type: array
+                $ref: '#/components/schemas/ListModules'
           description: The modules were retrieved successfully.
         "400":
           description: The request isn’t valid.
@@ -1801,7 +2032,7 @@ paths:
   /{tenant}/search/v3alpha1/spl2-modules/{resourceName}:
     delete:
       description: |
-        Deletes a module with a  specified resource name (resourceName).
+        Deletes a module with a specified resource name (resourceName).
       operationId: deleteSpl2ModuleByResourceName
       responses:
         "200":
@@ -1810,7 +2041,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Module'
           description: |
-            The module with the specified  resource name (resourceName) was deleted successfully.
+            The module with the specified resource name (resourceName) was deleted successfully.
         "400":
           description: The request isn't valid.
         "401":
@@ -1832,7 +2063,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Module'
           description: |
-            The mdoule for the specified  resource name (resourceName) was returned successfully.
+            The module for the specified resource name (resourceName) was returned successfully.
         "400":
           description: The request isn't valid.
         "401":
@@ -1849,7 +2080,7 @@ paths:
     - $ref: '#/components/parameters/resourceName'
     put:
       description: |
-        Modifies/Creates a module with a specified  resource name (resourceName).
+        Modifies/Creates a module with a specified resource name (resourceName).
       operationId: createSpl2Module
       requestBody:
         content:
@@ -1872,4 +2103,4 @@ paths:
         "500":
           description: An internal service error occurred.
 
-# Retrieved from scp-openapi commit 3e10ab186559df6d0a5211cf734514cd53d79779 path: search/v3alpha1/openapi.yaml
+# Retrieved from scp-openapi commit 17cef8cca256319b596db67514c7277b1576baf5 path: search/v3alpha1/openapi.yaml

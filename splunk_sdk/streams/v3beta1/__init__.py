@@ -70,6 +70,8 @@ from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     PaginatedResponseOfTemplateResponse, \
     PipelinePatchRequest, \
     PipelineReactivateResponse, \
+    PipelineReactivateResponseAsync, \
+    PipelineReactivationStatus, \
     PipelineRequest, \
     PreviewNode, \
     RuleMetrics, \
@@ -84,6 +86,8 @@ from splunk_sdk.streams.v3beta1.gen_models import ActivatePipelineRequest, \
     TemplatePatchRequest, \
     TemplatePutRequest, \
     TemplateRequest, \
+    UpgradePipelineRequest, \
     UplType, \
+    ValidateConnectionRequest, \
     ValidateRequest, \
     ValidateResponse

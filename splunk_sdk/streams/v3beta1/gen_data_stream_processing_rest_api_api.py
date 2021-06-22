@@ -56,6 +56,8 @@ from splunk_sdk.streams.v3beta1.gen_models import PaginatedResponseOfTemplateRes
 from splunk_sdk.streams.v3beta1.gen_models import Pipeline
 from splunk_sdk.streams.v3beta1.gen_models import PipelinePatchRequest
 from splunk_sdk.streams.v3beta1.gen_models import PipelineReactivateResponse
+from splunk_sdk.streams.v3beta1.gen_models import PipelineReactivateResponseAsync
+from splunk_sdk.streams.v3beta1.gen_models import PipelineReactivationStatus
 from splunk_sdk.streams.v3beta1.gen_models import PipelineRequest
 from splunk_sdk.streams.v3beta1.gen_models import PipelineResponse
 from splunk_sdk.streams.v3beta1.gen_models import PreviewData
@@ -70,8 +72,10 @@ from splunk_sdk.streams.v3beta1.gen_models import TemplatePatchRequest
 from splunk_sdk.streams.v3beta1.gen_models import TemplatePutRequest
 from splunk_sdk.streams.v3beta1.gen_models import TemplateRequest
 from splunk_sdk.streams.v3beta1.gen_models import TemplateResponse
+from splunk_sdk.streams.v3beta1.gen_models import UpgradePipelineRequest
 from splunk_sdk.streams.v3beta1.gen_models import UplType
 from splunk_sdk.streams.v3beta1.gen_models import UploadFileResponse
+from splunk_sdk.streams.v3beta1.gen_models import ValidateConnectionRequest
 from splunk_sdk.streams.v3beta1.gen_models import ValidateRequest
 from splunk_sdk.streams.v3beta1.gen_models import ValidateResponse
 
@@ -119,12 +123,14 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, Pipeline)
 
-    def create_connection(self, connection_request: ConnectionRequest, query_params: Dict[str, object] = None) -> ConnectionSaveResponse:
+    def create_connection(self, connection_request: ConnectionRequest, skip_validation: bool = None, query_params: Dict[str, object] = None) -> ConnectionSaveResponse:
         """
         Create a new DSP connection.
         """
         if query_params is None:
             query_params = {}
+        if skip_validation is not None:
+            query_params['skipValidation'] = skip_validation
 
         path_params = {
         }
@@ -621,12 +627,14 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, PaginatedResponseOfPipelineResponse)
 
-    def list_templates(self, offset: int = None, page_size: int = None, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> PaginatedResponseOfTemplateResponse:
+    def list_templates(self, create_user_id: str = None, offset: int = None, page_size: int = None, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> PaginatedResponseOfTemplateResponse:
         """
         Returns a list of all templates.
         """
         if query_params is None:
             query_params = {}
+        if create_user_id is not None:
+            query_params['createUserId'] = create_user_id
         if offset is not None:
             query_params['offset'] = offset
         if page_size is not None:
@@ -712,6 +720,23 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, PipelineReactivateResponse)
 
+    def reactivation_status(self, id: str, upgrade_id: str, query_params: Dict[str, object] = None) -> PipelineReactivationStatus:
+        """
+        Get pipeline reactivation status
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "id": id,
+            "upgradeId": upgrade_id,
+        }
+
+        path = Template("/streams/v3beta1/pipelines/${id}/upgrade/${upgradeId}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, PipelineReactivationStatus)
+
     def start_preview(self, preview_session_start_request: PreviewSessionStartRequest, query_params: Dict[str, object] = None) -> PreviewStartResponse:
         """
         Creates a preview session for a pipeline.
@@ -795,13 +820,27 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.patch(url, json=data, params=query_params)
         return handle_response(response, TemplateResponse)
 
-    def upload_file(self, file: str = None, query_params: Dict[str, object] = None) -> UploadFileResponse:
+    def upgrade_pipeline(self, id: str, upgrade_pipeline_request: UpgradePipelineRequest = None, query_params: Dict[str, object] = None) -> PipelineReactivateResponseAsync:
         """
-        Upload new file.
+        Upgrades a pipeline async
         """
         if query_params is None:
             query_params = {}
 
+        path_params = {
+            "id": id,
+        }
+
+        path = Template("/streams/v3beta1/pipelines/${id}/upgrade").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = upgrade_pipeline_request.to_dict()
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, PipelineReactivateResponseAsync)
+
+    def upload_file(self, filename: str = None) -> UploadFileResponse:
+        """
+        Upload new file.
+        """
         path_params = {
         }
 
@@ -809,18 +848,14 @@ class DataStreamProcessingRESTAPI(BaseService):
         url = self.base_client.build_url(path)
 
         # handle file
-        files = {'upfile': open(file, 'rb')}
+        files = {'upfile': open(filename, 'rb')}
         response = self.base_client.post(url, files=files)
-
         return handle_response(response, UploadFileResponse)
 
-    def upload_lookup_file(self, file: str = None, query_params: Dict[str, object] = None) -> UploadFileResponse:
+    def upload_lookup_file(self, filename: str = None) -> UploadFileResponse:
         """
         Upload new lookup file.
         """
-        if query_params is None:
-            query_params = {}
-
         path_params = {
         }
 
@@ -828,10 +863,25 @@ class DataStreamProcessingRESTAPI(BaseService):
         url = self.base_client.build_url(path)
 
         # handle file
-        files = {'upfile': open(file, 'rb')}
+        files = {'upfile': open(filename, 'rb')}
         response = self.base_client.post(url, files=files)
-
         return handle_response(response, UploadFileResponse)
+
+    def validate_connection(self, validate_connection_request: ValidateConnectionRequest, query_params: Dict[str, object] = None) -> SSCVoidModel:
+        """
+        Validates the configuration of a DSP connection.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/streams/v3beta1/connections/validate").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = validate_connection_request.to_dict()
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, )
 
     def validate_pipeline(self, validate_request: ValidateRequest, query_params: Dict[str, object] = None) -> ValidateResponse:
         """

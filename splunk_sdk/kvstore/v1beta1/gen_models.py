@@ -296,47 +296,6 @@ class IndexDescription(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
-class Key(SSCModel):
-
-    @staticmethod
-    def _from_dict(model: dict) -> "Key":
-        instance = Key.__new__(Key)
-        instance._attrs = model
-        return instance
-
-    def __init__(self, key: "str", **extra):
-        """Key"""
-
-        self._attrs = dict()
-        if key is not None:
-            self._attrs["_key"] = key
-        for k, v in extra.items():
-            self._attrs[k] = v
-
-    @property
-    def key(self) -> "str":
-        """ Gets the key of this Key.
-        Key of the inserted document.
-        """
-        return self._attrs.get("_key")
-
-    @key.setter
-    def key(self, key: "str"):
-        """Sets the key of this Key.
-
-        Key of the inserted document.
-
-        :param key: The key of this Key.
-        :type: str
-        """
-        if key is None:
-            raise ValueError("Invalid value for `key`, must not be `None`")
-        self._attrs["_key"] = key
-
-    def to_dict(self):
-        return {k: v for (k, v) in self._attrs.items() if v is not None}
-
-
 class StatusEnum(str, Enum):
     HEALTHY = "healthy"
     UNHEALTHY = "unhealthy"
@@ -411,6 +370,69 @@ class PingResponse(SSCModel):
         :type: str
         """
         self._attrs["errorMessage"] = error_message
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class Record(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "Record":
+        instance = Record.__new__(Record)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, key: "str", user: "str", **extra):
+        """Record"""
+
+        self._attrs = dict()
+        if key is not None:
+            self._attrs["_key"] = key
+        if user is not None:
+            self._attrs["_user"] = user
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def key(self) -> "str":
+        """ Gets the key of this Record.
+        Key of the resulting record.
+        """
+        return self._attrs.get("_key")
+
+    @key.setter
+    def key(self, key: "str"):
+        """Sets the key of this Record.
+
+        Key of the resulting record.
+
+        :param key: The key of this Record.
+        :type: str
+        """
+        if key is None:
+            raise ValueError("Invalid value for `key`, must not be `None`")
+        self._attrs["_key"] = key
+
+    @property
+    def user(self) -> "str":
+        """ Gets the user of this Record.
+        User of the resulting record.
+        """
+        return self._attrs.get("_user")
+
+    @user.setter
+    def user(self, user: "str"):
+        """Sets the user of this Record.
+
+        User of the resulting record.
+
+        :param user: The user of this Record.
+        :type: str
+        """
+        if user is None:
+            raise ValueError("Invalid value for `user`, must not be `None`")
+        self._attrs["_user"] = user
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
