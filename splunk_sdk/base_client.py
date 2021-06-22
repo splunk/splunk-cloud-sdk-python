@@ -84,6 +84,55 @@ def preprocess_body(fn):
     return _wrapper
 
 
+def build_url(context: Context, route="", add_scheme=False, omit_tenant=False) -> str:
+    """
+    Builds a partial (without scheme) or full URL from param "route" and based on tenant specification in the context.
+    It supports both scenarios of adopting tenant-scoped hostname or legacy hostname. Default mode is legacy hostname.
+    If context.tenant_scoped is True, tenant-scoped hostname is selected. Non-system tenant will be added to the domain.
+    Region will be added to the domain for system tenant.
+    If context.tenant_scoped is False, there will be no additional string added to domain name (legacy mode).
+
+    :param context: Context object which provides all necessary information
+    :param route: API path to call
+    :param add_scheme: set to True if needs to add scheme, default to False
+    :param omit_tenant: set to True if tenant name need not to be specified in URL
+    :return: The full URL.
+    """
+    if route is None:
+        route = ""
+    route = route.strip()
+    if route.startswith("/"):
+        route = route[1:]
+    if context.host is None or not context.host.strip():
+        raise ValueError("Invalid value for context.host")
+    host = context.host.strip()
+    if context.port is not None and context.port:
+        host = f"{host}:{context.port}"
+    if context.tenant is None or not context.tenant.strip():
+        raise ValueError("Invalid value for context.tenant")
+    tenant = context.tenant.strip()
+    if not omit_tenant or tenant == "system":
+        route = f"{tenant}/{route}"
+    if context.tenant_scoped is True:
+        if tenant == "system":
+            if context.region is None or not context.region.strip():
+                raise ValueError("Invalid value for context.region")
+            region = context.region.strip()
+            url = f"region-{region}.{host}/{route}"
+        else:
+            url = f"{tenant}.{host}/{route}"
+    else:
+        url = f"{host}/{route}"
+
+    if add_scheme is True:
+        if context.scheme is None or not context.scheme.strip():
+            raise ValueError("Invalid value for context.scheme")
+        scheme = context.scheme.strip()
+        return f"{scheme}://{url}"
+    else:
+        return url
+
+
 class BaseClient(object):
     """
     The BaseClient class encapsulates conventions, authorization, and URL handling

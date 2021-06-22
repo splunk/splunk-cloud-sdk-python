@@ -18,7 +18,7 @@ from test.fixtures import get_client_auth_manager as client_auth_manager  # NOQA
 from test.fixtures import get_client_auth_manager_scoped as client_auth_manager_scoped  # NOQA
 from test.fixtures import get_service_principal_auth_manager as service_principal_auth_manager  # NOQA
 from splunk_sdk.common.context import Context
-from splunk_sdk.base_client import BaseClient
+from splunk_sdk.base_client import BaseClient, build_url
 from splunk_sdk.identity import Identity as IdentityAndAccessControl
 
 @pytest.mark.usefixtures("pkce_auth_manager")  # NOQA
@@ -193,3 +193,33 @@ def test_base_client_instance_with_sp_auth(service_principal_auth_manager):
     assert (default_config is not None)
     assert (base_client is not None)
     _assert_sp_credentials_auth_context(base_client.auth_manager.context)
+
+
+def test_build_url():
+    # normal tenant
+    context = Context(host="test.splunk.com", tenant="tttt", tenant_scoped=True, scheme="http")
+    assert ("http://tttt.test.splunk.com/tttt/v2/test" == build_url(context, "/v2/test", True))
+    context = Context(host="test.splunk.com", tenant="tttt", tenant_scoped=False, port=9999)
+    assert ("test.splunk.com:9999/tttt/v2/test" == build_url(context, "v2/test", False))
+    context = Context(host="test.splunk.com", tenant="tttt", tenant_scoped=False, port=9999)
+    assert ("test.splunk.com:9999/v2/test" == build_url(context, "v2/test", False, True))
+    # system tenant
+    context = Context(host="test.splunk.com", tenant="system", tenant_scoped=True, region="iad10")
+    assert ("region-iad10.test.splunk.com/system/v2/test" == build_url(context, "/v2/test"))
+    context = Context(host="test.splunk.com", tenant="system", tenant_scoped=False)
+    assert ("test.splunk.com/system/v2/test" == build_url(context, "v2/test"))
+    context = Context(host="test.splunk.com", tenant="system", tenant_scoped=False)
+    assert ("https://test.splunk.com/system/v2/test" == build_url(context, "v2/test", True))
+    context = Context(host="test.splunk.com", tenant="system", tenant_scoped=False)
+    assert ("https://test.splunk.com/system/v2/test" == build_url(context, "v2/test", True, True))
+    # input sanity test
+    context = Context(host=" test.splunk.com ", tenant=" system ", tenant_scoped=True, region=" iad10 ")
+    assert ("region-iad10.test.splunk.com/system/v2/test" == build_url(context, "   v2/test "))
+    with pytest.raises(ValueError):
+        build_url(Context(host=None, tenant="system", tenant_scoped=False), "v2/test")
+    with pytest.raises(ValueError):
+        build_url(Context(tenant=" ", tenant_scoped=True), "v2/test")
+    with pytest.raises(ValueError):
+        build_url(Context(tenant_scoped=True), "v2/test")
+    with pytest.raises(ValueError):
+        build_url(Context(tenant_scoped=True, scheme=""), "v2/test", True)
