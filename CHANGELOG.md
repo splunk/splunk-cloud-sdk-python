@@ -12,7 +12,6 @@
      - Endpoints `insert_record` and `put_record` have returnType Record (earlier it was Key)
 
 * Search service (v3alpha1):
-
      - Models `RecurringSearch` and `UpdateRecurringSearch` have been removed
      - Endpoint `create_dataset` takes in argument `DatasetPOST` instead of `Dataset`
      - Endpoint `update_dataset_by_id` takes in argument `DatasetPATCH` instead of `Dataset`
@@ -26,14 +25,14 @@
 * Identity service (v3):
      - Models `ResetPasswordBody`, `UpdateGroupBody`, `UpdatePasswordBody` and `UpdateRoleBody` have been added
      - Endpoints `reset_password`, `update_password`, `update_group` and `update_role` have been added
-     - Parameters `description` and `display_name` have been added to models `CreateGroupBody`, `CreateRoleBody`, `Role`, and `Group`.
+     - Parameters `description` and `display_name` have been added to models `CreateGroupBody`, `CreateRoleBody`, `Role`, and `Group`
 
 * Search service (v3alpha1):
      - Models `DatasetPATCH`, `DatasetPOST`, `FederatedConnection`, `FederatedConnectionInput` and `ListModules` have been added
      - Endpoints `create_federated_connection`, `delete_federated_connection`, `get_federated_connection_by_name` and `put_federated_connection_by_name` have been added
 
 * Streams service (v3beta1):
-     - Models `PipelineReactivateResponseAsync`, `PipelineReactivationStatus`, `UpgradePipelineRequest` and `ValidateConnectionRequest` have been added. 
+     - Models `PipelineReactivateResponseAsync`, `PipelineReactivationStatus`, `UpgradePipelineRequest` and `ValidateConnectionRequest` have been added 
      - Parameter `skip_validation` has been added to `create_connection` endpoint
      - Parameter `create_user_id` has been added to `list_templates` endpoint
      - Endpoints `reactivation_status`, `validate_connection`, and `upgrade_pipeline` have been added
@@ -43,6 +42,8 @@
      - `ACTIVATING` and `DEACTIVATING` added to model `PipelineResponse` status enum
      - Model `Source` has changed with properties `node` and `pipeline_version` deleted and 18 new properties added
      - Parameter `learn_more_location` has been added to model `TemplateResponse`
+
+* Added support to build a partial (without scheme) or full URL from "route" parameter and based on tenant specification in the context
 
 ## Version 12.0.0-beta2
 #### Breaking Changes
