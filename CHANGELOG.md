@@ -7,11 +7,11 @@
 * Ingest service (v1beta2):
      - Model `HECResponse` has been removed
 
-* KVStore service (v1beta1)
+* KVStore service (v1beta1):
      - Model `Key` renamed to `Record` and has an additional required field `user`
      - Endpoints `insert_record` and `put_record` have returnType Record (earlier it was Key)
 
-* Search service (v3alpha1)
+* Search service (v3alpha1):
 
      - Models `RecurringSearch` and `UpdateRecurringSearch` have been removed
      - Endpoint `create_dataset` takes in argument `DatasetPOST` instead of `Dataset`
@@ -28,11 +28,11 @@
      - Endpoints `reset_password`, `update_password`, `update_group` and `update_role` have been added
      - Parameters `description` and `display_name` have been added to models `CreateGroupBody`, `CreateRoleBody`, `Role`, and `Group`.
 
-* Search service (v3alpha1)
+* Search service (v3alpha1):
      - Models `DatasetPATCH`, `DatasetPOST`, `FederatedConnection`, `FederatedConnectionInput` and `ListModules` have been added
      - Endpoints `create_federated_connection`, `delete_federated_connection`, `get_federated_connection_by_name` and `put_federated_connection_by_name` have been added
 
-* Streams service (v3beta1)
+* Streams service (v3beta1):
      - Models `PipelineReactivateResponseAsync`, `PipelineReactivationStatus`, `UpgradePipelineRequest` and `ValidateConnectionRequest` have been added. 
      - Parameter `skip_validation` has been added to `create_connection` endpoint
      - Parameter `create_user_id` has been added to `list_templates` endpoint
