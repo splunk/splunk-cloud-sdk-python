@@ -13,8 +13,8 @@
 from setuptools import setup, find_packages
 from splunk_sdk import __version__
 
-install_requires = ['requests>=2.22.0,<2.23',
-                    'urllib3>=1.25.2,<1.26', ]
+install_requires = ['requests>=2.25.1,<2.26.1',
+                    'urllib3>=1.26.5,<1.26.7', ]
 
 setup(
     name='splunk-cloud-sdk',
