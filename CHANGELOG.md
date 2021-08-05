@@ -1,7 +1,20 @@
 # Splunk Cloud SDK for Python Changelog
 
-## Version 
-Update with code-generated api bindings and models performed 2021-08-05
+## Version 12.0.0-beta4
+#### Breaking Changes
+KVstore service (v1beta1): `delete_recoreds()` and `query_records()` have added a new input parameter of `enable_mvl`
+
+Search service (v3alpha1): new api of `list_datasets()` is added
+
+Streams service (v3beta1): `list_pipelines()` has added a new input parameter of `include_status`
+
+
+#### Non-Breaking Changes
+Streams service (v3beta1): new api of `delete_source()` is added
+
+#### Bug fixed
+Fix whitesource vulnerability
+
 
 ## Version 12.0.0-beta3
 #### Breaking Changes
