@@ -2,16 +2,14 @@
 
 ## Version 12.0.0-beta4
 #### Non-Breaking Changes
-KVstore service (v1beta1): `delete_recoreds()` has  added a new optional input parameter of `enable_mvl`;  `query_records()` has  added  new optional input parameters of `enable_mvl` and `shared`
+* KVstore service (v1beta1): `delete_recoreds()` has  added a new optional input parameter of `enable_mvl`;  `query_records()` has  added  new optional input parameters of `enable_mvl` and `shared`
 
-Search service (v3alpha1): new api of `list_datasets()` is added
+* Search service (v3alpha1): new api of `list_datasets()` is added
 
-Streams service (v3beta1): `list_pipelines()` has added a new optional input parameter of `include_status`
-
-Streams service (v3beta1): new api of `delete_source()` is added
+* Streams service (v3beta1): `list_pipelines()` has added a new optional input parameter of `include_status`; new api of `delete_source()` is added
 
 #### Bug fixed
-Fix whitesource vulnerability
+* Fix whitesource vulnerability
 
 
 ## Version 12.0.0-beta3
