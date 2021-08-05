@@ -3841,6 +3841,45 @@ class KVCollectionDatasetPATCH(DatasetPATCH):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
+class ListDatasets(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "ListDatasets":
+        instance = ListDatasets.__new__(ListDatasets)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, results: "List[Dataset]" = None, **extra):
+        """ListDatasets"""
+
+        self._attrs = dict()
+        if results is not None:
+            self._attrs["results"] = results
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def results(self) -> "List[Dataset]":
+        """ Gets the results of this ListDatasets.
+        List of all datasets
+        """
+        return [Dataset._from_dict(i) for i in self._attrs.get("results")]
+
+    @results.setter
+    def results(self, results: "List[Dataset]"):
+        """Sets the results of this ListDatasets.
+
+        List of all datasets
+
+        :param results: The results of this ListDatasets.
+        :type: List[Dataset]
+        """
+        self._attrs["results"] = results
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
 class Module(SSCModel):
 
     @staticmethod

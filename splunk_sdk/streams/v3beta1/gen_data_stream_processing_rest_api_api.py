@@ -270,6 +270,22 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.delete(url, params=query_params)
         return handle_response(response, )
 
+    def delete_source(self, id: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
+        """
+        Delete a source.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "id": id,
+        }
+
+        path = Template("/streams/v3beta1/sources/${id}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.delete(url, params=query_params)
+        return handle_response(response, )
+
     def delete_template(self, template_id: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
         Removes a template with a specific ID.
@@ -596,7 +612,7 @@ class DataStreamProcessingRESTAPI(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, PaginatedResponseOfConnectorResponse)
 
-    def list_pipelines(self, activated: bool = None, create_user_id: str = None, include_data: bool = None, name: str = None, offset: int = None, page_size: int = None, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> PaginatedResponseOfPipelineResponse:
+    def list_pipelines(self, activated: bool = None, create_user_id: str = None, include_data: bool = None, include_status: bool = None, name: str = None, offset: int = None, page_size: int = None, sort_dir: str = None, sort_field: str = None, query_params: Dict[str, object] = None) -> PaginatedResponseOfPipelineResponse:
         """
         Returns all pipelines.
         """
@@ -608,6 +624,8 @@ class DataStreamProcessingRESTAPI(BaseService):
             query_params['createUserId'] = create_user_id
         if include_data is not None:
             query_params['includeData'] = include_data
+        if include_status is not None:
+            query_params['includeStatus'] = include_status
         if name is not None:
             query_params['name'] = name
         if offset is not None:

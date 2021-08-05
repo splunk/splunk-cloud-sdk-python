@@ -59,6 +59,7 @@ from splunk_sdk.search.v3alpha1.gen_models import Dataset, \
     KVCollectionDataset, \
     KVCollectionDatasetKind, \
     KVCollectionDatasetPATCH, \
+    ListDatasets, \
     Module, \
     ListModules, \
     ListPreviewResultsResponseFields, \

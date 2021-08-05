@@ -103,12 +103,14 @@ class KVStoreAPI(BaseService):
         response = self.base_client.delete(url, params=query_params)
         return handle_response(response, )
 
-    def delete_records(self, collection: str, query: str = None, query_params: Dict[str, object] = None) -> SSCVoidModel:
+    def delete_records(self, collection: str, enable_mvl: bool = None, query: str = None, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
         Removes records in a collection that match the query.
         """
         if query_params is None:
             query_params = {}
+        if enable_mvl is not None:
+            query_params['enable_mvl'] = enable_mvl
         if query is not None:
             query_params['query'] = query
 
@@ -247,7 +249,7 @@ class KVStoreAPI(BaseService):
         response = self.base_client.put(url, json=data, params=query_params)
         return handle_response(response, Record)
 
-    def query_records(self, collection: str, count: int = None, fields: List[str] = None, offset: int = None, orderby: List[str] = None, query: str = None, query_params: Dict[str, object] = None) -> List[object]:
+    def query_records(self, collection: str, count: int = None, enable_mvl: bool = None, fields: List[str] = None, offset: int = None, orderby: List[str] = None, query: str = None, shared: bool = None, query_params: Dict[str, object] = None) -> List[object]:
         """
         Returns a list of query records in a collection.
         """
@@ -255,6 +257,8 @@ class KVStoreAPI(BaseService):
             query_params = {}
         if count is not None:
             query_params['count'] = count
+        if enable_mvl is not None:
+            query_params['enable_mvl'] = enable_mvl
         if fields is not None:
             query_params['fields'] = fields
         if offset is not None:
@@ -263,6 +267,8 @@ class KVStoreAPI(BaseService):
             query_params['orderby'] = orderby
         if query is not None:
             query_params['query'] = query
+        if shared is not None:
+            query_params['shared'] = shared
 
         path_params = {
             "collection": collection,

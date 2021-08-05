@@ -41,6 +41,7 @@ from splunk_sdk.search.v3alpha1.gen_models import DeleteSearchJob
 from splunk_sdk.search.v3alpha1.gen_models import FederatedConnection
 from splunk_sdk.search.v3alpha1.gen_models import FederatedConnectionInput
 from splunk_sdk.search.v3alpha1.gen_models import FieldsSummary
+from splunk_sdk.search.v3alpha1.gen_models import ListDatasets
 from splunk_sdk.search.v3alpha1.gen_models import ListModules
 from splunk_sdk.search.v3alpha1.gen_models import ListPreviewResultsResponse
 from splunk_sdk.search.v3alpha1.gen_models import ListSearchResultsResponse
@@ -301,6 +302,21 @@ class SplunkSearchService(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, Module)
+
+    def list_datasets(self, query_params: Dict[str, object] = None) -> ListDatasets:
+        """
+        Returns a list of all datasets.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/search/v3alpha1/datasets").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, ListDatasets)
 
     def list_events_summary(self, sid: str, count: int = None, earliest: str = None, field: str = None, latest: str = None, offset: int = None, query_params: Dict[str, object] = None) -> ListSearchResultsResponse:
         """

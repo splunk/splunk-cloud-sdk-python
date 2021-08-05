@@ -795,6 +795,15 @@ components:
         kind:
           $ref: '#/components/schemas/KVCollectionDatasetKind'
       type: object
+    ListDatasets:
+      description: A list of fully constructed datasets
+      properties:
+        results:
+          description: List of all datasets
+          items:
+            $ref: '#/components/schemas/Dataset'
+          type: array
+      type: object
     ListModules:
       description: A list of fully constructed modules
       properties:
@@ -1587,6 +1596,24 @@ paths:
         "500":
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/datasets:
+    get:
+      description: Returns a list of all datasets.
+      operationId: listDatasets
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDatasets'
+          description: The datasets were returned successfully.
+        "400":
+          description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "500":
+          description: An internal service error occurred.
     parameters:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/AuthorizationHeader'
@@ -2103,4 +2130,4 @@ paths:
         "500":
           description: An internal service error occurred.
 
-# Retrieved from scp-openapi commit 17cef8cca256319b596db67514c7277b1576baf5 path: search/v3alpha1/openapi.yaml
+# Retrieved from scp-openapi commit 5bcc18023c79088bf6bdbcad5d85d1bbdfda268b path: search/v3alpha1/openapi.yaml

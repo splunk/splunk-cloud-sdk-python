@@ -2818,7 +2818,7 @@ class PipelineJobStatus(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, job_id: "str" = None, job_status: "str" = None, pipeline_id: "str" = None, **extra):
+    def __init__(self, job_id: "str" = None, job_status: "str" = None, pipeline_id: "str" = None, task_status: "Dict[str, str]" = None, **extra):
         """PipelineJobStatus"""
 
         self._attrs = dict()
@@ -2828,6 +2828,8 @@ class PipelineJobStatus(SSCModel):
             self._attrs["jobStatus"] = job_status
         if pipeline_id is not None:
             self._attrs["pipelineId"] = pipeline_id
+        if task_status is not None:
+            self._attrs["taskStatus"] = task_status
         for k, v in extra.items():
             self._attrs[k] = v
 
@@ -2878,6 +2880,22 @@ class PipelineJobStatus(SSCModel):
         :type: str
         """
         self._attrs["pipelineId"] = pipeline_id
+
+    @property
+    def task_status(self) -> "Dict[str, str]":
+        """ Gets the task_status of this PipelineJobStatus.
+        """
+        return self._attrs.get("taskStatus")
+
+    @task_status.setter
+    def task_status(self, task_status: "Dict[str, str]"):
+        """Sets the task_status of this PipelineJobStatus.
+
+
+        :param task_status: The task_status of this PipelineJobStatus.
+        :type: Dict[str, str]
+        """
+        self._attrs["taskStatus"] = task_status
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
