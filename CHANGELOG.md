@@ -1,5 +1,8 @@
 # Splunk Cloud SDK for Python Changelog
 
+## Version 
+Update with code-generated api bindings and models performed 2021-08-05
+
 ## Version 12.0.0-beta3
 #### Breaking Changes
 ##### Features
