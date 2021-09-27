@@ -336,10 +336,10 @@ class PKCEAuthManager(AuthManager):
         csrfToken, cookies = self._get_csrf_token()
         if csrfToken is None:
             return None
-        result = self._authenticate_user(username, password, csrfToken, cookies)
+        result,cookies = self._authenticate_user(username, password, csrfToken, cookies)
         if result is None:
             return None
-        return result.get("sessionToken", None)
+        return cookies.get("sessionToken")    
 
     def _get_csrf_token(self):
         """Returns a CSRF token to be passed into /authn"""
@@ -372,7 +372,7 @@ class PKCEAuthManager(AuthManager):
             raise AuthnError("no response status from /authn", response)
         if status != "SUCCESS":  # eg: LOCKED_OUT
             raise AuthnError("authentication failed: %s" % status, response)
-        return result
+        return result,response.cookies
 
     def _get_authorization_code(self, **params):
         """GET ${basePath}/authorize, expect 302 (redirect)"""
@@ -419,6 +419,7 @@ class PKCEAuthManager(AuthManager):
             response_type="code",
             scope=self._scope,
             session_token=session_token,
+            tenant=self._tenant,
             state=self._state or str(time.time())
         )
 
