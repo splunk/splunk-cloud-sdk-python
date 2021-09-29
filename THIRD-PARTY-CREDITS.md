@@ -6,7 +6,7 @@ The Splunk Developer Cloud SDK for Python contains some libraries that were writ
 ### requests
 [https://pypi.org/project/requests/](https://pypi.org/project/requests/)
 
-requests version 2.22.1
+requests version 2.25.1
 
 License: Apache Software License (Apache 2.0)
 
@@ -16,6 +16,21 @@ License: Apache Software License (Apache 2.0)
 urllib3 version 1.25.2
 
 License: MIT License (MIT)
+
+### PyJWT
+[https://pypi.org/project/PyJWT/](https://pypi.org/project/PyJWT/)
+
+PyJWT version 2.1.0
+
+License: MIT License (MIT)
+
+### cryptography
+[https://pypi.org/project/cryptography/](https://pypi.org/project/cryptography/)
+
+cryptography version 2.6.1
+
+License: Apache Software License (Apache 2.0)
+
 
 ## Test Dependencies
 
@@ -34,14 +49,6 @@ License: MIT License (Expat license)
 flake8 version 3.7.7
 
 License: MIT License (MIT)
-
-
-### cryptography
-[https://pypi.org/project/cryptography/](https://pypi.org/project/cryptography/)
-
-cryptography version 2.6.1
-
-License: Apache Software License, BSD License (BSD or Apache License, Version 2.0)
 
 
 ## Build Dependencies

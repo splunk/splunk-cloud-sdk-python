@@ -10,7 +10,6 @@ from splunk_sdk.identity import Identity as IdentityAndAccessControl
 from splunk_sdk.auth import PKCEAuthManager, ClientAuthManager
 from test.fixtures import get_auth_manager as pkce_auth_manager  # NOQA
 from test.fixtures import get_client_auth_manager as client_auth_manager  # NOQA
-from test.fixtures import get_client_auth_manager_scoped as client_auth_manager_scoped
 from test.fixtures import get_service_principal_auth_manager as service_principal_auth_manager  # NOQA
 
 
@@ -27,10 +26,7 @@ def test_auth_error_properties(pkce_auth_manager):
     try:
         pkce_auth_manager.authenticate()
     except AuthnError as err:
-        assert (err.status != "")
-        assert (err.status is not None)
-        assert (err.server_error_description != "")
-        assert (err.server_error_description is not None)
+        assert (err._response is not None)
         assert (err.request_id != "")
         assert (err.request_id is not None)
     finally:
@@ -41,9 +37,12 @@ def test_refresh_token_authenticate(pkce_auth_manager):
     auth_context = pkce_auth_manager.authenticate()
 
     # use existing token from auth_context
-    refresh_token_mgr = RefreshTokenAuthManager(client_id=os.environ.get('SPLUNK_APP_CLIENT_ID'),
+    refresh_token_mgr = RefreshTokenAuthManager(client_id=os.environ.get('SPLUNK_APP_CLIENT_ID_2'),
                                                 refresh_token=auth_context.refresh_token,
-                                                host=os.environ.get('SPLUNK_AUTH_HOST'))
+                                                tenant_scoped=True,
+                                                tenant=os.environ.get('SPLUNK_TENANT_2'),
+                                                region=os.environ.get('SPLUNK_REGION'),
+                                                host=os.environ.get('SPLUNK_AUTH_HOST_2'))
 
     new_auth_context = refresh_token_mgr.authenticate()
 
@@ -55,9 +54,12 @@ def test_refresh_token_authenticate(pkce_auth_manager):
     assert (new_auth_context.scope is not None)
 
 def test_error_refresh_token_authenticate():
-    refresh_token_mgr = RefreshTokenAuthManager(client_id=os.environ.get('SPLUNK_APP_CLIENT_ID'),
-                                                refresh_token="refresh",
-                                                host=os.environ.get('SPLUNK_AUTH_HOST'))
+    refresh_token_mgr = RefreshTokenAuthManager(client_id=os.environ.get('SPLUNK_APP_CLIENT_ID_2'),
+                                                refresh_token='refresh',
+                                                tenant_scoped=True,
+                                                tenant=os.environ.get('SPLUNK_TENANT_2'),
+                                                region=os.environ.get('SPLUNK_REGION'),
+                                                host=os.environ.get('SPLUNK_AUTH_HOST_2'))
 
     with pytest.raises(AuthnError):
         refresh_token_mgr.authenticate()
@@ -65,11 +67,6 @@ def test_error_refresh_token_authenticate():
 @pytest.mark.usefixtures('client_auth_manager')  # NOQA
 def test_client_credentials_authenticate(client_auth_manager):
     auth_context = client_auth_manager.authenticate()
-    _assert_client_credentials_auth_context(auth_context)
-
-@pytest.mark.usefixtures('client_auth_manager_scoped')  # NOQA
-def test_client_credentials_authenticate_scoped(client_auth_manager_scoped):
-    auth_context = client_auth_manager_scoped.authenticate()
     _assert_client_credentials_auth_context(auth_context)
 
 @pytest.mark.usefixtures('client_auth_manager')  # NOQA
@@ -93,10 +90,10 @@ def test_token_authenticate(client_auth_manager):
     assert (auth_context.id_token == new_auth_context.id_token)
     assert (auth_context.refresh_token == new_auth_context.refresh_token)
 
-    context = Context(host=os.environ.get("SPLUNK_HOST"), tenant=os.environ.get("SPLUNK_TENANT"))
+    context = Context(host=os.environ.get("SPLUNK_HOST_2"), tenant=os.environ.get("SPLUNK_TENANT_2"))
     base_client = BaseClient(context=context, auth_manager=token_mgr)
     idc = IdentityAndAccessControl(base_client)
-    assert (idc.validate_token().name.lower() == os.environ.get("SPLUNK_APP_CLIENT_CRED_ID").lower())
+    assert (idc.validate_token().name.lower() == os.environ.get("SPLUNK_APP_CLIENT_CRED_ID_2").lower())
 
 
 def test_pkce_requests_hook():
@@ -105,14 +102,22 @@ def test_pkce_requests_hook():
     def test_hook(response, **kwargs):
         responses.append(response)
 
-    PKCEAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST'),
-                    client_id=os.environ.get('SPLUNK_APP_CLIENT_ID'),
+    PKCEAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST_2'),
+                    client_id=os.environ.get('SPLUNK_APP_CLIENT_ID_2'),
                     username=os.environ.get('TEST_USERNAME'),
                     password=os.environ.get('TEST_PASSWORD'),
-                    redirect_uri=os.environ.get('SPLUNK_REDIRECT_URL'),
+                    redirect_uri='https://localhost:8000',
+                    tenant_scoped=True,
+                    tenant=os.environ.get('SPLUNK_TENANT_2'),
+                    region=os.environ.get('SPLUNK_REGION'),
                     requests_hooks=[test_hook]).authenticate()
     assert len(responses) == 4
-    auth_url = 'https://%s' % os.environ.get('SPLUNK_AUTH_HOST')
+    auth_url = 'https://region-%s.%s' % (
+        os.environ.get('SPLUNK_REGION'),
+        os.environ.get('SPLUNK_AUTH_HOST_2'))
+    auth_url_scoped = 'https://%s.%s' % (
+        os.environ.get('SPLUNK_TENANT_2'),
+        os.environ.get('SPLUNK_AUTH_HOST_2'))
     assert responses[0].request.method == 'GET'
     assert responses[0].request.url == '%s/csrfToken' % auth_url
     assert responses[0].status_code == 200
@@ -120,10 +125,11 @@ def test_pkce_requests_hook():
     assert responses[1].request.url == '%s/authn' % auth_url
     assert responses[1].status_code == 200
     assert responses[2].request.method == 'GET'
-    assert responses[2].request.url.startswith('%s/authorize' % auth_url)
+    assert responses[2].request.url.startswith('%s/authorize' % auth_url_scoped)
     assert responses[2].status_code == 302
     assert responses[3].request.method == 'POST'
-    assert responses[3].request.url == '%s/token' % auth_url
+    assert responses[3].request.url == '%s/%s/token' % (
+        auth_url_scoped, os.environ.get('SPLUNK_TENANT_2'))
     assert responses[3].status_code == 200
 
 
@@ -133,11 +139,14 @@ def test_pkce_no_list_hooks():
     def test_hook(*args, **kwargs):
         hook_called.append(True)
 
-    PKCEAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST'),
-                    client_id=os.environ.get('SPLUNK_APP_CLIENT_ID'),
+    PKCEAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST_2'),
+                    client_id=os.environ.get('SPLUNK_APP_CLIENT_ID_2'),
                     username=os.environ.get('TEST_USERNAME'),
                     password=os.environ.get('TEST_PASSWORD'),
-                    redirect_uri=os.environ.get('SPLUNK_REDIRECT_URL'),
+                    redirect_uri='https://localhost:8000',
+                    tenant_scoped=True,
+                    tenant=os.environ.get('SPLUNK_TENANT_2'),
+                    region=os.environ.get('SPLUNK_REGION'),
                     requests_hooks=test_hook).authenticate()
     assert hook_called
 
@@ -148,10 +157,13 @@ def test_client_manager_requests_hook():
     def test_hook(*args, **kwargs):
         hook_called.append(True)
 
-    ClientAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST'),
-                      client_id=os.environ.get('SPLUNK_APP_CLIENT_CRED_ID'),
-                      client_secret=os.environ.get('SPLUNK_APP_CLIENT_CRED_SECRET'),
-                      scope=os.environ.get('SPLUNK_SCOPE'),
+    ClientAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST_2'),
+                      client_id=os.environ.get('SPLUNK_APP_CLIENT_CRED_ID_2'),
+                      client_secret=os.environ.get('SPLUNK_APP_CLIENT_CRED_SECRET_2'),
+                      scope='',
+                      tenant_scoped=True,
+                      tenant=os.environ.get('SPLUNK_TENANT_2'),
+                      region=os.environ.get('SPLUNK_REGION'),
                       requests_hooks=[test_hook]).authenticate()
     assert hook_called
 
@@ -162,11 +174,14 @@ def test_pkce_manager_no_list_hooks():
     def test_hook(*args, **kwargs):
         hook_called.append(True)
 
-    PKCEAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST'),
-                    client_id=os.environ.get('SPLUNK_APP_CLIENT_ID'),
+    PKCEAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST_2'),
+                    client_id=os.environ.get('SPLUNK_APP_CLIENT_ID_2'),
                     username=os.environ.get('TEST_USERNAME'),
                     password=os.environ.get('TEST_PASSWORD'),
-                    redirect_uri=os.environ.get('SPLUNK_REDIRECT_URL'),
+                    redirect_uri='https://localhost:8000',
+                    tenant_scoped=True,
+                    tenant=os.environ.get('SPLUNK_TENANT_2'),
+                    region=os.environ.get('SPLUNK_REGION'),
                     requests_hooks=test_hook).authenticate()
     assert hook_called
 
@@ -186,11 +201,11 @@ def _assert_pkce_auth_context(auth_context):
     assert ('email' in auth_context.scope)
 
 
-def _assert_client_credentials_auth_context(auth_context, expires_in=43200):
+def _assert_client_credentials_auth_context(auth_context, expires_in=None):
     assert (auth_context is not None)
     assert (auth_context.access_token is not None)
-    # assert(auth_context.id_token is None)
-    assert (auth_context.expires_in == expires_in)
+    if expires_in is not None:
+        assert (auth_context.expires_in == expires_in)
     assert (auth_context.token_type == 'Bearer')
     assert (auth_context.refresh_token is None)
     assert (auth_context.scope == 'client_credentials')
@@ -227,7 +242,7 @@ def test_sp_token_authenticate(service_principal_auth_manager):
     assert (auth_context.id_token == new_auth_context.id_token)
     assert (auth_context.refresh_token == new_auth_context.refresh_token)
 
-    context = Context(host=os.environ.get("SPLUNK_HOST"), tenant=os.environ.get("SPLUNK_TENANT"))
+    context = Context(host=os.environ.get("SPLUNK_HOST_2"), tenant=os.environ.get("SPLUNK_TENANT_2"))
     base_client = BaseClient(context=context, auth_manager=token_mgr)
     idc = IdentityAndAccessControl(base_client)
-    assert (idc.validate_token().name.lower() == os.environ.get("SPLUNK_APP_PRINCIPAL_NAME").lower())
+    assert (idc.validate_token().name.lower() == os.environ.get("SPLUNK_APP_PRINCIPAL_NAME_2").lower())

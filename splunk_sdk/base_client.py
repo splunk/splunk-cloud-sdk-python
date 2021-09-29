@@ -429,7 +429,7 @@ def handle_response(response: Response, klass=None, key=None):
         raise Exception("Unexpected http response body: {}".format(data))
 
     else:
-        raise HTTPError(response.status_code, response.text)
+        raise HTTPError(response.status_code, response.text, response.headers.get('X-Request-Id', None))
 
 
 class RetryConfig(object):
@@ -498,9 +498,10 @@ class RetryConfig(object):
 class HTTPError(Exception):
     """The HTTPError class provides an exception wrapper for HTTP error responses."""
 
-    def __init__(self, http_status_code: int, details: str):
+    def __init__(self, http_status_code: int, details: str, request_id: str = None):
         self._http_status_code = http_status_code
         self._http_details = details
+        self._request_id = request_id
         if details != '':
             parsed = json.loads(details)
         else:
@@ -532,3 +533,11 @@ class HTTPError(Exception):
     @property
     def message(self):
         return self._message
+
+    @property
+    def request_id(self) -> str:
+        return self._request_id
+
+    @request_id.setter
+    def request_id(self, request_id: str):
+        self._request_id = request_id

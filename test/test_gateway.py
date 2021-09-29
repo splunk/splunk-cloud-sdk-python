@@ -13,7 +13,7 @@ import pytest
 from test.fixtures import get_test_client as test_client  # NOQA
 from splunk_sdk.gateway.client import Gateway
 
-ACTION_URI = r"""https://(?P<host>[\w.]+)/system/action/specs/v\d+(?:(?:alpha|beta)\d+(?:\.\d+)?)/openapi.yaml"""
+ACTION_URI = r"""https://region-(?P<region>[\w]+).(?P<host>[\w.]+)/system/action/specs/v\d+(?:(?:alpha|beta)\d+(?:\.\d+)?)/openapi.yaml"""
 
 
 @pytest.mark.usefixtures("test_client")  # NOQA
@@ -39,8 +39,9 @@ def test_get_spec_url(test_client):
     spec = gateway.get_spec_url('action')
 
     match = re.match(ACTION_URI, spec)
-    assert match
+    assert match is not None
     assert(match.group('host') == gateway.base_client.context.api_host)
+    assert(match.group('region') == gateway.base_client.context.region)
 
 
 @pytest.mark.usefixtures("test_client")  # NOQA

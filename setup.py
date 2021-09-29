@@ -14,7 +14,10 @@ from setuptools import setup, find_packages
 from splunk_sdk import __version__
 
 install_requires = ['requests>=2.25.1,<2.26.1',
-                    'urllib3>=1.26.5,<1.26.7', ]
+                    'urllib3>=1.26.5,<1.26.7',
+                    'pyjwt>=1.7.1,<1.8.0',
+                    'cryptography>=2.6.1,<2.7.0',
+                    ]
 
 setup(
     name='splunk-cloud-sdk',
@@ -36,7 +39,6 @@ setup(
         'dev': ['pep8>=1.7.1,<2',
                 'sphinx >= 2.0.1,<3',
                 'sphinxcontrib-apidoc>=0.3.0',
-                'cryptography>=2.6.1,<2.7',
                 ],
         'test': ['coverage>=4.5.3,<5',
                  'flake8>=3.7.7,<4',

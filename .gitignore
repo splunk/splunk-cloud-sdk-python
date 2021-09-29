@@ -1,5 +1,6 @@
 *.pyc
 .venv
+*.env
 .idea
 .vscode
 .cache

@@ -8,6 +8,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+import os
 import pytest
 
 from splunk_sdk.base_client import BaseClient, HTTPError
@@ -17,7 +18,7 @@ from test.fixtures import get_test_client_provisioner as test_client  # NOQ
 @pytest.mark.usefixtures("test_client")  # NOQA
 def test_get_tenant(test_client: BaseClient):
     provisioner = Provisioner(test_client)
-    tenant_name = "testprovisionersdks"
+    tenant_name = os.environ.get("SPLUNK_TENANT_2")
     tenant = provisioner.get_tenant(tenant_name)
     assert(tenant.name == tenant_name)
 
@@ -25,7 +26,7 @@ def test_get_tenant(test_client: BaseClient):
 @pytest.mark.usefixtures("test_client")  # NOQA
 def test_list_tenants(test_client: BaseClient):
     provisioner = Provisioner(test_client)
-    tenant_name = "testprovisionersdks"
+    tenant_name = os.environ.get("SPLUNK_TENANT_2")
     tenants = provisioner.list_tenants()
     [t] = [t for t in tenants if t.name == tenant_name]
     assert(t.name == tenant_name)
