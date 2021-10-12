@@ -5431,7 +5431,7 @@ class UpgradePipelineRequest(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, allow_non_restored_state: "bool" = None, cancel_with_save_point: "bool" = None, skip_restore_state: "bool" = None, **extra):
+    def __init__(self, allow_non_restored_state: "bool" = None, cancel_with_save_point: "bool" = None, skip_restore_state: "bool" = None, validate_save_point: "bool" = None, **extra):
         """UpgradePipelineRequest"""
 
         self._attrs = dict()
@@ -5441,6 +5441,8 @@ class UpgradePipelineRequest(SSCModel):
             self._attrs["cancelWithSavePoint"] = cancel_with_save_point
         if skip_restore_state is not None:
             self._attrs["skipRestoreState"] = skip_restore_state
+        if validate_save_point is not None:
+            self._attrs["validateSavePoint"] = validate_save_point
         for k, v in extra.items():
             self._attrs[k] = v
 
@@ -5497,6 +5499,24 @@ class UpgradePipelineRequest(SSCModel):
         :type: bool
         """
         self._attrs["skipRestoreState"] = skip_restore_state
+
+    @property
+    def validate_save_point(self) -> "bool":
+        """ Gets the validate_save_point of this UpgradePipelineRequest.
+        Set to true to validate a savepoint before stopping the pipeline.
+        """
+        return self._attrs.get("validateSavePoint")
+
+    @validate_save_point.setter
+    def validate_save_point(self, validate_save_point: "bool"):
+        """Sets the validate_save_point of this UpgradePipelineRequest.
+
+        Set to true to validate a savepoint before stopping the pipeline.
+
+        :param validate_save_point: The validate_save_point of this UpgradePipelineRequest.
+        :type: bool
+        """
+        self._attrs["validateSavePoint"] = validate_save_point
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}

@@ -476,6 +476,42 @@ class SplunkSearchService(BaseService):
         response = self.base_client.put(url, json=data, params=query_params)
         return handle_response(response, FederatedConnection)
 
+    def refresh_federated_connection(self, connection_name: str, body: object = None, query_params: Dict[str, object] = None) -> SSCVoidModel:
+        """
+        Refresh a federated connection to fetch new remote indexes and add/delete corresponding federated datasets.
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "connectionName": connection_name,
+        }
+
+        path = Template("/search/v3alpha1/connections/${connectionName}/refresh").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = body
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, )
+
+    def test_federated_connection(self, connection_name: str, body: object = None, query_params: Dict[str, object] = None) -> SSCVoidModel:
+        """
+        Test connection with remote EC instance using federated connection parameters.
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "connectionName": connection_name,
+        }
+
+        path = Template("/search/v3alpha1/connections/${connectionName}/test").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = body
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, )
+
     def update_dataset_by_id(self, datasetid: str, dataset_patch: DatasetPATCH = None, query_params: Dict[str, object] = None) -> Dataset:
         """
         Modifies a dataset with a specified dataset ID (datasetid).

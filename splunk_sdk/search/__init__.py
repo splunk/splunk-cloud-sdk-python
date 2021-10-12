@@ -38,6 +38,8 @@ from splunk_sdk.search.v2.gen_models import Message, \
     QueryParameters, \
     SearchStatus, \
     DeleteSearchJob, \
+    FederatedConnection, \
+    FederatedConnectionInput, \
     SingleFieldSummary, \
     SingleValueMode, \
     FieldsSummary, \

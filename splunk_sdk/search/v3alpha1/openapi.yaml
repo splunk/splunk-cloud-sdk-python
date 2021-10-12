@@ -40,7 +40,7 @@ components:
         type: string
     SidFilter:
       description: |
-        Filter the list of jobs by sid. Valid format is  `sid IN ({comma separated list of SIDs in quotes})`. A maximum of 50 SIDs can be specified in one query.
+        Filter the list of jobs by sid. Valid format is  `sid IN ({comma separated list of SIDs in quotes})`. A maximum of 30 SIDs can be specified in one query.
       in: query
       name: filter
       schema:
@@ -518,11 +518,24 @@ components:
           description: The remote port number.
           example: 8080
           type: number
+        serviceaccountpassword:
+          description: The password of the service account.
+          example: password
+          maxLength: 100
+          type: string
         serviceaccountuser:
           description: The username on the service account.
           example: username
           maxLength: 100
           type: string
+      type: object
+    FederatedConnectionRefresh:
+      description: |
+        The refresh of the federated connection was successful. For any new indexes, federated datasets were created to enable running searches on them.
+      type: object
+    FederatedConnectionTest:
+      description: |
+        Successfully able to connect to the EC stack with the given parameters in the federated connection.
       type: object
     FederatedDataset:
       allOf:
@@ -1032,10 +1045,10 @@ components:
     Module:
       description: A fully constructed module
       properties:
-        created:
+        createdAt:
           description: The timestamp when the module was created
           type: string
-        createdby:
+        createdBy:
           description: The user who created the module
           type: string
         definition:
@@ -1051,8 +1064,12 @@ components:
           example: namespacefbc
           maxLength: 100
           type: string
+      required:
+      - name
+      - definition
       type: object
     QueryParameters:
+      additionalProperties: true
       description: |
         Represents parameters on the search job, such as 'earliest' and 'latest'.
       properties:
@@ -1227,6 +1244,12 @@ components:
           description: |
             The parameters on the search statement, such as 'earliest' and 'latest. The request can specify a "defaults" set of statement queryParameters which override the system default queryParameters. Each export statement requires to have a statement queryParameters in the object, it can be empty if there is no override.
           type: object
+        wipModules:
+          additionalProperties:
+            $ref: '#/components/schemas/Module'
+          description: |
+            WIP (Work in progress) modules which are used in the module's search statements, but not yet registered .
+          type: object
       required:
       - Module
       type: object
@@ -1280,6 +1303,7 @@ components:
           type: number
       type: object
     SingleStatementQueryParameters:
+      additionalProperties: true
       description: |
         The parameters for single-statement search. If fields are omitted, those fields are filled in with system defaults or "defaults" parameters defined in the request.
       properties:
@@ -1589,6 +1613,56 @@ paths:
           description: The federated connection was created or updated successfully.
         "400":
           description: The request isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "500":
+          description: An internal service error occurred.
+  /{tenant}/search/v3alpha1/connections/{connectionName}/refresh:
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/AuthorizationHeader'
+    - $ref: '#/components/parameters/connectionName'
+    post:
+      description: |
+        Refresh a federated connection to fetch new remote indexes and add/delete corresponding federated datasets.
+      operationId: refreshFederatedConnection
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FederatedConnectionRefresh'
+      responses:
+        "201":
+          description: |
+            The federated connection refresh was successful.
+        "400":
+          description: The request payload isn't valid.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "500":
+          description: An internal service error occurred.
+  /{tenant}/search/v3alpha1/connections/{connectionName}/test:
+    parameters:
+    - $ref: '#/components/parameters/tenant'
+    - $ref: '#/components/parameters/AuthorizationHeader'
+    - $ref: '#/components/parameters/connectionName'
+    post:
+      description: |
+        Test connection with remote EC instance using federated connection parameters.
+      operationId: testFederatedConnection
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FederatedConnectionTest'
+      responses:
+        "200":
+          description: |
+            Successfully able to contact EC stack with given federated connection parameters.
         "401":
           description: The user isn't authenticated.
         "403":
@@ -2130,4 +2204,4 @@ paths:
         "500":
           description: An internal service error occurred.
 
-# Retrieved from scp-openapi commit 5bcc18023c79088bf6bdbcad5d85d1bbdfda268b path: search/v3alpha1/openapi.yaml
+# Retrieved from scp-openapi commit 790daec8c2c4866ae9ec2b7398e11e3d44d917b6 path: search/v3alpha1/openapi.yaml
