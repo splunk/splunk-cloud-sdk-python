@@ -1,6 +1,6 @@
 # Splunk Cloud SDK for Python Changelog
 
-## Version 
+## Version 12.0.0-beta5
 #### Breaking Changes
 * Identity `IdentityProviderConfigBody` model removed field: `kind`
 
