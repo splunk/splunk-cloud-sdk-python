@@ -225,6 +225,15 @@ components:
         minLength: 4
         type: string
       x-case-insensitive: true
+    samlStateId:
+      description: The saml specific state identifier carried through authentication
+        flow
+      in: query
+      name: samlStateId
+      required: false
+      schema:
+        maxLength: 128
+        type: string
     scope:
       description: Scope of the authorization request
       in: query
@@ -697,9 +706,6 @@ components:
           type: string
         crv:
           maxLength: 64
-          type: string
-        d:
-          maxLength: 4096
           type: string
         kid:
           maxLength: 64
@@ -1656,7 +1662,7 @@ info:
   description: With the Identity service in Splunk Cloud Services, you can authenticate
     and authorize Splunk Cloud Services users.
   title: Identity
-  version: v2beta1.22
+  version: v2beta1.23
 openapi: 3.0.0
 paths:
   /{tenant}/identity/v2beta1/groups:
@@ -2130,6 +2136,8 @@ paths:
           description: The operation isn't authorized.
         "404":
           description: The resource wasn't found.
+        "409":
+          description: The member already exists.
         "423":
           description: The resource is locked.
       x-authz-scope: identity.members.write
@@ -2730,4 +2738,4 @@ security:
 servers:
 - url: /
 
-# Retrieved from scp-openapi commit 790daec8c2c4866ae9ec2b7398e11e3d44d917b6 path: identity/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit 820564ba8a17697d087ff171b14cbad60a716ee3 path: identity/v2beta1/openapi.yaml

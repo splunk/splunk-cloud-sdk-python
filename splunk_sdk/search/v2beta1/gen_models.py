@@ -1,4 +1,4 @@
-# Copyright © 2021 Splunk, Inc.
+# Copyright © 2022 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -212,6 +212,7 @@ class SearchStatus(str, Enum):
     DONE = "done"
     CANCELED = "canceled"
     FAILED = "failed"
+    FINALIZED = "finalized"
 
     @staticmethod
     def from_value(value: str):
@@ -223,6 +224,8 @@ class SearchStatus(str, Enum):
             return SearchStatus.CANCELED
         if value == "failed":
             return SearchStatus.FAILED
+        if value == "finalized":
+            return SearchStatus.FINALIZED
 
 
 class DeleteSearchJob(SSCModel):

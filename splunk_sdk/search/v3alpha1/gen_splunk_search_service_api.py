@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Copyright © 2021 Splunk, Inc.
+# Copyright © 2022 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -236,6 +236,21 @@ class SplunkSearchService(BaseService):
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, object)
 
+    def get_all_federated_connections(self, query_params: Dict[str, object] = None) -> List[FederatedConnection]:
+        """
+        Returns all federated connections.
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/search/v3alpha1/connections").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, FederatedConnection)
+
     def get_dataset_by_id(self, datasetid: str, query_params: Dict[str, object] = None) -> Dataset:
         """
         Returns a dataset with a specified dataset ID (datasetid).
@@ -288,7 +303,7 @@ class SplunkSearchService(BaseService):
 
     def get_spl2_module_by_resource_name(self, resource_name: str, query_params: Dict[str, object] = None) -> Module:
         """
-        Returns a module with a specified  resource name (resourceName).
+        Returns a module with a specified resource name (resourceName).
 
         """
         if query_params is None:
@@ -476,7 +491,7 @@ class SplunkSearchService(BaseService):
         response = self.base_client.put(url, json=data, params=query_params)
         return handle_response(response, FederatedConnection)
 
-    def refresh_federated_connection(self, connection_name: str, body: object = None, query_params: Dict[str, object] = None) -> SSCVoidModel:
+    def refresh_federated_connection(self, connection_name: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
         Refresh a federated connection to fetch new remote indexes and add/delete corresponding federated datasets.
 
@@ -490,11 +505,10 @@ class SplunkSearchService(BaseService):
 
         path = Template("/search/v3alpha1/connections/${connectionName}/refresh").substitute(path_params)
         url = self.base_client.build_url(path)
-        data = body
-        response = self.base_client.post(url, json=data, params=query_params)
+        response = self.base_client.post(url, params=query_params)
         return handle_response(response, )
 
-    def test_federated_connection(self, connection_name: str, body: object = None, query_params: Dict[str, object] = None) -> SSCVoidModel:
+    def test_federated_connection(self, connection_name: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
         """
         Test connection with remote EC instance using federated connection parameters.
 
@@ -508,8 +522,7 @@ class SplunkSearchService(BaseService):
 
         path = Template("/search/v3alpha1/connections/${connectionName}/test").substitute(path_params)
         url = self.base_client.build_url(path)
-        data = body
-        response = self.base_client.post(url, json=data, params=query_params)
+        response = self.base_client.post(url, params=query_params)
         return handle_response(response, )
 
     def update_dataset_by_id(self, datasetid: str, dataset_patch: DatasetPATCH = None, query_params: Dict[str, object] = None) -> Dataset:

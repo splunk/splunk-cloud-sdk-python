@@ -2,7 +2,7 @@
 
 # flake8: noqa
 
-# Copyright © 2021 Splunk, Inc.
+# Copyright © 2022 Splunk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"): you may
 # not use this file except in compliance with the License. You may obtain
@@ -34,18 +34,42 @@ __version__ = "1.0.0"
 from splunk_sdk.search.v2.gen_splunk_search_service_api import SplunkSearchService
 
 # import models into sdk package
-from splunk_sdk.search.v2.gen_models import Message, \
+from splunk_sdk.search.v2.gen_models import Dataset, \
+    DatasetPATCH, \
+    FieldPOST, \
+    FieldDataType, \
+    FieldType, \
+    FieldPrevalence, \
+    DatasetPOST, \
+    Message, \
     QueryParameters, \
     SearchStatus, \
     DeleteSearchJob, \
     FederatedConnection, \
     FederatedConnectionInput, \
+    FederatedDataset, \
+    FederatedDatasetKind, \
+    FederatedDatasetPATCH, \
     SingleFieldSummary, \
     SingleValueMode, \
     FieldsSummary, \
+    IndexDataset, \
+    IndexDatasetKind, \
+    IndexDatasetPATCH, \
+    KVCollectionDataset, \
+    KVCollectionDatasetKind, \
+    KVCollectionDatasetPATCH, \
+    ListDatasets, \
     ListPreviewResultsResponseFields, \
     ListPreviewResultsResponse, \
     ListSearchResultsResponse, \
+    LookupDatasetExternalKind, \
+    LookupDataset, \
+    LookupDatasetKind, \
+    LookupDatasetPATCH, \
+    MetricDataset, \
+    MetricDatasetKind, \
+    MetricDatasetPATCH, \
     SearchJob, \
     SingleTimeBucket, \
     TimeBucketsSummary, \

@@ -33,7 +33,7 @@ components:
         type: string
     Latest:
       description: |
-        The latest time filter, in absolute time. When specifying an absolute time specify either UNIX time, or UTC in seconds using the ISO-8601 (%FT%T.%Q) format. For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC. Any offset specified is ignored.
+        The latest time filter, in absolute time. When specifying an absolute time specify either UNIX time, or UTC in seconds using the ISO-8601 (%FT%T.%Q) format. For example 2019-01-25T13:15:30Z. GMT is the default timezone. You must specify GMT when you specify UTC. Any offset specified is ignored. Latest time must be after Earliest time.
       in: query
       name: latest
       schema:
@@ -528,14 +528,12 @@ components:
           example: username
           maxLength: 100
           type: string
-      type: object
-    FederatedConnectionRefresh:
-      description: |
-        The refresh of the federated connection was successful. For any new indexes, federated datasets were created to enable running searches on them.
-      type: object
-    FederatedConnectionTest:
-      description: |
-        Successfully able to connect to the EC stack with the given parameters in the federated connection.
+      required:
+      - name
+      - hostnameip
+      - port
+      - serviceaccountuser
+      - serviceaccountpassword
       type: object
     FederatedDataset:
       allOf:
@@ -688,20 +686,20 @@ components:
       type: string
     FieldsSummary:
       description: |
-        Fields statistics summary model of the events to-date for  search ID (sid).
+        Fields statistics summary model of the events to-date for search ID (sid).
       properties:
         duration:
           description: |
-            The amount of time, in seconds, that a time bucket  spans from the earliest to the latest time.
+            The amount of time, in seconds, that a time bucket spans from the earliest to the latest time.
           format: double
           type: number
         earliestTime:
           description: |
-            If specified, the earliest timestamp in UTC format  of the events to process.
+            If specified, the earliest timestamp in UTC format of the events to process.
           type: string
         eventCount:
           description: |
-            The total number of events for all fields returned  in the time range ('earliestTime' and 'latestTime') specified.
+            The total number of events for all fields returned in the time range ('earliestTime' and 'latestTime') specified.
           type: integer
         fields:
           additionalProperties:
@@ -710,7 +708,7 @@ components:
           type: object
         latestTime:
           description: |
-            If specified, the latest timestamp in UTC format  of the events to process.
+            If specified, the latest timestamp in UTC format of the events to process.
           type: string
       type: object
     IndexDataset:
@@ -774,9 +772,11 @@ components:
           type: string
         totalEventCount:
           description: The number of events in the index.
+          format: int64
           type: integer
         totalSize:
           description: The raw size, in bytes, of the uncompressed data in the indexers.
+          format: int64
           type: integer
       type: object
     KVCollectionDataset:
@@ -817,6 +817,11 @@ components:
             $ref: '#/components/schemas/Dataset'
           type: array
       type: object
+    ListFederatedConnections:
+      description: A list of federated connections
+      items:
+        $ref: '#/components/schemas/FederatedConnection'
+      type: array
     ListModules:
       description: A list of fully constructed modules
       properties:
@@ -828,7 +833,7 @@ components:
       type: object
     ListPreviewResultsResponse:
       description: |
-        The structure of the preview search results that is returned  for the job with the specified search ID (sid). When a search is running,  it might return incomplete or truncated search results. The 'isPreviewStable'  property indicates whether the returned preview results stucture is stable or not. Truncated preview results occur because the number of requested results  exceeds the page limit. Follow the 'nextLink' URL to retrieve the next page of results.
+        The structure of the preview search results that is returned for the job with the specified search ID (sid). When a search is running, it might return incomplete or truncated search results. The 'isPreviewStable' property indicates whether the returned preview results stucture is stable or not. Truncated preview results occur because the number of requested results exceeds the page limit. Follow the 'nextLink' URL to retrieve the next page of results.
       properties:
         fields:
           items:
@@ -871,7 +876,7 @@ components:
       type: object
     ListSearchResultsResponse:
       description: |
-        The structure of the search results or events metadata that  is returned for the job with the specified search ID (sid). When a search is running, it might return incomplete or truncated  search results. Incomplete search results occur when a search  has not completed. Wait until search completes for the full result set. Truncated search results occur because the number of requested  results exceeds the page limit. Follow the 'nextLink' URL to  retrieve the next page of results.
+        The structure of the search results or events metadata that is returned for the job with the specified search ID (sid). When a search is running, it might return incomplete or truncated search results. Incomplete search results occur when a search has not completed. Wait until search completes for the full result set. Truncated search results occur because the number of requested results exceeds the page limit. Follow the 'nextLink' URL to retrieve the next page of results.
       properties:
         fields:
           items:
@@ -1064,6 +1069,9 @@ components:
           example: namespacefbc
           maxLength: 100
           type: string
+        sourcePath:
+          description: The location of the module
+          type: string
       required:
       - name
       - definition
@@ -1099,26 +1107,26 @@ components:
         allowSideEffects:
           default: false
           description: |
-            Specifies whether a search that contains commands with side effects  (with possible security risks) is allowed to run.
+            Specifies whether a search that contains commands with side effects (with possible security risks) is allowed to run.
           type: boolean
         collectEventSummary:
           default: false
           description: |
-            Specifies whether a search is allowed to collect events summary  information during the run time.
+            Specifies whether a search is allowed to collect events summary information during the run time.
           type: boolean
         collectFieldSummary:
           default: false
           description: |
-            Specifies whether a search is allowed to collect fields summary  information during the run time.
+            Specifies whether a search is allowed to collect fields summary information during the run time.
           type: boolean
         collectTimeBuckets:
           default: false
           description: |
-            Specifies whether a search is allowed to collect timeline buckets  summary information during the run time.
+            Specifies whether a search is allowed to collect timeline buckets summary information during the run time.
           type: boolean
         completionTime:
           description: |
-            The time, in GMT, that the search job is finished.  Empty if the search job has not completed.
+            The time, in GMT, that the search job is finished. Empty if the search job has not completed.
           readOnly: true
           type: string
         dispatchTime:
@@ -1129,7 +1137,7 @@ components:
         enablePreview:
           default: false
           description: |
-            Specifies whether a search is allowed to collect preview results  during the run time.
+            Specifies whether a search is allowed to collect preview results during the run time.
           type: boolean
         extractAllFields:
           default: false
@@ -1144,7 +1152,7 @@ components:
         maxTime:
           default: 3600
           description: |
-            The number of seconds to run the search before finalizing the search.  The default value is 3600 seconds (1 hour).  The maximum value is 3600 seconds (1 hour).
+            The number of seconds to run the search before finalizing the search. The default value is 3600 seconds (1 hour). The maximum value is 3600 seconds (1 hour).
           maximum: 3600
           minimum: 1
           type: integer
@@ -1155,7 +1163,7 @@ components:
         module:
           default: ""
           description: |
-            The module to run the search in. The default module is  used if a module is not specified.
+            The module to run the search in. The default module is used if a module is not specified.
           type: string
         name:
           description: The name of the created search job.
@@ -1164,19 +1172,19 @@ components:
           type: string
         parent:
           description: |
-            The 'rsid' of an associated recurring-search, if this search  job is dispatched by a recurring-search.
+            The 'rsid' of an associated recurring-search, if this search job is dispatched by a recurring-search.
           readOnly: true
           type: string
         percentComplete:
           default: 0
           description: |
-            An estimate of the percent of time remaining  before the job completes.
+            An estimate of the percent of time remaining before the job completes.
           readOnly: true
           type: integer
         previewAvailable:
           default: false
           description: |
-            Specifies if preview results are available for the search job.  The valid status values are 'unknown', 'true', and 'false'.
+            Specifies if preview results are available for the search job. The valid status values are 'unknown', 'true', and 'false'.
           readOnly: true
           type: string
         query:
@@ -1187,7 +1195,7 @@ components:
           allOf:
           - $ref: '#/components/schemas/QueryParameters'
           description: |
-            Represents parameters on the search job such as  'earliest' and 'latest'.
+            Represents parameters on the search job such as 'earliest' and 'latest'.
         requiredFreshness:
           default: 0
           description: |
@@ -1197,12 +1205,12 @@ components:
           type: integer
         resolvedEarliest:
           description: |
-            The earliest time speciifed as an absolute value in GMT.  The time is computed based on the values you specify for the  'timezone' and 'earliest' queryParameters.
+            The earliest time speciifed as an absolute value in GMT. The time is computed based on the values you specify for the 'timezone' and 'earliest' queryParameters.
           readOnly: true
           type: string
         resolvedLatest:
           description: |
-            The latest time specified as an absolute value in GMT.  The time is computed based on the values you specify for the  'timezone' and 'earliest' queryParameters.
+            The latest time specified as an absolute value in GMT. The time is computed based on the values you specify for the 'timezone' and 'earliest' queryParameters.
           readOnly: true
           type: string
         resultsAvailable:
@@ -1213,7 +1221,7 @@ components:
         resultsPreviewAvailable:
           default: 0
           description: |
-            The number of the preview search results for the job with the  specified search ID (sid).
+            The number of the preview search results for the job with the specified search ID (sid).
           readOnly: true
           type: integer
         sid:
@@ -1242,7 +1250,7 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/SingleStatementQueryParameters'
           description: |
-            The parameters on the search statement, such as 'earliest' and 'latest. The request can specify a "defaults" set of statement queryParameters which override the system default queryParameters. Each export statement requires to have a statement queryParameters in the object, it can be empty if there is no override.
+            The parameters on the search statement, such as 'earliest' and 'latest. The request can specify a "defaults" set of statement queryParameters which override the system default queryParameters. Each export statement requires to have a statement queryParameters in the object, it can be empty if there is no override. Search statement name can be "defaults". The "defaults" set of queryParameters will be applied to all other search statements in the module.
           type: object
         wipModules:
           additionalProperties:
@@ -1255,12 +1263,13 @@ components:
       type: object
     SearchStatus:
       description: |
-        The current status of the search job. The valid status values are 'running', 'done', 'canceled', and 'failed'.
+        The current status of the search job. The valid status values are 'running', 'done', 'canceled', 'finalized' and 'failed'.
       enum:
       - running
       - done
       - canceled
       - failed
+      - finalized
       type: string
     SingleFieldSummary:
       description: Summary of each field.
@@ -1273,7 +1282,7 @@ components:
           type: integer
         isExact:
           description: |
-            Specifies if the 'distinctCount' is accurate.  The 'isExact' property is FALSE when the 'distinctCount'  exceeds the maximum count and an exact count is not available.
+            Specifies if the 'distinctCount' is accurate. The 'isExact' property is FALSE when the 'distinctCount' exceeds the maximum count and an exact count is not available.
           type: boolean
         max:
           description: The maximum numeric values in the field.
@@ -1369,23 +1378,23 @@ components:
       properties:
         availableCount:
           description: |
-            Count of available events. Not all events in a bucket  are retrievable. Typically this count is capped at 10000.
+            Count of available events. Not all events in a bucket are retrievable. Typically this count is capped at 10000.
           type: integer
         duration:
           format: double
           type: number
         earliestTime:
           description: |
-            The timestamp of the earliest event in the current bucket,  in UNIX format. This is the same time as 'earliestTimeStrfTime'  in UNIX format.
+            The timestamp of the earliest event in the current bucket, in UNIX format. This is the same time as 'earliestTimeStrfTime' in UNIX format.
           format: double
           type: number
         earliestTimeStrfTime:
           description: |
-            The timestamp of the earliest event in the current bucket,  in UTC format with seconds. For example 2019-01-25T13:15:30Z,  which follows the ISO-8601 (%FT%T.%Q) format.
+            The timestamp of the earliest event in the current bucket, in UTC format with seconds. For example 2019-01-25T13:15:30Z, which follows the ISO-8601 (%FT%T.%Q) format.
           type: string
         isFinalized:
           description: |
-            Specifies if all of the events in the current bucket  have been finalized.
+            Specifies if all of the events in the current bucket have been finalized.
           type: boolean
         totalCount:
           description: The total count of the events in the current bucket.
@@ -1400,7 +1409,7 @@ components:
           type: integer
         isExact:
           description: |
-            Specifies if the count is accurate.  The 'isExact' property is FALSE when the 'count' exceeds  the maximum count and an exact count is not available.
+            Specifies if the count is accurate. The 'isExact' property is FALSE when the 'count' exceeds the maximum count and an exact count is not available.
           type: boolean
         value:
           description: The value in the field.
@@ -1425,7 +1434,7 @@ components:
       type: object
     TimeBucketsSummary:
       description: |
-        A timeline metadata model of the event distribution.  The model shows the untransformed events that are read to date  for a specific for search ID (sid).
+        A timeline metadata model of the event distribution. The model shows the untransformed events that are read to date for a specific for search ID (sid).
       properties:
         IsTimeCursored:
           description: Specifies if the events are returned in time order.
@@ -1437,7 +1446,7 @@ components:
           type: array
         cursorTime:
           description: |
-            Identifies where the cursor is, in processing the events.  The 'cursorTime' is a timestamp specified in UNIX time.
+            Identifies where the cursor is, in processing the events. The 'cursorTime' is a timestamp specified in UNIX time.
           type: number
         eventCount:
           description: The number of events processed at the 'cursorTime'.
@@ -1526,6 +1535,25 @@ paths:
         "500":
           description: An internal service error occurred.
   /{tenant}/search/v3alpha1/connections:
+    get:
+      description: Returns all federated connections.
+      operationId: getAllFederatedConnections
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListFederatedConnections'
+          description: |
+            All federated connections were returned successfully.
+        "401":
+          description: The user isn't authenticated.
+        "403":
+          description: The operation isn't authorized.
+        "404":
+          description: The resource wasn't found.
+        "500":
+          description: An internal service error occurred.
     parameters:
     - $ref: '#/components/parameters/tenant'
     - $ref: '#/components/parameters/AuthorizationHeader'
@@ -1628,11 +1656,6 @@ paths:
       description: |
         Refresh a federated connection to fetch new remote indexes and add/delete corresponding federated datasets.
       operationId: refreshFederatedConnection
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FederatedConnectionRefresh'
       responses:
         "201":
           description: |
@@ -1654,11 +1677,6 @@ paths:
       description: |
         Test connection with remote EC instance using federated connection parameters.
       operationId: testFederatedConnection
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FederatedConnectionTest'
       responses:
         "200":
           description: |
@@ -2155,7 +2173,7 @@ paths:
           description: An internal service error occurred.
     get:
       description: |
-        Returns a module with a specified  resource name (resourceName).
+        Returns a module with a specified resource name (resourceName).
       operationId: getSpl2ModuleByResourceName
       responses:
         "200":
@@ -2204,4 +2222,4 @@ paths:
         "500":
           description: An internal service error occurred.
 
-# Retrieved from scp-openapi commit 790daec8c2c4866ae9ec2b7398e11e3d44d917b6 path: search/v3alpha1/openapi.yaml
+# Retrieved from scp-openapi commit 820564ba8a17697d087ff171b14cbad60a716ee3 path: search/v3alpha1/openapi.yaml
