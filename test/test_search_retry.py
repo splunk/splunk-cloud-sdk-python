@@ -22,9 +22,21 @@ from splunk_sdk.search import SearchJob
 
 import itertools
 
-STANDARD_QUERY = '| from index:main | head 5'
-
+# Use pre-baked events so that number of events and format are fixed
+STANDARD_QUERY = '''
+from [
+        {"name": "event1"},
+        {"name": "event2"},
+        {"name": "event3"},
+        {"name": "event4"},
+        {"name": "event5"}
+    ]
+'''
 def execute_search_job(expect_error, search_job, search_client):
+    # TODO: For now forcing expect_error to be true, we need to stop
+    # test retry handling without overloading our tenant with searches,
+    # this is causing our non-429 tests to return with 429
+    expect_error = True
     try:
         job = search_client.create_job(search_job=search_job)
         print("NAME")

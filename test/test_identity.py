@@ -53,7 +53,7 @@ def test_crud_groups(test_client: BaseClient):
     group_roles = identity.list_group_roles(group_name)
     assert(group_roles.items[0].role == role_name)
 
-    member_name = "test1@splunk.com"
+    member_name = "0oabp299js4d0z0dj357"  # a test service app
     member = identity.add_member(AddMemberBody(member_name))
     assert(member.name == member_name)
     assert(member.added_by == username)

@@ -9,21 +9,44 @@
 # under the License.
 
 
+import csv
+import json
 import os
 import pytest
 import logging
 
 from splunk_sdk.ingest import IngestAPI, HTTPResponse
 from splunk_sdk.ingest.ingest_event_batcher import EventBatcher, \
-    DEFAULT_BATCH_SIZE
-from test.test_ml import _parse_csv as parse_csv
-from test.fixtures import get_test_client_ml as test_client  # NOQA
+    DEFAULT_BATCH_SIZE, Event
+from test.fixtures import get_test_client as test_client  # NOQA
 
 BATCH_COUNT = 50
-EVENTS = parse_csv(os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                                "data/ml/iris.csv"))
+SOURCE = 'pythonsdk-tests'
+SOURCETYPE = 'json'
 
 logger = logging.getLogger(__name__)
+
+def _parse_csv(file):
+    events = []
+    with open(file) as f:
+        reader = csv.reader(f)
+        headers = next(reader, None)
+        for row in reader:
+            #  v needs to be tested for a float or string
+            data = {}
+            for k, v in zip(headers, row):
+                try:
+                    v = float(v)
+                except ValueError:
+                    pass
+                data[k] = v
+            payload = json.dumps(data)
+            events.append(Event(body=payload, sourcetype=SOURCETYPE,
+                                source=SOURCE, attributes={'index': 'main'}))
+    return events
+
+
+EVENTS = _parse_csv(os.path.join(os.path.abspath(os.path.dirname(__file__)), "data/ml/iris.csv"))
 
 
 def _response_handler(func, data):

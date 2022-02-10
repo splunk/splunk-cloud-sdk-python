@@ -1,5 +1,15 @@
 # Splunk Cloud SDK for Python Changelog
 
+## Version 12.0.0-beta5
+#### Breaking Changes
+* Identity `IdentityProviderConfigBody` model removed field: `kind`
+
+#### Non-Breaking Changes
+* Added `request_id` field to `HTTPError` read from `X-Request-Id` response header for improved debugging
+* Fixed issue where jwt (pyjwt) dependency was not being installed
+* Identity new APIs: `create_saml_client`, `delete_saml_client`, `get_saml_client`, `list_saml_clients`, `update_saml_client`
+* Search new APIs: `create_federated_connection`, `delete_federated_connection`, `get_federated_connection_by_name`, `put_federated_connection_by_name`, `refresh_federated_connection`, `test_federated_connection`
+
 ## Version 12.0.0-beta4
 #### Non-Breaking Changes
 * KVstore service (v1beta1): `delete_recoreds()` has  added a new optional input parameter of `enable_mvl`;  `query_records()` has  added  new optional input parameters of `enable_mvl` and `shared`

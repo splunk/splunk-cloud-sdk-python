@@ -447,10 +447,10 @@ components:
           x-case-insensitive: true
         redirectUris:
           items:
-            maxItems: 100
             maxLength: 256
             minLength: 8
             type: string
+          maxItems: 100
           type: array
       required:
       - name
@@ -723,6 +723,7 @@ components:
         keys:
           items:
             $ref: '#/components/schemas/ECJwk'
+          maxItems: 10
           type: array
       type: object
     Group:
@@ -848,6 +849,7 @@ components:
           type: string
         kind:
           enum:
+          - keycloak
           - saml
           type: string
         title:
@@ -891,16 +893,11 @@ components:
           minLength: 4
           pattern: ^[_a-z]([.]?[_a-z0-9])*$
           type: string
-        kind:
-          enum:
-          - saml
-          type: string
         title:
           maxLength: 256
           type: string
       required:
       - id
-      - kind
       - config
       type: object
     IdentityProviderList:
@@ -972,6 +969,7 @@ components:
         keys:
           items:
             $ref: '#/components/schemas/Jwk'
+          maxItems: 10
           type: array
       type: object
     Key:
@@ -1540,10 +1538,10 @@ components:
       properties:
         redirectUris:
           items:
-            maxItems: 100
             maxLength: 256
             minLength: 8
             type: string
+          maxItems: 100
           type: array
       type: object
     UpdateIdpBody:
@@ -1658,7 +1656,7 @@ info:
   description: With the Identity service in Splunk Cloud Services, you can authenticate
     and authorize Splunk Cloud Services users.
   title: Identity
-  version: v2beta1.21
+  version: v2beta1.22
 openapi: 3.0.0
 paths:
   /{tenant}/identity/v2beta1/groups:
@@ -2732,4 +2730,4 @@ security:
 servers:
 - url: /
 
-# Retrieved from scp-openapi commit 5bcc18023c79088bf6bdbcad5d85d1bbdfda268b path: identity/v2beta1/openapi.yaml
+# Retrieved from scp-openapi commit 790daec8c2c4866ae9ec2b7398e11e3d44d917b6 path: identity/v2beta1/openapi.yaml

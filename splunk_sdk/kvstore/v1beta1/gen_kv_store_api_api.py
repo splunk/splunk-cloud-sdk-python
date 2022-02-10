@@ -159,7 +159,7 @@ class KVStoreAPI(BaseService):
 
     def insert_records(self, collection: str, request_body: List[object], allow_updates: bool = None, query_params: Dict[str, object] = None) -> List[str]:
         """
-        Inserts multiple records in a single request.
+        Writes multiple records in a single request. If records have duplicate primary keys, only the last duplicate record will be written. If no errors occur, the response array will contain the keys of the written records, in no particular order.
         """
         if query_params is None:
             query_params = {}

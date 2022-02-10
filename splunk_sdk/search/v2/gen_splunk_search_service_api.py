@@ -35,6 +35,8 @@ from splunk_sdk.base_service import BaseService
 from splunk_sdk.common.sscmodel import SSCModel, SSCVoidModel
 
 from splunk_sdk.search.v2.gen_models import DeleteSearchJob
+from splunk_sdk.search.v2.gen_models import FederatedConnection
+from splunk_sdk.search.v2.gen_models import FederatedConnectionInput
 from splunk_sdk.search.v2.gen_models import FieldsSummary
 from splunk_sdk.search.v2.gen_models import ListPreviewResultsResponse
 from splunk_sdk.search.v2.gen_models import ListSearchResultsResponse
@@ -54,6 +56,23 @@ class SplunkSearchService(BaseService):
     def __init__(self, base_client):
         super().__init__(base_client)
 
+    def create_federated_connection(self, federated_connection_input: FederatedConnectionInput = None, query_params: Dict[str, object] = None) -> FederatedConnection:
+        """
+        Creates a new federated connection with information about how to connect to a remote index.
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+        }
+
+        path = Template("/search/v2/connections").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = federated_connection_input.to_dict()
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, FederatedConnection)
+
     def create_job(self, search_job: SearchJob = None, query_params: Dict[str, object] = None) -> SearchJob:
         """
         Creates a search job.
@@ -69,6 +88,23 @@ class SplunkSearchService(BaseService):
         data = search_job.to_dict()
         response = self.base_client.post(url, json=data, params=query_params)
         return handle_response(response, SearchJob)
+
+    def delete_federated_connection(self, connection_name: str, query_params: Dict[str, object] = None) -> SSCVoidModel:
+        """
+        Deletes a federated connection with the specified name (connectionName)
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "connectionName": connection_name,
+        }
+
+        path = Template("/search/v2/connections/${connectionName}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.delete(url, params=query_params)
+        return handle_response(response, )
 
     def delete_job(self, delete_search_job: DeleteSearchJob = None, query_params: Dict[str, object] = None) -> DeleteSearchJob:
         """
@@ -108,6 +144,23 @@ class SplunkSearchService(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, object)
+
+    def get_federated_connection_by_name(self, connection_name: str, query_params: Dict[str, object] = None) -> FederatedConnection:
+        """
+        Returns the federated connection with the specified name (connectionName).
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "connectionName": connection_name,
+        }
+
+        path = Template("/search/v2/connections/${connectionName}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        response = self.base_client.get(url, params=query_params)
+        return handle_response(response, FederatedConnection)
 
     def get_job(self, sid: str, query_params: Dict[str, object] = None) -> SearchJob:
         """
@@ -249,6 +302,60 @@ class SplunkSearchService(BaseService):
         url = self.base_client.build_url(path)
         response = self.base_client.get(url, params=query_params)
         return handle_response(response, TimeBucketsSummary)
+
+    def put_federated_connection_by_name(self, connection_name: str, federated_connection_input: FederatedConnectionInput = None, query_params: Dict[str, object] = None) -> FederatedConnection:
+        """
+        Creates or updates a federated connection with a specified name (connectionName).
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "connectionName": connection_name,
+        }
+
+        path = Template("/search/v2/connections/${connectionName}").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = federated_connection_input.to_dict()
+        response = self.base_client.put(url, json=data, params=query_params)
+        return handle_response(response, FederatedConnection)
+
+    def refresh_federated_connection(self, connection_name: str, body: object = None, query_params: Dict[str, object] = None) -> SSCVoidModel:
+        """
+        Refresh a federated connection to fetch new remote indexes and add/delete corresponding federated datasets.
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "connectionName": connection_name,
+        }
+
+        path = Template("/search/v2/connections/${connectionName}/refresh").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = body
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, )
+
+    def test_federated_connection(self, connection_name: str, body: object = None, query_params: Dict[str, object] = None) -> SSCVoidModel:
+        """
+        Test connection with remote EC instance using federated connection parameters.
+
+        """
+        if query_params is None:
+            query_params = {}
+
+        path_params = {
+            "connectionName": connection_name,
+        }
+
+        path = Template("/search/v2/connections/${connectionName}/test").substitute(path_params)
+        url = self.base_client.build_url(path)
+        data = body
+        response = self.base_client.post(url, json=data, params=query_params)
+        return handle_response(response, )
 
     def update_job(self, sid: str, update_job: UpdateJob = None, query_params: Dict[str, object] = None) -> SearchJob:
         """

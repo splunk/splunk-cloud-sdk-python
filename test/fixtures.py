@@ -40,9 +40,9 @@ logger.addHandler(ch)
 
 @pytest.fixture(scope='session')
 def get_test_client_default_retry():
-    context = Context(host=os.environ.get('SPLUNK_HOST'),
-                      api_host=os.environ.get('SPLUNK_HOST'),
-                      tenant=os.environ.get('SPLUNK_TENANT'),
+    context = Context(host=os.environ.get('SPLUNK_HOST_2'),
+                      api_host=os.environ.get('SPLUNK_HOST_2'),
+                      tenant=os.environ.get('SPLUNK_TENANT_2'),
                       debug=os.environ.get(
                           'SPLUNK_DEBUG', 'false').lower().strip() == 'true')
 
@@ -55,9 +55,9 @@ def get_test_client_default_retry():
 
 @pytest.fixture(scope='session')
 def get_test_client_retry_false():
-    context = Context(host=os.environ.get('SPLUNK_HOST'),
-                      api_host=os.environ.get('SPLUNK_HOST'),
-                      tenant=os.environ.get('SPLUNK_TENANT'),
+    context = Context(host=os.environ.get('SPLUNK_HOST_2'),
+                      api_host=os.environ.get('SPLUNK_HOST_2'),
+                      tenant=os.environ.get('SPLUNK_TENANT_2'),
                       debug=os.environ.get(
                           'SPLUNK_DEBUG', 'false').lower().strip() == 'true')
 
@@ -70,9 +70,9 @@ def get_test_client_retry_false():
 
 @pytest.fixture(scope='session')
 def get_test_client_custom_retry():
-    context = Context(host=os.environ.get('SPLUNK_HOST'),
-                      api_host=os.environ.get('SPLUNK_HOST'),
-                      tenant=os.environ.get('SPLUNK_TENANT'),
+    context = Context(host=os.environ.get('SPLUNK_HOST_2'),
+                      api_host=os.environ.get('SPLUNK_HOST_2'),
+                      tenant=os.environ.get('SPLUNK_TENANT_2'),
                       debug=os.environ.get(
                           'SPLUNK_DEBUG', 'false').lower().strip() == 'true')
 
@@ -85,51 +85,24 @@ def get_test_client_custom_retry():
 
 @pytest.fixture(scope='session')
 def get_test_client():
-    context = Context(host=os.environ.get('SPLUNK_HOST'),
-                      api_host=os.environ.get('SPLUNK_HOST'),
-                      tenant=os.environ.get('SPLUNK_TENANT'),
-                      debug=os.environ.get(
-                          'SPLUNK_DEBUG', 'false').lower().strip() == 'true')
-
-    # integration tests use pkce by default
-    service_client = get_client(context, _get_pkce_manager())
-    assert (service_client is not None)
-    return service_client
-
-@pytest.fixture(scope='session')
-def get_test_client_scoped_hosts():
     context = Context(host=os.environ.get('SPLUNK_HOST_2'),
                       api_host=os.environ.get('SPLUNK_HOST_2'),
                       tenant=os.environ.get('SPLUNK_TENANT_2'),
                       tenant_scoped=True,
-                      # Uncomment when services are deployed at region scoped
-                      # region=os.environ.get('SPLUNK_REGION'),
+                      region=os.environ.get('SPLUNK_REGION'),
                       debug=os.environ.get(
                           'SPLUNK_DEBUG', 'false').lower().strip() == 'true')
 
     # integration tests use pkce by default
-    service_client = get_client(context, _get_client_manager_scoped())
-    assert (service_client is not None)
-    return service_client
-
-@pytest.fixture(scope='session')
-def get_test_client_ml():
-    context = Context(host=os.environ.get('SPLUNK_HOST'),
-                      api_host=os.environ.get('SPLUNK_HOST'),
-                      tenant=os.environ.get('SPLUNK_TENANT_ML'),
-                      debug=os.environ.get(
-                          'SPLUNK_DEBUG', 'false').lower().strip() == 'true')
-
-    # integration tests use pkce by default
-    service_client = get_client(context, _get_pkce_manager())
+    service_client = get_client(context, _get_client_manager())
     assert (service_client is not None)
     return service_client
 
 
 @pytest.fixture(scope='session')
 def get_test_client_provisioner():
-    context = Context(host=os.environ.get('SPLUNK_HOST'),
-                      api_host=os.environ.get('SPLUNK_HOST'),
+    context = Context(host=os.environ.get('SPLUNK_HOST_2'),
+                      api_host=os.environ.get('SPLUNK_HOST_2'),
                       tenant='system',
                       debug=os.environ.get(
                           'SPLUNK_DEBUG', 'false').lower().strip() == 'true')
@@ -155,12 +128,6 @@ def get_client_auth_manager():
     return auth_manager
 
 @pytest.fixture(scope='session')
-def get_client_auth_manager_scoped():
-    auth_manager = _get_client_manager_scoped()
-    assert (auth_manager is not None)
-    return auth_manager
-
-@pytest.fixture(scope='session')
 def get_service_principal_auth_manager():
     auth_manager = _get_principal_manager()
     assert (auth_manager is not None)
@@ -168,33 +135,31 @@ def get_service_principal_auth_manager():
 
 
 def _get_pkce_manager():
-    return PKCEAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST'),
-                           client_id=os.environ.get('SPLUNK_APP_CLIENT_ID'),
+    return PKCEAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST_2'),
+                           client_id=os.environ.get('SPLUNK_APP_CLIENT_ID_2'),
                            username=os.environ.get('TEST_USERNAME'),
                            password=os.environ.get('TEST_PASSWORD'),
-                           redirect_uri=os.environ.get('SPLUNK_REDIRECT_URL'))
+                           redirect_uri='https://localhost:8000',
+                           tenant_scoped=True,
+                           tenant=os.environ.get('SPLUNK_TENANT_2'),
+                           region=os.environ.get('SPLUNK_REGION'))
 
 
 def _get_client_manager():
-    return ClientAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST'),
-                             client_id=os.environ.get(
-                                 'SPLUNK_APP_CLIENT_CRED_ID'),
-                             client_secret=os.environ.get(
-                                 'SPLUNK_APP_CLIENT_CRED_SECRET'),
-                             scope=os.environ.get('SPLUNK_SCOPE'))
-
-def _get_client_manager_scoped():
     return ClientAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST_2'),
                              client_id=os.environ.get(
                                  'SPLUNK_APP_CLIENT_CRED_ID_2'),
                              client_secret=os.environ.get(
                                  'SPLUNK_APP_CLIENT_CRED_SECRET_2'),
-                             scope=os.environ.get('SPLUNK_SCOPE'), tenant=os.environ.get('SPLUNK_TENANT_2'), tenant_scoped=True, region=os.environ.get(
+                             scope='', tenant=os.environ.get('SPLUNK_TENANT_2'), tenant_scoped=True, region=os.environ.get(
                                  'SPLUNK_REGION'))
 
 def _get_principal_manager():
-    return ServicePrincipalAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST'),
-                                       principal_name=os.environ.get('SPLUNK_APP_PRINCIPAL_NAME'),
+    return ServicePrincipalAuthManager(host=os.environ.get('SPLUNK_AUTH_HOST_2'),
+                                       tenant_scoped=True,
+                                       tenant=os.environ.get('SPLUNK_TENANT_2'),
+                                       region=os.environ.get('SPLUNK_REGION'),
+                                       principal_name=os.environ.get('SPLUNK_APP_PRINCIPAL_NAME_2'),
                                        key=os.environ.get('SPLUNK_APP_PRINCIPAL_PRIVATE_KEY'),
                                        kid=os.environ.get('SPLUNK_APP_PRINCIPAL_KEY_ID'),
                                        algorithm=os.environ.get('SPLUNK_APP_PRINCIPAL_KEY_ALG'))

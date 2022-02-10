@@ -8,18 +8,27 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+import itertools
 import pytest
+import time
+
 from test.fixtures import get_test_client as test_client  # NOQA
 
 from splunk_sdk.search import SplunkSearchService as Search
 from splunk_sdk.search import SearchJob, UpdateJob, Message, \
     ListSearchResultsResponse
-
-import itertools
-
 from splunk_sdk.search.search_helper import wait_for_job
 
-STANDARD_QUERY = '| from index:main | head 5'
+# Use pre-baked events so that number of events and format are fixed
+STANDARD_QUERY = '''
+from [
+        {"name": "event1"},
+        {"name": "event2"},
+        {"name": "event3"},
+        {"name": "event4"},
+        {"name": "event5"}
+    ]
+'''
 
 # TODO(shakeel): add test_list_results w/ a search using a module when catalog
 #  is ready for that
@@ -46,6 +55,7 @@ def test_update_job(test_client):
     assert (isinstance(job, SearchJob))
 
     # get job
+    time.sleep(2)
     _job = search.get_job(job.sid)
 
     if _job.status == 'running':

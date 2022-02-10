@@ -1691,7 +1691,7 @@ class FederatedConnectionInput(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, hostnameip: "str" = None, name: "str" = None, port: "float" = None, serviceaccountuser: "str" = None, **extra):
+    def __init__(self, hostnameip: "str" = None, name: "str" = None, port: "float" = None, serviceaccountpassword: "str" = None, serviceaccountuser: "str" = None, **extra):
         """FederatedConnectionInput"""
 
         self._attrs = dict()
@@ -1701,6 +1701,8 @@ class FederatedConnectionInput(SSCModel):
             self._attrs["name"] = name
         if port is not None:
             self._attrs["port"] = port
+        if serviceaccountpassword is not None:
+            self._attrs["serviceaccountpassword"] = serviceaccountpassword
         if serviceaccountuser is not None:
             self._attrs["serviceaccountuser"] = serviceaccountuser
         for k, v in extra.items():
@@ -1759,6 +1761,24 @@ class FederatedConnectionInput(SSCModel):
         :type: float
         """
         self._attrs["port"] = port
+
+    @property
+    def serviceaccountpassword(self) -> "str":
+        """ Gets the serviceaccountpassword of this FederatedConnectionInput.
+        The password of the service account.
+        """
+        return self._attrs.get("serviceaccountpassword")
+
+    @serviceaccountpassword.setter
+    def serviceaccountpassword(self, serviceaccountpassword: "str"):
+        """Sets the serviceaccountpassword of this FederatedConnectionInput.
+
+        The password of the service account.
+
+        :param serviceaccountpassword: The serviceaccountpassword of this FederatedConnectionInput.
+        :type: str
+        """
+        self._attrs["serviceaccountpassword"] = serviceaccountpassword
 
     @property
     def serviceaccountuser(self) -> "str":
@@ -3888,58 +3908,22 @@ class Module(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, created: "str" = None, createdby: "str" = None, definition: "str" = None, name: "str" = None, namespace: "str" = None, **extra):
+    def __init__(self, definition: "str", name: "str", created_at: "str" = None, created_by: "str" = None, namespace: "str" = None, **extra):
         """Module"""
 
         self._attrs = dict()
-        if created is not None:
-            self._attrs["created"] = created
-        if createdby is not None:
-            self._attrs["createdby"] = createdby
         if definition is not None:
             self._attrs["definition"] = definition
         if name is not None:
             self._attrs["name"] = name
+        if created_at is not None:
+            self._attrs["createdAt"] = created_at
+        if created_by is not None:
+            self._attrs["createdBy"] = created_by
         if namespace is not None:
             self._attrs["namespace"] = namespace
         for k, v in extra.items():
             self._attrs[k] = v
-
-    @property
-    def created(self) -> "str":
-        """ Gets the created of this Module.
-        The timestamp when the module was created
-        """
-        return self._attrs.get("created")
-
-    @created.setter
-    def created(self, created: "str"):
-        """Sets the created of this Module.
-
-        The timestamp when the module was created
-
-        :param created: The created of this Module.
-        :type: str
-        """
-        self._attrs["created"] = created
-
-    @property
-    def createdby(self) -> "str":
-        """ Gets the createdby of this Module.
-        The user who created the module
-        """
-        return self._attrs.get("createdby")
-
-    @createdby.setter
-    def createdby(self, createdby: "str"):
-        """Sets the createdby of this Module.
-
-        The user who created the module
-
-        :param createdby: The createdby of this Module.
-        :type: str
-        """
-        self._attrs["createdby"] = createdby
 
     @property
     def definition(self) -> "str":
@@ -3957,6 +3941,8 @@ class Module(SSCModel):
         :param definition: The definition of this Module.
         :type: str
         """
+        if definition is None:
+            raise ValueError("Invalid value for `definition`, must not be `None`")
         self._attrs["definition"] = definition
 
     @property
@@ -3975,7 +3961,45 @@ class Module(SSCModel):
         :param name: The name of this Module.
         :type: str
         """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")
         self._attrs["name"] = name
+
+    @property
+    def created_at(self) -> "str":
+        """ Gets the created_at of this Module.
+        The timestamp when the module was created
+        """
+        return self._attrs.get("createdAt")
+
+    @created_at.setter
+    def created_at(self, created_at: "str"):
+        """Sets the created_at of this Module.
+
+        The timestamp when the module was created
+
+        :param created_at: The created_at of this Module.
+        :type: str
+        """
+        self._attrs["createdAt"] = created_at
+
+    @property
+    def created_by(self) -> "str":
+        """ Gets the created_by of this Module.
+        The user who created the module
+        """
+        return self._attrs.get("createdBy")
+
+    @created_by.setter
+    def created_by(self, created_by: "str"):
+        """Sets the created_by of this Module.
+
+        The user who created the module
+
+        :param created_by: The created_by of this Module.
+        :type: str
+        """
+        self._attrs["createdBy"] = created_by
 
     @property
     def namespace(self) -> "str":
@@ -6453,7 +6477,7 @@ class SearchModule(SSCModel):
         instance._attrs = model
         return instance
 
-    def __init__(self, module: "str" = None, namespace: "str" = '', query_parameters: "Dict[str, SingleStatementQueryParameters]" = None, **extra):
+    def __init__(self, module: "str" = None, namespace: "str" = '', query_parameters: "Dict[str, SingleStatementQueryParameters]" = None, wip_modules: "Dict[str, Module]" = None, **extra):
         """SearchModule"""
 
         self._attrs = dict()
@@ -6463,6 +6487,8 @@ class SearchModule(SSCModel):
             self._attrs["namespace"] = namespace
         if query_parameters is not None:
             self._attrs["queryParameters"] = query_parameters
+        if wip_modules is not None:
+            self._attrs["wipModules"] = wip_modules
         for k, v in extra.items():
             self._attrs[k] = v
 
@@ -6519,6 +6545,24 @@ class SearchModule(SSCModel):
         :type: Dict[str, SingleStatementQueryParameters]
         """
         self._attrs["queryParameters"] = query_parameters
+
+    @property
+    def wip_modules(self) -> "Dict[str, Module]":
+        """ Gets the wip_modules of this SearchModule.
+        WIP (Work in progress) modules which are used in the module's search statements, but not yet registered . 
+        """
+        return self._attrs.get("wipModules")
+
+    @wip_modules.setter
+    def wip_modules(self, wip_modules: "Dict[str, Module]"):
+        """Sets the wip_modules of this SearchModule.
+
+        WIP (Work in progress) modules which are used in the module's search statements, but not yet registered . 
+
+        :param wip_modules: The wip_modules of this SearchModule.
+        :type: Dict[str, Module]
+        """
+        self._attrs["wipModules"] = wip_modules
 
     def to_dict(self):
         return {k: v for (k, v) in self._attrs.items() if v is not None}

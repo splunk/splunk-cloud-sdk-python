@@ -8,19 +8,32 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-import datetime
 import pytest
-
-from cryptography import x509
-from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives import hashes, serialization
-from cryptography.hazmat.primitives.asymmetric import rsa
-from cryptography.x509 import NameOID
 
 from splunk_sdk.base_client import BaseClient
 from splunk_sdk.forwarders import SplunkForwarderService, Certificate
-from test.fixtures import get_test_client_scoped_hosts as test_client  # NOQA
+from test.fixtures import get_test_client as test_client  # NOQA
 
+
+PEM = '''-----BEGIN CERTIFICATE-----
+MIIC1TCCAb2gAwIBAgIJAIOAwz2qyz1FMA0GCSqGSIb3DQEBCwUAMBoxGDAWBgNV
+BAMMD3d3dy5leGFtcGxlLmNvbTAeFw0yMTA4MjcxOTAwNTVaFw0yNjA4MjYxOTAw
+NTVaMBoxGDAWBgNVBAMMD3d3dy5leGFtcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEB
+BQADggEPADCCAQoCggEBANHY9Uc+AJL17z6GkJ9VoiPU0TDF3+rVjp2CLxcc2Upt
+BgX//F+MFNwY6bK3HEXE3AQPvuOtp7FQQYX+2BgLQwMiyKThKg5V4KcmsDR3zvqQ
+Rdrd4lXm5KAt8kLSF+VFFO+Fm0eJG7fQgERsBFuyHg16511dh1JC2cAu6E2IaFw2
+nUWyYsvjKCl3hcPqvmVl8MIFexhPw7cyUlq68PyEgYpDXzfgE1DIiu1BGQ5z/UZ2
+XzBTQKg7/+iVfdMjftYbRqLk3MKwaM0yuohVBLkkBKuY8H+93G4qizYGAs+Ae5Hi
+EYPUkkmQMYfOXhSF7cV2aDPcCAY9oJWDaQNBk3rx4v8CAwEAAaMeMBwwGgYDVR0R
+BBMwEYIPd3d3LmV4YW1wbGUuY29tMA0GCSqGSIb3DQEBCwUAA4IBAQC5mqAoFR1t
+tYR558EYxn91VVmFFeUdXtAbkWQ6LLLQPTbWz8bQW5qoj9mYF7r2AAKnJvJoAtUX
+ZYfVlHhEenGG9x8U/he/4L8IubHySMrksmoGVC5vS/0ecSD0pjObcNa6ZZH+ELbf
+O1Fm1vP/QzOZeQoH2C4tdtDNXS9JV0F4ZGOHQALEBNkO5CfOVXd3YhmGGLFxkgjs
+I135CtslJTR3+GpPHg44/Lo7VvwuSp0gJIzgLayM8Hcb7fKpZ0D2FsRkc4dDIwuR
+wDYojnaUIAuni1Dd8oguYvm5+S56XOOO9BNDorxNzqqHuwEsqszG86VBEkMAB5v+
+AQ86ecyUH90A
+-----END CERTIFICATE-----
+'''
 
 @pytest.mark.usefixtures("test_client")  # NOQA
 def test_cert_crud(test_client: BaseClient):
@@ -30,10 +43,7 @@ def test_cert_crud(test_client: BaseClient):
     certs = forwarders.list_certificates()
     current_cert_count = len(certs)
 
-    cert = _generateCertificate("forwarder_01")
-    cert_bytes = cert.public_bytes(serialization.Encoding.PEM).decode('utf-8')
-    # FIXME: spec says that cert is a string, needs to be passed {'pem': cert}
-    forwarders.add_certificate(Certificate(pem=cert_bytes))
+    forwarders.add_certificate(Certificate(pem=PEM))
 
     certs = forwarders.list_certificates()
     assert(len(certs) == current_cert_count + 1)
@@ -41,41 +51,3 @@ def test_cert_crud(test_client: BaseClient):
     forwarders.delete_certificates()
     certs = forwarders.list_certificates()
     assert(len(certs) == 0)
-
-
-@pytest.mark.usefixtures("test_client")  # NOQA
-def test_list_certificates(test_client: BaseClient):
-    forwarders = SplunkForwarderService(test_client)
-    forwarders.delete_certificates()
-    _generateCertificate("bob")
-    certs = forwarders.list_certificates()
-    assert(len(certs) == 0)
-
-
-def _generateCertificate(forwarder_name: str):
-    private_key = rsa.generate_private_key(
-        public_exponent=65537,
-        key_size=2048,
-        backend=default_backend()
-    )
-
-    subject = issuer = x509.Name([
-        x509.NameAttribute(NameOID.COUNTRY_NAME, u"US"),
-        x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, u"California"),
-        x509.NameAttribute(NameOID.LOCALITY_NAME, u"San Francisco"),
-        x509.NameAttribute(NameOID.ORGANIZATION_NAME, u"Splunk"),
-        x509.NameAttribute(NameOID.COMMON_NAME, forwarder_name),
-    ])
-
-    builder = x509.CertificateBuilder()
-    builder = builder.subject_name(subject)
-    builder = builder.issuer_name(issuer)
-    builder = builder.not_valid_before(datetime.datetime.today() - datetime.timedelta(days=1))
-    builder = builder.not_valid_after(datetime.datetime.today() + datetime.timedelta(days=1))
-
-    builder = builder.serial_number(x509.random_serial_number())
-    builder = builder.public_key(private_key.public_key())
-    builder = builder.add_extension(x509.BasicConstraints(ca=False, path_length=None), critical=True)
-
-    cert = builder.sign(private_key=private_key, algorithm=hashes.SHA256(), backend=default_backend())
-    return cert

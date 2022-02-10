@@ -749,6 +749,304 @@ class DeleteSearchJob(SSCModel):
         return {k: v for (k, v) in self._attrs.items() if v is not None}
 
 
+class FederatedConnection(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "FederatedConnection":
+        instance = FederatedConnection.__new__(FederatedConnection)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, created: "str" = None, createdby: "str" = None, hostnameip: "str" = None, modified: "str" = None, modifiedby: "str" = None, name: "str" = None, port: "float" = None, serviceaccountuser: "str" = None, **extra):
+        """FederatedConnection"""
+
+        self._attrs = dict()
+        if created is not None:
+            self._attrs["created"] = created
+        if createdby is not None:
+            self._attrs["createdby"] = createdby
+        if hostnameip is not None:
+            self._attrs["hostnameip"] = hostnameip
+        if modified is not None:
+            self._attrs["modified"] = modified
+        if modifiedby is not None:
+            self._attrs["modifiedby"] = modifiedby
+        if name is not None:
+            self._attrs["name"] = name
+        if port is not None:
+            self._attrs["port"] = port
+        if serviceaccountuser is not None:
+            self._attrs["serviceaccountuser"] = serviceaccountuser
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def created(self) -> "str":
+        """ Gets the created of this FederatedConnection.
+        The timestamp when the federated connection was created.
+        """
+        return self._attrs.get("created")
+
+    @created.setter
+    def created(self, created: "str"):
+        """Sets the created of this FederatedConnection.
+
+        The timestamp when the federated connection was created.
+
+        :param created: The created of this FederatedConnection.
+        :type: str
+        """
+        self._attrs["created"] = created
+
+    @property
+    def createdby(self) -> "str":
+        """ Gets the createdby of this FederatedConnection.
+        The user who created the federated connection.
+        """
+        return self._attrs.get("createdby")
+
+    @createdby.setter
+    def createdby(self, createdby: "str"):
+        """Sets the createdby of this FederatedConnection.
+
+        The user who created the federated connection.
+
+        :param createdby: The createdby of this FederatedConnection.
+        :type: str
+        """
+        self._attrs["createdby"] = createdby
+
+    @property
+    def hostnameip(self) -> "str":
+        """ Gets the hostnameip of this FederatedConnection.
+        The remote hostname to connect yo.
+        """
+        return self._attrs.get("hostnameip")
+
+    @hostnameip.setter
+    def hostnameip(self, hostnameip: "str"):
+        """Sets the hostnameip of this FederatedConnection.
+
+        The remote hostname to connect yo.
+
+        :param hostnameip: The hostnameip of this FederatedConnection.
+        :type: str
+        """
+        self._attrs["hostnameip"] = hostnameip
+
+    @property
+    def modified(self) -> "str":
+        """ Gets the modified of this FederatedConnection.
+        The timestamp when the federated connection was modified.
+        """
+        return self._attrs.get("modified")
+
+    @modified.setter
+    def modified(self, modified: "str"):
+        """Sets the modified of this FederatedConnection.
+
+        The timestamp when the federated connection was modified.
+
+        :param modified: The modified of this FederatedConnection.
+        :type: str
+        """
+        self._attrs["modified"] = modified
+
+    @property
+    def modifiedby(self) -> "str":
+        """ Gets the modifiedby of this FederatedConnection.
+        The user who last modified the federated connection.
+        """
+        return self._attrs.get("modifiedby")
+
+    @modifiedby.setter
+    def modifiedby(self, modifiedby: "str"):
+        """Sets the modifiedby of this FederatedConnection.
+
+        The user who last modified the federated connection.
+
+        :param modifiedby: The modifiedby of this FederatedConnection.
+        :type: str
+        """
+        self._attrs["modifiedby"] = modifiedby
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this FederatedConnection.
+        The name of the federated connection.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this FederatedConnection.
+
+        The name of the federated connection.
+
+        :param name: The name of this FederatedConnection.
+        :type: str
+        """
+        self._attrs["name"] = name
+
+    @property
+    def port(self) -> "float":
+        """ Gets the port of this FederatedConnection.
+        The remote port number.
+        """
+        return self._attrs.get("port")
+
+    @port.setter
+    def port(self, port: "float"):
+        """Sets the port of this FederatedConnection.
+
+        The remote port number.
+
+        :param port: The port of this FederatedConnection.
+        :type: float
+        """
+        self._attrs["port"] = port
+
+    @property
+    def serviceaccountuser(self) -> "str":
+        """ Gets the serviceaccountuser of this FederatedConnection.
+        The username on the service account.
+        """
+        return self._attrs.get("serviceaccountuser")
+
+    @serviceaccountuser.setter
+    def serviceaccountuser(self, serviceaccountuser: "str"):
+        """Sets the serviceaccountuser of this FederatedConnection.
+
+        The username on the service account.
+
+        :param serviceaccountuser: The serviceaccountuser of this FederatedConnection.
+        :type: str
+        """
+        self._attrs["serviceaccountuser"] = serviceaccountuser
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
+class FederatedConnectionInput(SSCModel):
+
+    @staticmethod
+    def _from_dict(model: dict) -> "FederatedConnectionInput":
+        instance = FederatedConnectionInput.__new__(FederatedConnectionInput)
+        instance._attrs = model
+        return instance
+
+    def __init__(self, hostnameip: "str" = None, name: "str" = None, port: "float" = None, serviceaccountpassword: "str" = None, serviceaccountuser: "str" = None, **extra):
+        """FederatedConnectionInput"""
+
+        self._attrs = dict()
+        if hostnameip is not None:
+            self._attrs["hostnameip"] = hostnameip
+        if name is not None:
+            self._attrs["name"] = name
+        if port is not None:
+            self._attrs["port"] = port
+        if serviceaccountpassword is not None:
+            self._attrs["serviceaccountpassword"] = serviceaccountpassword
+        if serviceaccountuser is not None:
+            self._attrs["serviceaccountuser"] = serviceaccountuser
+        for k, v in extra.items():
+            self._attrs[k] = v
+
+    @property
+    def hostnameip(self) -> "str":
+        """ Gets the hostnameip of this FederatedConnectionInput.
+        The remote hostname to connect to.
+        """
+        return self._attrs.get("hostnameip")
+
+    @hostnameip.setter
+    def hostnameip(self, hostnameip: "str"):
+        """Sets the hostnameip of this FederatedConnectionInput.
+
+        The remote hostname to connect to.
+
+        :param hostnameip: The hostnameip of this FederatedConnectionInput.
+        :type: str
+        """
+        self._attrs["hostnameip"] = hostnameip
+
+    @property
+    def name(self) -> "str":
+        """ Gets the name of this FederatedConnectionInput.
+        The name of the federated connection.
+        """
+        return self._attrs.get("name")
+
+    @name.setter
+    def name(self, name: "str"):
+        """Sets the name of this FederatedConnectionInput.
+
+        The name of the federated connection.
+
+        :param name: The name of this FederatedConnectionInput.
+        :type: str
+        """
+        self._attrs["name"] = name
+
+    @property
+    def port(self) -> "float":
+        """ Gets the port of this FederatedConnectionInput.
+        The remote port number.
+        """
+        return self._attrs.get("port")
+
+    @port.setter
+    def port(self, port: "float"):
+        """Sets the port of this FederatedConnectionInput.
+
+        The remote port number.
+
+        :param port: The port of this FederatedConnectionInput.
+        :type: float
+        """
+        self._attrs["port"] = port
+
+    @property
+    def serviceaccountpassword(self) -> "str":
+        """ Gets the serviceaccountpassword of this FederatedConnectionInput.
+        The password of the service account.
+        """
+        return self._attrs.get("serviceaccountpassword")
+
+    @serviceaccountpassword.setter
+    def serviceaccountpassword(self, serviceaccountpassword: "str"):
+        """Sets the serviceaccountpassword of this FederatedConnectionInput.
+
+        The password of the service account.
+
+        :param serviceaccountpassword: The serviceaccountpassword of this FederatedConnectionInput.
+        :type: str
+        """
+        self._attrs["serviceaccountpassword"] = serviceaccountpassword
+
+    @property
+    def serviceaccountuser(self) -> "str":
+        """ Gets the serviceaccountuser of this FederatedConnectionInput.
+        The username on the service account.
+        """
+        return self._attrs.get("serviceaccountuser")
+
+    @serviceaccountuser.setter
+    def serviceaccountuser(self, serviceaccountuser: "str"):
+        """Sets the serviceaccountuser of this FederatedConnectionInput.
+
+        The username on the service account.
+
+        :param serviceaccountuser: The serviceaccountuser of this FederatedConnectionInput.
+        :type: str
+        """
+        self._attrs["serviceaccountuser"] = serviceaccountuser
+
+    def to_dict(self):
+        return {k: v for (k, v) in self._attrs.items() if v is not None}
+
+
 class SingleFieldSummary(SSCModel):
 
     @staticmethod
