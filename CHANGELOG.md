@@ -1,5 +1,29 @@
 # Splunk Cloud SDK for Python Changelog
 
+## Version 
+#### Breaking Changes
+* `Catalog service`: 
+	* v2beta1: 
+		* Apis whose name ends with `by_id` have changed by removing `by_id` in the name , and  apis whose name ends with `by_resource_name` have changed by removing `by_resource_name` in the name
+		* Apis of `create_workflow`, `create_workflow_build`, `create_workflow_run`, `delete_workflow_build_by_id`, `delete_workflow_by_id`, `delete_workflow_run_by_id`, `get_workflow_build_by_id`, `get_workflow_by_id`, `list_workflow_builds`, `list_workflow_runs`, `list_workflows` were removed
+
+
+* `Seach service`:
+	* v2: 
+		* Apis of `refresh_federated_connection()` and `test_federated_connection()` removed the input parameter of `body` 
+	* v3alpha1: 
+		* Apis of `refresh_federated_connection()` and `test_federated_connection()` removed the input parameter of `body` 
+
+#### Non-Breaking Changes 
+* `identity service`:
+	* v3:
+		* Added new apis of `get_entitlements`, `update_entitlements`
+* `search sevice`: 
+	* v2: 
+		* Added new apis of `create_dataset`,`delete_dataset_by_id`, `get_all_federated_connections`, `get_dataset_by_id`, `list_datasets`, `update_dataset_by_id`
+	* v3alpha1: 
+		* Added new apis of `get_all_federated_connections`
+
 ## Version 12.0.0-beta4
 #### Non-Breaking Changes
 * KVstore service (v1beta1): `delete_recoreds()` has  added a new optional input parameter of `enable_mvl`;  `query_records()` has  added  new optional input parameters of `enable_mvl` and `shared`
