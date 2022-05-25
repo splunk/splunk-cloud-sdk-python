@@ -4,7 +4,7 @@ cffi==1.14.6
 chardet==4.0.0
 idna==2.10
 pycparser==2.20
-PyJWT==1.7.1
+PyJWT==2.4.0
 requests==2.25.1
 six==1.16.0
 urllib3==1.26.6
