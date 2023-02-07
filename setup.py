@@ -16,7 +16,7 @@ from splunk_sdk import __version__
 install_requires = ['requests>=2.25.1,<2.26.1',
                     'urllib3>=1.26.5,<1.26.7',
                     'pyjwt>=1.7.1,<1.8.0',
-                    'cryptography>=2.6.1,<2.7.0',
+                    'cryptography>=2.6.1,<39.1.0',
                     ]
 
 setup(
